@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#101213;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}a{color:#35D6F0;text-decoration:none}a:hover{color:#EDEFF0}.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(255,255,255,.08);scroll-margin-top:16px}.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#EDEFF0;color:#101213;border-radius:4px;text-decoration:none}.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#EDEFF0}.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(255,255,255,.12);color:#EDEFF0;border-radius:5px;text-decoration:none}.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(255,255,255,.55)}.dv-card{max-width:100%;background:#070809;border:1px solid rgba(255,255,255,.1);overflow:hidden;position:relative}.dv-opt:target .dv-oid{background:#35D6F0;color:#070809}.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(255,255,255,.5)}</style>
+</helmet>
+
+<section class="dv-turn" id="t2">
+<div class="dv-thd"><a class="dv-tid" href="#t2">2</a><span class="dv-tname">Loader, hero, positioning at 1440. Direction 4: Phosphor × Ledger. 3D shown as CSS stand-ins for the Three.js page-stack; marked where placeholder.</span></div>
+
+<!-- LOADER -->
+<div class="dv-opts" style="margin-bottom:40px">
+<div class="dv-opt" id="2a"><div class="dv-olabel"><a class="dv-oid" href="#2a">2a</a>Loader — wordmark reveal, vertical mask, real percentage, skip to price</div>
+<div class="dv-card" style="width:1440px;height:900px;display:flex;flex-direction:column;justify-content:space-between;padding:32px 40px;box-sizing:border-box;color:#EDEFF0">
+  <div style="display:flex;justify-content:space-between;font-size:12px;color:#9BA1A4"><span>ALEPH ONE — CREATIVE TECHNOLOGY</span><span>Tangerang / Jakarta</span></div>
+  <div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(#35D6F0 0 {{ pct }}%,rgba(255,255,255,.08) {{ pct }}% 100%);transform:translateX(-1px)"></div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:40px;position:relative">
+    <div style="display:flex;align-items:center;gap:28px;clip-path:inset(0 {{ maskInset }}% 0 0)"><div style="width:120px;height:120px;overflow:hidden;position:relative"><img src="uploads/logo-1788542093578-5d6b.jpeg" alt="aleph.one mark" style="position:absolute;width:520px;left:-12px;top:-170px;mix-blend-mode:screen;filter:contrast(1.4) brightness(1.1)"></div><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:96px;line-height:1;letter-spacing:-.04em;font-variation-settings:'wdth' 84;color:#EDEFF0">aleph.one</span></div>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:end">
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:#9BA1A4"><span>Memuat aset</span><span style="font-family:Archivo,sans-serif;font-weight:500;font-size:72px;line-height:.9;letter-spacing:-.03em;color:#EDEFF0;font-variation-settings:'wdth' 70;font-variant-numeric:tabular-nums">{{ pct }}<span style="font-size:28px;color:#9BA1A4">%</span></span><span>1.2 MB dari 4.0 MB</span></div>
+    <span style="padding:16px 28px;border:1px solid rgba(255,255,255,.25);font-size:13px;font-weight:600;letter-spacing:.02em;white-space:nowrap">MULAI PENGALAMAN</span>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:10px;font-size:12px;color:#9BA1A4"><span style="display:flex;align-items:center;gap:8px"><span style="width:28px;height:14px;border:1px solid rgba(255,255,255,.25);position:relative"><span style="position:absolute;left:2px;top:2px;width:8px;height:8px;background:#5C6367"></span></span>Suara mati</span><a href="#" style="color:#EDEFF0;border-bottom:1px solid #35D6F0;padding-bottom:2px">LANGSUNG KE HARGA</a></div>
+  </div>
+</div></div>
+
+<div class="dv-opt" id="2b"><div class="dv-olabel"><a class="dv-oid" href="#2b">2b</a>Loader — the ledger fills from below; percentage is the height of the light</div>
+<div class="dv-card" style="width:1440px;height:900px;color:#EDEFF0">
+  <div style="position:absolute;left:0;right:0;bottom:0;height:{{ pct }}%;background:#E4E6E3;transition:height .4s"></div>
+  <div style="position:absolute;left:0;right:0;bottom:{{ pct }}%;height:1px;background:#35D6F0;box-shadow:0 0 24px rgba(53,214,240,.7)"></div>
+  <div style="position:absolute;inset:0;padding:32px 40px;display:flex;flex-direction:column;justify-content:space-between;box-sizing:border-box;mix-blend-mode:difference">
+    <div style="display:flex;justify-content:space-between;font-size:12px;color:#EDEFF0"><span>ALEPH ONE</span><span>Memuat {{ pct }}%</span></div>
+    <div style="font-family:Archivo,sans-serif;font-weight:600;font-size:200px;line-height:.85;letter-spacing:-.045em;font-variation-settings:'wdth' 75;color:#EDEFF0">aleph.one</div>
+    <div style="display:flex;justify-content:space-between;align-items:end;font-size:13px;color:#EDEFF0"><span>Suara: mati. Nyalakan kapan saja.</span><span style="display:flex;gap:28px;white-space:nowrap"><a href="#" style="color:#EDEFF0;border-bottom:1px solid currentColor">LANGSUNG KE HARGA</a><span style="font-weight:600">MULAI PENGALAMAN</span></span></div>
+  </div>
+</div></div>
+</div>
+
+<!-- HERO -->
+<div class="dv-opts" style="margin-bottom:40px">
+<div class="dv-opt" id="2c"><div class="dv-olabel"><a class="dv-oid" href="#2c">2c</a>Hero — statement bleeds left, page-stack object right, side section index, facts row</div>
+<div class="dv-card" style="width:1440px;height:900px;color:#EDEFF0">
+  <nav style="position:absolute;top:0;left:0;right:0;padding:28px 40px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;font-size:13px">
+    <span style="font-weight:600;letter-spacing:-.01em">aleph.one</span>
+    <span style="display:flex;gap:36px;color:#9BA1A4"><span style="color:#EDEFF0">KARYA</span><span>LAYANAN</span><span>PROSES</span><span>TENTANG</span></span>
+    <span style="justify-self:end;font-weight:600">HUBUNGI</span>
+  </nav>
+  <div style="position:absolute;right:40px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:10px;font-size:11px;color:#5C6367;text-align:right">
+    <span style="color:#35D6F0">Hero</span><span>Positioning</span><span>Problem</span><span>Services</span><span>Process</span><span>Packages</span><span>Add-ons</span><span>Work</span><span>Why us</span><span>Technology</span><span>Testimonials</span><span>FAQ</span><span>Contact</span>
+  </div>
+  <div style="position:absolute;right:220px;top:120px;width:560px;height:520px;perspective:1400px">
+    <div style="position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(60deg) rotateZ(-34deg) translateZ(-40px)">
+      <div style="position:absolute;left:120px;top:20px;width:320px;height:440px;background:#0B0D0E;border:1px solid rgba(255,255,255,.07);transform:translateZ(0)"></div>
+      <div style="position:absolute;left:120px;top:20px;width:320px;height:440px;background:#0C0E10;border:1px solid rgba(255,255,255,.08);transform:translateZ(26px)"></div>
+      <div style="position:absolute;left:120px;top:20px;width:320px;height:440px;background:#0E1012;border:1px solid rgba(255,255,255,.09);transform:translateZ(52px)"></div>
+      <div style="position:absolute;left:120px;top:20px;width:320px;height:440px;background:#0F1214;border:1px solid rgba(255,255,255,.1);transform:translateZ(78px)"></div>
+      <div style="position:absolute;left:120px;top:20px;width:320px;height:440px;background:#121517;border:1px solid rgba(255,255,255,.12);border-top:1px solid #35D6F0;box-shadow:0 -1px 28px rgba(53,214,240,.35);transform:translateZ(104px);padding:22px;box-sizing:border-box;display:flex;flex-direction:column;gap:14px">
+        <div style="display:flex;justify-content:space-between"><span style="width:44px;height:6px;background:rgba(255,255,255,.25)"></span><span style="width:90px;height:6px;background:rgba(255,255,255,.12)"></span></div>
+        <div style="width:200px;height:26px;background:rgba(255,255,255,.18);margin-top:60px"></div>
+        <div style="width:150px;height:26px;background:rgba(255,255,255,.18)"></div>
+        <div style="width:220px;height:5px;background:rgba(255,255,255,.1);margin-top:14px"></div>
+        <div style="width:190px;height:5px;background:rgba(255,255,255,.1)"></div>
+        <div style="margin-top:auto;width:92px;height:22px;background:#35D6F0;opacity:.9"></div>
+      </div>
+    </div>
+    <span style="position:absolute;right:0;bottom:-8px;font-size:10px;color:#5C6367">PLACEHOLDER — Three.js page-stack, 5 planes = Business tier</span>
+  </div>
+  <div style="position:absolute;left:40px;top:150px;display:flex;flex-direction:column;gap:28px">
+    <span style="font-size:12px;color:#9BA1A4">ALEPH ONE — CREATIVE TECHNOLOGY</span>
+    <h1 style="margin:0 0 0 -6px;font-family:Archivo,sans-serif;font-weight:600;font-size:150px;line-height:.88;letter-spacing:-.04em;font-variation-settings:'wdth' 84;white-space:nowrap">WE BUILD<br>WEBSITES<br>PEOPLE<br>REMEMBER.</h1>
+  </div>
+  <div style="position:absolute;left:40px;right:40px;bottom:36px;display:grid;grid-template-columns:420px 1fr auto;gap:48px;align-items:end;border-top:1px solid rgba(255,255,255,.1);padding-top:24px">
+    <p style="margin:0;font-size:17px;line-height:1.45;color:#9BA1A4">Website design and development for businesses ready to look as good as they perform.</p>
+    <div style="display:flex;gap:48px">
+      <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:#5C6367">Mulai dari</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:34px;line-height:1;letter-spacing:-.02em;font-variation-settings:'wdth' 70;color:#35D6F0;white-space:nowrap">{{ starterPrice }}</span></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:#5C6367">Online dalam</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:34px;line-height:1;letter-spacing:-.02em;font-variation-settings:'wdth' 70;white-space:nowrap">{{ starterDays }} hari kerja</span></div>
+    </div>
+    <div style="display:flex;gap:12px"><span style="white-space:nowrap;padding:16px 26px;background:#EDEFF0;color:#070809;font-size:13px;font-weight:600;letter-spacing:.02em">MULAI PROYEK</span><span style="white-space:nowrap;padding:16px 26px;border:1px solid rgba(255,255,255,.25);font-size:13px;font-weight:500">LIHAT KARYA</span></div>
+  </div>
+</div></div>
+
+<div class="dv-opt" id="2d"><div class="dv-olabel"><a class="dv-oid" href="#2d">2d</a>Hero — the ledger is already visible: light band with the three tiers rises into the dark room</div>
+<div class="dv-card" style="width:1440px;height:900px;color:#EDEFF0">
+  <nav style="position:absolute;top:0;left:0;right:0;padding:28px 40px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;font-size:13px;z-index:2">
+    <span style="font-weight:600">aleph.one</span>
+    <span style="display:flex;gap:36px;color:#9BA1A4"><span style="color:#EDEFF0">KARYA</span><span>LAYANAN</span><span>PROSES</span><span>TENTANG</span></span>
+    <span style="justify-self:end;font-weight:600">HUBUNGI</span>
+  </nav>
+  <div style="position:absolute;left:40px;right:40px;top:110px;display:flex;flex-direction:column;gap:22px;align-items:center;text-align:center">
+    <span style="font-size:12px;color:#9BA1A4">ALEPH ONE — CREATIVE TECHNOLOGY</span>
+    <h1 style="margin:0;font-family:Archivo,sans-serif;font-weight:600;font-size:104px;line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84">BUILD DIGITAL EXPERIENCES<br>THAT MOVE PEOPLE.</h1>
+    <p style="margin:0;font-size:17px;line-height:1.45;color:#9BA1A4;max-width:46ch">Website design and development for businesses ready to look as good as they perform.</p>
+  </div>
+  <div style="position:absolute;left:50%;top:560px;width:360px;height:120px;transform:translateX(-50%);perspective:1000px;z-index:1">
+    <div style="position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(64deg) rotateZ(-20deg)">
+      <div style="position:absolute;left:80px;top:-40px;width:200px;height:220px;background:#0C0E10;border:1px solid rgba(255,255,255,.08)"></div>
+      <div style="position:absolute;left:80px;top:-40px;width:200px;height:220px;background:#0E1012;border:1px solid rgba(255,255,255,.1);transform:translateZ(24px)"></div>
+      <div style="position:absolute;left:80px;top:-40px;width:200px;height:220px;background:#121517;border:1px solid rgba(255,255,255,.12);border-top:1px solid #35D6F0;box-shadow:0 -1px 24px rgba(53,214,240,.35),0 60px 40px rgba(0,0,0,.6);transform:translateZ(48px)"></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:0;right:0;bottom:0;height:220px;background:#E4E6E3;color:#0B0C0C;padding:0 40px;box-sizing:border-box;display:grid;grid-template-columns:1fr 1fr 1fr;border-top:1px solid #35D6F0;box-shadow:0 -1px 40px rgba(53,214,240,.25)">
+    <div style="padding:28px 28px 28px 0;border-right:1px solid #B4B8B5;display:flex;flex-direction:column;justify-content:space-between"><div style="display:flex;justify-content:space-between;font-size:14px"><span>Starter</span><span style="color:#5E6362;white-space:nowrap">{{ tiers.0.days }} hari kerja</span></div><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:52px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 70;white-space:nowrap">{{ tiers.0.price }}</span></div>
+    <div style="padding:28px;border-right:1px solid #B4B8B5;display:flex;flex-direction:column;justify-content:space-between"><div style="display:flex;justify-content:space-between;font-size:14px"><span>Business <span style="color:#0FB5D0;font-size:12px;margin-left:8px">paling banyak dipilih</span></span><span style="color:#5E6362;white-space:nowrap">{{ tiers.1.days }} hari kerja</span></div><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:52px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 70;white-space:nowrap">{{ tiers.1.price }}</span></div>
+    <div style="padding:28px 0 28px 28px;display:flex;flex-direction:column;justify-content:space-between"><div style="display:flex;justify-content:space-between;font-size:14px"><span>Professional</span><span style="color:#5E6362;white-space:nowrap">{{ tiers.2.days }} hari kerja</span></div><div style="display:flex;justify-content:space-between;align-items:end"><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:52px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 70;white-space:nowrap">{{ tiers.2.price }}</span><span style="white-space:nowrap;padding:12px 18px;background:#0B0C0C;color:#EDEFF0;font-size:12px;font-weight:600">MULAI PROYEK</span></div></div>
+  </div>
+</div></div>
+
+<div class="dv-opt" id="2e"><div class="dv-olabel"><a class="dv-oid" href="#2e">2e</a>Hero — type on the object: the headline is set on the top page of the stack (previews the configurator law)</div>
+<div class="dv-card" style="width:1440px;height:900px;color:#EDEFF0">
+  <nav style="position:absolute;top:0;left:0;right:0;padding:28px 40px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;font-size:13px;z-index:2">
+    <span style="font-weight:600">aleph.one</span>
+    <span style="display:flex;gap:36px;color:#9BA1A4"><span style="color:#EDEFF0">KARYA</span><span>LAYANAN</span><span>PROSES</span><span>TENTANG</span></span>
+    <span style="justify-self:end;font-weight:600">HUBUNGI</span>
+  </nav>
+  <div style="position:absolute;left:0;right:0;top:80px;bottom:120px;perspective:2200px;display:flex;align-items:center;justify-content:center">
+    <div style="position:relative;width:1100px;height:560px;transform-style:preserve-3d;transform:rotateX(38deg) rotateZ(-8deg) rotateY(6deg)">
+      <div style="position:absolute;inset:0;background:#0A0C0D;border:1px solid rgba(255,255,255,.07);transform:translateZ(-96px)"></div>
+      <div style="position:absolute;inset:0;background:#0C0E10;border:1px solid rgba(255,255,255,.08);transform:translateZ(-64px)"></div>
+      <div style="position:absolute;inset:0;background:#0E1012;border:1px solid rgba(255,255,255,.1);transform:translateZ(-32px)"></div>
+      <div style="position:absolute;inset:0;background:#111416;border:1px solid rgba(255,255,255,.14);border-top:1px solid #35D6F0;box-shadow:0 -1px 40px rgba(53,214,240,.3);padding:56px 64px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#9BA1A4"><span>ALEPH ONE — CREATIVE TECHNOLOGY</span><span>4 halaman · dipilih</span></div>
+        <div style="font-family:Archivo,sans-serif;font-weight:600;font-size:132px;line-height:.88;letter-spacing:-.04em;font-variation-settings:'wdth' 84">WE BUILD<br>WEBSITES<br>PEOPLE REMEMBER.</div>
+        <div style="display:flex;justify-content:space-between;align-items:end"><span style="font-size:16px;color:#9BA1A4;max-width:44ch">Website design and development for businesses ready to look as good as they perform.</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:40px;line-height:1;letter-spacing:-.02em;font-variation-settings:'wdth' 70;color:#35D6F0;white-space:nowrap">{{ starterPrice }}</span></div>
+      </div>
+    </div>
+  </div>
+  <div style="position:absolute;left:40px;right:40px;bottom:36px;display:flex;justify-content:space-between;align-items:end">
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:12px;color:#5C6367"><span>PLACEHOLDER — Three.js stack; tier count drives plane count</span><span style="color:#9BA1A4">Tahan untuk memutar</span></div>
+    <div style="display:flex;gap:12px"><span style="white-space:nowrap;padding:16px 26px;background:#EDEFF0;color:#070809;font-size:13px;font-weight:600;letter-spacing:.02em">MULAI PROYEK</span><span style="white-space:nowrap;padding:16px 26px;border:1px solid rgba(255,255,255,.25);font-size:13px;font-weight:500">LIHAT KARYA</span></div>
+  </div>
+</div></div>
+</div>
+
+<!-- POSITIONING -->
+<div class="dv-opts">
+<div class="dv-opt" id="2f"><div class="dv-olabel"><a class="dv-oid" href="#2f">2f</a>01 Positioning — dark; statement plus word-brightening paragraph (the only place it is used); object drifts to the edge</div>
+<div class="dv-card" style="width:1440px;height:900px;color:#EDEFF0">
+  <div style="position:absolute;left:40px;top:40px;font-size:12px;color:#5C6367">01 / 13</div>
+  <div style="position:absolute;right:-180px;top:140px;width:560px;height:520px;perspective:1400px;opacity:.7">
+    <div style="position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(60deg) rotateZ(-50deg)">
+      <div style="position:absolute;left:120px;top:20px;width:320px;height:440px;background:#0B0D0E;border:1px solid rgba(255,255,255,.07)"></div>
+      <div style="position:absolute;left:120px;top:20px;width:320px;height:440px;background:#0E1012;border:1px solid rgba(255,255,255,.09);transform:translateZ(40px)"></div>
+      <div style="position:absolute;left:120px;top:20px;width:320px;height:440px;background:#121517;border:1px solid rgba(255,255,255,.12);border-left:1px solid #35D6F0;box-shadow:-1px 0 28px rgba(53,214,240,.3);transform:translateZ(80px)"></div>
+    </div>
+  </div>
+  <div style="position:absolute;left:40px;top:150px;width:1000px;display:flex;flex-direction:column;gap:64px">
+    <h2 style="margin:0 0 0 -5px;font-family:Archivo,sans-serif;font-weight:600;font-size:118px;line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84">YOUR WEBSITE<br>SHOULD NOT LOOK<br>LIKE EVERYONE ELSE'S.</h2>
+    <p style="margin:0;max-width:62ch;font-size:26px;line-height:1.4;letter-spacing:-.005em;color:#5C6367"><span style="color:#EDEFF0">Most business websites in Indonesia come from the same three templates.</span> <span style="color:#EDEFF0">Same hero, same three columns, same stock handshake.</span> <span style="color:#9BA1A4">Your customers have seen it before they finish scrolling,</span> and what they conclude is that you did too. We design each site from the business outward, so the first impression is yours, not the template's.</p>
+  </div>
+  <div style="position:absolute;left:40px;bottom:40px;font-size:12px;color:#5C6367">Words brighten as they enter the reading line on scroll</div>
+</div></div>
+
+<div class="dv-opt" id="2g"><div class="dv-olabel"><a class="dv-oid" href="#2g">2g</a>01 Positioning — split: statement in the dark, argument typeset as ledger rows in the light</div>
+<div class="dv-card" style="width:1440px;height:900px;color:#EDEFF0;display:grid;grid-template-columns:1fr 1fr">
+  <div style="padding:40px;display:flex;flex-direction:column;justify-content:space-between">
+    <div style="font-size:12px;color:#5C6367">01 / 13</div>
+    <h2 style="margin:0 0 0 -4px;font-family:Archivo,sans-serif;font-weight:600;font-size:96px;line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84">YOUR WEBSITE<br>SHOULD NOT<br>LOOK LIKE<br>EVERYONE<br>ELSE'S.</h2>
+    <span style="font-size:12px;color:#5C6367">Object holds position; camera pans left</span>
+  </div>
+  <div style="background:#E4E6E3;color:#0B0C0C;padding:40px;display:flex;flex-direction:column;justify-content:space-between">
+    <div style="font-size:12px;color:#5E6362">What a template costs you</div>
+    <div style="display:flex;flex-direction:column;border-top:1px solid #B4B8B5">
+      <div style="display:grid;grid-template-columns:48px 1fr;gap:24px;padding:22px 0;border-bottom:1px solid #B4B8B5;font-size:18px;line-height:1.35"><span style="color:#5E6362;font-size:13px;padding-top:4px">Bio</span><span>An Instagram bio link is not a business address. It disappears when the algorithm does.</span></div>
+      <div style="display:grid;grid-template-columns:48px 1fr;gap:24px;padding:22px 0;border-bottom:1px solid #B4B8B5;font-size:18px;line-height:1.35"><span style="color:#5E6362;font-size:13px;padding-top:4px">WA</span><span>A WhatsApp catalogue never appears in a Google search. Nobody who hasn't already found you can find you.</span></div>
+      <div style="display:grid;grid-template-columns:48px 1fr;gap:24px;padding:22px 0;border-bottom:1px solid #B4B8B5;font-size:18px;line-height:1.35"><span style="color:#5E6362;font-size:13px;padding-top:4px">Tpl</span><span>A template site loads in eleven seconds on a customer's phone. They gave you six.</span></div>
+    </div>
+    <p style="margin:0;font-size:15px;color:#5E6362;max-width:48ch">We design each site from the business outward, so the first impression is yours, not the template's.</p>
+  </div>
+</div></div>
+</div>
+
+<p class="dv-next">Try next: "hero <a class="dv-oid" href="#2c">2c</a> with the ledger band from <a class="dv-oid" href="#2d">2d</a>" · "loader <a class="dv-oid" href="#2b">2b</a> but keep the wordmark image" · "move to turn 3: problem, services, process"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;loaderPct&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:null,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Loader&quot;}}">
+class Component extends DCLogic {
+  state = { pct: 0 };
+  componentDidMount() {
+    // simulated real-load percentage for the mock only
+    this.t = setInterval(() => this.setState(s => ({ pct: s.pct >= 100 ? 0 : Math.min(100, s.pct + 3) })), 120);
+  }
+  componentWillUnmount() { clearInterval(this.t); }
+  renderVals() {
+    const P = window.ALEPH_PRICES || { tiers: [
+      { name: 'Starter', price: 799000, days: '3–5' },
+      { name: 'Business', price: 999000, days: '5–7' },
+      { name: 'Professional', price: 1499000, days: '10–14' } ] };
+    const idr = n => 'Rp ' + n.toLocaleString('id-ID');
+    const tiers = P.tiers.map(t => ({ ...t, price: idr(t.price) }));
+    const pct = this.props.loaderPct ?? this.state.pct;
+    return { pct, maskInset: 100 - pct, tiers, starterPrice: tiers[0].price, starterDays: tiers[0].days };
+  }
+}
+</script>
+</body>
+</html>
