@@ -406,9 +406,13 @@ class Component extends DCLogic {
   }
   componentWillUnmount() { removeEventListener('scroll', this.onScroll); clearInterval(this.statsT); clearTimeout(this.hardCap); this.io && this.io.disconnect(); }
   componentDidUpdate(_, ps) {
-    const s = this.state;
+    // The dc runtime calls componentDidUpdate without prevState, so `ps` arrived undefined and this
+    // method threw on every render - which meant pushConfig() below never ran and the 3D object
+    // never followed the configurator. Track the previous state ourselves.
+    const s = this.state; if (!s) return; ps = ps || this.prevState || {};
     if (!ps.loaderGone && !s.loaderGone && s.steps >= 3 && performance.now() - this.t0 > 500) this.setState({ loaderGone: true });
     if (ps.tierIdx !== s.tierIdx || ps.addons !== s.addons || ps.maint !== s.maint || ps.express !== s.express) this.pushConfig();
+    this.prevState = s;
   }
   secEls() { return Array.from(document.querySelectorAll('[data-sec]')); }
   measure() {

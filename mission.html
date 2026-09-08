@@ -340,11 +340,15 @@ class Component extends DCLogic {
   }
   componentWillUnmount() { removeEventListener('scroll', this.onScroll); this.unguard(); clearTimeout(this.commitT); clearInterval(this.telT); clearTimeout(this.hardCap); }
   componentDidUpdate(_, ps) {
-    const s = this.state; if (!s) return; ps = ps || {};
+    // The dc runtime calls componentDidUpdate without prevState, so `ps` arrives undefined.
+    // Falling back to {} made every `!ps.x` test true forever - which fired the one-shot
+    // scrollTo(0,0) below on every single update and pinned the page at the top. Keep our own.
+    const s = this.state; if (!s) return; ps = ps || this.prevState || {};
     if (!s.ready && s.steps >= 3 && performance.now() - this.t0 > 600) this.setState({ ready: true });
     if (s.ready && !ps.ready) { scrollTo(0, 0); if (window.AlephRocket) window.AlephRocket.set({ enter: 0 }); }
     if (ps.typeIdx !== undefined && ps.typeIdx !== s.typeIdx) this.pushAccent();
     if (s.launched && !ps.launched) this.telFast = true;
+    this.prevState = s;
   }
   pushAccent() { if (!window.AlephRocket || !this.state) return; const w = this.WORLDS[this.TYPES[this.state.typeIdx][1]]; const a = w.accent === '#000000' || w.accent === '#111111' ? '#35D6F0' : w.accent; try { window.AlephRocket.setAccent(a); } catch (e) {} }
   secEls() { return Array.from(document.querySelectorAll('[data-sec]')); }
