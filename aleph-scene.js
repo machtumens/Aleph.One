@@ -1,4 +1,4 @@
-import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import * as THREE from './vendor/three.module.min.js';
 
 const DARK = new THREE.Color('#070809'), LIT = new THREE.Color('#E4E6E3'), CYAN = new THREE.Color('#35D6F0');
 // camera pose per section: [cx,cy,cz, lx,ly,lz, objRotY]

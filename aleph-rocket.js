@@ -1,4 +1,4 @@
-import * as THREE from 'https://unpkg.com/three@0.160.0/build/three.module.js';
+import * as THREE from './vendor/three.module.min.js';
 // Procedural launch vehicle + launch complex. Every part is a named group with a `home` position and an `explode`
 // vector, so a modelled GLTF vehicle can replace the primitives without touching the rig or the camera script.
 const lerp = (a, b, t) => a + (b - a) * t, clamp = (v, a = 0, b = 1) => Math.max(a, Math.min(b, v)), sm = t => { t = clamp(t); return t * t * (3 - 2 * t); };
