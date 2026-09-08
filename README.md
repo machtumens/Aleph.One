@@ -20,17 +20,18 @@ python3 -m http.server 8000
 
 | File | What it is |
 | --- | --- |
-| `index.html` | The site. Hero through footer, 13 sections, price configurator. |
-| `mission.html` | Launch-sequence variant. Rocket scene, ten sample worlds. |
+| `index.html` | The site. Launch sequence: rocket scene, ten worlds, mission configurator. |
+| `site.html` | Long-form variant. 13 sections, work gallery, price configurator, FAQ. |
 | `art-direction.html` | Deliverable A — the three directions and the pick. |
 | `screens.html` | Turn 2 screen sheet. |
-| `aleph-scene.js` · `aleph-rocket.js` | three.js scenes for `index` and `mission`. |
+| `aleph-rocket.js` · `aleph-scene.js` | three.js scenes for `index` and `site`. |
+| `vendor/three.module.min.js` | three.js r160, self-hosted. The scenes must not depend on a CDN. |
 | `aleph-prices.js` | Every price on the site. Nothing is hardcoded in markup. |
 | `assets/work/` | Project media for the Work section. |
 
 ## Work section
 
-`index.html` §07 and `mission.html` §05 show three built sites, each linking to the
+`site.html` §07 and `index.html` §05 show three built sites, each linking to the
 live deployment:
 
 | Project | Repository | Live |
@@ -39,8 +40,8 @@ live deployment:
 | Ace House | `machtumens/Ace-House-Tennis-Club` | https://machtumens.github.io/Ace-House-Tennis-Club/ |
 | OmniCare | `machtumens/OmniCare-V2.0` | https://omnicare.co.id |
 
-Their data lives in the `WORKS` array (`index.html`) and the `WORLDS` array
-(`mission.html`). The seven remaining entries in `WORLDS` are unbuilt concepts and
+Their data lives in the `WORKS` array (`site.html`) and the `WORLDS` array
+(`index.html`). The seven remaining entries in `WORLDS` are unbuilt concepts and
 keep their dashed `PLACEHOLDER` box — a world gets a screenshot only when it has a
 `shot` field, so adding one is what promotes it. Testimonials are still marked
 placeholders; no client names or metrics are invented anywhere.

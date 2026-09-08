@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aleph One — Services & Packages</title>
+<meta name="description" content="The long-form Aleph One site: services, process, packages with a live price configurator, add-ons, work and FAQ.">
+<link rel="icon" href="./uploads/logo-1788542093578-5d6b.jpeg">
+<link rel="canonical" href="https://machtumens.github.io/Aleph.One/site.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aleph One — Services & Packages">
+<meta property="og:description" content="The long-form Aleph One site: services, process, packages with a live price configurator, add-ons, work and FAQ.">
+<meta property="og:url" content="https://machtumens.github.io/Aleph.One/site.html">
+<meta property="og:image" content="https://machtumens.github.io/Aleph.One/uploads/logo-1788542093578-5d6b.jpeg">
+<meta name="twitter:card" content="summary_large_image">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<title>Aleph One — Services & Packages</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<script src="./aleph-prices.js"></script>
+<script type="module" src="./aleph-scene.js"></script>
+<style>
+html{scroll-behavior:auto}body{margin:0;background:#070809;color:#EDEFF0;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.5}
+a{color:#35D6F0;text-decoration:none}a:hover{color:#EDEFF0}
+[data-reveal]{opacity:0;transform:translateY(18px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1)}[data-reveal="in"]{opacity:1;transform:none}
+@keyframes lineIn{from{clip-path:inset(0 0 100% 0);transform:translateY(24px)}to{clip-path:inset(0 0 -10% 0);transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){[data-reveal]{opacity:1;transform:none;transition:none}*{animation-duration:.01ms!important}}
+@media (max-width:900px){[data-desktop]{display:none!important}}
+</style>
+</helmet>
+
+<canvas ref="{{ canvasRef }}" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;display:{{ canvasDisplay }}"></canvas>
+
+<!-- LOADER -->
+<div style="position:fixed;inset:0;z-index:50;background:#070809;color:#EDEFF0;padding:28px 40px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;transform:{{ loaderTransform }};transition:transform .8s cubic-bezier(.7,0,.2,1);pointer-events:{{ loaderEvents }}">
+  <div style="display:flex;justify-content:space-between;font-size:12px;color:#9BA1A4"><span>ALEPH ONE — CREATIVE TECHNOLOGY</span><span>Tangerang / Jakarta</span></div>
+  <div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(#35D6F0 0 {{ pct }}%,rgba(255,255,255,.08) {{ pct }}% 100%);transform:translateX(-1px)"></div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:28px;clip-path:inset(0 {{ maskInset }}% 0 0)">
+    <div style="width:110px;height:110px;overflow:hidden;position:relative"><img src="uploads/logo-1788542093578-5d6b.jpeg" alt="aleph.one" style="position:absolute;width:480px;left:-12px;top:-156px;mix-blend-mode:screen;filter:contrast(1.4) brightness(1.1)"></div>
+    <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(48px,7vw,96px);line-height:1;letter-spacing:-.04em;font-variation-settings:'wdth' 84">aleph.one</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:24px">
+    <div style="display:flex;flex-direction:column;gap:4px;font-size:12px;color:#9BA1A4"><span>{{ loaderStep }}</span><span style="font-family:Archivo,sans-serif;font-weight:500;font-size:64px;line-height:.9;letter-spacing:-.03em;color:#EDEFF0;font-variation-settings:'wdth' 70;font-variant-numeric:tabular-nums">{{ pct }}<span style="font-size:24px;color:#9BA1A4">%</span></span></div>
+    <button onClick="{{ dismissLoader }}" style="all:unset;cursor:pointer;padding:16px 28px;border:1px solid rgba(255,255,255,.25);font-size:13px;font-weight:600;letter-spacing:.02em;white-space:nowrap;color:#EDEFF0" style-hover="border-color:#35D6F0">MULAI PENGALAMAN</button>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;font-size:12px;color:#9BA1A4"><span>Mode: {{ tierLabel }}</span><button onClick="{{ skipToPrice }}" style="all:unset;cursor:pointer;color:#EDEFF0;border-bottom:1px solid #35D6F0;padding-bottom:2px;white-space:nowrap">LANGSUNG KE HARGA</button></div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav style="position:fixed;top:0;left:0;right:0;z-index:20;padding:22px 40px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;font-size:13px;color:#EDEFF0;background:{{ navBg }};backdrop-filter:{{ navBlur }};border-bottom:1px solid {{ navLine }};transition:background .4s,border-color .4s;mix-blend-mode:{{ navBlend }}">
+  <button onClick="{{ goTop }}" style="all:unset;cursor:pointer;font-weight:600;letter-spacing:-.01em;justify-self:start">aleph.one</button>
+  <div data-desktop style="display:flex;gap:36px">
+    <button onClick="{{ goKarya }}" style="all:unset;cursor:pointer;color:{{ navKarya }}" style-hover="color:#35D6F0">KARYA</button>
+    <button onClick="{{ goLayanan }}" style="all:unset;cursor:pointer;color:{{ navLayanan }}" style-hover="color:#35D6F0">LAYANAN</button>
+    <button onClick="{{ goProses }}" style="all:unset;cursor:pointer;color:{{ navProses }}" style-hover="color:#35D6F0">PROSES</button>
+    <button onClick="{{ goTentang }}" style="all:unset;cursor:pointer;color:{{ navTentang }}" style-hover="color:#35D6F0">TENTANG</button>
+  </div>
+  <button onClick="{{ goHarga }}" style="all:unset;cursor:pointer;font-weight:600;justify-self:end" style-hover="color:#35D6F0">HUBUNGI</button>
+  <div style="position:absolute;left:0;bottom:-1px;height:1px;background:#35D6F0;width:{{ scrollPct }}%"></div>
+</nav>
+
+<!-- SIDE INDEX + COUNTER -->
+<div data-desktop style="position:fixed;right:40px;top:50%;transform:translateY(-50%);z-index:20;display:flex;flex-direction:column;gap:9px;font-size:11px;text-align:right;mix-blend-mode:difference">
+  <sc-for list="{{ sections }}" as="s" hint-placeholder-count="13"><button onClick="{{ s.go }}" style="all:unset;cursor:pointer;color:{{ s.color }};transition:color .3s" style-hover="color:#35D6F0">{{ s.name }}</button></sc-for>
+</div>
+<div style="position:fixed;left:40px;bottom:28px;z-index:20;font-size:12px;font-variant-numeric:tabular-nums;color:#EDEFF0;mix-blend-mode:difference">{{ secNum }} / 13</div>
+<sc-if value="{{ debug }}" hint-placeholder-val="{{ false }}"><div style="position:fixed;left:40px;top:80px;z-index:40;font-size:11px;font-family:ui-monospace,Menlo,monospace;color:#35D6F0;background:rgba(7,8,9,.8);padding:8px 10px;white-space:pre">{{ debugText }}</div></sc-if>
+
+<main style="position:relative;z-index:1">
+
+<!-- HERO -->
+<section data-sec="0" data-screen-label="Hero" style="position:relative;min-height:100vh;padding:150px 40px 36px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;color:#EDEFF0">
+  <div style="display:flex;flex-direction:column;gap:28px">
+    <span style="font-size:12px;color:#9BA1A4;animation:fadeIn .8s 1s both">ALEPH ONE — CREATIVE TECHNOLOGY</span>
+    <h1 style="margin:0 0 0 -6px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(64px,10.4vw,150px);line-height:.88;letter-spacing:-.04em;font-variation-settings:'wdth' 84;display:flex;flex-direction:column">
+      <span style="animation:lineIn .9s cubic-bezier(.2,.7,.2,1) 1.1s both">WE BUILD</span>
+      <span style="animation:lineIn .9s cubic-bezier(.2,.7,.2,1) 1.25s both">WEBSITES</span>
+      <span style="animation:lineIn .9s cubic-bezier(.2,.7,.2,1) 1.4s both">PEOPLE</span>
+      <span style="animation:lineIn .9s cubic-bezier(.2,.7,.2,1) 1.55s both">REMEMBER.</span>
+    </h1>
+  </div>
+  <sc-if value="{{ isPoster }}" hint-placeholder-val="{{ false }}">
+    <div style="position:absolute;right:200px;top:120px;width:560px;height:520px;perspective:1400px">
+      <div style="position:absolute;inset:0;transform-style:preserve-3d;transform:rotateX(60deg) rotateZ(-34deg)">
+        <div style="position:absolute;left:120px;top:20px;width:320px;height:440px;background:#0B0D0E;border:1px solid rgba(255,255,255,.07)"></div>
+        <div style="position:absolute;left:120px;top:20px;width:320px;height:440px;background:#0E1012;border:1px solid rgba(255,255,255,.09);transform:translateZ(40px)"></div>
+        <div style="position:absolute;left:120px;top:20px;width:320px;height:440px;background:#121517;border:1px solid rgba(255,255,255,.12);border-top:1px solid #35D6F0;box-shadow:0 -1px 28px rgba(53,214,240,.35);transform:translateZ(80px)"></div>
+      </div>
+    </div>
+  </sc-if>
+  <div style="display:grid;grid-template-columns:minmax(260px,420px) 1fr auto;gap:48px;align-items:end;border-top:1px solid rgba(255,255,255,.12);padding-top:24px;animation:fadeIn .8s 2s both">
+    <p style="margin:0;font-size:17px;line-height:1.45;color:#9BA1A4">Website design and development for businesses ready to look as good as they perform.</p>
+    <div style="display:flex;gap:48px;flex-wrap:wrap">
+      <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:#5C6367">Mulai dari</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:34px;line-height:1;letter-spacing:-.02em;font-variation-settings:'wdth' 70;color:#35D6F0;white-space:nowrap">{{ starter.priceLabel }}</span></div>
+      <div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:11px;color:#5C6367">Online dalam</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:34px;line-height:1;letter-spacing:-.02em;font-variation-settings:'wdth' 70;white-space:nowrap">{{ starter.days }} hari kerja</span></div>
+    </div>
+    <div style="display:flex;gap:12px">
+      <button onClick="{{ goHarga }}" style="all:unset;cursor:pointer;white-space:nowrap;padding:16px 26px;background:#EDEFF0;color:#070809;font-size:13px;font-weight:600;letter-spacing:.02em;transition:transform .16s" style-hover="transform:translateY(-2px)" style-active="transform:scale(.98)">MULAI PROYEK</button>
+      <button onClick="{{ goKarya }}" style="all:unset;cursor:pointer;white-space:nowrap;padding:16px 26px;border:1px solid rgba(255,255,255,.25);font-size:13px;font-weight:500;color:#EDEFF0;transition:border-color .16s" style-hover="border-color:#35D6F0">LIHAT KARYA</button>
+    </div>
+  </div>
+</section>
+
+<!-- 01 POSITIONING -->
+<section data-sec="1" data-screen-label="01 Positioning" style="position:relative;min-height:100vh;padding:160px 40px 120px;box-sizing:border-box;display:flex;flex-direction:column;gap:64px;color:#EDEFF0">
+  <h2 style="margin:0 0 0 -5px;max-width:1100px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(48px,8.2vw,118px);line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84">YOUR WEBSITE SHOULD NOT LOOK LIKE EVERYONE ELSE'S.</h2>
+  <p style="margin:0;max-width:60ch;font-size:clamp(20px,1.8vw,26px);line-height:1.4;letter-spacing:-.005em;display:flex;flex-wrap:wrap;gap:0 .3em"><sc-for list="{{ posWords }}" as="w" hint-placeholder-count="40"><span style="color:{{ w.color }};transition:color .5s">{{ w.t }}</span></sc-for></p>
+</section>
+
+<!-- 02 PROBLEM -->
+<section data-sec="2" data-screen-label="02 Problem" style="position:relative;padding:120px 40px;box-sizing:border-box;display:flex;flex-direction:column;color:#EDEFF0">
+  <div style="min-height:60vh;display:flex;align-items:center"><h2 data-reveal style="margin:0 0 0 -5px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(48px,8.2vw,118px);line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84">GOOD BUSINESS.<br>BAD WEBSITE.</h2></div>
+  <div style="min-height:50vh;display:flex;align-items:center;justify-content:flex-end"><h2 data-reveal style="margin:0;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(48px,8.2vw,118px);line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84;color:#9BA1A4">BAD IMPRESSION.</h2></div>
+  <div style="min-height:50vh;display:flex;align-items:center"><h2 data-reveal style="margin:0 0 0 -5px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(48px,8.2vw,118px);line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84;color:#5C6367">LOST TRUST.</h2></div>
+  <div style="min-height:50vh;display:flex;align-items:center;justify-content:flex-end"><h2 data-reveal style="margin:0;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(48px,8.2vw,118px);line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84;color:#35D6F0">LOST SALES.</h2></div>
+  <div data-reveal style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.12);margin-top:80px">
+    <div style="background:#070809;padding:32px;display:flex;flex-direction:column;gap:12px;font-size:17px;line-height:1.4"><span style="font-size:12px;color:#5C6367">Link bio</span><span>Link di bio Instagram bukan alamat usaha. Ia hilang bersama algoritma.</span></div>
+    <div style="background:#070809;padding:32px;display:flex;flex-direction:column;gap:12px;font-size:17px;line-height:1.4"><span style="font-size:12px;color:#5C6367">Katalog WhatsApp</span><span>Katalog WhatsApp tidak pernah muncul di pencarian Google. Yang belum kenal Anda tidak akan menemukan Anda.</span></div>
+    <div style="background:#070809;padding:32px;display:flex;flex-direction:column;gap:12px;font-size:17px;line-height:1.4"><span style="font-size:12px;color:#5C6367">Situs template</span><span>Situs template terbuka dalam sebelas detik di HP pelanggan. Mereka memberi Anda enam.</span></div>
+  </div>
+  <p data-reveal style="margin:48px 0 0;font-size:17px;color:#9BA1A4;max-width:52ch">Your website is often the first thing people judge.</p>
+</section>
+
+<!-- 03 SERVICES -->
+<section data-sec="3" data-screen-label="03 Services" style="position:relative;min-height:100vh;padding:160px 40px 120px;box-sizing:border-box;display:flex;flex-direction:column;gap:72px;color:#EDEFF0">
+  <h2 style="margin:0 0 0 -5px;max-width:1100px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(48px,7.4vw,106px);line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84">FROM FIRST CLICK TO LASTING IMPRESSION.</h2>
+  <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.14)">
+    <div style="display:grid;grid-template-columns:80px 1fr 1fr 24px;gap:32px;align-items:baseline;padding:30px 0;border-bottom:1px solid rgba(255,255,255,.14);transition:padding-left .3s cubic-bezier(.2,.7,.2,1),gap .3s" style-hover="padding-left:18px;gap:48px"><span style="font-size:13px;color:#5C6367">1</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:40px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 88">Web Design</span><span style="font-size:16px;color:#9BA1A4">Composition, type, and imagery decided for your business, not picked from a theme.</span><span style="width:8px;height:8px;background:#35D6F0;justify-self:end"></span></div>
+    <div style="display:grid;grid-template-columns:80px 1fr 1fr 24px;gap:32px;align-items:baseline;padding:30px 0;border-bottom:1px solid rgba(255,255,255,.14);transition:padding-left .3s cubic-bezier(.2,.7,.2,1),gap .3s" style-hover="padding-left:18px;gap:48px"><span style="font-size:13px;color:#5C6367">2</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:40px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 88">Web Development</span><span style="font-size:16px;color:#9BA1A4">Fast on a mid-range phone over 4G, indexed by Google, hosted and monitored.</span><span style="width:8px;height:8px;background:#35D6F0;justify-self:end"></span></div>
+    <div style="display:grid;grid-template-columns:80px 1fr 1fr 24px;gap:32px;align-items:baseline;padding:30px 0;border-bottom:1px solid rgba(255,255,255,.14);transition:padding-left .3s cubic-bezier(.2,.7,.2,1),gap .3s" style-hover="padding-left:18px;gap:48px"><span style="font-size:13px;color:#5C6367">3</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:40px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 88">Motion &amp; Interaction</span><span style="font-size:16px;color:#9BA1A4">Real-time 3D and motion where it answers a question, and nowhere else.</span><span style="width:8px;height:8px;background:#35D6F0;justify-self:end"></span></div>
+    <div style="display:grid;grid-template-columns:80px 1fr 1fr 24px;gap:32px;align-items:baseline;padding:30px 0;border-bottom:1px solid rgba(255,255,255,.14);transition:padding-left .3s cubic-bezier(.2,.7,.2,1),gap .3s" style-hover="padding-left:18px;gap:48px"><span style="font-size:13px;color:#5C6367">4</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:40px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 88">AI &amp; Automation</span><span style="font-size:16px;color:#9BA1A4">A chatbot trained on your catalogue, WhatsApp auto-replies, orders that route themselves.</span><span style="width:8px;height:8px;background:#35D6F0;justify-self:end"></span></div>
+  </div>
+</section>
+
+<!-- 04 PROCESS -->
+<section data-sec="4" data-screen-label="04 Process" style="position:relative;min-height:100vh;padding:160px 40px 120px;box-sizing:border-box;display:grid;grid-template-columns:1fr 1fr;gap:64px;color:#EDEFF0">
+  <h2 style="margin:0 0 0 -5px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(48px,7.4vw,106px);line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84;align-self:start;position:sticky;top:140px">FROM IDEA TO ONLINE IN DAYS, NOT MONTHS.</h2>
+  <div style="display:grid;grid-template-columns:2px 1fr;gap:40px;padding-top:12px">
+    <div style="position:relative;background:rgba(255,255,255,.12)"><div style="position:absolute;left:0;top:0;width:100%;height:{{ procFill }}%;background:#35D6F0;box-shadow:0 0 16px rgba(53,214,240,.6)"></div></div>
+    <div style="display:flex;flex-direction:column;gap:56px">
+      <sc-for list="{{ stages }}" as="st" hint-placeholder-count="4">
+        <div style="display:flex;flex-direction:column;gap:10px;color:{{ st.color }};transition:color .4s">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;font-size:13px"><span>{{ st.n }}</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:22px;font-variation-settings:'wdth' 70;letter-spacing:-.02em">{{ st.days }}</span></div>
+          <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:48px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 88">{{ st.name }}</span>
+          <span style="font-size:16px;max-width:44ch;opacity:.8">{{ st.desc }}</span>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- 05 PACKAGES — CONFIGURATOR (ledger) -->
+<section data-sec="5" data-screen-label="05 Packages / Configurator" style="position:relative;min-height:100vh;padding:140px 40px 100px;box-sizing:border-box;color:#0B0C0C;background:{{ ledgerBg }}">
+  <div style="display:grid;grid-template-columns:minmax(480px,600px) 1fr;gap:64px">
+    <div style="display:flex;flex-direction:column;gap:40px">
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <h2 style="margin:0 0 0 -3px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,4.6vw,64px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">CHOOSE YOUR SCOPE. WATCH THE OBJECT GROW.</h2>
+        <p style="margin:0;font-size:16px;color:#5E6362;max-width:52ch">Setiap pilihan mengubah bentuk, harga, dan lama pengerjaan. Kirim hasilnya ke WhatsApp; tidak ada formulir.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;border-top:1px solid #0B0C0C">
+        <sc-for list="{{ tiers }}" as="t" hint-placeholder-count="3">
+          <button onClick="{{ t.select }}" style="all:unset;cursor:pointer;display:grid;grid-template-columns:18px 1fr 110px 150px;gap:20px;align-items:baseline;padding:18px 0;border-bottom:1px solid #B4B8B5;color:#0B0C0C;transition:padding-left .16s" style-hover="padding-left:8px">
+            <span style="width:10px;height:10px;border:1px solid #0B0C0C;background:{{ t.dot }};transition:background .16s;align-self:center"></span>
+            <span style="display:flex;flex-direction:column;gap:2px"><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:26px;line-height:1;letter-spacing:-.02em;font-variation-settings:'wdth' 88">{{ t.name }} <span style="font-family:'Instrument Sans',sans-serif;font-weight:400;font-size:12px;color:#0FB5D0;margin-left:8px">{{ t.badge }}</span></span><span style="font-size:13px;color:#5E6362">{{ t.meta }}</span></span>
+            <span style="font-size:13px;color:#5E6362;white-space:nowrap">{{ t.days }} hari kerja</span>
+            <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:26px;line-height:1;letter-spacing:-.02em;font-variation-settings:'wdth' 70;text-align:right;white-space:nowrap">{{ t.priceLabel }}</span>
+          </button>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#5E6362"><span>Termasuk di {{ selTier.name }}</span><span>{{ selTier.revisi }}× revisi, garansi {{ selTier.garansi }} hari</span></div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px 20px;font-size:14px"><sc-for list="{{ selTier.scope }}" as="s" hint-placeholder-count="4"><span>{{ s }}</span></sc-for></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#5E6362"><span>Add-on</span><span>{{ freeNote }}</span></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:#B4B8B5;border:1px solid #B4B8B5">
+          <sc-for list="{{ addons }}" as="a" hint-placeholder-count="16">
+            <button onClick="{{ a.toggle }}" style="all:unset;cursor:pointer;display:grid;grid-template-columns:12px 1fr auto;gap:12px;align-items:center;padding:12px 14px;background:{{ a.bg }};color:{{ a.color }};font-size:14px;transition:background .16s,color .16s" style-hover="background:#D6D8D5">
+              <span style="width:10px;height:10px;border:1px solid currentColor;background:{{ a.dot }}"></span>
+              <span style="line-height:1.2">{{ a.name }}</span>
+              <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:15px;font-variation-settings:'wdth' 70;white-space:nowrap;text-decoration:{{ a.strike }}">{{ a.priceLabel }}</span>
+            </button>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px">
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:12px;color:#5E6362">Pemeliharaan bulanan</span>
+          <div style="display:flex;flex-direction:column;border-top:1px solid #B4B8B5">
+            <sc-for list="{{ maint }}" as="m" hint-placeholder-count="5">
+              <button onClick="{{ m.select }}" style="all:unset;cursor:pointer;display:grid;grid-template-columns:12px 1fr auto;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid #B4B8B5;font-size:14px;color:#0B0C0C" style-hover="color:#0FB5D0">
+                <span style="width:10px;height:10px;border:1px solid #0B0C0C;background:{{ m.dot }};align-self:center"></span><span>{{ m.name }}</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:15px;font-variation-settings:'wdth' 70;white-space:nowrap">{{ m.priceLabel }}</span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:12px">
+          <span style="font-size:12px;color:#5E6362">Kecepatan</span>
+          <button onClick="{{ toggleExpress }}" style="all:unset;cursor:pointer;display:grid;grid-template-columns:12px 1fr auto;gap:12px;align-items:baseline;padding:10px 0;border-top:1px solid #B4B8B5;border-bottom:1px solid #B4B8B5;font-size:14px;color:#0B0C0C"><span style="width:10px;height:10px;border:1px solid #0B0C0C;background:{{ expressDot }};align-self:center"></span><span>{{ expressLabel }}</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:15px;font-variation-settings:'wdth' 70;white-space:nowrap">+50%</span></button>
+          <sc-if value="{{ isPoster }}" hint-placeholder-val="{{ false }}">
+            <div style="display:flex;flex-direction:column;gap:6px;padding-top:12px">
+              <span style="font-size:12px;color:#5E6362">Total sekali bayar</span>
+              <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:44px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 70;white-space:nowrap">{{ totalLabel }}</span>
+              <span style="font-size:13px;color:#5E6362">{{ monthlyLabel }} · {{ timelineLabel }}</span>
+            </div>
+          </sc-if>
+        </div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <a href="{{ waHref }}" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:center;padding:20px 24px;background:#0B0C0C;color:#EDEFF0;font-size:14px;font-weight:600;letter-spacing:.02em;transition:transform .16s" style-hover="transform:translateY(-2px);color:#35D6F0" style-active="transform:scale(.99)"><span>KIRIM KE WHATSAPP</span><span style="font-family:Archivo,sans-serif;font-variation-settings:'wdth' 70;font-size:16px">{{ timelineLabel }}</span></a>
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#5E6362;flex-wrap:wrap;gap:8px"><span>{{ terms }}</span><button onClick="{{ goAddons }}" style="all:unset;cursor:pointer;border-bottom:1px solid #0FB5D0">LIHAT HARGA LENGKAP</button></div>
+      </div>
+      <sc-if value="{{ pm }}" hint-placeholder-val="{{ false }}">
+        <div style="border:1px solid #0B0C0C;padding:20px;display:flex;flex-direction:column;gap:10px;font-size:13px;font-variant-numeric:tabular-nums">
+          <div style="display:flex;justify-content:space-between"><span style="font-weight:600">Internal (?pm)</span><span style="color:#5E6362">asumsi jam dari aleph-prices.js</span></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+            <div style="display:flex;flex-direction:column"><span style="color:#5E6362">Jam kerja</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:24px;font-variation-settings:'wdth' 70">{{ pmHours }} j</span></div>
+            <div style="display:flex;flex-direction:column"><span style="color:#5E6362">Tarif efektif</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:24px;font-variation-settings:'wdth' 70;white-space:nowrap">{{ pmRate }}/j</span></div>
+            <div style="display:flex;flex-direction:column"><span style="color:#5E6362">Kapasitas sprint</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:24px;font-variation-settings:'wdth' 70;color:{{ pmCapColor }}">{{ pmCap }}%</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px;color:#8A2E1F"><sc-for list="{{ pmWarnings }}" as="w" hint-placeholder-count="0"><span>{{ w }}</span></sc-for></div>
+        </div>
+      </sc-if>
+    </div>
+    <div style="position:relative;min-height:400px"><span style="position:absolute;right:0;bottom:0;font-size:12px;color:#5E6362;max-width:32ch;text-align:right">{{ objectHint }}</span></div>
+  </div>
+</section>
+
+<!-- 06 ADD-ONS + MAINTENANCE (ledger) -->
+<section data-sec="6" data-screen-label="06 Add-ons & Maintenance" style="position:relative;min-height:100vh;padding:120px 40px 120px;box-sizing:border-box;color:#0B0C0C;background:{{ ledgerBg }};display:flex;flex-direction:column;gap:64px">
+  <div style="display:grid;grid-template-columns:minmax(480px,600px) 1fr;gap:64px">
+    <div style="display:flex;flex-direction:column;gap:32px">
+      <h2 style="margin:0 0 0 -3px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,4.6vw,64px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">KEEP IT FAST AFTER LAUNCH DAY.</h2>
+      <div style="display:flex;flex-direction:column;border-top:1px solid #0B0C0C">
+        <sc-for list="{{ maintFull }}" as="m" hint-placeholder-count="4">
+          <div style="display:grid;grid-template-columns:120px 1fr 150px;gap:24px;padding:20px 0;border-bottom:1px solid #B4B8B5;align-items:start">
+            <span style="display:flex;flex-direction:column;gap:4px"><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:22px;line-height:1;letter-spacing:-.02em;font-variation-settings:'wdth' 88">{{ m.name }}</span><span style="font-size:12px;color:#5E6362">{{ m.sla }}</span></span>
+            <span style="font-size:14px;color:#3A3E3D;line-height:1.45">{{ m.itemsLabel }}</span>
+            <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:22px;line-height:1;letter-spacing:-.02em;font-variation-settings:'wdth' 70;text-align:right;white-space:nowrap">{{ m.priceLabel }}<span style="display:block;font-family:'Instrument Sans',sans-serif;font-weight:400;font-size:12px;color:#5E6362;margin-top:4px">{{ m.unit }}</span></span>
+          </div>
+        </sc-for>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:12px;color:#5E6362">Promo</span>
+        <sc-for list="{{ promos }}" as="p" hint-placeholder-count="3"><div style="display:grid;grid-template-columns:1fr auto;gap:24px;padding:10px 0;border-bottom:1px solid #B4B8B5;font-size:14px"><span>{{ p.name }} <span style="color:#5E6362">{{ p.note }}</span></span><span style="font-family:Archivo,sans-serif;font-weight:600;font-variation-settings:'wdth' 70;white-space:nowrap">{{ p.priceLabel }}</span></div></sc-for>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:32px;align-self:end">
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <span style="font-size:12px;color:#5E6362">Semua add-on</span>
+        <div style="display:flex;flex-direction:column;border-top:1px solid #0B0C0C;column-count:1">
+          <sc-for list="{{ addonsFull }}" as="a" hint-placeholder-count="17"><div style="display:grid;grid-template-columns:1fr auto;gap:24px;padding:9px 0;border-bottom:1px solid #B4B8B5;font-size:14px"><span>{{ a.name }}</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-variation-settings:'wdth' 70;white-space:nowrap">{{ a.priceLabel }} <span style="font-family:'Instrument Sans',sans-serif;font-weight:400;font-size:12px;color:#5E6362">{{ a.unit }}</span></span></div></sc-for>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;font-size:14px">
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:#5E6362">Garansi tidak menanggung</span><sc-for list="{{ excludes }}" as="e" hint-placeholder-count="4"><span style="padding:6px 0;border-bottom:1px solid #B4B8B5">{{ e }}</span></sc-for></div>
+        <div style="display:flex;flex-direction:column;gap:8px"><span style="font-size:12px;color:#5E6362">Syarat</span><sc-for list="{{ termsList }}" as="t" hint-placeholder-count="2"><span style="padding:6px 0;border-bottom:1px solid #B4B8B5">{{ t }}</span></sc-for><span style="padding-top:8px;color:#5E6362">Garansi mencakup kesalahan pada situs dan hosting yang kami kelola.</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 07 WORK -->
+<section data-sec="7" data-screen-label="07 Work" style="position:relative;min-height:100vh;padding:160px 0 120px;box-sizing:border-box;display:flex;flex-direction:column;gap:64px;color:#EDEFF0">
+  <h2 style="margin:0 40px 0 35px;max-width:1100px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(48px,7.4vw,106px);line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84">WE DON'T JUST BUILD SITES. WE BUILD PERCEPTION.</h2>
+  <div style="display:flex;gap:24px;overflow-x:auto;padding:0 40px 24px;scroll-snap-type:x mandatory">
+    <sc-for list="{{ works }}" as="w" hint-placeholder-count="3">
+      <a href="{{ w.url }}" target="_blank" rel="noopener" style="flex:none;width:560px;scroll-snap-align:start;display:flex;flex-direction:column;gap:14px;color:inherit;text-decoration:none">
+        <div style="height:360px;position:relative;overflow:hidden;background:{{ w.bg }}">
+          <img src="{{ w.img }}" alt="{{ w.name }}" loading="lazy" width="560" height="360" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.82) contrast(1.04);transition:transform .5s cubic-bezier(.2,.7,.2,1),filter .5s" style-hover="transform:scale(1.04);filter:none">
+          <span style="position:absolute;left:0;bottom:0;padding:7px 12px;font-size:11px;letter-spacing:.08em;background:{{ w.accent }};color:{{ w.ink }}">{{ w.kind }}</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:13px"><span style="display:flex;gap:16px"><span style="color:#5C6367">{{ w.n }}</span><span style="font-weight:600">{{ w.name }}</span></span><span style="color:#9BA1A4">{{ w.cat }}</span></div>
+        <p style="margin:0;font-size:14px;line-height:1.5;color:#9BA1A4;max-width:54ch">{{ w.sub }}</p>
+      </a>
+    </sc-for>
+  </div>
+</section>
+
+<!-- 08 WHY US -->
+<section data-sec="8" data-screen-label="08 Why us" style="position:relative;min-height:100vh;padding:160px 40px 120px;box-sizing:border-box;display:grid;grid-template-columns:auto 1fr;gap:64px;align-items:start;color:#EDEFF0">
+  <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(160px,26vw,380px);line-height:.8;letter-spacing:-.06em;font-variation-settings:'wdth' 70;color:#35D6F0;margin-left:-10px">3</span>
+  <div style="display:flex;flex-direction:column;gap:48px;padding-top:24px">
+    <h2 style="margin:0;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5vw,72px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">SMALL TEAM. BIG ATTENTION TO DETAIL.</h2>
+    <p style="margin:0;font-size:18px;color:#9BA1A4;max-width:52ch">Three people, every project. The person who designs your site is the one who builds it and the one who answers your WhatsApp after launch.</p>
+    <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.14)">
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:32px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.14)"><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:26px;letter-spacing:-.02em;font-variation-settings:'wdth' 88">Design first</span><span style="color:#9BA1A4">Layout is decided before a line of code, so the code serves it.</span></div>
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:32px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.14)"><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:26px;letter-spacing:-.02em;font-variation-settings:'wdth' 88">Built for speed</span><span style="color:#9BA1A4">Tested on a mid-range Android over 4G before it is tested on our laptops.</span></div>
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:32px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.14)"><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:26px;letter-spacing:-.02em;font-variation-settings:'wdth' 88">Made to convert</span><span style="color:#9BA1A4">Every page ends in a WhatsApp tap. We measure that, not visits.</span></div>
+      <div style="display:grid;grid-template-columns:1fr 2fr;gap:32px;padding:22px 0;border-bottom:1px solid rgba(255,255,255,.14)"><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:26px;letter-spacing:-.02em;font-variation-settings:'wdth' 88">No template feel</span><span style="color:#9BA1A4">Nothing here started as a theme. You have already noticed.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- 09 TECHNOLOGY -->
+<section data-sec="9" data-screen-label="09 Technology" style="position:relative;min-height:70vh;padding:120px 0;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:48px;color:#EDEFF0;overflow:hidden">
+  <h2 style="margin:0 40px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5vw,72px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">DESIGN MEETS TECHNOLOGY.</h2>
+  <div style="display:flex;width:max-content;animation:marquee 40s linear infinite" style-hover="animation-play-state:paused">
+    <div style="display:flex;gap:64px;padding-right:64px;font-family:Archivo,sans-serif;font-weight:500;font-size:clamp(28px,3.4vw,48px);letter-spacing:-.02em;font-variation-settings:'wdth' 88;white-space:nowrap;color:#9BA1A4"><span>Three.js for the part you remember</span><span style="color:#35D6F0">WebGPU where the phone allows it</span><span>Next.js for the part Google reads</span><span>Cloudflare so it loads in Papua</span><span style="color:#35D6F0">Midtrans and QRIS for the payment</span><span>WhatsApp Business API for the order</span><span>Claude for the chatbot that knows your catalogue</span></div>
+    <div style="display:flex;gap:64px;padding-right:64px;font-family:Archivo,sans-serif;font-weight:500;font-size:clamp(28px,3.4vw,48px);letter-spacing:-.02em;font-variation-settings:'wdth' 88;white-space:nowrap;color:#9BA1A4"><span>Three.js for the part you remember</span><span style="color:#35D6F0">WebGPU where the phone allows it</span><span>Next.js for the part Google reads</span><span>Cloudflare so it loads in Papua</span><span style="color:#35D6F0">Midtrans and QRIS for the payment</span><span>WhatsApp Business API for the order</span><span>Claude for the chatbot that knows your catalogue</span></div>
+  </div>
+</section>
+
+<!-- 10 TESTIMONIALS -->
+<section data-sec="10" data-screen-label="10 Testimonials" style="position:relative;min-height:80vh;padding:120px 40px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:40px;color:#EDEFF0">
+  <span style="font-size:12px;color:#35D6F0;border:1px dashed rgba(53,214,240,.5);padding:6px 10px;align-self:flex-start">PLACEHOLDER — testimoni nyata menyusul; tidak ada klien fiktif</span>
+  <blockquote style="margin:0;max-width:22ch;font-family:Archivo,sans-serif;font-weight:500;font-size:clamp(36px,4.6vw,64px);line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 88;color:#5C6367">"Kutipan klien, dua sampai tiga kalimat, dengan hasil yang bisa diukur."</blockquote>
+  <div style="display:flex;gap:24px;font-size:14px;color:#5C6367"><span>Nama</span><span>Perusahaan</span><span>Hasil</span></div>
+</section>
+
+<!-- 11 FAQ -->
+<section data-sec="11" data-screen-label="11 FAQ" style="position:relative;min-height:100vh;padding:160px 40px 120px;box-sizing:border-box;display:grid;grid-template-columns:1fr 2fr;gap:64px;color:#EDEFF0">
+  <h2 style="margin:0;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5vw,72px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84;position:sticky;top:140px;align-self:start">PERTANYAAN YANG SERING MASUK.</h2>
+  <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.14)">
+    <sc-for list="{{ faq }}" as="f" hint-placeholder-count="10">
+      <div style="border-bottom:1px solid rgba(255,255,255,.14)">
+        <button onClick="{{ f.toggle }}" style="all:unset;cursor:pointer;display:grid;grid-template-columns:1fr 24px;gap:24px;align-items:center;width:100%;padding:22px 0;font-size:20px;color:{{ f.color }};transition:color .16s" style-hover="color:#35D6F0"><span>{{ f.q }}</span><span style="font-family:Archivo,sans-serif;font-size:24px;line-height:1;text-align:right">{{ f.sign }}</span></button>
+        <div style="display:grid;grid-template-rows:{{ f.rows }};transition:grid-template-rows .4s cubic-bezier(.2,.7,.2,1)"><div style="overflow:hidden"><p style="margin:0 0 24px;font-size:16px;color:#9BA1A4;max-width:60ch;opacity:{{ f.op }};transition:opacity .3s">{{ f.a }}</p></div></div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+
+<!-- 12 FINAL CTA -->
+<section data-sec="12" data-screen-label="12 Final CTA" onMouseMove="{{ ctaMove }}" style="position:relative;min-height:100vh;padding:160px 40px 120px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:56px;color:#EDEFF0;background:{{ ctaGlow }}">
+  <h2 style="margin:0 0 0 -5px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(56px,9.4vw,136px);line-height:.88;letter-spacing:-.04em;font-variation-settings:'wdth' 84;max-width:1000px">YOUR NEXT WEBSITE STARTS HERE.</h2>
+  <div style="display:flex;gap:12px;flex-wrap:wrap">
+    <button onClick="{{ goHarga }}" style="all:unset;cursor:pointer;white-space:nowrap;padding:20px 34px;background:#EDEFF0;color:#070809;font-size:14px;font-weight:600;letter-spacing:.02em;transition:transform .2s" style-hover="transform:scale(1.04)">MULAI PROYEK</button>
+    <a href="{{ waHref }}" target="_blank" rel="noopener" style="white-space:nowrap;padding:20px 34px;border:1px solid rgba(255,255,255,.3);font-size:14px;font-weight:500;color:#EDEFF0;transition:border-color .16s" style-hover="border-color:#35D6F0;color:#EDEFF0">WHATSAPP</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer data-sec="13" data-screen-label="Footer" style="position:relative;padding:64px 40px 40px;box-sizing:border-box;display:grid;grid-template-columns:1fr 1fr 1fr;gap:48px;border-top:1px solid rgba(255,255,255,.12);color:#EDEFF0;font-size:13px">
+  <div style="display:flex;flex-direction:column;gap:12px"><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:28px;letter-spacing:-.03em;font-variation-settings:'wdth' 84">aleph.one</span><span style="color:#9BA1A4;max-width:32ch">Creative technology studio, Tangerang / Jakarta. Websites for businesses ready to look as good as they perform.</span></div>
+  <div style="display:flex;gap:40px">
+    <div style="display:flex;flex-direction:column;gap:8px"><button onClick="{{ goKarya }}" style="all:unset;cursor:pointer" style-hover="color:#35D6F0">KARYA</button><button onClick="{{ goLayanan }}" style="all:unset;cursor:pointer" style-hover="color:#35D6F0">LAYANAN</button><button onClick="{{ goProses }}" style="all:unset;cursor:pointer" style-hover="color:#35D6F0">PROSES</button><button onClick="{{ goTentang }}" style="all:unset;cursor:pointer" style-hover="color:#35D6F0">TENTANG</button></div>
+    <div style="display:flex;flex-direction:column;gap:8px;color:#9BA1A4"><a href="#" style="color:#9BA1A4">Instagram</a><a href="#" style="color:#9BA1A4">TikTok</a><a href="#" style="color:#9BA1A4">LinkedIn</a><a href="{{ waHref }}" style="color:#9BA1A4">WhatsApp</a></div>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;gap:24px;color:#9BA1A4"><button onClick="{{ goTop }}" style="all:unset;cursor:pointer;color:#EDEFF0;border-bottom:1px solid #35D6F0" style-hover="color:#35D6F0">KEMBALI KE ATAS</button><span style="display:flex;gap:24px"><a href="#" style="color:#9BA1A4">Privasi</a><a href="#" style="color:#9BA1A4">Ketentuan</a><span>© 2026 ALEPH ONE</span></span></div>
+</footer>
+</main>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  canvasRef = React.createRef();
+  state = { tier: 'standard', steps: 0, loaderGone: false, sec: 0, lit: false, scrollPct: 0, scrolled: false, posP: 0, procP: 0,
+    tierIdx: 1, addons: {}, maint: 'none', express: false, faqOpen: -1, cta: null, fps: 0, draws: 0, firstPaint: 0 };
+  SECTIONS = ['Hero', 'Positioning', 'Problem', 'Services', 'Process', 'Packages', 'Add-ons', 'Work', 'Why us', 'Technology', 'Testimonials', 'FAQ', 'Contact'];
+  WORKS = [
+    { n: '01', name: 'Morrow Coffee', cat: 'ROASTERY', kind: 'SAMPLE BUILD', img: './assets/work/morrow-coffee.jpg', url: 'https://machtumens.github.io/Morrow-Coffee/', bg: '#0c1712', accent: '#c9973f', ink: '#1a0f08',
+      sub: 'A roastery that sells four origins at a time. Menu, origin story and bean shop on one scroll, with the espresso bar photographed rather than illustrated.' },
+    { n: '02', name: 'Ace House', cat: 'TENNIS CLUB', kind: 'SAMPLE BUILD', img: './assets/work/ace-house.webp', url: 'https://machtumens.github.io/Ace-House-Tennis-Club/', bg: '#06100C', accent: '#E4FF4F', ink: '#06100C',
+      sub: 'A four-court club as a scroll-driven WebGL walkthrough. The camera moves through the club and takes the light with it, from open daylight to floodlit night court, while court booking tracks the same scroll.' },
+    { n: '03', name: 'OmniCare', cat: 'CLINIC SOFTWARE', kind: 'PRODUCT SITE', img: './assets/work/omnicare.png', url: 'https://omnicare.co.id', bg: '#0c1418', accent: '#34c6ee', ink: '#0c1418',
+      sub: 'Marketing and demo site for a cloud SIM Klinik / SIMRS: antrean, rekam medis elektronik, billing and multi-cabang, with SATUSEHAT and BPJS integration explained per clinic type.' }];
+  POS_TEXT = 'Most business websites in Indonesia come from the same three templates. Same hero, same three columns, same stock handshake. Your customers have seen it before they finish scrolling, and what they conclude is that you did too. We design each site from the business outward, so the first impression is yours, not the template\'s.';
+  STAGES = [
+    { n: '1', name: 'Discover', days: '1 hari', desc: 'One call. Your business, your customers, what a visitor must do in six seconds.' },
+    { n: '2', name: 'Design', days: '1–3 hari', desc: 'Composition and type decided on the real content, reviewed on a phone first.' },
+    { n: '3', name: 'Build', days: '1–8 hari', desc: 'Development, catalogue, integrations. Length depends on scope, shown live in the configurator.' },
+    { n: '4', name: 'Launch', days: '1 hari', desc: 'Domain, hosting, Google Business Profile, WhatsApp routing, one hour of training.' }];
+  FAQ = [
+    ['Berapa lama pengerjaannya?', 'Starter 3–5 hari kerja, Business 5–7, Professional 10–14. Add-on besar seperti payment gateway atau booking menambah beberapa hari; konfigurator menampilkan estimasinya.'],
+    ['Apa yang perlu saya siapkan?', 'Logo (atau pesan add-on logo), foto produk, teks singkat tentang usaha, dan nomor WhatsApp yang aktif. Untuk Business ke atas kami bantu menulis teksnya.'],
+    ['Bisa diubah setelah jadi?', 'Bisa. Setiap paket punya jatah revisi (2×, 4×, 6×). Di luar itu Rp 100.000 per revisi, atau gunakan jatah perubahan di paket pemeliharaan.'],
+    ['Apakah saya dapat domain?', 'Hosting gratis termasuk. Domain .com atau .id adalah add-on mulai Rp 300.000 per tahun dan terdaftar atas nama Anda.'],
+    ['Bagaimana proses revisinya?', 'Anda mengirim catatan lewat WhatsApp, kami kirim tautan pratinjau. Satu putaran revisi biasanya selesai dalam 1–2 hari kerja.'],
+    ['Bisa fitur custom?', 'Bisa. Payment gateway, booking, chatbot, dan integrasi lain ada di daftar add-on. Kebutuhan di luar daftar kami hitung per jam setelah diskusi.'],
+    ['Ada biaya bulanan?', 'Tidak wajib. Paket pemeliharaan mulai Rp 50.000 per bulan untuk monitoring dan backup. Tanpa pemeliharaan, situs tetap online di hosting gratis.'],
+    ['Bagaimana AI chatbot di Professional bekerja?', 'Kami melatihnya dengan katalog, FAQ, dan jam operasional Anda. Ia menjawab di situs dan mengarahkan pesanan ke WhatsApp. Hosting chatbot Rp 150.000 per bulan setelah tahun pertama.'],
+    ['Apa yang tidak ditanggung garansi?', 'Domain kedaluwarsa yang tidak diperpanjang, gangguan pihak ketiga (Cloudflare, Google, WhatsApp), kerusakan akibat perubahan sendiri, dan serangan siber di luar kendali yang wajar.'],
+    ['Bagaimana syarat pembayarannya?', '50% di muka saat mulai, 50% saat serah terima. Harga belum termasuk pajak.']];
+  ADDON_DAYS = { payment: 3, booking: 3, chatbot: 2, bilingual: 2, page: 1, motion: 1, autoreply: 1 };
+  idr(n) { return 'Rp ' + Math.round(n).toLocaleString('id-ID'); }
+  get P() { return window.ALEPH_PRICES; }
+  get q() { return new URLSearchParams(location.search); }
+
+  componentDidMount() {
+    this.t0 = performance.now();
+    const rm = matchMedia('(prefers-reduced-motion: reduce)').matches, sd = navigator.connection && navigator.connection.saveData;
+    let gl = false; try { gl = !!document.createElement('canvas').getContext('webgl2'); } catch (e) {}
+    let tier = (rm || sd || !gl) ? 'poster' : ((navigator.deviceMemory || 4) >= 8 && matchMedia('(pointer:fine)').matches ? 'cinema' : 'standard');
+    if (this.q.get('tier')) tier = this.q.get('tier');
+    this.setState({ tier });
+    const step = () => this.setState(s => ({ steps: s.steps + 1 }));
+    document.fonts.ready.then(step);
+    if (tier === 'poster') step(); else {
+      let tries = 0; const wait = () => {
+        if (window.AlephScene) { step(); window.AlephScene.init(this.canvasRef.current, { tier, onFirstFrame: () => { step(); this.setState({ firstPaint: Math.round(performance.now() - this.t0) }); } }); this.pushConfig(); }
+        else if (++tries < 200) setTimeout(wait, 50); else { this.setState({ tier: 'poster', steps: 3 }); }
+      }; wait();
+    }
+    this.hardCap = setTimeout(() => this.setState({ loaderGone: true }), 4500);
+    this.onScroll = () => { if (this.raf) return; this.raf = requestAnimationFrame(() => { this.raf = 0; this.measure(); }); };
+    addEventListener('scroll', this.onScroll, { passive: true }); addEventListener('resize', this.onScroll);
+    this.io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) e.target.setAttribute('data-reveal', 'in'); }), { threshold: 0.35 });
+    document.querySelectorAll('[data-reveal]').forEach(el => this.io.observe(el));
+    this.statsT = setInterval(() => { if (window.AlephScene && this.q.has('debug')) { const s = window.AlephScene.stats(); this.setState({ fps: s.fps, draws: s.draws }); } }, 500);
+    this.measure();
+  }
+  componentWillUnmount() { removeEventListener('scroll', this.onScroll); clearInterval(this.statsT); clearTimeout(this.hardCap); this.io && this.io.disconnect(); }
+  componentDidUpdate(_, ps) {
+    // The dc runtime calls componentDidUpdate without prevState, so `ps` arrived undefined and this
+    // method threw on every render - which meant pushConfig() below never ran and the 3D object
+    // never followed the configurator. Track the previous state ourselves.
+    const s = this.state; if (!s) return; ps = ps || this.prevState || {};
+    if (!ps.loaderGone && !s.loaderGone && s.steps >= 3 && performance.now() - this.t0 > 500) this.setState({ loaderGone: true });
+    if (ps.tierIdx !== s.tierIdx || ps.addons !== s.addons || ps.maint !== s.maint || ps.express !== s.express) this.pushConfig();
+    this.prevState = s;
+  }
+  secEls() { return Array.from(document.querySelectorAll('[data-sec]')); }
+  measure() {
+    const vh = innerHeight, els = this.secEls(); if (!els.length) return;
+    let sec = 0, local = 0;
+    els.forEach((el, i) => { const r = el.getBoundingClientRect(); if (r.top <= vh * 0.5) { sec = i; local = Math.max(0, Math.min(1, (vh * 0.5 - r.top) / r.height)); } });
+    const doc = document.documentElement, scrollPct = Math.round(scrollY / Math.max(1, doc.scrollHeight - vh) * 100);
+    const pr = els[1].getBoundingClientRect(), posP = Math.max(0, Math.min(1, (vh * 0.85 - pr.top) / (pr.height * 0.7)));
+    const pc = els[4].getBoundingClientRect(), procP = Math.max(0, Math.min(1, (vh * 0.8 - pc.top) / (pc.height * 0.9)));
+    const lit = sec === 5 || sec === 6;
+    if (window.AlephScene) { window.AlephScene.setProgress((Math.min(sec, 12) + local) / 13); window.AlephScene.setLit(lit); }
+    const r2 = v => Math.round(v * 50) / 50, S = this.state;
+    if (sec !== S.sec || lit !== S.lit || scrollPct !== S.scrollPct || r2(posP) !== S.posP || r2(procP) !== S.procP || (scrollY > 40) !== S.scrolled)
+      this.setState({ sec, lit, scrollPct, posP: r2(posP), procP: r2(procP), scrolled: scrollY > 40 });
+  }
+  goSec(i) { return () => { const el = this.secEls()[i]; if (el) window.scrollTo({ top: el.getBoundingClientRect().top + scrollY, behavior: 'smooth' }); }; }
+  calc() {
+    const P = this.P, s = this.state, tier = P.tiers[s.tierIdx];
+    const sel = P.addons.filter(a => s.addons[a.id]);
+    let free = new Set();
+    if (tier.freeAddons) sel.filter(a => !a.recurring && a.price <= tier.freeAddons.cap).sort((a, b) => b.price - a.price).slice(0, tier.freeAddons.count).forEach(a => free.add(a.id));
+    const oneTime = sel.filter(a => !a.recurring).reduce((t, a) => t + (free.has(a.id) ? 0 : a.price), 0);
+    const monthly = sel.filter(a => a.recurring && a.unit === '/bln').reduce((t, a) => t + a.price, 0);
+    const yearly = sel.filter(a => a.recurring && a.unit === '/thn').reduce((t, a) => t + a.price, 0);
+    const m = P.maintenance.find(x => x.id === s.maint);
+    const expressFee = s.express ? tier.price * P.express.pct : 0;
+    const total = tier.price + oneTime + expressFee + (m && m.id === 'lifetime' ? m.price : 0);
+    const monthlyAll = monthly + (m && m.id !== 'lifetime' ? m.price : 0);
+    const extra = sel.reduce((t, a) => t + (this.ADDON_DAYS[a.id] || 0), 0);
+    let [lo, hi] = tier.days.split('–').map(Number); lo += extra; hi += extra;
+    if (s.express) { lo = Math.ceil(lo / 2); hi = Math.ceil(hi / 2); }
+    return { tier, sel, free, total, monthlyAll, yearly, m, timeline: lo + '–' + hi + ' hari kerja', pages: tier.pages + sel.filter(a => a.id === 'page').length };
+  }
+  pushConfig() {
+    if (!window.AlephScene) return;
+    const c = this.calc(), lines = [c.tier.name + ', ' + c.pages + ' halaman', this.idr(c.total), c.timeline];
+    if (c.sel.length) lines.push('Add-on: ' + c.sel.map(a => a.name.split(' (')[0]).join(', '));
+    if (c.monthlyAll) lines.push('+ ' + this.idr(c.monthlyAll) + ' per bulan');
+    window.AlephScene.setConfig({ tier: c.tier.pages, addons: c.sel.map(a => ({ id: a.id, material: a.material })), lines });
+  }
+  renderVals() {
+    const P = this.P, s = this.state, isPoster = s.tier === 'poster', c = this.calc();
+    const pct = Math.min(100, Math.round(s.steps / 3 * 100));
+    const stepLabel = ['Memuat huruf', 'Memuat scene', 'Render pertama', 'Siap'][Math.min(3, s.steps)];
+    const dark = !s.lit;
+    const sections = this.SECTIONS.map((name, i) => ({ name, go: this.goSec(i), color: i === s.sec ? '#35D6F0' : 'rgba(237,239,240,.45)' }));
+    const wordsArr = this.POS_TEXT.split(' ');
+    const posWords = wordsArr.map((t, i) => ({ t, color: i / wordsArr.length < s.posP ? '#EDEFF0' : '#5C6367' }));
+    const cur = Math.min(3, Math.floor(s.procP * 4));
+    const stages = this.STAGES.map((st, i) => ({ ...st, color: i === cur ? '#EDEFF0' : (i < cur ? '#9BA1A4' : '#5C6367') }));
+    const tiers = P.tiers.map((t, i) => ({ name: t.name, badge: t.badge || '', meta: t.pages + ' halaman, ' + t.revisi + '× revisi, garansi ' + t.garansi + ' hari', days: t.days, priceLabel: this.idr(t.price), dot: i === s.tierIdx ? '#0B0C0C' : 'transparent', select: () => this.setState({ tierIdx: i }) }));
+    const addons = P.addons.map(a => { const on = !!s.addons[a.id], isFree = c.free.has(a.id); return { name: a.name, priceLabel: isFree ? 'Gratis' : this.idr(a.price) + (a.unit ? ' ' + a.unit : ''), strike: 'none', on, bg: on ? '#0B0C0C' : '#E4E6E3', color: on ? '#EDEFF0' : '#0B0C0C', dot: on ? '#35D6F0' : 'transparent', toggle: () => this.setState(st => ({ addons: { ...st.addons, [a.id]: !st.addons[a.id] } })) }; });
+    const maint = [{ id: 'none', name: 'Tanpa pemeliharaan', price: 0 }, ...P.maintenance].map(m => ({ name: m.name, priceLabel: m.price ? this.idr(m.price) + (m.unit === '/bln' ? '/bln' : '') : '—', dot: s.maint === m.id ? '#0B0C0C' : 'transparent', select: () => this.setState({ maint: m.id }) }));
+    const maintFull = P.maintenance.map(m => ({ name: m.name, sla: m.sla, itemsLabel: m.items.join(', '), priceLabel: this.idr(m.price), unit: m.unit }));
+    const addonsFull = [...P.addons.map(a => ({ name: a.name, priceLabel: this.idr(a.price), unit: a.unit || '' })), ...P.extras.map(e => ({ name: e.name, priceLabel: this.idr(e.price), unit: '' })), { name: P.express.label, priceLabel: '+50%', unit: 'dari harga paket' }];
+    const promos = P.promos.map(p => ({ name: p.name, note: p.note, priceLabel: p.price ? this.idr(p.price) : '' }));
+    const faq = this.FAQ.map(([q, a], i) => { const o = s.faqOpen === i; return { q, a, sign: o ? '−' : '+', rows: o ? '1fr' : '0fr', op: o ? 1 : 0, color: o ? '#35D6F0' : '#EDEFF0', toggle: () => this.setState({ faqOpen: o ? -1 : i }) }; });
+    const msgLines = ['Halo Aleph One, saya ingin memesan website.', 'Paket: ' + c.tier.name + ' (' + c.pages + ' halaman) — ' + this.idr(c.tier.price)];
+    if (c.sel.length) msgLines.push('Add-on: ' + c.sel.map(a => a.name + (c.free.has(a.id) ? ' (gratis)' : '')).join(', '));
+    if (c.m) msgLines.push('Pemeliharaan: ' + c.m.name + ' — ' + this.idr(c.m.price) + (c.m.unit === '/bln' ? '/bln' : ''));
+    if (s.express) msgLines.push('Express: ya (+50%)');
+    msgLines.push('Total sekali bayar: ' + this.idr(c.total)); if (c.monthlyAll) msgLines.push('Biaya bulanan: ' + this.idr(c.monthlyAll)); if (c.yearly) msgLines.push('Biaya tahunan: ' + this.idr(c.yearly));
+    msgLines.push('Estimasi: ' + c.timeline);
+    const waHref = 'https://wa.me/' + P.whatsapp + '?text=' + encodeURIComponent(msgLines.join('\n'));
+    const pmOn = this.q.has('pm'), hours = (P.pm.hours[c.tier.id] || 0) + c.sel.reduce((t, a) => t + (P.pm.addonHours[a.id] || 0), 0);
+    const pmWarnings = []; if (c.m && c.m.id === 'lifetime') pmWarnings.push('Lifetime has no exit clause.'); if (s.addons.motion) pmWarnings.push('Cinematic motion: pre-ship QA costs more than Rp 150.000.'); if (c.m && c.m.id === 'pro') pmWarnings.push('6-hour SLA: one part-time dev, no on-call rotation.'); if (s.addons.security) pmWarnings.push('Cybersecurity testing creates a duty of care.'); if (s.express) pmWarnings.push('Express compresses the same hours into half the calendar.');
+    const cap = Math.round(hours / P.pm.capacityHoursPerSprint * 100);
+    const g = s.cta;
+    return {
+      canvasRef: this.canvasRef, canvasDisplay: isPoster ? 'none' : 'block', isPoster, tierLabel: s.tier, debug: this.q.has('debug'),
+      debugText: 'tier ' + s.tier + '\nfps ' + s.fps + '\ndraw calls ' + s.draws + '\nfirst paint ' + s.firstPaint + ' ms\nsection ' + s.sec,
+      pct, maskInset: 100 - pct, loaderStep: stepLabel, loaderTransform: s.loaderGone ? 'translateY(-101%)' : 'none', loaderEvents: s.loaderGone ? 'none' : 'auto',
+      dismissLoader: () => this.setState({ loaderGone: true }), skipToPrice: () => { this.setState({ loaderGone: true }); setTimeout(this.goSec(5), 50); },
+      navBg: s.scrolled ? (dark ? 'rgba(7,8,9,.55)' : 'rgba(228,230,227,.6)') : 'transparent', navBlur: s.scrolled ? 'blur(14px)' : 'none', navLine: s.scrolled ? (dark ? 'rgba(255,255,255,.08)' : 'rgba(0,0,0,.12)') : 'transparent', navBlend: dark ? 'normal' : 'difference',
+      navKarya: s.sec === 7 ? '#35D6F0' : '#EDEFF0', navLayanan: s.sec === 3 ? '#35D6F0' : '#EDEFF0', navProses: s.sec === 4 ? '#35D6F0' : '#EDEFF0', navTentang: s.sec === 8 ? '#35D6F0' : '#EDEFF0', scrollPct: s.scrollPct,
+      goTop: this.goSec(0), goKarya: this.goSec(7), goLayanan: this.goSec(3), goProses: this.goSec(4), goTentang: this.goSec(8), goHarga: this.goSec(5), goAddons: this.goSec(6),
+      sections, secNum: String(Math.min(13, s.sec + 1)).padStart(2, '0'),
+      starter: { priceLabel: this.idr(P.tiers[0].price), days: P.tiers[0].days },
+      posWords, procFill: Math.round(s.procP * 100), stages,
+      tiers, selTier: c.tier, freeNote: c.tier.freeAddons ? c.tier.freeAddons.count + ' add-on sampai ' + this.idr(c.tier.freeAddons.cap) + ' gratis' : 'harga satuan', addons, maint, expressDot: s.express ? '#0B0C0C' : 'transparent', expressLabel: P.express.label,
+      totalLabel: this.idr(c.total), monthlyLabel: c.monthlyAll ? this.idr(c.monthlyAll) + ' per bulan' : 'tanpa biaya bulanan', timelineLabel: c.timeline, waHref, terms: P.terms.join(' '),
+      ledgerBg: isPoster ? '#E4E6E3' : 'transparent', objectHint: isPoster ? '' : 'Harga dan lama pengerjaan tertulis di lembar teratas objek. Tambah halaman: tumpukan bertambah. Tambah add-on: komponen menempel.',
+      pm: pmOn, pmHours: hours, pmRate: this.idr(hours ? c.total / hours : 0), pmCap: cap, pmCapColor: cap > 60 ? '#8A2E1F' : '#0B0C0C', pmWarnings,
+      maintFull, addonsFull, promos, excludes: P.warrantyExcludes, termsList: P.terms,
+      works: this.WORKS, faq,
+      ctaMove: e => { const r = e.currentTarget.getBoundingClientRect(); this.setState({ cta: [e.clientX - r.left, e.clientY - r.top] }); },
+      ctaGlow: g ? 'radial-gradient(520px circle at ' + g[0] + 'px ' + g[1] + 'px, rgba(53,214,240,.16), transparent 70%)' : 'transparent'
+    };
+  }
+}
+</script>
+</body>
+</html>
