@@ -1,5 +1,7 @@
 # Aleph One — company site
 
+Live: <https://machtumens.github.io/Aleph.One/>
+
 Source: `../Waiting on scope picks.zip` (8 Sep 2026). Replaces the previous
 `aleph-one` build, which is archived on GitHub at `machtumens/Aleph.One`
 (commit `c79e1f5`) and can be brought back with `git clone`.
