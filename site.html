@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aleph One — Services & Packages</title>
 <meta name="description" content="The long-form Aleph One site: services, process, packages with a live price configurator, add-ons, work and FAQ.">
-<link rel="icon" href="./uploads/logo-1788542093578-5d6b.jpeg">
+<link rel="icon" type="image/png" href="./uploads/aleph-icon.png">
+<link rel="apple-touch-icon" href="./uploads/aleph-icon.png">
 <link rel="canonical" href="https://machtumens.github.io/Aleph.One/site.html">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Aleph One — Services & Packages">
@@ -41,7 +42,7 @@ a{color:#35D6F0;text-decoration:none}a:hover{color:#EDEFF0}
   <div style="display:flex;justify-content:space-between;font-size:12px;color:#9BA1A4"><span>ALEPH ONE — CREATIVE TECHNOLOGY</span><span>Tangerang / Jakarta</span></div>
   <div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(#35D6F0 0 {{ pct }}%,rgba(255,255,255,.08) {{ pct }}% 100%);transform:translateX(-1px)"></div>
   <div style="display:flex;align-items:center;justify-content:center;gap:28px;clip-path:inset(0 {{ maskInset }}% 0 0)">
-    <div style="width:110px;height:110px;overflow:hidden;position:relative"><img src="uploads/logo-1788542093578-5d6b.jpeg" alt="aleph.one" style="position:absolute;width:480px;left:-12px;top:-156px;mix-blend-mode:screen;filter:contrast(1.4) brightness(1.1)"></div>
+    <img src="uploads/aleph-mark.png" alt="" width="157" height="185" style="height:110px;width:auto;display:block;filter:drop-shadow(0 0 10px rgba(53,214,240,.55)) drop-shadow(0 0 2px rgba(53,214,240,.4))">
     <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(48px,7vw,96px);line-height:1;letter-spacing:-.04em;font-variation-settings:'wdth' 84">aleph.one</span>
   </div>
   <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:24px">
@@ -269,7 +270,7 @@ a{color:#35D6F0;text-decoration:none}a:hover{color:#EDEFF0}
 <section data-sec="7" data-screen-label="07 Work" style="position:relative;min-height:100vh;padding:160px 0 120px;box-sizing:border-box;display:flex;flex-direction:column;gap:64px;color:#EDEFF0">
   <h2 style="margin:0 40px 0 35px;max-width:1100px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(48px,7.4vw,106px);line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84">WE DON'T JUST BUILD SITES. WE BUILD PERCEPTION.</h2>
   <div style="display:flex;gap:24px;overflow-x:auto;padding:0 40px 24px;scroll-snap-type:x mandatory">
-    <sc-for list="{{ works }}" as="w" hint-placeholder-count="3">
+    <sc-for list="{{ works }}" as="w" hint-placeholder-count="2">
       <a href="{{ w.url }}" target="_blank" rel="noopener" style="flex:none;width:560px;scroll-snap-align:start;display:flex;flex-direction:column;gap:14px;color:inherit;text-decoration:none">
         <div style="height:360px;position:relative;overflow:hidden;background:{{ w.bg }}">
           <img src="{{ w.img }}" alt="{{ w.name }}" loading="lazy" width="560" height="360" style="width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.82) contrast(1.04);transition:transform .5s cubic-bezier(.2,.7,.2,1),filter .5s" style-hover="transform:scale(1.04);filter:none">
@@ -356,9 +357,7 @@ class Component extends DCLogic {
     { n: '01', name: 'Morrow Coffee', cat: 'ROASTERY', kind: 'SAMPLE BUILD', img: './assets/work/morrow-coffee.jpg', url: 'https://machtumens.github.io/Morrow-Coffee/', bg: '#0c1712', accent: '#c9973f', ink: '#1a0f08',
       sub: 'A roastery that sells four origins at a time. Menu, origin story and bean shop on one scroll, with the espresso bar photographed rather than illustrated.' },
     { n: '02', name: 'Ace House', cat: 'TENNIS CLUB', kind: 'SAMPLE BUILD', img: './assets/work/ace-house.webp', url: 'https://machtumens.github.io/Ace-House-Tennis-Club/', bg: '#06100C', accent: '#E4FF4F', ink: '#06100C',
-      sub: 'A four-court club as a scroll-driven WebGL walkthrough. The camera moves through the club and takes the light with it, from open daylight to floodlit night court, while court booking tracks the same scroll.' },
-    { n: '03', name: 'OmniCare', cat: 'CLINIC SOFTWARE', kind: 'PRODUCT SITE', img: './assets/work/omnicare.png', url: 'https://omnicare.co.id', bg: '#0c1418', accent: '#34c6ee', ink: '#0c1418',
-      sub: 'Marketing and demo site for a cloud SIM Klinik / SIMRS: antrean, rekam medis elektronik, billing and multi-cabang, with SATUSEHAT and BPJS integration explained per clinic type.' }];
+      sub: 'A four-court club as a scroll-driven WebGL walkthrough. The camera moves through the club and takes the light with it, from open daylight to floodlit night court, while court booking tracks the same scroll.' }];
   POS_TEXT = 'Most business websites in Indonesia come from the same three templates. Same hero, same three columns, same stock handshake. Your customers have seen it before they finish scrolling, and what they conclude is that you did too. We design each site from the business outward, so the first impression is yours, not the template\'s.';
   STAGES = [
     { n: '1', name: 'Discover', days: '1 hari', desc: 'One call. Your business, your customers, what a visitor must do in six seconds.' },

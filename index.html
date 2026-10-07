@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Aleph One — Creative Technology</title>
 <meta name="description" content="We design and build websites from the business outward, so the first impression is yours and not a template's. Tangerang / Jakarta.">
-<link rel="icon" href="./uploads/logo-1788542093578-5d6b.jpeg">
+<link rel="icon" type="image/png" href="./uploads/aleph-icon.png">
+<link rel="apple-touch-icon" href="./uploads/aleph-icon.png">
 <link rel="canonical" href="https://machtumens.github.io/Aleph.One/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Aleph One — Creative Technology">
@@ -32,6 +33,19 @@ input::placeholder,textarea::placeholder{color:#5C6367}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 @media (max-width:900px){[data-desktop]{display:none!important}}
+/* Phones: layouts are inline styles, so these hooks override them (!important beats inline). */
+@media (max-width:700px){
+[data-m-stack]{grid-template-columns:minmax(0,1fr)!important}
+[data-m-stack]>:empty{display:none}
+[data-m-stack]>*{position:static!important}
+[data-m-row]{grid-template-columns:minmax(0,1fr) auto auto!important;gap:6px 16px!important}
+[data-m-row]>:first-child{grid-column:1/-1}
+/* Index lists in the sticky scenes 01/02: the card already shows the active item, and both don't fit in 100vh. */
+[data-m-hide]{display:none!important}
+}
+/* A card poster and the full-screen world share the name "world"; the browser morphs one into the other. */
+::view-transition-group(world){animation-duration:.8s;animation-timing-function:cubic-bezier(.7,0,.2,1)}
+::view-transition-old(world),::view-transition-new(world){height:100%;object-fit:cover;object-position:top}
 </style>
 </helmet>
 
@@ -40,7 +54,7 @@ input::placeholder,textarea::placeholder{color:#5C6367}
 <!-- LOADER -->
 <div style="position:fixed;inset:0;z-index:60;background:#070809;display:flex;flex-direction:column;justify-content:space-between;padding:28px 40px;box-sizing:border-box;pointer-events:{{ loaderEvents }};clip-path:{{ tvClip }};transition:clip-path 1.4s cubic-bezier(.7,0,.3,1);will-change:clip-path">
   <div style="display:flex;justify-content:space-between;font-size:12px;color:#9BA1A4;opacity:{{ tvChromeOp }};transition:opacity .4s"><span>ALEPH ONE — LAUNCH COMPLEX 01</span><span>{{ loaderStep }}</span></div>
-  <div style="display:flex;align-items:center;justify-content:center;gap:24px;transform:{{ tvLogoT }};opacity:{{ tvLogoOp }};filter:{{ tvLogoBlur }};transition:transform 1.4s cubic-bezier(.7,0,.3,1),opacity 1s .3s,filter 1.2s;will-change:transform,filter"><div style="width:96px;height:96px;overflow:hidden;position:relative"><img src="uploads/logo-1788542093578-5d6b.jpeg" alt="aleph.one" style="position:absolute;width:420px;left:-10px;top:-136px;mix-blend-mode:screen;filter:contrast(1.4) brightness(1.1)"></div><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,6vw,84px);letter-spacing:-.04em;font-variation-settings:'wdth' 84;line-height:1">aleph.one</span></div>
+  <div style="display:flex;align-items:center;justify-content:center;gap:24px;transform:{{ tvLogoT }};opacity:{{ tvLogoOp }};filter:{{ tvLogoBlur }};transition:transform 1.4s cubic-bezier(.7,0,.3,1),opacity 1s .3s,filter 1.2s;will-change:transform,filter"><img src="uploads/aleph-mark.png" alt="" width="157" height="185" style="height:96px;width:auto;display:block;filter:drop-shadow(0 0 10px rgba(53,214,240,.55)) drop-shadow(0 0 2px rgba(53,214,240,.4))"><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,6vw,84px);letter-spacing:-.04em;font-variation-settings:'wdth' 84;line-height:1">aleph.one</span></div>
   <div style="display:flex;justify-content:space-between;align-items:end;font-size:12px;color:#9BA1A4;opacity:{{ tvChromeOp }};transition:opacity .4s">
     <span style="display:flex;flex-direction:column;gap:14px"><span style="font-family:Archivo,sans-serif;font-weight:500;font-size:56px;line-height:.9;letter-spacing:-.03em;color:#EDEFF0;font-variation-settings:'wdth' 70;font-variant-numeric:tabular-nums">{{ pct }}<span style="font-size:22px;color:#9BA1A4">%</span></span><span style="display:flex;gap:12px;align-items:center;letter-spacing:.06em;color:#EDEFF0;opacity:{{ cueOp }};transition:opacity .6s"><span style="width:1px;height:28px;background:linear-gradient(#35D6F0,transparent);animation:cueDrop 1.6s infinite"></span>SCROLL TO ENTER</span></span>
     <button onClick="{{ skipToConfig }}" style="all:unset;cursor:pointer;color:#EDEFF0;border-bottom:1px solid #35D6F0;padding-bottom:2px">SKIP TO CONFIGURATOR</button></div>
@@ -80,11 +94,11 @@ input::placeholder,textarea::placeholder{color:#5C6367}
 
 <!-- 1 PRE-LAUNCH: THE PROBLEM -->
 <section data-sec="1" data-screen-label="01 Pre-launch" style="height:600vh;position:relative">
-  <div style="position:sticky;top:0;height:100vh;padding:110px 40px 80px;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,420px) 1fr minmax(0,460px);gap:40px;align-items:end">
+  <div data-m-stack style="position:sticky;top:0;height:100vh;padding:110px 40px 80px;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,420px) 1fr minmax(0,460px);gap:40px;align-items:end">
     <div style="display:flex;flex-direction:column;gap:24px;align-self:start">
       <span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">PRE-LAUNCH · SYSTEMS CHECK</span>
       <h2 style="margin:0;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(32px,3.4vw,52px);line-height:.94;letter-spacing:-.035em;font-variation-settings:'wdth' 84">A website has the same failure points as a launch vehicle.</h2>
-      <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.14)">
+      <div data-m-hide style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.14)">
         <sc-for list="{{ problems }}" as="p" hint-placeholder-count="5">
           <div style="display:grid;grid-template-columns:28px 1fr auto;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:13px;color:{{ p.color }};transition:color .4s"><span style="font-variant-numeric:tabular-nums">{{ p.n }}</span><span style="font-weight:600;letter-spacing:.04em">{{ p.part }}</span><span style="color:#9BA1A4">{{ p.sys }}</span></div>
         </sc-for>
@@ -101,11 +115,11 @@ input::placeholder,textarea::placeholder{color:#5C6367}
 
 <!-- 2 SOLUTION -->
 <section data-sec="2" data-screen-label="02 Engineering" style="height:900vh;position:relative">
-  <div style="position:sticky;top:0;height:100vh;padding:110px 40px 80px;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,460px) 1fr minmax(0,420px);gap:40px;align-items:end">
+  <div data-m-stack style="position:sticky;top:0;height:100vh;padding:110px 40px 80px;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,460px) 1fr minmax(0,420px);gap:40px;align-items:end">
     <div style="display:flex;flex-direction:column;gap:24px;align-self:start">
       <span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">ENGINEERING · SPECIFICATION</span>
       <h2 style="margin:0 0 0 -3px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5vw,76px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">So we built it differently.</h2>
-      <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.14)">
+      <div data-m-hide style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.14)">
         <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="7">
           <div style="display:grid;grid-template-columns:28px 1fr auto;gap:14px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:13px;color:{{ p.color }};transition:color .4s"><span style="font-variant-numeric:tabular-nums">{{ p.n }}</span><span style="font-weight:600;letter-spacing:.04em">{{ p.name }}</span><span style="color:{{ p.stateColor }}">{{ p.state }}</span></div>
         </sc-for>
@@ -144,17 +158,16 @@ input::placeholder,textarea::placeholder{color:#5C6367}
 
 <!-- 5 ASCENT: PORTFOLIO -->
 <section data-sec="5" data-screen-label="05 Ascent / Portfolio" style="position:relative;padding:20vh 40px 10vh;box-sizing:border-box;display:flex;flex-direction:column;gap:14vh">
-  <div style="display:flex;flex-direction:column;gap:16px;max-width:800px"><span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">ASCENT · PAYLOAD MANIFEST</span><h2 style="margin:0 0 0 -3px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5vw,76px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">Ten sample missions. Each one a different world.</h2><p style="margin:0;color:#9BA1A4;max-width:56ch">Three are built and live — Morrow Coffee, Ace House and OmniCare — and open in a new tab. The rest are concepts shown to demonstrate range; their imagery stays marked as placeholder until real project media replaces it.</p></div>
+  <div style="display:flex;flex-direction:column;gap:16px;max-width:800px"><span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">ASCENT · PAYLOAD MANIFEST</span><h2 style="margin:0 0 0 -3px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5vw,76px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">Nine sample missions. Each one a different world.</h2><p style="margin:0;color:#9BA1A4;max-width:56ch">Two are built and live: Morrow Coffee and Ace House. The other seven are concepts, built to show range. Open any of them and the site fills the screen; you never leave this page.</p></div>
   <sc-for list="{{ worlds }}" as="w" hint-placeholder-count="10">
     <div style="display:flex;justify-content:{{ w.align }}">
-      <div style="width:min(100%,1040px);min-height:72vh;background:{{ w.bg }};color:{{ w.fg }};font-family:{{ w.font }};padding:32px 40px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;gap:40px;box-shadow:0 40px 120px rgba(0,0,0,.5);transition:transform .6s cubic-bezier(.2,.7,.2,1)" style-hover="transform:translateY(-6px)">
-        <div style="display:flex;justify-content:space-between;align-items:center;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.04em"><span style="font-weight:600">{{ w.brand }}</span><span style="display:flex;gap:20px;opacity:.75"><span>{{ w.nav1 }}</span><span>{{ w.nav2 }}</span><span>{{ w.nav3 }}</span></span><span style="padding:8px 14px;background:{{ w.fg }};color:{{ w.bg }};font-weight:600">{{ w.cta }}</span></div>
-        <div style="display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:32px;align-items:end">
-          <h3 style="margin:0;font-weight:{{ w.weight }};font-style:{{ w.italic }};font-size:clamp(40px,5.6vw,88px);line-height:.94;letter-spacing:{{ w.tracking }};font-variation-settings:{{ w.fvs }}">{{ w.headline }}</h3>
-          <div style="display:flex;flex-direction:column;gap:14px;font-family:'Instrument Sans',sans-serif"><sc-if value="{{ w.shot }}" hint-placeholder-val="{{ false }}"><a href="{{ w.url }}" target="_blank" rel="noopener" style="display:block;height:180px;overflow:hidden;color:inherit"><img src="{{ w.shot }}" alt="{{ w.brand }}" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.04)"></a></sc-if><sc-if value="{{ w.noShot }}" hint-placeholder-val="{{ true }}"><div style="height:180px;border:1px dashed currentColor;opacity:.5;display:flex;align-items:center;justify-content:center;font-size:11px;letter-spacing:.06em">PLACEHOLDER — {{ w.media }}</div></sc-if><p style="margin:0;font-size:15px;opacity:.85;max-width:38ch">{{ w.sub }}</p></div>
-        </div>
-        <div style="display:flex;justify-content:space-between;font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:.06em;opacity:.7;border-top:1px solid currentColor;padding-top:14px"><span>MISSION {{ w.n }} · {{ w.category }}</span><span style="color:{{ w.accent }}">{{ w.tag }}</span></div>
-      </div>
+      <button onClick="{{ w.open }}" aria-label="Enter {{ w.brand }} ({{ w.status }})" style="all:unset;cursor:pointer;width:min(100%,1040px);display:flex;flex-direction:column;gap:14px" style-focus-visible="outline:2px solid #35D6F0;outline-offset:8px">
+        <span style="position:relative;display:block;aspect-ratio:{{ w.ratio }};overflow:hidden;background:{{ w.bg }};box-shadow:0 40px 120px rgba(0,0,0,.5)">
+          <img data-poster="{{ w.slug }}" src="{{ w.poster }}" alt="{{ w.brand }}: {{ w.headline }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .8s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.025)">
+          <span style="position:absolute;right:16px;bottom:16px;padding:10px 14px;background:rgba(7,8,9,.8);backdrop-filter:blur(8px);color:#EDEFF0;font-size:11px;font-weight:600;letter-spacing:.08em;pointer-events:none">ENTER SITE →</span>
+        </span>
+        <span style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 16px;font-size:11px;letter-spacing:.06em;color:#9BA1A4;border-top:1px solid rgba(255,255,255,.14);padding-top:12px"><span>MISSION {{ w.n }} · <span style="color:#EDEFF0">{{ w.brand }}</span> · {{ w.category }}</span><span><span style="color:{{ w.statusColor }}">{{ w.status }}</span> · {{ w.tag }}</span></span>
+      </button>
     </div>
   </sc-for>
 </section>
@@ -191,11 +204,11 @@ input::placeholder,textarea::placeholder{color:#5C6367}
         <button onClick="{{ t.select }}" style="all:unset;cursor:pointer;display:grid;grid-template-columns:20px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.14);font-family:Archivo,sans-serif;font-weight:600;font-size:26px;letter-spacing:-.02em;font-variation-settings:'wdth' 84;color:{{ t.color }};transition:color .2s,padding-left .2s" style-hover="color:#35D6F0;padding-left:8px"><span style="font-size:18px">{{ t.arrow }}</span><span>{{ t.name }}</span></button>
       </sc-for>
     </div>
-    <div style="min-height:520px;background:{{ typeWorld.bg }};color:{{ typeWorld.fg }};font-family:{{ typeWorld.font }};padding:32px 40px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;gap:32px;transition:background .5s,color .5s;box-shadow:0 40px 120px rgba(0,0,0,.5)">
-      <div style="display:flex;justify-content:space-between;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.04em"><span style="font-weight:600">{{ typeWorld.brand }}</span><span style="opacity:.7">{{ typeWorld.category }}</span></div>
-      <h3 style="margin:0;font-weight:{{ typeWorld.weight }};font-style:{{ typeWorld.italic }};font-size:clamp(40px,5vw,84px);line-height:.94;letter-spacing:{{ typeWorld.tracking }};font-variation-settings:{{ typeWorld.fvs }};max-width:14ch">{{ typeWorld.headline }}</h3>
-      <div style="display:flex;justify-content:space-between;align-items:end;gap:24px;font-family:'Instrument Sans',sans-serif"><p style="margin:0;font-size:15px;opacity:.85;max-width:40ch">{{ typeWorld.sub }}</p><span style="font-size:11px;letter-spacing:.06em;opacity:.7;white-space:nowrap">THIS IS WHAT YOURS COULD LOOK LIKE</span></div>
-    </div>
+    <button onClick="{{ typeWorld.open }}" aria-label="Enter {{ typeWorld.brand }}" style="all:unset;cursor:pointer;min-height:520px;background:{{ typeWorld.bg }};color:{{ typeWorld.fg }};font-family:{{ typeWorld.font }};padding:32px 40px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;gap:32px;transition:background .5s,color .5s;box-shadow:0 40px 120px rgba(0,0,0,.5)" style-focus-visible="outline:2px solid #35D6F0;outline-offset:6px">
+      <span style="display:flex;justify-content:space-between;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.04em"><span style="font-weight:600">{{ typeWorld.brand }}</span><span style="opacity:.7">{{ typeWorld.category }}</span></span>
+      <span style="display:block;font-weight:{{ typeWorld.weight }};font-style:{{ typeWorld.italic }};font-size:clamp(40px,5vw,84px);line-height:.94;letter-spacing:{{ typeWorld.tracking }};font-variation-settings:{{ typeWorld.fvs }};max-width:14ch">{{ typeWorld.headline }}</span>
+      <span style="display:flex;justify-content:space-between;align-items:end;gap:24px;font-family:'Instrument Sans',sans-serif"><span style="font-size:15px;opacity:.85;max-width:40ch">{{ typeWorld.sub }}</span><span style="font-size:11px;letter-spacing:.06em;opacity:.7;white-space:nowrap">STEP INSIDE →</span></span>
+    </button>
   </div>
 </section>
 
@@ -204,19 +217,19 @@ input::placeholder,textarea::placeholder{color:#5C6367}
   <div style="display:flex;flex-direction:column;gap:40px">
     <div style="display:flex;flex-direction:column;gap:16px"><span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">MISSION CONFIGURATION</span><h2 style="margin:0 0 0 -3px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5vw,76px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">Configure the vehicle.</h2><p style="margin:0;color:#9BA1A4;max-width:56ch">Every switch changes the estimate and the timeline. Nothing here is a quote until we have talked.</p></div>
     <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.2)">
-      <div style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">MISSION CLASS</span><div style="display:inline-grid;grid-auto-flow:column;grid-auto-columns:max-content;gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);align-self:start;justify-self:start"><sc-for list="{{ classes }}" as="c" hint-placeholder-count="3"><button onClick="{{ c.select }}" style="all:unset;cursor:pointer;padding:10px 16px;font-size:13px;font-weight:600;white-space:nowrap;background:{{ c.chipBg }};color:{{ c.chipFg }};transition:background .2s">{{ c.name }}</button></sc-for></div></div>
-      <div style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">PAYLOAD TYPE</span><span style="font-size:15px">{{ typeWorld.typeName }} <button onClick="{{ goTypes }}" style="all:unset;cursor:pointer;color:#35D6F0;margin-left:12px;font-size:12px;letter-spacing:.04em">CHANGE</button></span></div>
-      <div style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">PAGES</span><div style="display:flex;align-items:center;gap:18px"><button onClick="{{ pagesDown }}" style="all:unset;cursor:pointer;width:36px;height:36px;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:18px" style-hover="border-color:#35D6F0">−</button><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:28px;font-variation-settings:'wdth' 70;min-width:2ch;text-align:center">{{ cfg.pages }}</span><button onClick="{{ pagesUp }}" style="all:unset;cursor:pointer;width:36px;height:36px;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:18px" style-hover="border-color:#35D6F0">+</button><span style="font-size:13px;color:#9BA1A4">{{ pagesNote }}</span></div></div>
+      <div data-m-stack style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">MISSION CLASS</span><div style="display:inline-grid;grid-auto-flow:column;grid-auto-columns:max-content;gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);align-self:start;justify-self:start"><sc-for list="{{ classes }}" as="c" hint-placeholder-count="3"><button onClick="{{ c.select }}" style="all:unset;cursor:pointer;padding:10px 16px;font-size:13px;font-weight:600;white-space:nowrap;background:{{ c.chipBg }};color:{{ c.chipFg }};transition:background .2s">{{ c.name }}</button></sc-for></div></div>
+      <div data-m-stack style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">PAYLOAD TYPE</span><span style="font-size:15px">{{ typeWorld.typeName }} <button onClick="{{ goTypes }}" style="all:unset;cursor:pointer;color:#35D6F0;margin-left:12px;font-size:12px;letter-spacing:.04em">CHANGE</button></span></div>
+      <div data-m-stack style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">PAGES</span><div style="display:flex;align-items:center;gap:18px"><button onClick="{{ pagesDown }}" style="all:unset;cursor:pointer;width:36px;height:36px;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:18px" style-hover="border-color:#35D6F0">−</button><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:28px;font-variation-settings:'wdth' 70;min-width:2ch;text-align:center">{{ cfg.pages }}</span><button onClick="{{ pagesUp }}" style="all:unset;cursor:pointer;width:36px;height:36px;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:18px" style-hover="border-color:#35D6F0">+</button><span style="font-size:13px;color:#9BA1A4">{{ pagesNote }}</span></div></div>
       <sc-for list="{{ toggles }}" as="t" hint-placeholder-count="9">
-        <button onClick="{{ t.toggle }}" style="all:unset;cursor:pointer;display:grid;grid-template-columns:180px 1fr auto auto;gap:24px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center;color:#EDEFF0;transition:padding-left .16s" style-hover="padding-left:6px">
+        <button onClick="{{ t.toggle }}" data-m-row style="all:unset;cursor:pointer;display:grid;grid-template-columns:180px 1fr auto auto;gap:24px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center;color:#EDEFF0;transition:padding-left .16s" style-hover="padding-left:6px">
           <span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">{{ t.label }}</span>
           <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">{{ t.name }}</span><span style="font-size:12px;color:#5C6367">{{ t.note }}</span></span>
           <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:16px;font-variation-settings:'wdth' 70;white-space:nowrap;color:{{ t.priceColor }}">{{ t.price }}</span>
           <span style="width:44px;height:22px;border:1px solid {{ t.swBorder }};position:relative;transition:border-color .2s"><span style="position:absolute;top:3px;left:{{ t.swLeft }}px;width:14px;height:14px;background:{{ t.swBg }};transition:left .2s,background .2s"></span></span>
         </button>
       </sc-for>
-      <div style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">MAINTENANCE</span><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ maint }}" as="m" hint-placeholder-count="5"><button onClick="{{ m.select }}" style="all:unset;cursor:pointer;padding:10px 14px;font-size:13px;background:{{ m.bg }};color:{{ m.fg }};border:1px solid rgba(255,255,255,.2);transition:background .2s;display:flex;gap:10px;white-space:nowrap"><span style="font-weight:600">{{ m.name }}</span><span style="opacity:.7">{{ m.price }}</span></button></sc-for></div></div>
-      <div style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:start"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4;padding-top:10px">CUSTOM FEATURES</span><input value="{{ cfg.custom }}" onChange="{{ onCustom }}" placeholder="Anything not listed. Quoted separately after a call." style="all:unset;width:100%;box-sizing:border-box;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:15px"></div>
+      <div data-m-stack style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">MAINTENANCE</span><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ maint }}" as="m" hint-placeholder-count="5"><button onClick="{{ m.select }}" style="all:unset;cursor:pointer;padding:10px 14px;font-size:13px;background:{{ m.bg }};color:{{ m.fg }};border:1px solid rgba(255,255,255,.2);transition:background .2s;display:flex;gap:10px;white-space:nowrap"><span style="font-weight:600">{{ m.name }}</span><span style="opacity:.7">{{ m.price }}</span></button></sc-for></div></div>
+      <div data-m-stack style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:start"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4;padding-top:10px">CUSTOM FEATURES</span><input value="{{ cfg.custom }}" onChange="{{ onCustom }}" placeholder="Anything not listed. Quoted separately after a call." style="all:unset;width:100%;box-sizing:border-box;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:15px"></div>
     </div>
   </div>
   <div style="position:sticky;top:100px;display:flex;flex-direction:column;gap:24px;padding:28px;border:1px solid rgba(255,255,255,.2);background:rgba(7,8,9,.7);backdrop-filter:blur(10px)">
@@ -231,7 +244,7 @@ input::placeholder,textarea::placeholder{color:#5C6367}
 </section>
 
 <!-- 10 MISSION PROFILE + INQUIRY -->
-<section data-sec="10" data-screen-label="10 Mission profile" style="min-height:100vh;padding:14vh 40px 20vh;box-sizing:border-box;display:grid;grid-template-columns:minmax(300px,420px) minmax(0,1fr);gap:64px;align-items:start">
+<section data-sec="10" data-screen-label="10 Mission profile" data-m-stack style="min-height:100vh;padding:14vh 40px 20vh;box-sizing:border-box;display:grid;grid-template-columns:minmax(300px,420px) minmax(0,1fr);gap:64px;align-items:start">
   <div style="display:flex;flex-direction:column;gap:24px;position:sticky;top:100px">
     <span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">MISSION PROFILE</span>
     <div style="display:flex;flex-direction:column;font-size:14px;border-top:1px solid rgba(255,255,255,.2)">
@@ -259,6 +272,19 @@ input::placeholder,textarea::placeholder{color:#5C6367}
 <footer style="position:relative;padding:40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:12px;color:#9BA1A4;border-top:1px solid rgba(255,255,255,.12)"><span>ALEPH ONE — Creative technology studio, Tangerang / Jakarta</span><span style="display:flex;gap:24px"><a href="#" style="color:#9BA1A4">Instagram</a><a href="#" style="color:#9BA1A4">LinkedIn</a><a href="{{ waHref }}" style="color:#9BA1A4">WhatsApp</a><span>© 2026</span></span></footer>
 </main>
 
+<!-- WORLD: a sample site opened full-screen in place. The poster covers the iframe until it has loaded. -->
+<sc-if value="{{ visit }}" hint-placeholder-val="{{ false }}">
+  <div role="dialog" aria-modal="true" aria-label="{{ visit.brand }}" style="position:fixed;inset:0;z-index:55;background:{{ visit.bg }};view-transition-name:world">
+    <iframe src="{{ visit.src }}" title="{{ visit.brand }}" onLoad="{{ worldLoaded }}" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block"></iframe>
+    <img src="{{ visit.poster }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;pointer-events:none;opacity:{{ visit.posterOp }};transition:opacity .6s">
+    <div style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;padding:5px;background:rgba(7,8,9,.84);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#EDEFF0;font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:.06em;white-space:nowrap;box-shadow:0 12px 40px rgba(0,0,0,.35)">
+      <button onClick="{{ closeWorld }}" style="all:unset;cursor:pointer;padding:10px 14px;background:#EDEFF0;color:#070809;font-weight:600" style-focus-visible="outline:2px solid #35D6F0;outline-offset:2px">← ALEPH ONE</button>
+      <span style="padding:0 12px;color:#9BA1A4"><span data-desktop>MISSION {{ visit.n }} · </span><span style="color:#EDEFF0">{{ visit.brand }}</span> · {{ visit.status }}</span>
+      <sc-if value="{{ visit.live }}" hint-placeholder-val="{{ false }}"><a href="{{ visit.live }}" target="_blank" rel="noopener" style="padding:10px 12px 10px 0;color:#35D6F0">OPEN ↗</a></sc-if>
+    </div>
+  </div>
+</sc-if>
+
 <!-- 11 FINAL -->
 <sc-if value="{{ launched }}" hint-placeholder-val="{{ false }}">
   <div style="position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;justify-content:space-between;padding:110px 40px 90px;box-sizing:border-box;pointer-events:none;color:#EDEFF0">
@@ -278,7 +304,7 @@ input::placeholder,textarea::placeholder{color:#5C6367}
 class Component extends DCLogic {
   canvasRef = React.createRef();
   state = { quality: 'standard', steps: 0, locked: false, loaderGone: false, ready: false, entering: false, sec: 0, local: 0, scrollPct: 0, tel: { alt: 0, thrust: 0 }, tierIdx: 1, typeIdx: 0, pages: 5, opts: {}, maint: 'none', custom: '',
-    form: { name: '', business: '', email: '', social: '', about: '', extra: '', budget: 'Rp 1.000.000 – 2.000.000', when: 'This month' }, files: 0, launched: false, launchAt: 0, finalT: 0 };
+    form: { name: '', business: '', email: '', social: '', about: '', extra: '', budget: 'Rp 1.000.000 – 2.000.000', when: 'This month' }, files: 0, launched: false, launchAt: 0, finalT: 0, visit: null, visitLoaded: false };
   PHASES = ['LAUNCH SITE', 'PRE-LAUNCH', 'ENGINEERING', 'ASSEMBLY', 'IGNITION', 'ASCENT', 'ORBIT', 'MISSION SELECT', 'PAYLOAD TYPE', 'CONFIGURATION', 'MISSION SPEC'];
   PROBLEMS = [
     ['THE BODY', 'BRAND', 'The structure everyone sees first. A business needs an identity that holds at a glance, and a template borrows someone else\'s.'],
@@ -297,17 +323,16 @@ class Component extends DCLogic {
   SYSTEMS = ['SYSTEMS', 'GUIDANCE', 'PROPULSION', 'PAYLOAD', 'MISSION'];
   SYS_STATE = ['NOMINAL', 'ONLINE', 'READY', 'SECURED', 'READY'];
   WORLDS = [
-    { brand: 'Maison Ardent', category: 'LUXURY HOTEL', bg: '#F1EBE1', fg: '#1B1A17', accent: '#9A7B4F', font: "'Cormorant Garamond',serif", weight: 400, italic: 'normal', tracking: '-.01em', fvs: 'normal', headline: 'Rooms above the harbour.', sub: 'Forty rooms, one kitchen, a view that changes with the tide. Book directly and the third night is on the house.', nav1: 'Rooms', nav2: 'Dining', nav3: 'Journal', cta: 'BOOK', media: 'hotel terrace at dusk', tag: 'BOOKING · MULTILINGUAL' },
-    { brand: 'Morrow Coffee', category: 'SPECIALTY COFFEE', bg: '#0c1712', fg: '#f2e9d9', accent: '#c9973f', font: "Caprasimo,serif", weight: 400, italic: 'normal', tracking: '-.035em', fvs: 'normal', headline: 'Four origins at a time.', sub: 'A roastery on Ossington Avenue. Espresso, filter, and a kitchen that bakes from six. Every origin bought from a farm we have stood on.', nav1: 'Menu', nav2: 'Origin', nav3: 'Shop', cta: 'ORDER', shot: './assets/work/morrow-coffee.jpg', url: 'https://machtumens.github.io/Morrow-Coffee/', media: 'espresso bar, morning light', tag: 'BUILT · CATALOGUE · SHOP' },
-    { brand: 'Ace House', category: 'TENNIS CLUB', bg: '#06100C', fg: '#F4F2EC', accent: '#E4FF4F', font: "Anton,sans-serif", weight: 400, italic: 'normal', tracking: '-.015em', fvs: 'normal', headline: 'DAYLIGHT TO NIGHT COURT.', sub: 'Four courts as one scroll-driven WebGL walkthrough. The camera moves through the club and takes the light with it, while booking tracks the same scroll position.', nav1: 'Courts', nav2: 'Booking', nav3: 'Club', cta: 'BOOK', shot: './assets/work/ace-house.webp', url: 'https://machtumens.github.io/Ace-House-Tennis-Club/', media: 'night court under floodlight', tag: 'BUILT · WEBGL · BOOKING' },
-    { brand: 'Studio Garis', category: 'ARCHITECTURE STUDIO', bg: '#E9E9E6', fg: '#111111', accent: '#111111', font: "'Space Grotesk',sans-serif", weight: 300, italic: 'normal', tracking: '-.03em', fvs: 'normal', headline: 'Buildings that stay quiet.', sub: 'Houses, clinics and one school across Java. Each project shown in plan, section and the photographs that mattered.', nav1: 'Projects', nav2: 'Studio', nav3: 'Contact', cta: 'ENQUIRE', media: 'model photograph, white card', tag: 'PORTFOLIO · CASE STUDIES' },
-    { brand: 'Velocità', category: 'AUTOMOTIVE', bg: '#0A0A0B', fg: '#EDEDED', accent: '#E23B2E', font: "Archivo,sans-serif", weight: 600, italic: 'normal', tracking: '-.05em', fvs: "'wdth' 72", headline: '0–100 IN THE FIRST SCROLL.', sub: 'Configurator, test-drive booking, and every trim in real-time 3D. Built for the showroom floor and the phone in the queue.', nav1: 'Models', nav2: 'Configure', nav3: 'Dealers', cta: 'TEST DRIVE', media: 'studio shot, three-quarter front', tag: '3D CONFIGURATOR · BOOKING' },
-    { brand: 'Warung Lima', category: 'RESTAURANT', bg: '#1F2A1E', fg: '#F4EFE4', accent: '#E8B04B', font: "'Cormorant Garamond',serif", weight: 500, italic: 'italic', tracking: '-.01em', fvs: 'normal', headline: 'Dinner from five. Book a table.', sub: 'A short menu that changes with the market. Reservations by WhatsApp, private dining for twelve, closed Mondays.', nav1: 'Menu', nav2: 'Reserve', nav3: 'Private', cta: 'RESERVE', media: 'table set for two, candle', tag: 'MENU · RESERVATIONS' },
-    { brand: 'OmniCare', category: 'CLINIC SOFTWARE', bg: '#0c1418', fg: '#eef4f6', accent: '#34c6ee', font: "'Instrument Sans',sans-serif", weight: 600, italic: 'normal', tracking: '-.03em', fvs: 'normal', headline: 'Satu sistem untuk seluruh klinik.', sub: 'SIM Klinik dan SIMRS berbasis cloud: antrean, rekam medis elektronik, billing dan multi-cabang, terintegrasi SATUSEHAT dan BPJS.', nav1: 'Solusi', nav2: 'Demo', nav3: 'Harga', cta: 'DEMO', shot: './assets/work/omnicare.png', url: 'https://omnicare.co.id', media: 'product UI, antrean and rekam medis', tag: 'BUILT · SAAS · SATUSEHAT' },
-    { brand: 'Atelier Nol', category: 'FASHION / LUXURY', bg: '#FFFFFF', fg: '#000000', accent: '#000000', font: "'Cormorant Garamond',serif", weight: 400, italic: 'italic', tracking: '-.02em', fvs: 'normal', headline: 'Collection 07.', sub: 'Twenty-two pieces, made in Bandung, shipped worldwide. Editorial first; the shop is one tap away.', nav1: 'Collection', nav2: 'Shop', nav3: 'Stockists', cta: 'SHOP', media: 'editorial, full-length, grey seamless', tag: 'E-COMMERCE · PAYMENT GATEWAY' },
-    { brand: 'Kavling', category: 'REAL ESTATE', bg: '#F5F2EC', fg: '#17211E', accent: '#2E7D5B', font: "'Instrument Sans',sans-serif", weight: 600, italic: 'normal', tracking: '-.03em', fvs: 'normal', headline: 'Find the plot before the market does.', sub: 'Land and houses across Tangerang and Bogor, mapped, filtered, and answered by a human within the hour.', nav1: 'Listings', nav2: 'Map', nav3: 'Sell', cta: 'ENQUIRE', media: 'aerial plot photograph', tag: 'LISTINGS · MAP · LEAD ROUTING' },
-    { brand: 'Halo Halo', category: 'CREATIVE STUDIO', bg: '#FF4E1A', fg: '#111111', accent: '#FFFFFF', font: "Archivo,sans-serif", weight: 800, italic: 'normal', tracking: '-.05em', fvs: "'wdth' 100", headline: 'WE MAKE LOUD THINGS.', sub: 'Identity, campaign and motion for brands that would rather be noticed than liked by everyone.', nav1: 'Work', nav2: 'Studio', nav3: 'Say hi', cta: 'SAY HI', media: 'reel still, campaign', tag: 'PORTFOLIO · MOTION' }];
-  TYPES = [['Business website', 8], ['E-commerce website', 7], ['Restaurant / café', 1], ['Luxury brand', 0], ['Portfolio', 3], ['Startup / SaaS', 6], ['Hospitality', 5], ['Sports / fitness', 2], ['Custom experience', 9]];
+    { slug: 'maison-ardent', brand: 'Maison Ardent', category: 'LUXURY HOTEL', bg: '#F1EBE1', fg: '#1B1A17', accent: '#9A7B4F', font: "'Cormorant Garamond',serif", weight: 400, italic: 'normal', tracking: '-.01em', fvs: 'normal', headline: 'Rooms above the harbour.', sub: 'Forty rooms, one kitchen, a view that changes with the tide. Book directly and the third night is on the house.', nav1: 'Rooms', nav2: 'Dining', nav3: 'Journal', cta: 'BOOK', tag: 'BOOKING · MULTILINGUAL' },
+    { slug: 'morrow-coffee', brand: 'Morrow Coffee', category: 'SPECIALTY COFFEE', bg: '#0c1712', fg: '#f2e9d9', accent: '#c9973f', font: "Caprasimo,serif", weight: 400, italic: 'normal', tracking: '-.035em', fvs: 'normal', headline: 'Four origins at a time.', sub: 'A roastery on Ossington Avenue. Espresso, filter, and a kitchen that bakes from six. Every origin bought from a farm we have stood on.', nav1: 'Menu', nav2: 'Origin', nav3: 'Shop', cta: 'ORDER', live: 'https://machtumens.github.io/Morrow-Coffee/', tag: 'CATALOGUE · SHOP' },
+    { slug: 'ace-house', brand: 'Ace House', category: 'TENNIS CLUB', bg: '#06100C', fg: '#F4F2EC', accent: '#E4FF4F', font: "Anton,sans-serif", weight: 400, italic: 'normal', tracking: '-.015em', fvs: 'normal', headline: 'DAYLIGHT TO NIGHT COURT.', sub: 'Four courts as one scroll-driven WebGL walkthrough. The camera moves through the club and takes the light with it, while booking tracks the same scroll position.', nav1: 'Courts', nav2: 'Booking', nav3: 'Club', cta: 'BOOK', live: 'https://machtumens.github.io/Ace-House-Tennis-Club/', tag: 'WEBGL · BOOKING' },
+    { slug: 'studio-garis', brand: 'Studio Garis', category: 'ARCHITECTURE STUDIO', bg: '#E9E9E6', fg: '#111111', accent: '#111111', font: "'Space Grotesk',sans-serif", weight: 300, italic: 'normal', tracking: '-.03em', fvs: 'normal', headline: 'Buildings that stay quiet.', sub: 'Houses, clinics and one school across Java. Each project shown in plan, section and the photographs that mattered.', nav1: 'Projects', nav2: 'Studio', nav3: 'Contact', cta: 'ENQUIRE', tag: 'PORTFOLIO · CASE STUDIES' },
+    { slug: 'velocita', brand: 'Velocità', category: 'AUTOMOTIVE', bg: '#0A0A0B', fg: '#EDEDED', accent: '#E23B2E', font: "Archivo,sans-serif", weight: 600, italic: 'normal', tracking: '-.05em', fvs: "'wdth' 72", headline: '0–100 IN THE FIRST SCROLL.', sub: 'Configurator, test-drive booking, and every trim in real-time 3D. Built for the showroom floor and the phone in the queue.', nav1: 'Models', nav2: 'Configure', nav3: 'Dealers', cta: 'TEST DRIVE', tag: 'CONFIGURATOR · BOOKING' },
+    { slug: 'warung-lima', brand: 'Warung Lima', category: 'RESTAURANT', bg: '#1F2A1E', fg: '#F4EFE4', accent: '#E8B04B', font: "'Cormorant Garamond',serif", weight: 500, italic: 'italic', tracking: '-.01em', fvs: 'normal', headline: 'Dinner from five. Book a table.', sub: 'A short menu that changes with the market. Reservations by WhatsApp, private dining for twelve, closed Mondays.', nav1: 'Menu', nav2: 'Reserve', nav3: 'Private', cta: 'RESERVE', tag: 'MENU · RESERVATIONS' },
+    { slug: 'atelier-nol', brand: 'Atelier Nol', category: 'FASHION / LUXURY', bg: '#FFFFFF', fg: '#000000', accent: '#000000', font: "'Cormorant Garamond',serif", weight: 400, italic: 'italic', tracking: '-.02em', fvs: 'normal', headline: 'Collection 07.', sub: 'Twenty-two pieces, made in Bandung, shipped worldwide. Editorial first; the shop is one tap away.', nav1: 'Collection', nav2: 'Shop', nav3: 'Stockists', cta: 'SHOP', tag: 'E-COMMERCE · PAYMENT GATEWAY' },
+    { slug: 'kavling', brand: 'Kavling', category: 'REAL ESTATE', bg: '#F5F2EC', fg: '#17211E', accent: '#2E7D5B', font: "'Instrument Sans',sans-serif", weight: 600, italic: 'normal', tracking: '-.03em', fvs: 'normal', headline: 'Find the plot before the market does.', sub: 'Land and houses across Tangerang and Bogor, mapped, filtered, and answered by a human within the hour.', nav1: 'Listings', nav2: 'Map', nav3: 'Sell', cta: 'ENQUIRE', tag: 'LISTINGS · MAP · LEAD ROUTING' },
+    { slug: 'halo-halo', brand: 'Halo Halo', category: 'CREATIVE STUDIO', bg: '#FF4E1A', fg: '#111111', accent: '#FFFFFF', font: "Archivo,sans-serif", weight: 800, italic: 'normal', tracking: '-.05em', fvs: "'wdth' 100", headline: 'WE MAKE LOUD THINGS.', sub: 'Identity, campaign and motion for brands that would rather be noticed than liked by everyone.', nav1: 'Work', nav2: 'Studio', nav3: 'Say hi', cta: 'SAY HI', tag: 'PORTFOLIO · MOTION' }];
+  TYPES = [['Business website', 7], ['E-commerce website', 6], ['Restaurant / café', 1], ['Luxury brand', 0], ['Portfolio', 3], ['Startup / SaaS', 7], ['Hospitality', 5], ['Sports / fitness', 2], ['Custom experience', 8]];
   TOGGLES = [['3D / INTERACTIVE', 'motion', 'Cinematic motion upgrade'], ['E-COMMERCE', 'payment', 'Payment gateway: Midtrans / Xendit, QRIS'], ['BOOKING SYSTEM', 'booking', 'Reservations, slots, confirmations'], ['AI / AUTOMATION', 'chatbot', 'AI chatbot trained on your business'], ['AI / AUTOMATION', 'autoreply', 'WhatsApp auto-reply'], ['LANGUAGE', 'bilingual', 'Indonesian + English'], ['BRAND ASSETS', 'logo', 'Logo'], ['BRAND ASSETS', 'photo', 'Product photography, 10 items'], ['DOMAIN', 'domain', '.com / .id domain, registered to you'], ['SPEED', 'express', 'Express: 50% faster, +50%']];
   ADDON_DAYS = { payment: 3, booking: 3, chatbot: 2, bilingual: 2, motion: 1, autoreply: 1 };
   get P() { return window.ALEPH_PRICES; }
@@ -335,10 +360,44 @@ class Component extends DCLogic {
     addEventListener('scroll', this.onScroll, { passive: true }); addEventListener('resize', this.onScroll);
     this.onGuard = e => this.guard(e); this.onTouchStart = e => { this.touchY = e.touches[0].clientY; };
     addEventListener('wheel', this.onGuard, { passive: false }); addEventListener('touchstart', this.onTouchStart, { passive: true }); addEventListener('touchmove', this.onGuard, { passive: false }); addEventListener('keydown', this.onGuard);
+    this.onPop = () => this.leaveWorld(); addEventListener('popstate', this.onPop);
+    this.onEsc = e => { if (e.key === 'Escape' && this.state.visit !== null) this.closeWorld(); }; addEventListener('keydown', this.onEsc);
     this.telT = setInterval(() => { if (window.AlephRocket) { const s = window.AlephRocket.stats(); this.setState({ tel: { alt: s.alt, thrust: s.thrust } }); } if (this.state.launched) this.setState({ finalT: (performance.now() - this.state.launchAt) / 1000 }); }, 250);
     this.measure();
   }
-  componentWillUnmount() { removeEventListener('scroll', this.onScroll); this.unguard(); clearTimeout(this.commitT); clearInterval(this.telT); clearTimeout(this.hardCap); }
+  componentWillUnmount() { removeEventListener('scroll', this.onScroll); removeEventListener('popstate', this.onPop); removeEventListener('keydown', this.onEsc); this.unguard(); clearTimeout(this.commitT); clearInterval(this.telT); clearTimeout(this.hardCap); clearTimeout(this.visitT); }
+  // Worlds. Opening pushes a history entry so a phone's Back button closes the world instead of leaving the site.
+  openWorld(i, el) {
+    if (this.state.visit !== null) return;
+    this.visitEl = el; history.pushState({ alephWorld: i }, '');
+    document.documentElement.style.overflow = 'hidden'; if (window.AlephRocket) window.AlephRocket.pause(true);
+    clearTimeout(this.visitT); this.visitT = setTimeout(() => this.setState({ visitLoaded: true }), 8000); // ponytail: slow site still gets revealed
+    this.morph(el, true, () => new Promise(r => this.setState({ visit: i, visitLoaded: false }, r)));
+  }
+  closeWorld() { if (history.state && history.state.alephWorld === this.state.visit) history.back(); else this.leaveWorld(); }
+  leaveWorld() {
+    if (this.state.visit === null) return; clearTimeout(this.visitT);
+    this.morph(this.visitEl, false, () => new Promise(r => this.setState({ visit: null }, r))).then(() => {
+      document.documentElement.style.overflow = ''; if (window.AlephRocket) window.AlephRocket.pause(false);
+    });
+  }
+  // View Transitions API: the clicked poster and the world overlay take turns holding the name "world".
+  // No API (older Firefox) or reduced motion: the state change just happens.
+  morph(el, opening, update) {
+    if (!el || !document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) return update();
+    if (opening) el.style.viewTransitionName = 'world';
+    const t = document.startViewTransition(() => update().then(() => { el.style.viewTransitionName = opening ? '' : 'world'; }));
+    return t.finished.catch(() => {}).then(() => { el.style.viewTransitionName = ''; });
+  }
+  onWorldLoad(e) {
+    // Same-origin worlds: Esc works from inside the iframe, and #anchor clicks scroll without adding history
+    // entries (each one would otherwise eat a Back press before the world closes). Cross-origin: skipped.
+    try {
+      const w = e.target.contentWindow, d = w.document; w.addEventListener('keydown', this.onEsc);
+      d.addEventListener('click', ev => { const a = !ev.defaultPrevented && ev.target.closest && ev.target.closest('a[href^="#"]'), t = a && a.getAttribute('href').length > 1 && d.getElementById(a.getAttribute('href').slice(1)); if (t) { ev.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); } });
+    } catch (_) {}
+    this.setState({ visitLoaded: true });
+  }
   componentDidUpdate(_, ps) {
     // The dc runtime calls componentDidUpdate without prevState, so `ps` arrives undefined.
     // Falling back to {} made every `!ps.x` test true forever - which fired the one-shot
@@ -405,13 +464,16 @@ class Component extends DCLogic {
     const systems = this.SYSTEMS.map((n, i) => { const on = s.sec > 3 || (s.sec === 3 && t > .1 + i * .12); return { name: n, state: on ? this.SYS_STATE[i] : 'STANDBY', color: on ? '#35D6F0' : '#5C6367' }; });
     let s4; if (s.sec !== 4) s4 = { label: 'IGNITION SEQUENCE · HOLD', count: 'T-10', sub: 'Range is clear. Waiting on your scroll.', color: '#EDEFF0' };
     else { const n = 10 - Math.floor(Math.min(.999, t / .8) * 11); s4 = t < .8 ? { label: 'IGNITION SEQUENCE · ' + (t > .45 ? 'ENGINES LIT' : 'ARMING'), count: 'T-' + Math.max(0, n), sub: t > .45 ? 'Nine engines at full thrust. Hold-downs release at zero.' : 'Propellant loaded. Service arms retracted. Flight computer has control.', color: t > .45 ? '#35D6F0' : '#EDEFF0' } : { label: 'LIFTOFF', count: 'GO', sub: 'The vehicle has cleared the tower. Payload manifest follows.', color: '#35D6F0' }; }
-    const worlds = W.map((w, i) => ({ ...w, n: String(i + 1).padStart(2, '0'), align: i % 2 ? 'flex-start' : 'flex-end', noShot: !w.shot }));
+    const narrow = innerWidth < 700, poster = w => './assets/work/posters/' + w.slug + (narrow ? '-m' : '') + '.webp';
+    const worlds = W.map((w, i) => ({ ...w, n: String(i + 1).padStart(2, '0'), align: i % 2 ? 'flex-start' : 'flex-end', poster: poster(w), ratio: narrow ? '39 / 70' : '16 / 10',
+      status: w.live ? 'LIVE SITE' : 'CONCEPT', statusColor: w.live ? '#35D6F0' : '#9BA1A4', open: e => this.openWorld(i, e.currentTarget.querySelector('[data-poster]')) }));
+    const v = s.visit === null ? null : worlds[s.visit];
     const classes = P.tiers.map((tier, i) => ({ n: '0' + (i + 1), name: cls[i], tierName: tier.name, pages: tier.pages, pagesLabel: tier.pages + (tier.pages === 1 ? ' page' : ' pages'), days: tier.days, price: this.idr(tier.price), badge: tier.badge ? 'MOST CHOSEN' : (i === 2 ? '2 ADD-ONS INCLUDED' : ''), scope: tier.scope,
       desc: ['For businesses that need a strong, professional web presence, live in under a week.', 'For businesses that need more pages, a catalogue, and forms that reach WhatsApp.', 'For businesses that want a fully custom, immersive experience with AI and advanced SEO.'][i],
       bg: i === s.tierIdx ? 'rgba(53,214,240,.08)' : 'rgba(7,8,9,.6)', line: i === s.tierIdx ? '#35D6F0' : 'transparent', selColor: i === s.tierIdx ? '#35D6F0' : '#5C6367', selLabel: i === s.tierIdx ? 'SELECTED' : 'SELECT',
       chipBg: i === s.tierIdx ? '#EDEFF0' : 'rgba(7,8,9,.6)', chipFg: i === s.tierIdx ? '#070809' : '#EDEFF0', select: () => this.setState({ tierIdx: i, pages: Math.max(this.state.pages, tier.pages) }) }));
     const types = this.TYPES.map((tp, i) => ({ name: tp[0], color: i === s.typeIdx ? '#35D6F0' : '#EDEFF0', arrow: i === s.typeIdx ? '●' : '→', select: () => this.setState({ typeIdx: i }) }));
-    const typeWorld = { ...W[this.TYPES[s.typeIdx][1]], typeName: this.TYPES[s.typeIdx][0] };
+    const typeWi = this.TYPES[s.typeIdx][1], typeWorld = { ...W[typeWi], typeName: this.TYPES[s.typeIdx][0], open: e => this.openWorld(typeWi, e.currentTarget) };
     const toggles = this.TOGGLES.map(([label, id, name]) => { const a = P.addons.find(x => x.id === id), on = !!s.opts[id], isFree = c.free.has(id);
       const price = id === 'express' ? '+' + this.idr(c.tier.price * .5) : isFree ? 'Included' : this.idr(a.price) + (a.unit ? ' ' + a.unit.replace('/bln', '/mo').replace('/thn', '/yr').replace('mulai', 'from') : '');
       const note = id === 'chatbot' ? 'Plus hosting Rp 150.000/mo' : id === 'express' ? 'Same hours, half the calendar' : a.trap ? 'Scoped on the first call' : '';
@@ -440,6 +502,7 @@ class Component extends DCLogic {
       onFiles: e => this.setState({ files: e.target.files.length }), filesLabel: s.files ? s.files + ' FILE' + (s.files > 1 ? 'S' : '') + ' ATTACHED' : 'ATTACH FILES', waHref,
       submitNote: s.form.name && s.form.business ? 'Opens WhatsApp with the specification.' : 'Name and business are required.',
       submit: () => { if (!s.form.name || !s.form.business) return; window.open(waHref, '_blank', 'noopener'); this.setState({ launched: true, launchAt: performance.now(), finalT: 0 }); if (window.AlephRocket) window.AlephRocket.launch(); },
+      visit: v && { ...v, src: v.live || './worlds/' + v.slug + '.html', posterOp: s.visitLoaded ? 0 : 1 }, worldLoaded: e => this.onWorldLoad(e), closeWorld: () => this.closeWorld(),
       launched: s.launched, finalStage, finalText: ft > 8, missionId: (s.form.business || 'ALEPH').replace(/[^A-Za-z0-9]/g, '').slice(0, 6).toUpperCase().padEnd(6, '0') + '-' + String(s.pages).padStart(2, '0'),
       resetAll: () => { this.setState({ launched: false }); if (window.AlephRocket) window.AlephRocket.reset(); }
     };

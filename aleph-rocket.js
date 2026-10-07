@@ -74,7 +74,7 @@ const M = {
   cone: new THREE.MeshBasicMaterial({ color: 0xFFE9CC, transparent: true, opacity: .045, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide })
 };
 const parts = {}, arms = [];
-let R, scene, cam, rocket, fairA, fairB, earth, atmo, clouds, moon, stars, stars2, smoke, flame, flameCore, engLight, vapor, keyL, rimL, spot = [], beacons = [];
+let R, loop, scene, cam, rocket, fairA, fairB, earth, atmo, clouds, moon, stars, stars2, smoke, flame, flameCore, engLight, vapor, keyL, rimL, spot = [], beacons = [];
 const S = { sec: 0, local: 0, launched: false, launchAt: 0, mouse: [0, 0] };
 const A = { pos: V3(2.4, 4.2, 3.6), tgt: V3(0, 4, 0), fov: 42, alt: 0, thrust: 0, tilt: 0, bg: new THREE.Color('#070809'), fogFar: 220, stars: 0, earth: 0, arms: 0, open: 0, payY: 0, shake: 0, lunar: 0, drift: 0 };
 let prMax = 1, fps = 0, frames = 0, tF = 0, tPrev = performance.now(), first = false, onFirst = null, quality = 'standard';
@@ -326,8 +326,11 @@ window.AlephRocket = {
     const resize = () => { const w = canvas.clientWidth || innerWidth, h = canvas.clientHeight || innerHeight; R.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); };
     resize(); addEventListener('resize', resize);
     if (quality === 'cinema') addEventListener('pointermove', e => { S.mouse = [e.clientX / innerWidth * 2 - 1, e.clientY / innerHeight * 2 - 1]; }, { passive: true });
-    let logged = 0; R.setAnimationLoop(now => { try { tick(now); } catch (e) { if (logged++ < 3) console.warn('AlephRocket tick: ' + (e && e.stack || e)); } });
+    let logged = 0; loop = now => { try { tick(now); } catch (e) { if (logged++ < 3) console.warn('AlephRocket tick: ' + (e && e.stack || e)); } };
+    R.setAnimationLoop(loop);
   },
+  // Stops drawing while a full-screen world covers the canvas, so the iframe gets the GPU.
+  pause(on) { if (R) R.setAnimationLoop(on ? null : loop); },
   set(o) { Object.assign(S, o); },
   setAccent(hex) { const c = new THREE.Color(hex); M.accent.emissive.copy(c); if (rimL) rimL.color.copy(c); if (atmo) atmo.material.color.copy(c); },
   launch() { S.launched = true; S.launchAt = performance.now(); },

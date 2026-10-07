@@ -1,0 +1,856 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kavling — Land and houses in Tangerang and Bogor</title>
+<meta name="description" content="Land and houses across Tangerang and Bogor, mapped, filtered, and answered by a human within the hour.">
+<meta name="theme-color" content="#F5F2EC">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{
+  --paper:#F5F2EC;--paper2:#ECE7DC;--card:#FBFAF7;--ink:#17211E;--ink2:#46514D;--ink3:#5F6A65;
+  --line:rgba(23,33,30,.13);--line2:rgba(23,33,30,.3);
+  --green:#2E7D5B;--green-d:#24684B;--green-ink:#22674A;--tint:#E0ECE3;--sand:#E9DDC5;--sand2:#D6C39E;
+  --mono:ui-monospace,"SF Mono","Cascadia Mono","Roboto Mono",Menlo,Consolas,monospace;
+  --sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --hdr:64px;--gut:clamp(16px,2.3vw,32px);--ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html:has(dialog[open]){overflow:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+h1,h2,h3{font-weight:600;letter-spacing:-.03em;margin:0}
+p{margin:0}
+:focus-visible{outline:2px solid var(--green);outline-offset:3px;border-radius:3px}
+.num,.tn{font-variant-numeric:tabular-nums}
+.mono{font-family:var(--mono)}
+.wrap{max-width:1480px;margin:0 auto;padding:0 var(--gut)}
+.kicker{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--green-ink)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;z-index:99;background:var(--ink);color:var(--paper);padding:10px 14px;border-radius:4px}
+.skip:focus{top:12px}
+section[id],aside[id]{scroll-margin-top:calc(var(--hdr) + 12px)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:44px;padding:0 20px;border:0;border-radius:4px;background:var(--green);color:#fff;font-weight:600;font-size:14px;cursor:pointer;text-decoration:none;transition:background .2s,box-shadow .2s}
+.btn:hover{background:var(--green-d);box-shadow:0 6px 18px -8px rgba(46,125,91,.7)}
+.btn:active{transform:translateY(1px)}
+.btn svg{transition:transform .25s var(--ease)}
+.btn:hover svg{transform:translateX(3px)}
+.btn.sm{height:38px;padding:0 14px;font-size:13.5px}
+.btn.wide{width:100%;height:50px;font-size:15px}
+.ghost{display:inline-flex;align-items:center;gap:7px;height:38px;padding:0 12px;border:1px solid var(--line2);border-radius:4px;background:transparent;font-size:13.5px;font-weight:500;cursor:pointer;transition:border-color .2s,background .2s}
+.ghost:hover{border-color:var(--ink);background:#fff}
+
+/* header */
+.hdr{position:sticky;top:0;z-index:40;height:var(--hdr);background:rgba(245,242,236,.92);backdrop-filter:saturate(1.3) blur(10px);border-bottom:1px solid var(--line)}
+.hdr-in{height:100%;display:flex;align-items:center;gap:28px}
+.brand{display:inline-flex;align-items:center;gap:10px;font-weight:650;font-size:21px;letter-spacing:-.035em;text-decoration:none}
+.nav{display:flex;gap:2px}
+.nav a{padding:8px 13px;border-radius:999px;text-decoration:none;color:var(--ink2);font-weight:500;font-size:15px;transition:background .2s,color .2s}
+.nav a:hover{background:var(--paper2);color:var(--ink)}
+.desk{margin-left:auto;display:flex;align-items:center;gap:9px;font:12px/1 var(--mono);color:var(--ink2)}
+.dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 3px rgba(46,125,91,.18)}
+.desk.closed .dot{background:var(--ink3);box-shadow:0 0 0 3px rgba(23,33,30,.1)}
+.hdr-cta{letter-spacing:.09em;font-size:13px}
+.menu-btn{display:none;width:42px;height:42px;border:1px solid var(--line2);border-radius:4px;background:transparent;cursor:pointer;flex-direction:column;justify-content:center;align-items:center;gap:5px}
+.menu-btn span{display:block;width:16px;height:1.6px;background:var(--ink);transition:transform .2s}
+.menu-btn[aria-expanded=true] span:first-child{transform:translateY(3.3px) rotate(45deg)}
+.menu-btn[aria-expanded=true] span:last-child{transform:translateY(-3.3px) rotate(-45deg)}
+.mnav{position:absolute;left:0;right:0;top:100%;background:var(--paper);border-bottom:1px solid var(--line);padding:8px var(--gut) 20px;box-shadow:0 20px 30px -20px rgba(23,33,30,.3)}
+.mnav a{display:flex;justify-content:space-between;padding:15px 0;border-bottom:1px solid var(--line);text-decoration:none;font-size:22px;font-weight:600;letter-spacing:-.03em}
+.mnav a::after{content:"→";color:var(--green)}
+
+/* hero */
+.hero{display:flex;min-height:clamp(560px,calc(100svh - var(--hdr)),940px);padding:34px var(--gut) var(--gut) calc(var(--gut) + 18px)}
+.sheet{position:relative;flex:1;display:flex}
+.sheet::before,.sheet::after{content:"";position:absolute;pointer-events:none}
+.sheet::before{left:0;right:0;top:-12px;height:8px;background:repeating-linear-gradient(90deg,var(--line2) 0 1px,transparent 1px 24px) left bottom/100% 4px no-repeat,repeating-linear-gradient(90deg,var(--ink2) 0 1px,transparent 1px 120px) left bottom/100% 8px no-repeat}
+.sheet::after{top:0;bottom:0;left:-12px;width:8px;background:repeating-linear-gradient(180deg,var(--line2) 0 1px,transparent 1px 24px) right top/4px 100% no-repeat,repeating-linear-gradient(180deg,var(--ink2) 0 1px,transparent 1px 120px) right top/8px 100% no-repeat}
+.co{position:absolute;font:10.5px/1 var(--mono);color:var(--ink3);letter-spacing:.04em;white-space:nowrap}
+.co.t{top:-30px}
+.co.l{left:-16px;transform:translateX(-100%) rotate(-90deg);transform-origin:right top}
+.photo{position:absolute;inset:0;border-radius:3px;overflow:hidden;background:#9fae8f}
+.photo>img{width:100%;height:100%;object-fit:cover;object-position:50% 68%}
+.cap{position:absolute;right:14px;bottom:14px;font:11px/1 var(--mono);color:#fff;background:rgba(23,33,30,.58);padding:7px 10px;border-radius:999px;letter-spacing:.02em}
+.ticker{position:absolute;top:22px;right:22px;width:352px;background:var(--paper);border-radius:4px;padding:15px 16px 10px;box-shadow:0 18px 40px -16px rgba(23,33,30,.45)}
+.ticker-h{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.ticker-h span{font:11px/1 var(--mono);color:var(--ink3)}
+.tk{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 6px;margin:0 -6px;border-bottom:1px solid var(--line);text-decoration:none;border-radius:3px;transition:background .2s}
+.tk:last-of-type{border-bottom:0}
+.tk:hover{background:var(--tint)}
+.tk .code{font:11px/1 var(--mono);color:var(--ink3)}
+.tk b{display:block;font-weight:600;font-size:14.5px;line-height:1.2}
+.tk small{display:block;font:11.5px/1.3 var(--mono);color:var(--ink2);margin-top:2px}
+.tk .p{font:600 14px/1 var(--mono)}
+.ticker-f{display:block;padding:9px 0 4px;font:12px/1 var(--mono);color:var(--green-ink);text-decoration:none}
+.ticker-f:hover{text-decoration:underline}
+.panel{position:absolute;left:0;bottom:0;width:min(860px,63%);background:var(--paper);padding:34px 44px 0 0;border-top-right-radius:6px}
+.eyebrow{display:flex;align-items:center;gap:10px;font:12px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.hero h1{margin:18px 0 18px;font-size:clamp(38px,5.25vw,80px);line-height:.97;letter-spacing:-.035em;text-wrap:balance}
+.sub{max-width:34em;font-size:clamp(16px,1.3vw,18.5px);line-height:1.5;color:var(--ink2)}
+.search{display:grid;grid-template-columns:1.15fr 1fr 1.05fr auto;margin-top:26px;background:#fff;border:1px solid var(--ink);border-radius:5px;box-shadow:0 14px 30px -22px rgba(23,33,30,.6)}
+.fld{position:relative;display:flex;flex-direction:column;justify-content:center;gap:3px;padding:10px 16px;border-right:1px solid var(--line);min-width:0;transition:background .2s}
+.fld:first-child{border-radius:4px 0 0 4px}
+.fld:hover,.fld:focus-within{background:var(--tint)}
+.fld span{font:10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+select{appearance:none;-webkit-appearance:none;cursor:pointer;background:transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%2317211E' stroke-width='1.5'/%3E%3C/svg%3E") right 2px center no-repeat;padding-right:20px}
+.fld select{border:0;font-weight:600;font-size:16px;padding-top:2px;padding-bottom:2px;width:100%;text-overflow:ellipsis}
+.fld select:focus-visible{outline:none}
+.go{height:auto;min-height:62px;border-radius:0 4px 4px 0;padding:0 22px;font-size:15px;white-space:nowrap}
+.quick{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:14px 0 30px}
+.quick>span{font:11px/1 var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:.08em;margin-right:4px}
+.quick button{border:1px solid var(--line2);background:transparent;border-radius:999px;padding:6px 12px;font-size:13.5px;cursor:pointer;transition:all .2s}
+.quick button:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+
+/* facts */
+.facts{border-bottom:1px solid var(--line)}
+.facts-g{display:grid;grid-template-columns:repeat(4,1fr)}
+.fact{padding:30px 28px 34px 0;border-right:1px solid var(--line)}
+.fact+.fact{padding-left:28px}
+.fact:last-child{border-right:0}
+.fact .n{font:12px/1 var(--mono);color:var(--green-ink)}
+.fact h3{font-size:19px;margin:12px 0 6px}
+.fact p{font-size:14.5px;color:var(--ink2);max-width:30em}
+
+/* listings */
+.listings{padding:clamp(64px,8vw,112px) 0 clamp(64px,8vw,104px)}
+.sec-head{display:flex;justify-content:space-between;align-items:flex-end;gap:32px;margin-bottom:30px}
+.sec-head h2{font-size:clamp(32px,4vw,58px);line-height:1;margin-top:16px;text-wrap:balance}
+.count{text-align:right;flex:none}
+.count b{display:block;font:500 clamp(48px,5.4vw,84px)/.9 var(--mono);letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.count b i{font-style:normal;color:var(--ink3);opacity:.55}
+.count>span{font:12px/1 var(--mono);color:var(--ink2);text-transform:uppercase;letter-spacing:.06em}
+.filters{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;padding:16px 0;border-top:1px solid var(--ink);border-bottom:1px solid var(--line);margin-bottom:28px}
+.fg{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.fl{font:11px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-right:6px}
+.chip{height:34px;padding:0 13px;border:1px solid var(--line2);border-radius:999px;background:transparent;font-size:14px;font-weight:500;cursor:pointer;transition:background .2s,border-color .2s,color .2s;font-variant-numeric:tabular-nums}
+.chip:hover{border-color:var(--ink);background:#fff}
+.chip[aria-pressed=true]{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.sort{display:flex;align-items:center;margin-left:auto}
+.sort select{height:34px;border:1px solid var(--line2);border-radius:4px;padding:0 30px 0 12px;background-position:right 11px center;font-size:14px;font-weight:500}
+.reset{border:0;background:none;color:var(--green-ink);font-size:14px;text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:6px 0}
+.split{display:grid;grid-template-columns:minmax(0,1fr) clamp(380px,34vw,520px);gap:28px;align-items:start}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.card{position:relative;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;transition:border-color .25s,box-shadow .25s,transform .25s}
+.card:hover{border-color:var(--line2);box-shadow:0 18px 36px -24px rgba(23,33,30,.45)}
+.card.hot{border-color:var(--green);box-shadow:0 0 0 1px var(--green),0 18px 36px -24px rgba(23,33,30,.45)}
+.card.flash{animation:flash 1.4s var(--ease)}
+@keyframes flash{0%,40%{background:var(--tint)}100%{background:var(--card)}}
+.card:focus{outline:none}
+.ph{position:relative;aspect-ratio:3/2;overflow:hidden;background:var(--paper2)}
+.ph img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease)}
+.card:hover .ph img{transform:scale(1.035)}
+.badge,.cert{position:absolute;top:12px;font:600 11px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:7px 9px;border-radius:3px}
+.badge{left:12px;background:var(--paper);color:var(--ink)}
+.cert{right:12px;background:var(--ink);color:var(--paper)}
+.body{display:flex;flex-direction:column;flex:1;padding:18px 20px 18px}
+.meta{display:flex;justify-content:space-between;gap:12px;font:12px/1.3 var(--mono);color:var(--ink3)}
+.meta b{font-weight:500;color:var(--ink2)}
+.card h3{font-size:20px;line-height:1.2;margin:9px 0 14px;text-wrap:balance}
+.spec{display:grid;grid-template-columns:repeat(3,1fr);margin:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.spec div{padding:10px 0 10px 12px;border-left:1px solid var(--line)}
+.spec div:first-child{padding-left:0;border-left:0}
+.spec dt{font:10.5px/1 var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--ink3)}
+.spec dd{margin:6px 0 0;font:500 15px/1 var(--mono);font-variant-numeric:tabular-nums}
+.price{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin:14px 0 12px}
+.price small{display:block;font:10.5px/1 var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:6px}
+.price .big{font-size:28px;font-weight:650;letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.price .pm{text-align:right;font:500 14px/1 var(--mono);color:var(--green-ink)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;list-style:none;margin:0 0 16px;padding:0}
+.tags li{font-size:12.5px;padding:4px 9px;border-radius:999px;background:var(--paper2);color:var(--ink2)}
+.acts{display:flex;align-items:center;gap:8px;margin-top:auto}
+.chk{margin-left:auto;font:11px/1 var(--mono);color:var(--ink3)}
+@media (min-width:1241px),(min-width:760px) and (max-width:1000px){
+  .card.wide{grid-column:1/-1;flex-direction:row}
+  .card.wide .ph{flex:0 0 52%;aspect-ratio:auto;min-height:100%}
+  .card.wide .body{padding:24px 26px}
+  .card.wide h3{font-size:24px}
+}
+.empty{padding:48px 32px;border:1px dashed var(--line2);border-radius:6px;text-align:center}
+.empty h3{font-size:24px;margin-bottom:8px}
+.empty p{color:var(--ink2);max-width:30em;margin:0 auto 20px}
+.empty div{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+/* map */
+.map{position:sticky;top:calc(var(--hdr) + 14px)}
+.map-in{display:flex;flex-direction:column;max-height:calc(100svh - var(--hdr) - 28px);background:var(--card);border:1px solid var(--line);border-radius:6px;padding:16px 16px 14px}
+.map-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding-bottom:12px}
+.map-top h2{font-size:20px;margin-top:8px}
+.map-top span{font:11px/1.3 var(--mono);color:var(--ink3);text-align:right}
+.map svg{display:block;width:100%;height:auto;flex:1 1 auto;min-height:0;border-radius:4px;background:var(--paper)}
+.rg{fill:var(--sand);stroke:#fff;stroke-width:2;transition:fill .3s,opacity .3s}
+svg[data-area=tangerang] #rg-t,svg[data-area=bogor] #rg-b{fill:#D5E6D9}
+svg[data-area=tangerang] #rg-b,svg[data-area=bogor] #rg-t{opacity:.5}
+.river{fill:none;stroke:#9EC7B0;stroke-width:3.5;stroke-linecap:round}
+.rl{font:600 15px var(--sans);letter-spacing:.16em;fill:var(--ink)}
+.rs,.xl{font:10px var(--mono);letter-spacing:.06em;fill:var(--ink3)}
+.riv-l{font:italic 500 11px var(--sans);fill:var(--green-ink);letter-spacing:.04em}
+.toll-c{fill:none;stroke:var(--ink);stroke-width:5.5;stroke-linecap:round}
+.toll-i{fill:none;stroke:#F5F2EC;stroke-width:1.6;stroke-dasharray:5 5}
+.shield rect{fill:var(--ink)}
+.shield text{font:700 8.5px var(--mono);fill:#F5F2EC;letter-spacing:.08em}
+.pin{cursor:pointer;outline:none}
+.pin .tag{fill:var(--ink);transition:fill .2s}
+.pin .tg{font:600 12px var(--mono);fill:#fff;pointer-events:none}
+.pin .pt{fill:var(--ink);stroke:#fff;stroke-width:2;transition:fill .2s}
+.pin .halo{fill:var(--green);opacity:0;transition:opacity .2s}
+.pin .pn{font:600 9.5px var(--sans);letter-spacing:.07em;fill:var(--ink2);paint-order:stroke;stroke:var(--sand);stroke-width:3px;stroke-linejoin:round}
+.pin:hover .tag,.pin.hot .tag,.pin:focus-visible .tag{fill:var(--green)}
+.pin:hover .pt,.pin.hot .pt{fill:var(--green)}
+.pin.hot .halo{opacity:.25}
+.pin:focus-visible .tag{stroke:var(--ink);stroke-width:2}
+.pin.off{opacity:.25}
+.pin.ping .halo{animation:ping 1.1s var(--ease) 2}
+@keyframes ping{from{r:6px;opacity:.55}to{r:26px;opacity:0}}
+.readout{min-height:92px;margin-top:12px;padding:12px 14px;border-radius:4px;background:var(--paper2);font-size:14px}
+.readout .ro-h{display:flex;justify-content:space-between;gap:10px;font:11px/1.3 var(--mono);color:var(--ink3);text-transform:uppercase;letter-spacing:.05em}
+.readout .ro-t{font-weight:600;margin:5px 0 6px;line-height:1.25}
+.readout .ro-f{display:flex;flex-wrap:wrap;gap:4px 14px;font:13px/1.3 var(--mono);color:var(--ink2)}
+.readout .ro-f b{color:var(--ink);font-weight:600}
+.readout .ro-f em{font-style:normal;color:var(--green-ink)}
+.readout.idle{display:flex;align-items:center;color:var(--ink2)}
+.t-touch{display:none}
+@media (hover:none){.t-hover{display:none}.t-touch{display:inline}}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;list-style:none;margin:12px 0 0;padding:0;font:11px/1 var(--mono);color:var(--ink2)}
+.legend li{display:flex;align-items:center;gap:7px}
+.legend i{display:inline-block;width:20px;height:6px;border-radius:2px}
+.lg-toll{background:repeating-linear-gradient(90deg,var(--ink) 0 5px,#F5F2EC 5px 7px,var(--ink) 7px 10px);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.lg-river{background:#9EC7B0;height:4px!important}
+.lg-pin{background:var(--ink);height:12px!important;width:16px!important}
+.lg-x{background:repeating-linear-gradient(45deg,rgba(23,33,30,.25) 0 1px,#EFEAE0 1px 4px);height:12px!important;width:16px!important;border:1px solid var(--line)}
+
+/* sell */
+.sell{background:var(--ink);color:var(--paper);padding:clamp(72px,9vw,128px) 0 clamp(56px,7vw,96px)}
+.sell .kicker{color:#8FD0AE}
+.sell-top{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:clamp(32px,6vw,96px);align-items:start}
+.sell h2{font-size:clamp(34px,4.4vw,64px);line-height:1;margin:18px 0 22px;text-wrap:balance}
+.sell-lede{color:#C4CCC7;font-size:18px;max-width:32em}
+.fee{display:grid;grid-template-columns:auto 1fr;gap:10px 32px;align-items:end;margin-top:44px;padding-top:28px;border-top:1px solid rgba(245,242,236,.18)}
+.fee-n{font:600 clamp(84px,10vw,150px)/.8 var(--sans);letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:#9FD8B9;grid-row:span 2}
+.fee table{border-collapse:collapse;width:100%;font-size:14.5px}
+.fee td{padding:9px 0;border-bottom:1px solid rgba(245,242,236,.14);color:#C4CCC7}
+.fee td:last-child{text-align:right;font-family:var(--mono);color:var(--paper);font-variant-numeric:tabular-nums}
+.fee p{font-size:13.5px;color:#AEB8B2}
+.val{background:var(--paper);color:var(--ink);border-radius:6px;padding:28px 28px 26px;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
+.val .kicker,.val-done .kicker{color:var(--green-ink)}
+.val h3{font-size:24px;line-height:1.15;margin:12px 0 20px}
+.row2{display:grid;grid-template-columns:1.2fr 1fr;gap:12px}
+.f{display:flex;flex-direction:column;gap:6px;margin:0 0 14px;border:0;padding:0;min-width:0}
+.f label,.f legend,.lab{font:11px/1.2 var(--mono);text-transform:uppercase;letter-spacing:.07em;color:var(--ink2);padding:0}
+.f legend{margin-bottom:6px}
+.f input,.f select,.f textarea{width:100%;height:46px;padding:0 13px;border:1px solid var(--line2);border-radius:4px;background:#fff;font-size:16px;transition:border-color .2s,box-shadow .2s}
+.f select{background-color:#fff;background-position:right 13px center;padding-right:32px}
+.f textarea{height:auto;padding:11px 13px;resize:vertical}
+.f input:focus,.f select:focus,.f textarea:focus{outline:none;border-color:var(--green);box-shadow:0 0 0 3px rgba(46,125,91,.2)}
+.f.bad input,.f.bad select{border-color:#B3261E}
+.err{font-size:13px;color:#A52A21;min-height:0}
+.err:empty{display:none}
+.seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.seg label{position:relative;font:inherit;text-transform:none;letter-spacing:0;color:inherit}
+.seg input{position:absolute;opacity:0;width:1px;height:1px}
+.seg span{display:flex;align-items:center;justify-content:center;height:42px;border:1px solid var(--line2);border-radius:4px;background:#fff;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;text-align:center;line-height:1.1;padding:0 4px}
+.seg span:hover{border-color:var(--ink)}
+.seg input:checked+span{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.seg input:focus-visible+span{outline:2px solid var(--green);outline-offset:2px}
+.fine{font-size:12.5px;color:var(--ink3);margin-top:12px}
+.val-done .range{font:500 clamp(28px,3vw,38px)/1.1 var(--mono);letter-spacing:-.03em;margin:14px 0 6px;font-variant-numeric:tabular-nums}
+.val-done .per{font:13px var(--mono);color:var(--green-ink);margin-bottom:18px}
+.val-done p.note{color:var(--ink2);font-size:15px;margin-bottom:20px}
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) minmax(0,1.1fr);gap:0;margin-top:clamp(56px,7vw,96px);border-top:1px solid rgba(245,242,236,.18)}
+.step{padding:28px 28px 8px 0;border-right:1px solid rgba(245,242,236,.14)}
+.step+.step{padding-left:28px}
+.step .n{display:flex;justify-content:space-between;font:12px/1 var(--mono);color:#8FD0AE}
+.step .n em{font-style:normal;color:#AEB8B2}
+.step h3{font-size:24px;margin:22px 0 10px}
+.step p{color:#C4CCC7;font-size:15px}
+.step-ph{margin:28px 0 0 28px;position:relative}
+.step-ph img{width:100%;height:auto;aspect-ratio:4/3;object-fit:cover;border-radius:4px}
+.step-ph figcaption{font-size:13.5px;color:#AEB8B2;margin-top:10px}
+
+/* terms */
+.terms{padding:clamp(72px,9vw,120px) 0}
+.terms-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:32px;align-items:end;margin-bottom:40px}
+.terms-head h2{font-size:clamp(32px,4vw,58px);line-height:1;margin-top:16px;text-wrap:balance}
+.terms-head>p{color:var(--ink2);max-width:30em;justify-self:end}
+.gl{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));margin:0;border-top:1px solid var(--ink)}
+.gl div{padding:22px 24px 26px 0;border-bottom:1px solid var(--line)}
+.gl div:not(:nth-child(4n+1)){padding-left:24px;border-left:1px solid var(--line)}
+.gl dt{font-size:30px;font-weight:600;letter-spacing:-.03em;line-height:1}
+.gl dt small{display:block;font:11px/1.3 var(--mono);letter-spacing:.03em;color:var(--green-ink);margin-top:8px}
+.gl dd{margin:12px 0 0;font-size:14.5px;color:var(--ink2)}
+
+/* footer */
+.ft{border-top:1px solid var(--ink);padding:56px 0 112px;background:var(--paper2)}
+.ft-g{display:grid;grid-template-columns:1.4fr 1fr 1fr .7fr;gap:32px}
+.ft h3{font:11px/1 var(--mono);text-transform:uppercase;letter-spacing:.08em;color:var(--ink3);margin-bottom:14px}
+.ft p,.ft li{font-size:14.5px;color:var(--ink2)}
+.ft p+p{margin-top:10px}
+.ft ul{list-style:none;margin:0;padding:0}
+.ft li a,.ft li button{display:inline-block;padding:3px 0;text-decoration:none;background:none;border:0;cursor:pointer;color:inherit;font-size:14.5px}
+.ft li a:hover,.ft li button:hover{color:var(--green-ink);text-decoration:underline}
+.ft-brand p{max-width:24em;margin-top:14px}
+.ft-b{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font:12px/1.4 var(--mono);color:var(--ink3)}
+
+/* drawer */
+.drawer{position:fixed;inset:0;margin:0 0 0 auto;width:min(500px,100%);height:100%;max-width:none;max-height:none;border:0;padding:0;background:var(--paper);color:var(--ink);box-shadow:-30px 0 60px -20px rgba(23,33,30,.35);overflow:hidden}
+.drawer::backdrop{background:rgba(23,33,30,.5)}
+.dr-in{height:100%;overflow:auto;padding:22px 30px 40px}
+.dr-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.x{width:40px;height:40px;border:1px solid var(--line2);border-radius:4px;background:transparent;cursor:pointer;font-size:22px;line-height:1;transition:background .2s}
+.x:hover{background:#fff}
+.sum{display:grid;grid-template-columns:112px 1fr;gap:14px;padding:12px;border:1px solid var(--line);border-radius:6px;background:var(--card);margin-bottom:24px}
+.sum img{width:112px;height:84px;object-fit:cover;border-radius:3px}
+.sum .meta{font-size:11px}
+.sum b{display:block;font-weight:600;font-size:15.5px;line-height:1.25;margin:5px 0 6px}
+.sum .ro-f{display:flex;flex-wrap:wrap;gap:2px 12px;font:12.5px/1.3 var(--mono);color:var(--ink2)}
+.sum .ro-f strong{color:var(--ink)}
+.sum.gen{grid-template-columns:1fr}
+.drawer h2{font-size:30px;line-height:1.05;margin-bottom:20px}
+.times{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.cb{display:flex;gap:10px;align-items:center;font-size:14.5px;margin:2px 0 16px;cursor:pointer}
+.cb input{width:18px;height:18px;accent-color:var(--green)}
+.done{padding-top:8px}
+.done:focus{outline:none}
+.tick{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--green);color:#fff;margin-bottom:22px}
+.done p.lead{font-size:18px;line-height:1.5;margin-bottom:24px}
+.recap{margin:0 0 28px;border-top:1px solid var(--line)}
+.recap div{display:flex;justify-content:space-between;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:14.5px}
+.recap dt{color:var(--ink3);font:12px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.06em}
+.recap dd{margin:0;font-family:var(--mono);text-align:right}
+@media (prefers-reduced-motion:no-preference){
+  .drawer[open]{animation:drIn .34s var(--ease)}
+  .drawer[open]::backdrop{animation:fade .3s}
+  .js .rv{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .js .rv.in{opacity:1;transform:none}
+}
+@keyframes drIn{from{transform:translateX(48px);opacity:.4}}
+@keyframes drUp{from{transform:translateY(60px);opacity:.4}}
+@keyframes fade{from{opacity:0}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* responsive */
+@media (max-width:1240px){
+  .ticker{display:none}
+  .panel{width:min(780px,74%)}
+  .grid{grid-template-columns:1fr}
+  .gl{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .gl div:not(:nth-child(4n+1)){padding-left:0;border-left:0}
+  .gl div:nth-child(2n){padding-left:24px;border-left:1px solid var(--line)}
+}
+@media (max-width:1000px){
+  .nav,.desk{display:none}
+  .hdr-cta{margin-left:auto}
+  .menu-btn{display:flex}
+  .facts-g{grid-template-columns:1fr 1fr}
+  .fact:nth-child(2){border-right:0}
+  .fact:nth-child(3){padding-left:0}
+  .fact:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .split{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .map{position:static}
+  .map-in{max-height:none;max-width:640px;margin:0 auto}
+  .sell-top{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr 1fr}
+  .step:nth-child(2){border-right:0}
+  .step:nth-child(3){padding-left:0}
+  .step-ph{margin-left:28px}
+  .ft-g{grid-template-columns:1fr 1fr}
+}
+@media (max-width:759px){
+  :root{--hdr:58px}
+  .brand{font-size:19px}
+  .hdr-cta{height:40px;padding:0 14px}
+  .hero{flex-direction:column;min-height:clamp(560px,calc(100svh - var(--hdr)),900px);padding:22px 14px 0 14px}
+  .sheet{flex-direction:column}
+  .sheet::after,.co.l{display:none}
+  .co.t{top:-20px;font-size:9.5px}
+  .co.t:nth-of-type(n+3){display:none}
+  .photo{position:relative;inset:auto;flex:1 1 auto;min-height:200px}
+  .photo>img{position:absolute;inset:0;object-position:58% 70%}
+  .cap{font-size:10px;right:10px;bottom:10px;padding:6px 8px}
+  .panel{position:relative;width:auto;padding:20px 0 22px;border-radius:0}
+  .eyebrow{font-size:10.5px;letter-spacing:.04em}
+  .hero h1{font-size:clamp(34px,10.4vw,46px);margin:12px 0 12px}
+  .sub{font-size:15.5px}
+  .search{grid-template-columns:1fr 1fr;margin-top:18px}
+  .fld{padding:9px 13px}
+  .fld:nth-child(-n+2){border-bottom:1px solid var(--line)}
+  .fld:nth-child(2){border-right:0}
+  .fld:first-child{border-radius:4px 0 0 0}
+  .fld:nth-child(3){border-radius:0 0 0 4px}
+  .fld select{font-size:15px}
+  .go{min-height:56px;border-radius:0 0 4px 0;padding:0 12px;font-size:14px}
+  .quick,.hide-m{display:none}
+  .fact,.fact+.fact{padding:20px 14px 22px 0}
+  .fact:nth-child(even){padding-left:14px}
+  .fact h3{font-size:17px;margin:10px 0 4px}
+  .fact p{font-size:13.5px}
+  .ph{aspect-ratio:16/10}
+  .sec-head{flex-direction:column;align-items:flex-start;gap:20px}
+  .count{text-align:left;display:flex;align-items:baseline;gap:12px}
+  .filters{gap:12px 18px}
+  .fg{width:100%}
+  .fl{width:70px;margin-right:0}
+  .chip{height:36px;padding:0 12px;font-size:13.5px}
+  .sort{margin-left:0;width:100%}
+  .sort select{flex:1;height:40px}
+  .grid{grid-template-columns:1fr}
+  .row2{grid-template-columns:1fr}
+  .val{padding:22px 18px}
+  .fee{grid-template-columns:1fr;gap:20px}
+  .fee-n{grid-row:auto}
+  .steps{grid-template-columns:1fr}
+  .step,.step+.step,.step:nth-child(3){padding:26px 0 22px;border-right:0;border-bottom:1px solid rgba(245,242,236,.14)}
+  .step-ph{margin:28px 0 0}
+  .terms-head{grid-template-columns:1fr}
+  .terms-head>p{justify-self:start}
+  .gl{grid-template-columns:1fr}
+  .gl div:nth-child(2n){padding-left:0;border-left:0}
+  .ft-g{grid-template-columns:1fr}
+  .drawer{inset:auto 0 0 0;margin:auto 0 0 0;width:100%;height:auto;max-height:92svh;border-radius:12px 12px 0 0}
+  .dr-in{max-height:92svh;padding:18px 18px 32px}
+  .drawer[open]{animation-name:drUp}
+  .sum{grid-template-columns:88px 1fr}
+  .sum img{width:88px;height:66px}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#listings">Skip to listings</a>
+<header class="hdr">
+  <div class="wrap hdr-in">
+    <a class="brand" href="#top" aria-label="Kavling, back to top">
+      <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="1.5" width="21" height="21" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M1.5 12h21M12 1.5v21" stroke="currentColor" stroke-width="1.7"/><rect x="12.85" y="12.85" width="8.8" height="8.8" fill="#2E7D5B"/></svg>
+      Kavling</a>
+    <nav class="nav" aria-label="Main"><a href="#listings">Listings</a><a href="#map">Map</a><a href="#sell">Sell</a></nav>
+    <p class="desk" id="desk"><span class="dot"></span><span id="deskTxt">Desk open 08:00–21:00 WIB</span></p>
+    <button class="btn hdr-cta" type="button" data-enq="">ENQUIRE</button>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mnav" aria-label="Open menu"><span></span><span></span></button>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Mobile" hidden><a href="#listings">Listings</a><a href="#map">Map</a><a href="#sell">Sell</a><a href="#terms">Terms</a></nav>
+</header>
+
+<main id="top">
+<section class="hero" aria-labelledby="h1">
+  <div class="sheet">
+    <span class="co t" style="left:18%">106°36′E</span><span class="co t" style="left:46%">106°39′E</span><span class="co t" style="left:74%">106°42′E</span>
+    <span class="co l" style="top:16%">6°17′S</span><span class="co l" style="top:56%">6°20′S</span>
+    <div class="photo">
+      <img src="https://images.unsplash.com/photo-1747854805840-9be7d5e360e6?auto=format&fit=crop&w=1600&q=70"
+        srcset="https://images.unsplash.com/photo-1747854805840-9be7d5e360e6?auto=format&fit=crop&w=900&q=70 900w, https://images.unsplash.com/photo-1747854805840-9be7d5e360e6?auto=format&fit=crop&w=1600&q=70 1600w, https://images.unsplash.com/photo-1747854805840-9be7d5e360e6?auto=format&fit=crop&w=2400&q=70 2400w"
+        sizes="100vw" width="2400" height="1600" fetchpriority="high"
+        alt="Aerial view of newly surveyed plots cut into green fields, a new road running towards the hills">
+      <p class="cap">Representative aerial<span class="hide-m"> · every listing has its own photos</span></p>
+      <aside class="ticker" aria-label="Just checked">
+        <div class="ticker-h"><p class="kicker">Just checked</p><span>07 Oct 2026</span></div>
+        <a class="tk" href="#kv-0712" data-go="KV-0712"><span class="code">0712</span><span><b>Pagedangan</b><small>Land 312 m² · SHM · hook</small></span><span class="p">1,85 M</span></a>
+        <a class="tk" href="#kv-0711" data-go="KV-0711"><span class="code">0711</span><span><b>Gunung Sindur</b><small>Land 300 m² · SHM</small></span><span class="p">900 jt</span></a>
+        <a class="tk" href="#kv-0709" data-go="KV-0709"><span class="code">0709</span><span><b>Sentul</b><small>House 180/300 m² · SHM</small></span><span class="p">2,15 M</span></a>
+        <a class="ticker-f" href="#listings">+ 6 more, all priced per m² ↓</a>
+      </aside>
+    </div>
+    <div class="panel">
+      <p class="eyebrow"><span class="dot"></span>Tangerang + Bogor · 9 listings live<span class="hide-m"> · updated 07 Oct 2026</span></p>
+      <h1 id="h1">Find the plot before the market does.</h1>
+      <p class="sub">Land and houses across Tangerang and Bogor, mapped, filtered, and answered by a human within the hour.</p>
+      <form class="search" id="search" action="#listings" role="search" aria-label="Search listings">
+        <label class="fld"><span>Area</span><select name="area"><option value="all">Tangerang + Bogor</option><option value="tangerang">Tangerang</option><option value="bogor">Bogor</option></select></label>
+        <label class="fld"><span>Type</span><select name="type"><option value="all">Land and houses</option><option value="land">Land (kavling)</option><option value="house">Houses</option></select></label>
+        <label class="fld"><span>Budget</span><select name="budget"><option value="all">Any budget</option><option value="u1">Under Rp 1 M</option><option value="b12">Rp 1–2 M</option><option value="o2">Above Rp 2 M</option></select></label>
+        <button class="btn go" type="submit"><span id="goTxt">Show 9 listings</span><svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path d="M1 6h13M9 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
+      </form>
+      <div class="quick"><span>Try</span><button type="button" data-q="tangerang,land,all">Land in Tangerang</button><button type="button" data-q="bogor,house,all">Houses in Bogor</button><button type="button" data-q="all,all,u1">Under Rp 1 M</button></div>
+    </div>
+  </div>
+</section>
+
+<section class="facts" aria-labelledby="facts-h">
+  <h2 class="sr" id="facts-h">How we list</h2>
+  <div class="wrap facts-g">
+    <div class="fact"><span class="n">01</span><h3>Walked in person</h3><p>An agent stands on every plot before it goes live: pegs, road width, drainage, the neighbours.</p></div>
+    <div class="fact"><span class="n">02</span><h3>Title checked first</h3><p>SHM or HGB checked at the land office (BPN). The card says which, and we say when it isn't clean.</p></div>
+    <div class="fact"><span class="n">03</span><h3>Price per m², always</h3><p>So a 120 m² starter house and a 1.000 m² garden plot can be compared honestly.</p></div>
+    <div class="fact"><span class="n">04</span><h3>A human within the hour</h3><p>08:00–21:00 WIB, every day. Outside those hours, first thing next morning.</p></div>
+  </div>
+</section>
+
+<section class="listings" id="listings" aria-labelledby="list-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <div><p class="kicker">01 — Listings</p><h2 id="list-h">Nine plots and houses, each walked before listing.</h2></div>
+      <p class="count" aria-live="polite"><b><span id="cnt">09</span><i>/09</i></b><span id="cntTxt">listings match</span></p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter and sort listings">
+      <div class="fg" data-key="area" role="group" aria-label="Area"><span class="fl">Area</span><button class="chip" type="button" data-v="all" aria-pressed="true">All</button><button class="chip" type="button" data-v="tangerang" aria-pressed="false">Tangerang</button><button class="chip" type="button" data-v="bogor" aria-pressed="false">Bogor</button></div>
+      <div class="fg" data-key="type" role="group" aria-label="Type"><span class="fl">Type</span><button class="chip" type="button" data-v="all" aria-pressed="true">All</button><button class="chip" type="button" data-v="land" aria-pressed="false">Land</button><button class="chip" type="button" data-v="house" aria-pressed="false">House</button></div>
+      <div class="fg" data-key="budget" role="group" aria-label="Budget"><span class="fl">Budget, Rp</span><button class="chip" type="button" data-v="all" aria-pressed="true">Any</button><button class="chip" type="button" data-v="u1" aria-pressed="false">&lt; 1 M</button><button class="chip" type="button" data-v="b12" aria-pressed="false">1–2 M</button><button class="chip" type="button" data-v="o2" aria-pressed="false">&gt; 2 M</button></div>
+      <label class="sort"><span class="fl">Sort</span><select id="sort"><option value="new">Newest checked</option><option value="pa">Price, low to high</option><option value="pd">Price, high to low</option><option value="sz">Land size, largest</option><option value="pm">Price per m², lowest</option></select></label>
+      <button class="reset" type="button" id="reset" hidden>Clear filters</button>
+    </div>
+    <div class="split">
+      <div>
+        <div class="grid" id="grid"></div>
+        <div class="empty" id="empty" hidden><h3>Nothing listed in that band yet.</h3><p>Plots often reach the desk before they reach the site. Tell us the area and budget and we'll call when one fits.</p><div><button class="btn" type="button" data-enq="">Tell the desk</button><button class="ghost" type="button" data-reset>Clear filters</button></div></div>
+        <noscript><p class="empty">The listings and filters need JavaScript. Turn it on to browse all nine.</p></noscript>
+      </div>
+      <aside class="map" id="map" aria-labelledby="map-h">
+        <div class="map-in">
+          <div class="map-top"><div><p class="kicker">02 — Map</p><h2 id="map-h">Where they sit</h2></div><span>Schematic<br>not to scale</span></div>
+          <svg id="msvg" viewBox="0 0 520 620" data-area="all" aria-label="Schematic map of Tangerang and Bogor with one pin per listing">
+            <defs>
+              <pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="6" height="6" fill="#EFEAE0"/><line x1="0" y1="0" x2="0" y2="6" stroke="rgba(23,33,30,.17)" stroke-width="1.3"/></pattern>
+              <pattern id="sea" width="14" height="7" patternUnits="userSpaceOnUse"><rect width="14" height="7" fill="#F5F2EC"/><path d="M0 4Q3.5 2 7 4T14 4" fill="none" stroke="rgba(23,33,30,.15)" stroke-width=".8"/></pattern>
+              <path id="t1" d="M520,92 C440,98 360,88 310,104 S180,128 100,146 L0,160"/>
+              <path id="t2" d="M436,0 C444,120 452,240 458,330 S468,430 482,520 L490,620"/>
+              <path id="riv" d="M196,620 C204,566 252,520 262,470 S248,384 250,330 S238,242 236,190 S208,112 214,62 L212,40"/>
+            </defs>
+            <path id="rg-t" class="rg" d="M0,0 H306 L300,120 L312,190 L338,262 L330,300 L296,328 L246,338 L200,326 L150,338 L96,330 L40,342 L0,336 Z"/>
+            <path id="rg-b" class="rg" d="M0,336 L40,342 L96,330 L150,338 L200,326 L246,338 L296,328 L330,300 L352,318 L392,330 L430,312 L476,318 L520,300 V620 H0 Z"/>
+            <path d="M306,0 H520 V300 L476,318 L430,312 L392,330 L352,318 L330,300 L338,262 L312,190 L300,120 Z" fill="url(#hatch)" stroke="#fff" stroke-width="2"/>
+            <g fill="none" stroke="#D3BF97" stroke-width="1">
+              <path d="M250,620 C262,560 330,540 380,560 S430,612 420,620"/><path d="M286,620 C296,584 340,574 370,588 S392,614 388,620"/><path d="M318,620 C324,604 346,600 358,610"/>
+              <path d="M24,500 C40,470 110,468 130,494 S96,540 60,532 S14,520 24,500Z"/><path d="M50,500 C60,486 98,486 106,500 S84,520 66,516 S44,510 50,500Z"/>
+            </g>
+            <path d="M0,0 H520 V34 C480,42 452,30 410,38 S340,52 296,44 S214,30 170,40 S84,54 0,42 Z" fill="url(#sea)"/>
+            <path d="M520,34 C480,42 452,30 410,38 S340,52 296,44 S214,30 170,40 S84,54 0,42" fill="none" stroke="rgba(23,33,30,.4)"/>
+            <use href="#riv" class="river"/>
+            <text class="riv-l" dy="-6"><textPath href="#riv" startOffset="16%">Cisadane</textPath></text>
+            <use href="#t1" class="toll-c"/><use href="#t2" class="toll-c"/><use href="#t1" class="toll-i"/><use href="#t2" class="toll-i"/>
+            <g class="shield" transform="translate(196 126)"><rect x="-14" y="-8" width="28" height="16" rx="3"/><text text-anchor="middle" y="3">TOL</text></g>
+            <g class="shield" transform="translate(453 250)"><rect x="-14" y="-8" width="28" height="16" rx="3"/><text text-anchor="middle" y="3">TOL</text></g>
+            <text class="xl" x="14" y="22">JAVA SEA</text>
+            <g transform="translate(496 20)" fill="var(--ink)"><path d="M0,-11 L5,5 L0,2 L-5,5Z"/><text class="xl" y="-14" text-anchor="middle" style="fill:var(--ink)">N</text></g>
+            <text class="rl" x="18" y="84">TANGERANG</text><text class="rs" x="18" y="100">4 LISTINGS · SHM + HGB</text>
+            <text class="rl" x="18" y="578">BOGOR</text><text class="rs" x="18" y="594">5 LISTINGS · ALL SHM</text>
+            <text class="xl" x="384" y="168" text-anchor="middle">JAKARTA · DEPOK</text><text class="xl" x="384" y="182" text-anchor="middle">not covered</text>
+            <g id="pins"></g>
+          </svg>
+          <div class="readout idle" id="readout" aria-live="polite"><span class="t-hover">Nine pins, one per listing. Hover or tab through them, or hover a card, to read it here.</span><span class="t-touch">Nine pins, one per listing. Tap a pin to jump to its card.</span></div>
+          <ul class="legend"><li><i class="lg-pin"></i>Asking price</li><li><i class="lg-toll"></i>Toll road</li><li><i class="lg-river"></i>River</li><li><i class="lg-x"></i>Not covered</li></ul>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="sell" id="sell" aria-labelledby="sell-h">
+  <div class="wrap">
+    <div class="sell-top">
+      <div class="rv">
+        <p class="kicker">03 — Sell</p>
+        <h2 id="sell-h">Selling a plot? We list it with the paperwork showing.</h2>
+        <p class="sell-lede">Buyers here compare by price per m² and by title, so honest listings move faster. We do the walking, the checking and the photographs. You only take the calls worth taking.</p>
+        <div class="fee">
+          <span class="fee-n">2,5%</span>
+          <table><tbody><tr><td>Site visit, survey &amp; photos</td><td>Rp 0</td></tr><tr><td>Listing + map pin</td><td>Rp 0</td></tr><tr><td>Commission, paid at AJB signing</td><td>2,5%</td></tr></tbody></table>
+          <p>Nothing upfront. No exclusivity for the first 60 days.</p>
+        </div>
+      </div>
+      <div class="val rv" id="value">
+        <form id="valForm" novalidate>
+          <p class="kicker">Value my plot</p>
+          <h3>An indicative range in ten seconds, a real one after we visit.</h3>
+          <div class="row2">
+            <div class="f"><label for="vd">District</label><select id="vd" name="district" required><option value="">Choose…</option><optgroup label="Tangerang"><option>Serpong</option><option>Pagedangan</option><option>Cisauk</option><option>Cikupa</option></optgroup><optgroup label="Bogor"><option>Sentul</option><option>Cibinong</option><option>Parung</option><option>Gunung Sindur</option><option>Bojonggede</option></optgroup></select><p class="err"></p></div>
+            <div class="f"><label for="vs">Land size, m²</label><input id="vs" name="size" inputmode="numeric" placeholder="e.g. 250" required><p class="err"></p></div>
+          </div>
+          <fieldset class="f"><legend>Title</legend><div class="seg"><label><input type="radio" name="cert" value="SHM" checked><span>SHM</span></label><label><input type="radio" name="cert" value="HGB"><span>HGB</span></label><label><input type="radio" name="cert" value="AJB"><span>AJB only</span></label><label><input type="radio" name="cert" value="Girik"><span>Girik</span></label></div></fieldset>
+          <div class="f"><label for="vp">Phone / WhatsApp</label><input id="vp" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xx xxxx xxxx" required><p class="err"></p></div>
+          <button class="btn wide" type="submit">Value my plot <svg width="16" height="12" viewBox="0 0 16 12" aria-hidden="true"><path d="M1 6h13M9 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg></button>
+          <p class="fine">Indicative only. Based on asking prices per m² seen in that district this quarter.</p>
+        </form>
+        <div class="val-done" id="valDone" hidden tabindex="-1"></div>
+      </div>
+    </div>
+    <div class="steps">
+      <div class="step rv"><p class="n"><span>01</span><em>Day 0</em></p><h3>Send the basics</h3><p>District, size, title and a pin drop. The form above takes a minute; the desk takes it from there.</p></div>
+      <div class="step rv"><p class="n"><span>02</span><em>Days 1–3</em></p><h3>We walk the plot</h3><p>Boundary pegs, road width, drainage, photographs. We check the certificate at BPN before anything goes live.</p></div>
+      <div class="step rv"><p class="n"><span>03</span><em>Day 4 →</em></p><h3>We screen the calls</h3><p>Listed with its price per m² and title shown. A human qualifies every enquiry, so the ones that reach you can actually buy.</p></div>
+      <figure class="step-ph rv"><img src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=800&q=70" srcset="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=500&q=70 500w, https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1560185007-cde436f6a4d0?auto=format&fit=crop&w=1200&q=70 1200w" sizes="(min-width:1000px) 26vw, 100vw" width="800" height="600" loading="lazy" decoding="async" alt="Bright dining room with a bay window, pendant lamps and a wooden table"><figcaption>Selling a house, not land? Same three steps. We shoot the inside too, on a weekday morning when the light is kind.</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="terms" id="terms" aria-labelledby="terms-h">
+  <div class="wrap">
+    <div class="terms-head rv"><div><p class="kicker">04 — Terms</p><h2 id="terms-h">Words you'll see on every card.</h2></div><p>Indonesian property has its own vocabulary. Here is what ours means, in plain English, so nothing on a card is a surprise at the notary.</p></div>
+    <dl class="gl rv">
+      <div><dt>Kavling<small>plot</small></dt><dd>A surveyed piece of land subdivided to be sold on its own, usually with a road already cut to it.</dd></div>
+      <div><dt>SHM<small>Sertifikat Hak Milik</small></dt><dd>Full freehold title, the strongest there is. Only Indonesian citizens can hold it.</dd></div>
+      <div><dt>HGB<small>Hak Guna Bangunan</small></dt><dd>A right to build and use, granted for a fixed term (typically 30 years) and extendable. Common on developer land.</dd></div>
+      <div><dt>PBG<small>Persetujuan Bangunan Gedung</small></dt><dd>The building approval that replaced the IMB. A house without one is harder to mortgage.</dd></div>
+      <div><dt>AJB<small>Akta Jual Beli</small></dt><dd>The deed of sale, signed before a land deed official (PPAT). Our commission is due on that day, not before.</dd></div>
+      <div><dt>Hook<small>corner plot</small></dt><dd>A plot on a corner with two road frontages. More light, more parking, usually priced a little higher.</dd></div>
+      <div><dt>Siap bangun<small>ready to build</small></dt><dd>Cleared, levelled, with road access and power at the boundary. You could start foundations next week.</dd></div>
+      <div><dt>KPR<small>Kredit Pemilikan Rumah</small></dt><dd>A home mortgage. "KPR-ready" means the paperwork is in a state a bank will lend against.</dd></div>
+    </dl>
+  </div>
+</section>
+</main>
+
+<footer class="ft">
+  <div class="wrap ft-g">
+    <div class="ft-brand"><a class="brand" href="#top"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><rect x="1.5" y="1.5" width="21" height="21" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M1.5 12h21M12 1.5v21" stroke="currentColor" stroke-width="1.7"/><rect x="12.85" y="12.85" width="8.8" height="8.8" fill="#2E7D5B"/></svg>Kavling</a><p>Land and houses across Tangerang and Bogor. Walked, title-checked and priced per m² before they go live.</p></div>
+    <div><h3>Desks</h3><p>Serpong desk<br>Ruko Kavling A-3, Serpong, Tangerang</p><p>Cibinong desk<br>Ruko Kavling B-1, Cibinong, Bogor</p></div>
+    <div><h3>Hours</h3><p>Desk: 08:00–21:00 WIB, every day</p><p>Site visits: 08:00–16:00, Monday to Saturday</p></div>
+    <div><h3>Pages</h3><ul><li><a href="#listings">Listings</a></li><li><a href="#map">Map</a></li><li><a href="#sell">Sell</a></li><li><a href="#terms">Terms</a></li><li><button type="button" data-enq="">Enquire</button></li></ul></div>
+  </div>
+  <div class="wrap ft-b"><span>© 2026 Kavling. Listings, prices and desks shown are illustrative.</span><span>A concept site by Aleph One · Photography via Unsplash</span></div>
+</footer>
+
+<dialog class="drawer" id="enq" aria-labelledby="enqH">
+  <div class="dr-in">
+    <div class="dr-top"><p class="kicker">Enquire</p><button class="x" type="button" data-close aria-label="Close">×</button></div>
+    <div id="enqBody">
+      <div id="enqSum"></div>
+      <form id="enqForm" novalidate>
+        <h2 id="enqH">Ask about this plot</h2>
+        <div class="f"><label for="en">Your name</label><input id="en" name="name" autocomplete="name" required><p class="err"></p></div>
+        <div class="f"><label for="ep">Phone / WhatsApp</label><input id="ep" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="08xx xxxx xxxx" required><p class="err"></p></div>
+        <fieldset class="f"><legend>Preferred call time, WIB</legend><div class="seg times">
+          <label><input type="radio" name="time" value="within the hour" checked><span>Within the hour</span></label>
+          <label><input type="radio" name="time" value="12:00–15:00"><span>12:00–15:00</span></label>
+          <label><input type="radio" name="time" value="15:00–18:00"><span>15:00–18:00</span></label>
+          <label><input type="radio" name="time" value="18:00–21:00"><span>18:00–21:00</span></label></div></fieldset>
+        <label class="cb"><input type="checkbox" name="msg" checked> Send a message first instead of calling</label>
+        <div class="f"><label for="em">Anything we should know? (optional)</label><textarea id="em" name="note" rows="3" placeholder="e.g. building a kos, need at least 10 m frontage"></textarea></div>
+        <button class="btn wide" type="submit">Send to the desk</button>
+        <p class="fine">A human reads every enquiry. Your number never goes to a seller without asking you first.</p>
+      </form>
+    </div>
+    <div class="done" id="enqDone" hidden tabindex="-1"></div>
+  </div>
+</dialog>
+
+<script>
+(()=>{
+const U=(id,w)=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=70`;
+const L=[
+ {id:'KV-0712',type:'land',area:'Tangerang',d:'Pagedangan',t:'Hook plot on a 12 m boulevard',land:312,bld:0,cert:'SHM',price:1850e6,tags:['Hook','Siap bangun','Two frontages'],img:'photo-1773215023063-e662ea91a69c',pos:'50% 40%',alt:'Aerial view of empty plots divided by new kerbed roads',chk:'06 Oct',x:226,y:312},
+ {id:'KV-0711',type:'land',area:'Bogor',d:'Gunung Sindur',t:'Last plots in a one-gate cluster',land:300,bld:0,cert:'SHM',price:900e6,tags:['Sudah pecah','One-gate','Siap bangun'],img:'photo-1776149420560-3e0ab05a0eac',pos:'55% 45%',alt:'Aerial view of a small housing cluster surrounded by green',chk:'05 Oct',x:230,y:400},
+ {id:'KV-0709',type:'house',area:'Bogor',d:'Sentul',t:'Timber-and-stone house with a hill view',land:300,bld:180,cert:'SHM',price:2150e6,tags:['3 KT · 3 KM','PBG','8 min to toll gate'],img:'photo-1760067538022-8ef8739b1b18',pos:'50% 60%',alt:'Timber and stone house with tall windows behind palms',chk:'03 Oct',x:476,y:476},
+ {id:'KV-0705',type:'land',area:'Tangerang',d:'Cisauk',t:'Level plot, 900 m from the station',land:540,bld:0,cert:'SHM',price:1680e6,tags:['Siap bangun','6 m road','Power at boundary'],img:'photo-1773215023052-e69af2090d99',pos:'50% 50%',alt:'Aerial view of a cleared plot bounded by a curving road',chk:'01 Oct',x:168,y:240},
+ {id:'KV-0702',type:'house',area:'Bogor',d:'Cibinong',t:'Single-storey house with a double garage',land:150,bld:120,cert:'SHM',price:1190e6,tags:['3 KT · 2 KM','PBG','5 min to toll'],img:'photo-1786550860403-4a58f184643e',pos:'50% 62%',alt:'Single-storey house with a dark garage door and palms at dusk',chk:'29 Sep',x:468,y:380},
+ {id:'KV-0698',type:'house',area:'Tangerang',d:'Serpong',t:'Two-storey house behind a timber screen',land:160,bld:210,cert:'SHM',price:3450e6,tags:['4 KT · 3 KM','PBG','Carport for 2'],img:'photo-1766603636483-84b2a2b8ee89',pos:'50% 38%',alt:'Two-storey house with a timber screen above a stone base and a lawn',chk:'26 Sep',x:265,y:225},
+ {id:'KV-0694',type:'house',area:'Bogor',d:'Bojonggede',t:'Two-storey starter house with carport',land:120,bld:95,cert:'SHM',price:795e6,tags:['3 KT · 2 KM','700 m to station','KPR-ready'],img:'photo-1762117360928-1548ff7ab5a2',pos:'50% 55%',alt:'Two-storey house with a carport among tropical trees',chk:'24 Sep',x:392,y:408},
+ {id:'KV-0690',type:'land',area:'Bogor',d:'Parung',t:'1.000 m² garden plot among kebun',land:1000,bld:0,cert:'SHM',price:850e6,tags:['4 m village road','Power on site','Well water'],img:'photo-1599565152190-b8cae7a608bb',pos:'50% 50%',alt:'Aerial view of houses, trees and vegetable gardens',chk:'20 Sep',x:318,y:456},
+ {id:'KV-0681',type:'land',area:'Tangerang',d:'Cikupa',t:'Edge-of-town plot with truck access',land:1200,bld:0,cert:'HGB',price:2400e6,tags:['HGB to 2049','40 ft truck access','Light industry zone'],img:'photo-1774415121857-9f3869bae8c3',pos:'40% 80%',alt:'Aerial view of a town edge meeting rice fields under a blue sky',chk:'16 Sep',x:76,y:200}
+];
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const dec=(n,f)=>n.toFixed(f).replace('.',',');
+const short=n=>n>=1e9?dec(n/1e9,2)+' M':Math.round(n/1e6)+' jt';
+const rp=n=>'Rp '+short(n);
+const per=l=>{const v=l.price/l.land;return 'Rp '+(v>=1e7?dec(v/1e6,1)+' jt':v>=1e6?dec(v/1e6,2)+' jt':Math.round(v/1e3)+' rb')};
+const m2=n=>n.toLocaleString('id-ID')+' m²';
+const slug=id=>id.toLowerCase();
+const byId=Object.fromEntries(L.map(l=>[l.id,l]));
+const arrow='<svg width="14" height="10" viewBox="0 0 16 12" aria-hidden="true"><path d="M1 6h13M9 1l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>';
+
+/* cards */
+const grid=$('#grid'),cards={};
+L.forEach(l=>{
+  const a=document.createElement('article');
+  a.className='card';a.id=slug(l.id);a.tabIndex=-1;a.dataset.id=l.id;
+  a.setAttribute('aria-label',`${l.t}, ${l.d}`);
+  a.innerHTML=`<div class="ph"><img src="${U(l.img,800)}" srcset="${U(l.img,480)} 480w, ${U(l.img,800)} 800w, ${U(l.img,1200)} 1200w" sizes="(min-width:1240px) 30vw, (min-width:760px) 45vw, 100vw" width="800" height="533" loading="lazy" decoding="async" alt="${l.alt}" style="object-position:${l.pos}">
+  <span class="badge">${l.type==='land'?'Land · kavling':'House · rumah'}</span><span class="cert">${l.cert}</span></div>
+  <div class="body"><p class="meta"><span>${l.id}</span><b>${l.d}, ${l.area}</b></p><h3>${l.t}</h3>
+  <dl class="spec"><div><dt>Land</dt><dd>${m2(l.land)}</dd></div><div><dt>Building</dt><dd>${l.bld?m2(l.bld):'—'}</dd></div><div><dt>Title</dt><dd>${l.cert}</dd></div></dl>
+  <div class="price"><p><small>Asking</small><span class="big">${rp(l.price)}</span></p><p class="pm"><small>Per m² land</small>${per(l)}</p></div>
+  <ul class="tags">${l.tags.map(t=>`<li>${t}</li>`).join('')}</ul>
+  <div class="acts"><button class="btn sm" type="button" data-enq="${l.id}">Enquire ${arrow}</button><button class="ghost" type="button" data-pin="${l.id}"><svg width="11" height="14" viewBox="0 0 11 14" aria-hidden="true"><path d="M5.5 13s4.5-4.6 4.5-8a4.5 4.5 0 0 0-9 0c0 3.4 4.5 8 4.5 8z" fill="none" stroke="currentColor" stroke-width="1.4"/><circle cx="5.5" cy="5" r="1.5" fill="currentColor"/></svg>On map</button><span class="chk">Checked ${l.chk}</span></div></div>`;
+  cards[l.id]=a;grid.appendChild(a);
+});
+
+/* pins */
+const pinsG=$('#pins'),pins={};
+pinsG.innerHTML=L.map(l=>`<a class="pin" href="#${slug(l.id)}" data-id="${l.id}" aria-label="${l.id}, ${l.d}: ${l.type}, ${m2(l.land)}, ${rp(l.price)}"><g transform="translate(${l.x} ${l.y})"><circle class="halo" r="14"/><path class="tag" d="M-31,-36h62a3,3 0 0 1 3,3v16a3,3 0 0 1-3,3h-26l-5,6l-5,-6h-26a3,3 0 0 1-3,-3v-16a3,3 0 0 1 3,-3z"/><text class="tg" y="-21" text-anchor="middle">${short(l.price)}</text><circle class="pt" r="4.5"/><text class="pn" y="18" text-anchor="middle">${l.d.toUpperCase()}</text></g></a>`).join('');
+$$('.pin',pinsG).forEach(p=>pins[p.dataset.id]=p);
+
+/* hover link */
+const ro=$('#readout');
+let hot=null;
+function readout(id){
+  const l=byId[id];ro.classList.remove('idle');
+  ro.innerHTML=`<p class="ro-h"><span>${l.id} · ${l.type==='land'?'Land':'House'}</span><span>${l.d}, ${l.area}</span></p><p class="ro-t">${l.t}</p><p class="ro-f"><span>${m2(l.land)}${l.bld?' / '+l.bld+' m² bldg':''}</span><span>${l.cert}</span><b>${rp(l.price)}</b><em>${per(l)}/m²</em></p>`;
+}
+function setHot(id){
+  if(hot){cards[hot].classList.remove('hot');pins[hot].classList.remove('hot')}
+  hot=id;
+  if(id){cards[id].classList.add('hot');pins[id].classList.add('hot');readout(id)}
+}
+Object.values(pins).forEach(p=>{
+  const id=p.dataset.id;
+  p.addEventListener('mouseenter',()=>setHot(id));p.addEventListener('focus',()=>setHot(id));
+  p.addEventListener('mouseleave',()=>setHot(null));p.addEventListener('blur',()=>setHot(null));
+  p.addEventListener('click',e=>{e.preventDefault();goCard(id)});
+});
+Object.values(cards).forEach(c=>{
+  const id=c.dataset.id;
+  c.addEventListener('mouseenter',()=>setHot(id));c.addEventListener('mouseleave',()=>setHot(null));
+  c.addEventListener('focusin',()=>setHot(id));
+  c.addEventListener('focusout',e=>{if(!c.contains(e.relatedTarget))setHot(null)});
+});
+function goCard(id){
+  const c=cards[id];
+  if(c.hidden)resetAll();
+  c.scrollIntoView({behavior:RM?'auto':'smooth',block:'center'});
+  c.focus({preventScroll:true});
+  setHot(id);
+  c.classList.remove('flash');void c.offsetWidth;c.classList.add('flash');
+}
+
+/* filters */
+const S={area:'all',type:'all',budget:'all',sort:'new'};
+const B={all:[0,Infinity],u1:[0,1e9],b12:[1e9,2e9],o2:[2e9,Infinity]};
+const SORT={new:(a,b)=>b.id.localeCompare(a.id),pa:(a,b)=>a.price-b.price,pd:(a,b)=>b.price-a.price,sz:(a,b)=>b.land-a.land,pm:(a,b)=>a.price/a.land-b.price/b.land};
+const match=(l,s)=>(s.area==='all'||l.area.toLowerCase()===s.area)&&(s.type==='all'||l.type===s.type)&&l.price>=B[s.budget][0]&&l.price<B[s.budget][1];
+const countFor=s=>L.filter(l=>match(l,s)).length;
+const pad=n=>String(n).padStart(2,'0');
+const sform=$('#search');
+function render(){
+  let n=0;
+  [...L].sort(SORT[S.sort]).forEach(l=>{const ok=match(l,S);cards[l.id].hidden=!ok;pins[l.id].classList.toggle('off',!ok);if(ok)n++;grid.appendChild(cards[l.id])});
+  const vis=Object.values(cards);vis.forEach(c=>c.classList.remove('wide'));
+  if(n%2&&n>1){const last=[...grid.children].filter(c=>!c.hidden).pop();last.classList.add('wide')}
+  $('#cnt').textContent=pad(n);
+  $('#cntTxt').textContent=n===1?'listing matches':'listings match';
+  $('#empty').hidden=n>0;
+  $('#reset').hidden=S.area==='all'&&S.type==='all'&&S.budget==='all';
+  $$('.fg').forEach(g=>$$('.chip',g).forEach(b=>b.setAttribute('aria-pressed',b.dataset.v===S[g.dataset.key])));
+  $('#sort').value=S.sort;$('#msvg').dataset.area=S.area;
+  ['area','type','budget'].forEach(k=>sform.elements[k].value=S[k]);
+  goTxt();
+}
+function goTxt(){
+  const s={area:sform.elements.area.value,type:sform.elements.type.value,budget:sform.elements.budget.value};
+  const n=countFor(s);$('#goTxt').textContent=`Show ${n} listing${n===1?'':'s'}`;
+}
+function resetAll(){S.area=S.type=S.budget='all';render()}
+$$('.fg').forEach(g=>g.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;S[g.dataset.key]=b.dataset.v;render()}));
+$('#sort').addEventListener('change',e=>{S.sort=e.target.value;render()});
+$('#reset').addEventListener('click',resetAll);
+$$('[data-reset]').forEach(b=>b.addEventListener('click',resetAll));
+sform.addEventListener('change',goTxt);
+function runSearch(){
+  ['area','type','budget'].forEach(k=>S[k]=sform.elements[k].value);render();
+  $('#listings').scrollIntoView({behavior:RM?'auto':'smooth'});
+}
+sform.addEventListener('submit',e=>{e.preventDefault();runSearch()});
+$$('.quick [data-q]').forEach(b=>b.addEventListener('click',()=>{const [a,t,bu]=b.dataset.q.split(',');sform.elements.area.value=a;sform.elements.type.value=t;sform.elements.budget.value=bu;runSearch()}));
+$$('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();goCard(a.dataset.go)}));
+const q=new URLSearchParams(location.search);
+['area','type','budget'].forEach(k=>{const v=q.get(k);if(v&&(k!=='budget'||B[v]))S[k]=v});
+render();
+
+/* card buttons */
+grid.addEventListener('click',e=>{
+  const p=e.target.closest('[data-pin]');if(!p)return;
+  const id=p.dataset.pin,pin=pins[id];
+  setHot(id);pin.classList.remove('ping');void pin.getBBox();pin.classList.add('ping');
+  const r=$('#msvg').getBoundingClientRect();
+  if(r.top<0||r.bottom>innerHeight)$('#map').scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});
+});
+
+/* drawer */
+const dlg=$('#enq'),eform=$('#enqForm'),done=$('#enqDone');
+let cur=null,opener=null;
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-enq]');if(!b)return;
+  opener=b;openEnq(b.dataset.enq||null);
+});
+function openEnq(id){
+  cur=id?byId[id]:null;
+  const sum=$('#enqSum');
+  if(cur){
+    sum.className='sum';
+    sum.innerHTML=`<img src="${U(cur.img,300)}" alt="" width="112" height="84" style="object-position:${cur.pos}"><div><p class="meta"><span>${cur.id}</span><span>${cur.d}</span></p><b>${cur.t}</b><p class="ro-f"><span>${m2(cur.land)}${cur.bld?' / '+cur.bld+' m²':''}</span><span>${cur.cert}</span><strong>${rp(cur.price)}</strong><span>${per(cur)}/m²</span></p></div>`;
+    $('#enqH').textContent=cur.type==='land'?'Ask about this plot':'Ask about this house';
+  }else{
+    sum.className='sum gen';
+    sum.innerHTML=`<div><p class="meta"><span>General enquiry</span><span>Tangerang + Bogor</span></p><b>Tell us the area, the budget and what you'd build.</b><p class="ro-f"><span>Plots often reach the desk before the site.</span></p></div>`;
+    $('#enqH').textContent='What are you looking for?';
+  }
+  eform.reset();clearErr(eform);$('#enqBody').hidden=false;done.hidden=true;
+  mnavClose();dlg.showModal();
+}
+function closeEnq(){dlg.close()}
+dlg.addEventListener('close',()=>{if(opener&&document.contains(opener))opener.focus({preventScroll:true})});
+dlg.addEventListener('click',e=>{if(e.target===dlg||e.target.closest('[data-close]'))closeEnq()});
+
+/* validation */
+const phoneOk=v=>/^(\+?62|0)8\d{7,11}$/.test(v.replace(/[\s.-]/g,''));
+function setErr(input,msg){const f=input.closest('.f');f.classList.toggle('bad',!!msg);const p=$('.err',f);if(p)p.textContent=msg||'';input.setAttribute('aria-invalid',msg?'true':'false');}
+function clearErr(form){$$('.f',form).forEach(f=>{f.classList.remove('bad');const p=$('.err',f);if(p)p.textContent=''});$$('[aria-invalid]',form).forEach(i=>i.removeAttribute('aria-invalid'))}
+function checkPhone(i){setErr(i,!i.value.trim()?'We need a number to call you back.':phoneOk(i.value)?'':'That doesn\'t look like an Indonesian mobile number (08… or +62 8…).');return phoneOk(i.value)}
+const maskPhone=v=>{const d=v.replace(/[^\d+]/g,'');return d.slice(0,4)+' •••• '+d.slice(-4)};
+
+eform.addEventListener('submit',e=>{
+  e.preventDefault();
+  const n=eform.elements.name,ph=eform.elements.phone;
+  setErr(n,n.value.trim()?'':'Please tell us what to call you.');
+  const okN=!!n.value.trim(),okP=checkPhone(ph);
+  if(!okN||!okP){(okN?ph:n).focus();return}
+  const first=n.value.trim().split(/\s+/)[0],time=eform.elements.time.value;
+  done.innerHTML=`<div class="tick"><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4"/></svg></div>
+  <h2></h2><p class="lead">An agent would normally call you within the hour. This is a concept site by Aleph One, so nothing was sent.</p>
+  <dl class="recap"><div><dt>About</dt><dd>${cur?cur.id+' · '+cur.d:'General enquiry'}</dd></div><div><dt>Call window</dt><dd>${time==='within the hour'?'Within the hour':time+' WIB'}</dd></div><div><dt>Number</dt><dd>${maskPhone(ph.value)}</dd></div><div><dt>First contact</dt><dd>${eform.elements.msg.checked?'Message, then call':'Call'}</dd></div></dl>
+  <button class="btn wide" type="button" data-close>Back to listings</button>`;
+  $('h2',done).textContent=`Noted, ${first}.`;
+  $('#enqBody').hidden=true;done.hidden=false;done.focus();
+});
+
+/* value my plot */
+const RATE={Serpong:9.5e6,Pagedangan:6e6,Cisauk:3.2e6,Cikupa:2.1e6,Sentul:3.6e6,Cibinong:3.4e6,Parung:.95e6,'Gunung Sindur':2.9e6,Bojonggede:2.8e6};
+const CF={SHM:1,HGB:.93,AJB:.82,Girik:.7};
+const vform=$('#valForm'),vdone=$('#valDone');
+vform.addEventListener('submit',e=>{
+  e.preventDefault();
+  const d=vform.elements.district,s=vform.elements.size,ph=vform.elements.phone;
+  const size=parseInt(s.value.replace(/\D/g,''),10);
+  setErr(d,d.value?'':'Pick the district the plot is in.');
+  setErr(s,!s.value.trim()?'How big is it, roughly?':size>=20&&size<=50000?'':'Enter a size between 20 and 50.000 m².');
+  const okP=checkPhone(ph);
+  const bad=[d,s,ph].find(i=>i.getAttribute('aria-invalid')==='true');
+  if(bad||!okP){(bad||ph).focus();return}
+  const cert=vform.elements.cert.value,mid=RATE[d.value]*CF[cert]*size,r=v=>Math.round(v/1e7)*1e7;
+  const lo=r(mid*.88),hi=r(mid*1.12);
+  vdone.innerHTML=`<p class="kicker">Indicative range · ${d.value} · ${m2(size)} · ${cert}</p>
+  <p class="range">${rp(lo)} – ${rp(hi)}</p><p class="per">≈ ${per({price:mid,land:size})}/m² before we visit</p>
+  <p class="note">A surveyor would normally message you within the hour to book a visit. This is a concept site by Aleph One, so nothing was sent.</p>
+  <button class="ghost" type="button" id="valAgain">Value another plot</button>`;
+  vform.hidden=true;vdone.hidden=false;vdone.focus();
+  $('#valAgain').addEventListener('click',()=>{vform.reset();clearErr(vform);vdone.hidden=true;vform.hidden=false;d.focus()});
+});
+
+/* mobile nav */
+const mb=$('.menu-btn'),mnav=$('#mnav');
+function mnavClose(){mnav.hidden=true;mb.setAttribute('aria-expanded','false');mb.setAttribute('aria-label','Open menu')}
+mb.addEventListener('click',()=>{const open=mnav.hidden;mnav.hidden=!open;mb.setAttribute('aria-expanded',open);mb.setAttribute('aria-label',open?'Close menu':'Open menu')});
+$$('a',mnav).forEach(a=>a.addEventListener('click',mnavClose));
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!mnav.hidden){mnavClose();mb.focus()}});
+
+/* desk hours (WIB = UTC+7) */
+const h=(new Date().getUTCHours()+7)%24,open=h>=8&&h<21;
+$('#desk').classList.toggle('closed',!open);
+$('#deskTxt').textContent=open?'Desk open · replies within the hour':'Desk closed · replies from 08:00 WIB';
+
+/* reveal */
+const rv=$$('.rv');
+if('IntersectionObserver' in window){const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}}),{rootMargin:'0px 0px -8% 0px'});rv.forEach(el=>io.observe(el))}
+else rv.forEach(el=>el.classList.add('in'));
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,794 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Atelier Nol — Collection 07, made in Bandung</title>
+<meta name="description" content="Atelier Nol is a fashion label in Bandung. Collection 07: twenty-two pieces, cut in the atelier and shipped worldwide.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#000;--paper:#fff;--grey:#77726c;--grey-d:#8a8580;--hair:rgba(0,0,0,.14);--g:clamp(16px,3.6vw,56px);--hh:72px;--hb:clamp(28px,5vh,52px);
+  --serif:"Cormorant Garamond",Garamond,"Times New Roman",serif;--sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--ease:cubic-bezier(.16,1,.3,1)}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--hh);-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 clamp(18px,1.3vw,20px)/1.5 var(--serif);overflow-x:clip;-webkit-font-smoothing:antialiased;font-variant-numeric:lining-nums}
+body.lock{overflow:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+h1,h2,h3,p,figure,dl,dd,blockquote{margin:0}
+button,input,select{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;z-index:99;background:#000;color:#fff;padding:12px 16px;text-decoration:none}
+.skip:focus{top:12px}
+.ui{font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;line-height:1.5}
+.muted{color:var(--grey)}
+.wrap{width:min(100% - 2*var(--g),1560px);margin-inline:auto}
+.u{text-decoration:none;background:linear-gradient(currentColor,currentColor) 0 100%/0 1px no-repeat;padding-bottom:4px;transition:background-size .5s var(--ease)}
+.u:hover,.u:focus-visible{background-size:100% 1px}
+.u-on{background-size:100% 1px}.u-on:hover{background-size:0 1px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;font:500 11px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:#fff;background:#000;border:1px solid #000;border-radius:0;padding:17px 26px;transition:background-color .35s var(--ease),color .35s var(--ease)}
+.btn:hover{background:#fff;color:#000}
+.btn:active{transform:translateY(1px)}
+.btn .arr{transition:transform .4s var(--ease)}.btn:hover .arr{transform:translateX(5px)}
+.btn-ghost{background:transparent;color:#000}.btn-ghost:hover{background:#000;color:#fff}
+.btn-sm{padding:12px 18px}
+.btn-block{width:100%}
+.display{font-weight:400;font-style:italic;letter-spacing:-.02em;line-height:.86;font-variant-numeric:lining-nums}
+.h2{font-size:clamp(58px,8.6vw,156px)}
+.label{display:flex;align-items:center;gap:14px;margin-bottom:clamp(20px,2.4vw,34px)}
+.label .rule{width:44px;height:1px;background:currentColor}
+.lede{font-size:clamp(19px,1.5vw,23px);line-height:1.45;max-width:31em}
+.sec{padding-block:clamp(96px,12vw,190px)}
+
+/* masthead */
+.mast{position:sticky;top:0;z-index:40;height:var(--hh);background:var(--paper);border-bottom:1px solid transparent;transition:border-color .4s}
+.mast.scrolled{border-bottom-color:var(--ink)}
+.mast-in{height:100%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding-inline:var(--g)}
+.brand{font:400 29px/1 var(--serif);text-decoration:none;justify-self:start;letter-spacing:.005em}
+.brand i{font-style:italic}
+.nav{display:flex;gap:clamp(24px,3.2vw,48px)}
+.acts{justify-self:end;display:flex;align-items:center;gap:clamp(16px,2vw,28px)}
+.bag-btn,.menu-btn{background:none;border:0;padding:8px 0;text-decoration:none}
+.menu-btn{display:none}
+.sheet{display:none}
+
+/* hero */
+.hero{--top:clamp(18px,3vh,32px);--heroH:clamp(560px,calc(100svh - var(--hh)),1000px);position:relative;min-height:var(--heroH);display:flex;padding:0 var(--g)}
+.kicker{position:absolute;top:clamp(18px,3vh,32px);left:var(--g);display:flex;flex-direction:column;gap:4px;z-index:2}
+.hero-copy{position:relative;display:flex;flex-direction:column;width:100%;padding:96px 0 var(--hb)}
+.hero-title{margin-top:auto;font-weight:400;font-style:italic;line-height:.8;letter-spacing:-.03em;font-variant-numeric:lining-nums}
+.ht-a{position:relative;z-index:2;display:block;font-size:clamp(64px,10.4vw,196px);margin-left:-.03em}
+.ht-b{position:relative;z-index:2;display:block;font-size:clamp(150px,27vw,480px);line-height:.74;color:#fff;mix-blend-mode:difference;
+  /* park the 0 just left of the photo's edge so only the 7. overprints it */
+  margin-left:max(.6em,calc(100% - min(calc((var(--heroH) - var(--top) - var(--hb)) * .74),calc((100% + 2 * var(--g)) * .5)) - .48em))}
+.hero-foot{position:relative;z-index:2;display:flex;flex-wrap:wrap;align-items:flex-end;gap:22px 40px;max-width:52%;margin-top:clamp(20px,3.6vh,40px)}
+.hero-sub{max-width:23em;font-size:clamp(19px,1.6vw,25px);line-height:1.32}
+.hero-cta{display:flex;align-items:center;flex-wrap:wrap;gap:16px 30px}
+.hero-media{position:absolute;z-index:1;top:var(--top);bottom:var(--hb);right:var(--g);aspect-ratio:.74;max-width:50%;margin:0;background:#cfd0d2}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:52% 55%}
+.hero-cap{position:absolute;top:18px;right:20px;max-width:22em;text-align:right}
+
+/* lookbook */
+.lb{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2.2vw,32px)}
+.lb-intro .lede{margin-top:clamp(24px,2.6vw,40px)}
+.ph{overflow:hidden;background:#d9d8d6}
+.ph img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;transition:transform 1.4s var(--ease)}
+.look:hover .ph img{transform:scale(1.03)}
+.look-3 .ph img{aspect-ratio:4/3}
+.look-4 .ph img{aspect-ratio:3/4}
+.look figcaption{display:flex;align-items:flex-start;gap:18px;margin-top:16px}
+.num{font:italic 400 clamp(52px,5.6vw,96px)/.72 var(--serif);letter-spacing:-.04em;font-variant-numeric:lining-nums}
+.cap{padding-top:3px;max-width:30ch}
+.cap em{display:block;margin-top:8px;font:400 17px/1.4 var(--serif);font-style:normal;text-transform:none;letter-spacing:0;color:var(--grey)}
+.lb-quote p{font:italic 400 clamp(34px,3.7vw,60px)/1.04 var(--serif);letter-spacing:-.01em}
+.lb-quote footer{margin-top:22px}
+.lb-end p{font-size:clamp(20px,1.6vw,25px);line-height:1.4;margin-bottom:28px;max-width:20em}
+
+/* shop */
+.shop-head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2.2vw,32px);align-items:end}
+.shop-head>div{grid-column:1/8}.shop-head .lede{grid-column:8/13}
+.sup{font:500 12px/1 var(--sans);font-style:normal;letter-spacing:.1em;vertical-align:top;margin-left:.6em;position:relative;top:.6em}
+.shop-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(56px,6vw,96px) clamp(16px,2vw,28px);margin-top:clamp(56px,7vw,110px)}
+.product:nth-child(even){margin-top:clamp(0px,7vw,120px)}
+.p-img{position:relative;overflow:hidden;background:#eeedeb}
+.p-img img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;transition:transform 1.4s var(--ease)}
+.product:hover .p-img img{transform:scale(1.035)}
+.p-meta{display:grid;grid-template-columns:1fr auto;column-gap:12px;align-items:baseline;margin-top:16px}
+.p-no{grid-column:1/-1;margin-bottom:6px}
+.p-name{font:400 clamp(22px,1.8vw,28px)/1.1 var(--serif)}
+.p-price{font:500 12px/1 var(--sans);letter-spacing:.05em;white-space:nowrap}
+.p-fab{grid-column:1/-1;color:var(--grey);font-size:16.5px;line-height:1.35;margin-top:6px}
+.sizes{border:0;padding:0;margin:16px 0 0;min-width:0;display:flex;gap:6px}
+.sizes label{flex:1;position:relative;min-width:0}
+.sizes input{position:absolute;inset:0;opacity:0;margin:0;cursor:pointer}
+.sizes span{display:grid;place-items:center;height:40px;border:1px solid var(--grey-d);font:500 11px/1 var(--sans);letter-spacing:.06em;transition:background-color .25s,color .25s,border-color .25s}
+.sizes label:hover span{border-color:#000}
+.sizes input:checked+span{background:#000;color:#fff;border-color:#000}
+.sizes input:focus-visible+span{outline:2px solid #000;outline-offset:2px}
+.sizes.invalid span{border-style:dashed;border-color:#000}
+.err{font:500 11px/1.4 var(--sans);letter-spacing:.05em;margin-top:8px}
+.err:empty{margin:0}
+.err:not(:empty)::before{content:"— "}
+.p-form .btn{margin-top:10px}
+
+/* atelier */
+.atelier{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2.2vw,32px);align-items:center;padding-right:var(--g)}
+.at-media{grid-column:1/7;position:relative}
+.at-media img{width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+.at-media figcaption{position:absolute;left:calc(100% + 14px);bottom:0;writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap}
+.at-copy{grid-column:8/13;padding-block:48px}
+.at-copy .lede{margin-top:clamp(24px,2.6vw,40px)}
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:30px 24px;margin-top:44px;padding-top:26px;border-top:1px solid #000}
+.facts div{display:flex;flex-direction:column-reverse;gap:10px}
+.facts dd{font:italic 400 clamp(56px,5vw,88px)/.78 var(--serif);font-variant-numeric:lining-nums}
+
+/* stockists */
+.st-head{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2.2vw,32px);align-items:end;margin-bottom:clamp(48px,6vw,96px)}
+.st-head>div{grid-column:1/8}.st-head .lede{grid-column:8/13}
+.st-list{list-style:none;margin:0;padding:0;border-bottom:1px solid #000}
+.st-row{display:grid;grid-template-columns:minmax(0,4.2fr) minmax(0,1.6fr) minmax(0,3fr) minmax(0,2.2fr) minmax(150px,auto);align-items:baseline;column-gap:24px;padding:26px 0 30px;border-top:1px solid #000}
+.st-city{font:italic 400 clamp(52px,6.6vw,112px)/.9 var(--serif);letter-spacing:-.02em;transition:transform .6s var(--ease)}
+.st-row:hover .st-city{transform:translateX(14px)}
+.st-row p:not(.ui){font-size:18px;line-height:1.4}
+.st-row .btn{justify-self:end;align-self:center}
+.appt{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:clamp(16px,2.2vw,32px);margin-top:clamp(64px,8vw,120px)}
+.appt-intro{grid-column:1/5}
+.appt-intro h3{font:italic 400 clamp(40px,4vw,64px)/.95 var(--serif);margin-bottom:18px}
+.appt-form,.appt-done{grid-column:6/13}
+.appt-form{display:grid;grid-template-columns:1fr 1fr;gap:26px 28px;align-items:start}
+.field label{display:block;margin-bottom:4px}
+.inp{width:100%;height:48px;border:0;border-bottom:1px solid #000;border-radius:0;background:transparent;padding:0;font:400 21px/1 var(--serif)}
+select.inp{appearance:none;-webkit-appearance:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23000'/%3E%3C/svg%3E") right 4px center no-repeat;padding-right:24px}
+.inp:focus-visible{outline:none;box-shadow:0 2px 0 #000}
+.inp[aria-invalid=true]{border-bottom-style:dashed}
+.appt-form .btn{grid-column:1/-1;justify-self:start}
+.appt-done p:first-child{font:italic 400 clamp(40px,4vw,64px)/.95 var(--serif);margin-bottom:18px}
+
+/* footer */
+.foot{background:#000;color:#fff;padding:clamp(72px,9vw,140px) 0 120px}
+.foot .muted{color:var(--grey-d)}
+.foot-mark{font:italic 400 clamp(76px,17.4vw,320px)/.8 var(--serif);letter-spacing:-.035em;margin-left:-.04em}
+.foot-mark span{font-style:normal}
+.foot-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:32px;margin-top:clamp(56px,7vw,110px);padding-top:28px;border-top:1px solid #fff}
+.foot-grid h2{margin-bottom:14px;font-size:11px}
+.foot-grid p,.foot-grid li{font-size:18px;line-height:1.45}
+.foot-grid ul{list-style:none;margin:0;padding:0}
+.foot-base{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 32px;margin-top:clamp(56px,7vw,96px);color:var(--grey-d)}
+.foot :focus-visible{outline-color:#fff}
+
+/* bag drawer */
+.scrim{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.42);opacity:0;visibility:hidden;transition:opacity .45s,visibility 0s .45s}
+.scrim.open{opacity:1;visibility:visible;transition:opacity .45s}
+.drawer{position:fixed;z-index:70;top:0;right:0;bottom:0;width:min(480px,100%);background:#fff;display:flex;flex-direction:column;transform:translateX(100%);visibility:hidden;transition:transform .6s var(--ease),visibility 0s .6s}
+.drawer.open{transform:none;visibility:visible;transition:transform .6s var(--ease)}
+.d-head{flex:none;display:flex;justify-content:space-between;align-items:center;height:var(--hh);padding:0 28px;border-bottom:1px solid #000}
+.d-title{font:italic 400 32px/1 var(--serif)}
+.d-title:focus{outline:none}
+.d-title .ui{font-style:normal;color:var(--grey)}
+.d-close{background:none;border:0;padding:8px 0}
+.d-step{flex:1;min-height:0;display:flex;flex-direction:column}
+.d-step[hidden]{display:none}
+.d-scroll{flex:1;overflow:auto;padding:0 28px}
+.lines{list-style:none;margin:0;padding:0}
+.line{display:grid;grid-template-columns:76px 1fr auto;gap:16px;padding:20px 0;border-bottom:1px solid var(--hair)}
+.line img{width:76px;height:95px;object-fit:cover;background:#eeedeb}
+.l-name{font-size:22px;line-height:1.1}
+.l-meta{color:var(--grey);margin-top:4px}
+.qty{display:flex;align-items:center;margin-top:12px;gap:2px}
+.q-btn{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--grey-d);background:#fff;font:400 16px/1 var(--sans)}
+.q-btn:hover:not(:disabled){border-color:#000}
+.q-btn:disabled{opacity:.35;cursor:default}
+.q-n{min-width:34px;text-align:center;font:500 12px/1 var(--sans)}
+.l-rm{background:none;border:0;margin-left:16px;padding:6px 0;color:var(--grey);text-decoration:underline;text-underline-offset:3px}
+.l-rm:hover{color:#000}
+.l-price{font:500 12px/1.4 var(--sans);letter-spacing:.04em;white-space:nowrap}
+.d-empty{padding:48px 0}
+.d-empty p:first-child{font:italic 400 40px/1 var(--serif);margin-bottom:14px}
+.d-empty .btn{margin-top:26px}
+.d-sum{flex:none;padding:20px 28px 28px;border-top:1px solid #000}
+.d-row{display:flex;justify-content:space-between;align-items:baseline}
+.d-row strong{font:italic 400 30px/1 var(--serif)}
+.d-note{color:var(--grey);font-size:16.5px;margin:6px 0 18px}
+.pay{padding-bottom:28px}
+.back{background:none;border:0;padding:20px 0 0}
+.pay h3{font:italic 400 44px/1 var(--serif);margin:22px 0 6px}
+.pay .field{margin-top:22px}
+.pm{border:0;padding:0;margin:26px 0 0;min-width:0}
+.pm legend{padding:0;margin-bottom:4px}
+.pm-opt{display:block;position:relative;border:1px solid var(--grey-d);padding:15px 16px 15px 48px;margin-top:8px;cursor:pointer;transition:border-color .25s,box-shadow .25s}
+.pm-opt:hover{border-color:#000}
+.pm-opt input{position:absolute;left:17px;top:18px;width:16px;height:16px;margin:0;accent-color:#000}
+.pm-opt:has(input:checked){border-color:#000;box-shadow:inset 0 0 0 1px #000}
+.pm-opt b{display:block;font:500 12px/1.3 var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.pm-opt small{display:block;margin-top:5px;font-size:16px;line-height:1.35;color:var(--grey)}
+.pm.invalid .pm-opt{border-style:dashed;border-color:#000}
+.totals{margin:24px 0 18px;border-top:1px solid #000}
+.totals div{display:flex;justify-content:space-between;align-items:baseline;padding:11px 0;border-bottom:1px solid var(--hair)}
+.totals dd{font:500 12px/1 var(--sans);letter-spacing:.04em}
+.totals .grand dd{font:italic 400 30px/1 var(--serif);letter-spacing:0}
+.done{padding:0 28px 32px;overflow:auto}
+.done:focus{outline:none}
+.done-big{font:italic 400 clamp(64px,16vw,96px)/.9 var(--serif);margin:48px 0 22px;letter-spacing:-.02em}
+.done p+p{margin-top:14px}
+.done .btn{margin-top:30px}
+
+/* reveal */
+.js .reveal{opacity:0;transform:translateY(28px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.js .reveal.in{opacity:1;transform:none}
+
+@media (min-width:901px){
+  .lb-intro{grid-column:1/6;grid-row:1;padding-top:clamp(0px,3vw,48px)}
+  .look-1{grid-column:7/12;grid-row:1/3}
+  .look-2{grid-column:2/6;grid-row:2;margin-top:clamp(64px,8vw,140px)}
+  .look-3{grid-column:1/10;grid-row:3;margin-top:clamp(110px,12vw,200px);position:relative}
+  .look-3 .num{position:absolute;left:calc(100% + .06em);top:-.06em;font-size:clamp(170px,21vw,360px)}
+  .lb-quote{grid-column:2/7;grid-row:4;align-self:center;margin-top:clamp(110px,12vw,200px)}
+  .look-4{grid-column:8/13;grid-row:4;margin-top:clamp(110px,12vw,200px)}
+  .look-5{grid-column:3/7;grid-row:5;margin-top:clamp(40px,5vw,90px)}
+  .lb-end{grid-column:8/12;grid-row:5;align-self:end;padding-bottom:64px}
+}
+@media (max-width:1100px){
+  .st-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr) auto;row-gap:14px}
+  .st-city{grid-column:1/-1}
+  .st-row .btn{grid-column:3;grid-row:2/4}
+  .st-addr{grid-column:1}.st-when{grid-column:2}.st-kind{grid-column:1/3}
+}
+@media (max-width:1000px){
+  .shop-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:900px){
+  .lb{grid-template-columns:repeat(6,minmax(0,1fr))}
+  .lb>*{grid-column:1/-1}
+  .look-1{grid-column:2/7;margin-top:56px}
+  .look-2{grid-column:1/5;margin-top:64px}
+  .look-3{margin-top:64px}
+  .lb-quote{margin-top:72px}
+  .look-4{grid-column:3/7;margin-top:72px}
+  .look-5{grid-column:1/6;margin-top:64px}
+  .lb-end{margin-top:48px}
+  .shop-head>div,.shop-head .lede,.st-head>div,.st-head .lede{grid-column:1/-1}
+  .shop-head .lede,.st-head .lede{margin-top:24px}
+  .atelier{padding-right:0}
+  .at-media{grid-column:1/12}
+  .at-copy{grid-column:1/-1;padding:40px var(--g) 0}
+  .appt-intro,.appt-form,.appt-done{grid-column:1/-1}
+  .appt-form{margin-top:32px}
+}
+@media (max-width:820px){
+  :root{--hh:56px}
+  .mast-in{grid-template-columns:1fr auto}
+  .nav,.acts .btn{display:none}
+  .brand{font-size:25px}
+  .menu-btn{display:block}
+  .sheet{display:block;position:fixed;top:var(--hh);left:0;right:0;bottom:0;background:#fff;padding:28px var(--g);border-top:1px solid #000;visibility:hidden;opacity:0;transform:translateY(-10px);transition:opacity .35s var(--ease),transform .35s var(--ease),visibility 0s .35s}
+  .sheet.open{visibility:visible;opacity:1;transform:none;transition:opacity .35s var(--ease),transform .35s var(--ease)}
+  .sheet nav{display:flex;flex-direction:column;gap:6px;margin-bottom:36px}
+  .sheet nav a{font:italic 400 52px/1.08 var(--serif);text-decoration:none}
+}
+@media (max-width:700px){
+  .hero{flex-direction:column;min-height:clamp(560px,calc(100svh - var(--hh)),1000px)}
+  .kicker{top:18px;writing-mode:vertical-rl;transform:rotate(180deg)}
+  .kicker .muted{display:none}
+  .hero-media{order:-1;position:relative;inset:auto;align-self:flex-end;width:calc(72% + var(--g));max-width:none;margin:12px calc(-1*var(--g)) 0 0;flex:none}
+  .hero-cap{top:12px;right:14px;max-width:13em;font-size:10px}
+  .hero-copy{margin-top:-46px;padding:0 0 24px}
+  .hero-title{margin-top:0}
+  .ht-a{font-size:clamp(60px,17vw,96px)}
+  .ht-b{font-size:clamp(132px,40vw,240px);margin-left:1.06em}
+  .hero-foot{max-width:none;margin-top:14px;gap:18px}
+  .hero-sub{font-size:18.5px}
+  .shop-grid{gap:44px 12px}
+  .product:nth-child(even){margin-top:40px}
+  .p-name{font-size:20px}
+  .p-meta{grid-template-columns:1fr}
+  .p-price{margin-top:8px}
+  .p-fab{font-size:15.5px}
+  .sizes{gap:4px}
+  .sizes span{height:38px;font-size:10px;letter-spacing:0}
+  .p-form .btn{padding:15px 8px;letter-spacing:.12em}
+  .facts{grid-template-columns:1fr 1fr}
+  .st-row{grid-template-columns:1fr;row-gap:10px;padding:22px 0 26px}
+  .st-row .btn,.st-addr,.st-when,.st-kind{grid-column:1;grid-row:auto;justify-self:start}
+  .st-row .btn{margin-top:8px}
+  .appt-form{grid-template-columns:1fr}
+  .at-media figcaption{position:static;writing-mode:horizontal-tb;transform:none;white-space:normal;padding:12px var(--g) 0}
+  .foot-grid{grid-template-columns:1fr}
+  .line{grid-template-columns:64px 1fr;column-gap:14px}
+  .line img{width:64px;height:80px}
+  .l-price{grid-column:2}
+  .d-head,.d-scroll,.d-sum,.done{padding-inline:20px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+  .js .reveal{opacity:1;transform:none}
+  .look:hover .ph img,.product:hover .p-img img,.st-row:hover .st-city{transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="mast" id="mast">
+  <div class="mast-in">
+    <a class="brand" href="#top" aria-label="Atelier Nol, back to top">Atelier <i>Nol</i></a>
+    <nav class="nav" aria-label="Main">
+      <a class="ui u" href="#collection">Collection</a>
+      <a class="ui u" href="#shop">Shop</a>
+      <a class="ui u" href="#stockists">Stockists</a>
+    </nav>
+    <div class="acts">
+      <a class="btn btn-sm" href="#shop">Shop</a>
+      <button class="ui bag-btn u" type="button" id="bag-open" aria-controls="bag" aria-haspopup="dialog">Bag (<span data-count>0</span>)</button>
+      <button class="ui menu-btn" type="button" id="menu-btn" aria-controls="menu" aria-expanded="false">Menu</button>
+    </div>
+  </div>
+  <div class="sheet" id="menu">
+    <nav aria-label="Mobile">
+      <a href="#collection">Collection</a>
+      <a href="#shop">Shop</a>
+      <a href="#atelier">Atelier</a>
+      <a href="#stockists">Stockists</a>
+    </nav>
+    <p class="ui muted">Flagship — Jalan Lereng Kapas 7, Dago, Bandung</p>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" id="top" aria-labelledby="hero-title">
+    <p class="ui kicker"><span>No. 07 — Autumn / Winter 2026</span><span class="muted">Bandung, 6°55′ S 107°37′ E</span></p>
+    <div class="hero-copy">
+      <h1 class="hero-title" id="hero-title"><span class="ht-a">Collection</span> <span class="ht-b">07.</span></h1>
+      <div class="hero-foot">
+        <p class="hero-sub">Twenty-two pieces, made in Bandung, shipped worldwide. Editorial first; the shop is one tap away.</p>
+        <p class="hero-cta"><a class="btn" href="#shop">Shop the collection <span class="arr" aria-hidden="true">→</span></a><a class="ui u u-on" href="#collection">Enter the lookbook</a></p>
+      </div>
+    </div>
+    <figure class="hero-media">
+      <img src="https://images.unsplash.com/photo-1704642406929-ea6d2099f063?auto=format&fit=crop&rect=0,0.1,1,0.9&w=1200&q=70"
+        srcset="https://images.unsplash.com/photo-1704642406929-ea6d2099f063?auto=format&fit=crop&rect=0,0.1,1,0.9&w=800&q=70 800w, https://images.unsplash.com/photo-1704642406929-ea6d2099f063?auto=format&fit=crop&rect=0,0.1,1,0.9&w=1200&q=70 1200w, https://images.unsplash.com/photo-1704642406929-ea6d2099f063?auto=format&fit=crop&rect=0,0.1,1,0.9&w=1800&q=70 1800w"
+        sizes="(max-width: 700px) 80vw, 44vw" width="740" height="1000" fetchpriority="high"
+        alt="A woman in a black double-breasted suit and wide trousers stands barefoot on grey studio paper beside a light stand">
+      <figcaption class="ui hero-cap">Look 01 — Double-breasted suit, black wool crepe</figcaption>
+    </figure>
+  </section>
+
+  <section class="sec" id="collection" aria-labelledby="lb-title">
+    <div class="wrap lb">
+      <div class="lb-intro reveal">
+        <p class="ui label"><span>II</span><span class="rule"></span><span>Lookbook</span></p>
+        <h2 class="display h2" id="lb-title">Five looks, one grey room.</h2>
+        <p class="lede">Photographed the way we see the clothes on the cutting floor: plain paper, one light, no season name. Black wool crepe, a pinstripe woven narrower than usual, and one olive that came out of a mistake in the dye bath and stayed.</p>
+      </div>
+      <figure class="look look-1 reveal">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1704642406929-ea6d2099f063?auto=format&fit=crop&rect=0.3,0.27,0.45,0.375&w=900&q=70" srcset="https://images.unsplash.com/photo-1704642406929-ea6d2099f063?auto=format&fit=crop&rect=0.3,0.27,0.45,0.375&w=600&q=70 600w, https://images.unsplash.com/photo-1704642406929-ea6d2099f063?auto=format&fit=crop&rect=0.3,0.27,0.45,0.375&w=900&q=70 900w, https://images.unsplash.com/photo-1704642406929-ea6d2099f063?auto=format&fit=crop&rect=0.3,0.27,0.45,0.375&w=1300&q=70 1300w" sizes="(max-width: 900px) 84vw, 38vw" width="900" height="1125" loading="lazy" decoding="async" alt="Close crop of the black double-breasted jacket, hands folded at the waist"></div>
+        <figcaption><span class="num" aria-hidden="true">01</span><span class="ui cap">Look 01 — Double-breasted jacket, wide trouser, black wool crepe<em>Six buttons, two of them working. The trouser is cut to touch the floor barefoot.</em></span></figcaption>
+      </figure>
+      <figure class="look look-2 reveal">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1697218694642-3dcb1841d85b?auto=format&fit=crop&w=900&q=70" srcset="https://images.unsplash.com/photo-1697218694642-3dcb1841d85b?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1697218694642-3dcb1841d85b?auto=format&fit=crop&w=900&q=70 900w, https://images.unsplash.com/photo-1697218694642-3dcb1841d85b?auto=format&fit=crop&w=1300&q=70 1300w" sizes="(max-width: 900px) 66vw, 30vw" width="900" height="1125" loading="lazy" decoding="async" alt="A man in a long dark cape coat and boots mid-stride against a grey studio wall"></div>
+        <figcaption><span class="num" aria-hidden="true">02</span><span class="ui cap">Look 02 — Cape coat over column trouser, charcoal wool twill</span></figcaption>
+      </figure>
+      <figure class="look look-3 reveal">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1770246135811-98d614cfa272?auto=format&fit=crop&w=1400&q=70" srcset="https://images.unsplash.com/photo-1770246135811-98d614cfa272?auto=format&fit=crop&w=900&q=70 900w, https://images.unsplash.com/photo-1770246135811-98d614cfa272?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1770246135811-98d614cfa272?auto=format&fit=crop&w=2000&q=70 2000w" sizes="(max-width: 900px) 92vw, 66vw" width="1400" height="1050" loading="lazy" decoding="async" alt="A woman in a sleeveless pinstripe suit sits cross-legged on the studio floor, chin resting on her hand"></div>
+        <figcaption><span class="num" aria-hidden="true">03</span><span class="ui cap">Look 03 — Pinstripe column suit, wool<em>The stripe is two millimetres apart, not the usual five. It reads as grey until you are close.</em></span></figcaption>
+      </figure>
+      <blockquote class="lb-quote reveal">
+        <p>“We number collections instead of naming seasons. Bandung has two kinds of weather; the clothes have one.”</p>
+        <footer class="ui muted">From the atelier notebook</footer>
+      </blockquote>
+      <figure class="look look-4 reveal">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1644269444230-c6d1f2722e10?auto=format&fit=crop&w=900&q=70" srcset="https://images.unsplash.com/photo-1644269444230-c6d1f2722e10?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1644269444230-c6d1f2722e10?auto=format&fit=crop&w=900&q=70 900w, https://images.unsplash.com/photo-1644269444230-c6d1f2722e10?auto=format&fit=crop&w=1300&q=70 1300w" sizes="(max-width: 900px) 66vw, 38vw" width="900" height="1200" loading="lazy" decoding="async" alt="A man in a dark overcoat and a long knitted scarf against an olive backdrop"></div>
+        <figcaption><span class="num" aria-hidden="true">04</span><span class="ui cap">Look 04 — Long overcoat and knitted scarf, grey melton</span></figcaption>
+      </figure>
+      <figure class="look look-5 reveal">
+        <div class="ph"><img src="https://images.unsplash.com/photo-1743588464176-f8247f2a551f?auto=format&fit=crop&w=900&q=70" srcset="https://images.unsplash.com/photo-1743588464176-f8247f2a551f?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1743588464176-f8247f2a551f?auto=format&fit=crop&w=900&q=70 900w, https://images.unsplash.com/photo-1743588464176-f8247f2a551f?auto=format&fit=crop&w=1300&q=70 1300w" sizes="(max-width: 900px) 80vw, 30vw" width="900" height="1125" loading="lazy" decoding="async" alt="A woman in a black dress sits sideways on a folding chair in a dark studio"></div>
+        <figcaption><span class="num" aria-hidden="true">05</span><span class="ui cap">Look 05 — Bias slip dress, black silk crepe</span></figcaption>
+      </figure>
+      <div class="lb-end reveal">
+        <p>Eight pieces are online now. The other fourteen hang at the flagship in Dago and travel with us to fittings.</p>
+        <a class="btn" href="#shop">Go to the shop <span class="arr" aria-hidden="true">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="shop" aria-labelledby="shop-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="shop-head reveal">
+        <div>
+          <p class="ui label"><span>III</span><span class="rule"></span><span>Shop</span></p>
+          <h2 class="display h2" id="shop-title">The shop<span class="sup">08 / 22</span></h2>
+        </div>
+        <p class="lede">Cut in batches of forty, then we stop. Sizes XS to XL, measured flat, with fit notes that tell the truth. Prices in rupiah, tax included.</p>
+      </div>
+      <div class="shop-grid">
+        <article class="product reveal" id="p01" data-name="Field jacket" data-price="3450000">
+          <div class="p-img"><img src="https://images.unsplash.com/photo-1673712060934-34358642511b?auto=format&fit=crop&crop=focalpoint&fp-x=0.72&fp-y=0.5&w=700&h=875&q=70" srcset="https://images.unsplash.com/photo-1673712060934-34358642511b?auto=format&fit=crop&crop=focalpoint&fp-x=0.72&fp-y=0.5&w=400&h=500&q=70 400w, https://images.unsplash.com/photo-1673712060934-34358642511b?auto=format&fit=crop&crop=focalpoint&fp-x=0.72&fp-y=0.5&w=700&h=875&q=70 700w, https://images.unsplash.com/photo-1673712060934-34358642511b?auto=format&fit=crop&crop=focalpoint&fp-x=0.72&fp-y=0.5&w=1000&h=1250&q=70 1000w" sizes="(max-width: 1000px) 46vw, 23vw" width="700" height="875" loading="lazy" decoding="async" alt="Olive field jackets hanging in a row on a dark rail"></div>
+          <div class="p-meta"><p class="ui p-no muted">No. 07/01</p><h3 class="p-name">Field jacket</h3><p class="p-price">Rp 3.450.000</p><p class="p-fab">Olive waxed cotton. Room for a knit underneath.</p></div>
+          <form class="p-form" novalidate><fieldset class="sizes" aria-describedby="p01-e"><legend class="sr">Size for Field jacket</legend><label><input type="radio" name="p01" value="XS"><span>XS</span></label><label><input type="radio" name="p01" value="S"><span>S</span></label><label><input type="radio" name="p01" value="M"><span>M</span></label><label><input type="radio" name="p01" value="L"><span>L</span></label><label><input type="radio" name="p01" value="XL"><span>XL</span></label></fieldset><p class="err" id="p01-e" role="alert"></p><button class="btn btn-block" type="submit">Add to bag</button></form>
+        </article>
+        <article class="product reveal" id="p02" data-name="Plain tee" data-price="590000">
+          <div class="p-img"><img src="https://images.unsplash.com/photo-1778671394516-8270eac13c42?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=700&h=875&q=70" srcset="https://images.unsplash.com/photo-1778671394516-8270eac13c42?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=400&h=500&q=70 400w, https://images.unsplash.com/photo-1778671394516-8270eac13c42?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=700&h=875&q=70 700w, https://images.unsplash.com/photo-1778671394516-8270eac13c42?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=1000&h=1250&q=70 1000w" sizes="(max-width: 1000px) 46vw, 23vw" width="700" height="875" loading="lazy" decoding="async" alt="A plain white t-shirt on a wooden hanger against a pale wall"></div>
+          <div class="p-meta"><p class="ui p-no muted">No. 07/02</p><h3 class="p-name">Plain tee</h3><p class="p-price">Rp 590.000</p><p class="p-fab">White cotton jersey, 240 g. True to size.</p></div>
+          <form class="p-form" novalidate><fieldset class="sizes" aria-describedby="p02-e"><legend class="sr">Size for Plain tee</legend><label><input type="radio" name="p02" value="XS"><span>XS</span></label><label><input type="radio" name="p02" value="S"><span>S</span></label><label><input type="radio" name="p02" value="M"><span>M</span></label><label><input type="radio" name="p02" value="L"><span>L</span></label><label><input type="radio" name="p02" value="XL"><span>XL</span></label></fieldset><p class="err" id="p02-e" role="alert"></p><button class="btn btn-block" type="submit">Add to bag</button></form>
+        </article>
+        <article class="product reveal" id="p03" data-name="Shell top" data-price="1250000">
+          <div class="p-img"><img src="https://images.unsplash.com/photo-1519554318711-aaf73ece6ff9?auto=format&fit=crop&crop=focalpoint&fp-x=0.47&fp-y=0.5&w=700&h=875&q=70" srcset="https://images.unsplash.com/photo-1519554318711-aaf73ece6ff9?auto=format&fit=crop&crop=focalpoint&fp-x=0.47&fp-y=0.5&w=400&h=500&q=70 400w, https://images.unsplash.com/photo-1519554318711-aaf73ece6ff9?auto=format&fit=crop&crop=focalpoint&fp-x=0.47&fp-y=0.5&w=700&h=875&q=70 700w, https://images.unsplash.com/photo-1519554318711-aaf73ece6ff9?auto=format&fit=crop&crop=focalpoint&fp-x=0.47&fp-y=0.5&w=1000&h=1250&q=70 1000w" sizes="(max-width: 1000px) 46vw, 23vw" width="700" height="875" loading="lazy" decoding="async" alt="A black sleeveless top on a grey hanger against a white wall"></div>
+          <div class="p-meta"><p class="ui p-no muted">No. 07/03</p><h3 class="p-name">Shell top</h3><p class="p-price">Rp 1.250.000</p><p class="p-fab">Black wool crepe. Cut close; size up if between.</p></div>
+          <form class="p-form" novalidate><fieldset class="sizes" aria-describedby="p03-e"><legend class="sr">Size for Shell top</legend><label><input type="radio" name="p03" value="XS"><span>XS</span></label><label><input type="radio" name="p03" value="S"><span>S</span></label><label><input type="radio" name="p03" value="M"><span>M</span></label><label><input type="radio" name="p03" value="L"><span>L</span></label><label><input type="radio" name="p03" value="XL"><span>XL</span></label></fieldset><p class="err" id="p03-e" role="alert"></p><button class="btn btn-block" type="submit">Add to bag</button></form>
+        </article>
+        <article class="product reveal" id="p04" data-name="Fisherman crew" data-price="2250000">
+          <div class="p-img"><img src="https://images.unsplash.com/photo-1631541909061-71e349d1f203?auto=format&fit=crop&crop=focalpoint&fp-x=0.45&fp-y=0.6&w=700&h=875&q=70" srcset="https://images.unsplash.com/photo-1631541909061-71e349d1f203?auto=format&fit=crop&crop=focalpoint&fp-x=0.45&fp-y=0.6&w=400&h=500&q=70 400w, https://images.unsplash.com/photo-1631541909061-71e349d1f203?auto=format&fit=crop&crop=focalpoint&fp-x=0.45&fp-y=0.6&w=700&h=875&q=70 700w, https://images.unsplash.com/photo-1631541909061-71e349d1f203?auto=format&fit=crop&crop=focalpoint&fp-x=0.45&fp-y=0.6&w=1000&h=1250&q=70 1000w" sizes="(max-width: 1000px) 46vw, 23vw" width="700" height="875" loading="lazy" decoding="async" alt="An oatmeal chunky knit sweater hanging from a hook on a white cupboard"></div>
+          <div class="p-meta"><p class="ui p-no muted">No. 07/04</p><h3 class="p-name">Fisherman crew</h3><p class="p-price">Rp 2.250.000</p><p class="p-fab">Undyed cotton, hand-finished. Oversized; take one down.</p></div>
+          <form class="p-form" novalidate><fieldset class="sizes" aria-describedby="p04-e"><legend class="sr">Size for Fisherman crew</legend><label><input type="radio" name="p04" value="XS"><span>XS</span></label><label><input type="radio" name="p04" value="S"><span>S</span></label><label><input type="radio" name="p04" value="M"><span>M</span></label><label><input type="radio" name="p04" value="L"><span>L</span></label><label><input type="radio" name="p04" value="XL"><span>XL</span></label></fieldset><p class="err" id="p04-e" role="alert"></p><button class="btn btn-block" type="submit">Add to bag</button></form>
+        </article>
+        <article class="product reveal" id="p05" data-name="Pleated trouser" data-price="1850000">
+          <div class="p-img"><img src="https://images.unsplash.com/photo-1711443813147-def27861b9af?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=700&h=875&q=70" srcset="https://images.unsplash.com/photo-1711443813147-def27861b9af?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=400&h=500&q=70 400w, https://images.unsplash.com/photo-1711443813147-def27861b9af?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=700&h=875&q=70 700w, https://images.unsplash.com/photo-1711443813147-def27861b9af?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=1000&h=1250&q=70 1000w" sizes="(max-width: 1000px) 46vw, 23vw" width="700" height="875" loading="lazy" decoding="async" alt="Sand-coloured pleated trousers laid flat on grey beside glasses and a booklet"></div>
+          <div class="p-meta"><p class="ui p-no muted">No. 07/05</p><h3 class="p-name">Pleated trouser</h3><p class="p-price">Rp 1.850.000</p><p class="p-fab">Sand linen twill. High rise, wide leg, drawcord.</p></div>
+          <form class="p-form" novalidate><fieldset class="sizes" aria-describedby="p05-e"><legend class="sr">Size for Pleated trouser</legend><label><input type="radio" name="p05" value="XS"><span>XS</span></label><label><input type="radio" name="p05" value="S"><span>S</span></label><label><input type="radio" name="p05" value="M"><span>M</span></label><label><input type="radio" name="p05" value="L"><span>L</span></label><label><input type="radio" name="p05" value="XL"><span>XL</span></label></fieldset><p class="err" id="p05-e" role="alert"></p><button class="btn btn-block" type="submit">Add to bag</button></form>
+        </article>
+        <article class="product reveal" id="p06" data-name="Studio shirt" data-price="1450000">
+          <div class="p-img"><img src="https://images.unsplash.com/photo-1624222244232-5f1ae13bbd53?auto=format&fit=crop&crop=focalpoint&fp-x=0.6&fp-y=0.5&w=700&h=875&q=70" srcset="https://images.unsplash.com/photo-1624222244232-5f1ae13bbd53?auto=format&fit=crop&crop=focalpoint&fp-x=0.6&fp-y=0.5&w=400&h=500&q=70 400w, https://images.unsplash.com/photo-1624222244232-5f1ae13bbd53?auto=format&fit=crop&crop=focalpoint&fp-x=0.6&fp-y=0.5&w=700&h=875&q=70 700w, https://images.unsplash.com/photo-1624222244232-5f1ae13bbd53?auto=format&fit=crop&crop=focalpoint&fp-x=0.6&fp-y=0.5&w=1000&h=1250&q=70 1000w" sizes="(max-width: 1000px) 46vw, 23vw" width="700" height="875" loading="lazy" decoding="async" alt="White and black shirts on black hooks along a wooden rail"></div>
+          <div class="p-meta"><p class="ui p-no muted">No. 07/06</p><h3 class="p-name">Studio shirt</h3><p class="p-price">Rp 1.450.000</p><p class="p-fab">Chalk cotton poplin. Boxy, dropped shoulder.</p></div>
+          <form class="p-form" novalidate><fieldset class="sizes" aria-describedby="p06-e"><legend class="sr">Size for Studio shirt</legend><label><input type="radio" name="p06" value="XS"><span>XS</span></label><label><input type="radio" name="p06" value="S"><span>S</span></label><label><input type="radio" name="p06" value="M"><span>M</span></label><label><input type="radio" name="p06" value="L"><span>L</span></label><label><input type="radio" name="p06" value="XL"><span>XL</span></label></fieldset><p class="err" id="p06-e" role="alert"></p><button class="btn btn-block" type="submit">Add to bag</button></form>
+        </article>
+        <article class="product reveal" id="p07" data-name="Five-pocket trouser" data-price="1650000">
+          <div class="p-img"><img src="https://images.unsplash.com/photo-1718252540511-e958742e4165?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=700&h=875&q=70" srcset="https://images.unsplash.com/photo-1718252540511-e958742e4165?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=400&h=500&q=70 400w, https://images.unsplash.com/photo-1718252540511-e958742e4165?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=700&h=875&q=70 700w, https://images.unsplash.com/photo-1718252540511-e958742e4165?auto=format&fit=crop&crop=focalpoint&fp-x=0.5&fp-y=0.5&w=1000&h=1250&q=70 1000w" sizes="(max-width: 1000px) 46vw, 23vw" width="700" height="875" loading="lazy" decoding="async" alt="Black five-pocket trousers folded on a pale floor"></div>
+          <div class="p-meta"><p class="ui p-no muted">No. 07/07</p><h3 class="p-name">Five-pocket trouser</h3><p class="p-price">Rp 1.650.000</p><p class="p-fab">Washed black denim. Narrow, true to size.</p></div>
+          <form class="p-form" novalidate><fieldset class="sizes" aria-describedby="p07-e"><legend class="sr">Size for Five-pocket trouser</legend><label><input type="radio" name="p07" value="XS"><span>XS</span></label><label><input type="radio" name="p07" value="S"><span>S</span></label><label><input type="radio" name="p07" value="M"><span>M</span></label><label><input type="radio" name="p07" value="L"><span>L</span></label><label><input type="radio" name="p07" value="XL"><span>XL</span></label></fieldset><p class="err" id="p07-e" role="alert"></p><button class="btn btn-block" type="submit">Add to bag</button></form>
+        </article>
+        <article class="product reveal" id="p08" data-name="Linen shirt" data-price="1550000">
+          <div class="p-img"><img src="https://images.unsplash.com/photo-1580981440054-9dbd7d830a6b?auto=format&fit=crop&rect=0.08,0.38,0.5,0.62&w=700&h=875&q=70" srcset="https://images.unsplash.com/photo-1580981440054-9dbd7d830a6b?auto=format&fit=crop&rect=0.08,0.38,0.5,0.62&w=400&h=500&q=70 400w, https://images.unsplash.com/photo-1580981440054-9dbd7d830a6b?auto=format&fit=crop&rect=0.08,0.38,0.5,0.62&w=700&h=875&q=70 700w, https://images.unsplash.com/photo-1580981440054-9dbd7d830a6b?auto=format&fit=crop&rect=0.08,0.38,0.5,0.62&w=1000&h=1250&q=70 1000w" sizes="(max-width: 1000px) 46vw, 23vw" width="700" height="875" loading="lazy" decoding="async" alt="A folded white linen shirt resting on a rattan tray"></div>
+          <div class="p-meta"><p class="ui p-no muted">No. 07/08</p><h3 class="p-name">Linen shirt</h3><p class="p-price">Rp 1.550.000</p><p class="p-fab">White washed linen. Relaxed, long tails.</p></div>
+          <form class="p-form" novalidate><fieldset class="sizes" aria-describedby="p08-e"><legend class="sr">Size for Linen shirt</legend><label><input type="radio" name="p08" value="XS"><span>XS</span></label><label><input type="radio" name="p08" value="S"><span>S</span></label><label><input type="radio" name="p08" value="M"><span>M</span></label><label><input type="radio" name="p08" value="L"><span>L</span></label><label><input type="radio" name="p08" value="XL"><span>XL</span></label></fieldset><p class="err" id="p08-e" role="alert"></p><button class="btn btn-block" type="submit">Add to bag</button></form>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="atelier" id="atelier" aria-labelledby="at-title">
+    <figure class="at-media reveal">
+      <img src="https://images.unsplash.com/photo-1634665810235-011d663754e7?auto=format&fit=crop&w=1100&q=70" srcset="https://images.unsplash.com/photo-1634665810235-011d663754e7?auto=format&fit=crop&w=700&q=70 700w, https://images.unsplash.com/photo-1634665810235-011d663754e7?auto=format&fit=crop&w=1100&q=70 1100w, https://images.unsplash.com/photo-1634665810235-011d663754e7?auto=format&fit=crop&w=1600&q=70 1600w" sizes="(max-width: 900px) 92vw, 50vw" width="1100" height="1375" loading="lazy" decoding="async" alt="Close-up of cream washed linen lying in soft folds">
+      <figcaption class="ui muted">Washed linen before cutting · 640 metres for Collection 07</figcaption>
+    </figure>
+    <div class="at-copy reveal">
+      <p class="ui label"><span>IV</span><span class="rule"></span><span>Atelier</span></p>
+      <h2 class="display h2" id="at-title">Nol means zero.</h2>
+      <p class="lede">We started in 2019 with one cutting table above a fabric shop in Dago and no plan for seasons. The atelier is now eleven people: two cutters, six machinists, a presser and two of us at the drawing table. We buy short runs of wool crepe, washed linen and undyed cotton, cut every piece in the room and finish buttonholes by hand. Nothing is sewn more than a staircase away from where it was drawn.</p>
+      <dl class="facts">
+        <div><dt class="ui muted">Cutting tables</dt><dd>02</dd></div>
+        <div><dt class="ui muted">Pairs of hands</dt><dd>11</dd></div>
+        <div><dt class="ui muted">Pieces in No. 07</dt><dd>22</dd></div>
+        <div><dt class="ui muted">Per batch, then we stop</dt><dd>40</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec" id="stockists" aria-labelledby="st-title">
+    <div class="wrap">
+      <div class="st-head reveal">
+        <div>
+          <p class="ui label"><span>V</span><span class="rule"></span><span>Stockists</span></p>
+          <h2 class="display h2" id="st-title">Try it on.</h2>
+        </div>
+        <p class="lede">The flagship is open six days a week. Everywhere else we travel with a rail and book fittings by the hour.</p>
+      </div>
+      <ul class="st-list">
+        <li class="st-row reveal">
+          <h3 class="st-city">Bandung</h3>
+          <p class="ui st-kind">Flagship</p>
+          <p class="st-addr">Jalan Lereng Kapas 7, Dago<br>Bandung 40135, Indonesia</p>
+          <p class="st-when">Tuesday to Sunday<br>11.00 – 19.00</p>
+          <button class="btn btn-ghost btn-sm" type="button" data-city="Bandung">Plan a visit</button>
+        </li>
+        <li class="st-row reveal">
+          <h3 class="st-city">Jakarta</h3>
+          <p class="ui st-kind">By appointment</p>
+          <p class="st-addr">A fitting room in Kebayoran Baru. We bring the rail.</p>
+          <p class="st-when">Thursdays and Fridays<br>10.00 – 18.00</p>
+          <button class="btn btn-ghost btn-sm" type="button" data-city="Jakarta">Book a fitting</button>
+        </li>
+        <li class="st-row reveal">
+          <h3 class="st-city">Singapore</h3>
+          <p class="ui st-kind">By appointment</p>
+          <p class="st-addr">A borrowed studio in Tiong Bahru, four days a season.</p>
+          <p class="st-when">Next visit<br>13 – 16 November 2026</p>
+          <button class="btn btn-ghost btn-sm" type="button" data-city="Singapore">Book a fitting</button>
+        </li>
+        <li class="st-row reveal">
+          <h3 class="st-city">Tokyo</h3>
+          <p class="ui st-kind">By appointment</p>
+          <p class="st-addr">A small gallery room in Daikanyama, two weekends a year.</p>
+          <p class="st-when">Next visit<br>5 – 6 December 2026</p>
+          <button class="btn btn-ghost btn-sm" type="button" data-city="Tokyo">Book a fitting</button>
+        </li>
+      </ul>
+      <div class="appt reveal" id="appt">
+        <div class="appt-intro">
+          <h3>Request a fitting.</h3>
+          <p class="muted">One hour, one stylist, the full collection on the rail. Tell us where and roughly when; we reply within two working days.</p>
+        </div>
+        <form class="appt-form" id="appt-form" novalidate>
+          <div class="field"><label class="ui" for="a-city">City</label><select class="inp" id="a-city"><option>Bandung</option><option>Jakarta</option><option>Singapore</option><option>Tokyo</option></select></div>
+          <div class="field"><label class="ui" for="a-when">When</label><select class="inp" id="a-when"><option>As soon as possible</option><option>In late October</option><option>In November</option><option>In December</option></select></div>
+          <div class="field"><label class="ui" for="a-name">Your name</label><input class="inp" id="a-name" type="text" autocomplete="name" required aria-describedby="a-name-err"><p class="err" id="a-name-err"></p></div>
+          <div class="field"><label class="ui" for="a-email">Email</label><input class="inp" id="a-email" type="email" autocomplete="email" required aria-describedby="a-email-err"><p class="err" id="a-email-err"></p></div>
+          <button class="btn" type="submit">Request the fitting <span class="arr" aria-hidden="true">→</span></button>
+        </form>
+        <div class="appt-done" id="appt-done" tabindex="-1" hidden>
+          <p>Noted.</p>
+          <p class="lede" id="appt-text"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot-mark" aria-hidden="true"><span>Atelier</span> Nol</p>
+    <div class="foot-grid">
+      <div><h2 class="ui">Collection 07</h2><ul><li><a class="u" href="#collection">Lookbook</a></li><li><a class="u" href="#shop">Shop</a></li><li><a class="u" href="#atelier">Atelier</a></li><li><a class="u" href="#stockists">Stockists</a></li></ul></div>
+      <div><h2 class="ui">Shipping</h2><p>Worldwide from Bandung. Java in two days, most of Asia within a week, everywhere else within two.</p></div>
+      <div><h2 class="ui">Returns</h2><p>Fourteen days, unworn, tags on. Within Indonesia we pay the courier.</p></div>
+      <div><h2 class="ui">Payment</h2><p>QRIS · Bank virtual account · Card. Prices in rupiah, tax included.</p></div>
+    </div>
+    <div class="foot-base ui"><span>© 2026 Atelier Nol · Bandung</span><span>A concept site by Aleph One · Photography via Unsplash</span><a class="u" href="#top">Back to top</a></div>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="bag" role="dialog" aria-modal="true" aria-labelledby="bag-title" aria-hidden="true">
+  <div class="d-head">
+    <h2 class="d-title" id="bag-title" tabindex="-1">Bag <span class="ui" id="bag-n">(0)</span></h2>
+    <button class="ui d-close u" type="button" id="bag-close">Close</button>
+  </div>
+  <section class="d-step" data-step="bag" aria-label="Bag contents">
+    <div class="d-scroll">
+      <ul class="lines" id="lines"></ul>
+      <div class="d-empty" id="empty">
+        <p>Nothing here yet.</p>
+        <p class="muted">Collection 07 is twenty-two pieces; eight of them are online.</p>
+        <button class="btn" type="button" id="to-shop">Browse the shop</button>
+      </div>
+    </div>
+    <div class="d-sum" id="sum">
+      <p class="d-row"><span class="ui">Subtotal</span><strong id="subtotal">Rp 0</strong></p>
+      <p class="d-note">Shipping calculated at checkout; worldwide from Bandung</p>
+      <button class="btn btn-block" type="button" id="to-pay">Checkout <span class="arr" aria-hidden="true">→</span></button>
+    </div>
+  </section>
+  <form class="d-step" data-step="pay" id="pay" novalidate hidden>
+    <div class="d-scroll pay">
+      <button class="ui back u" type="button" id="pay-back">← Back to bag</button>
+      <h3>Checkout</h3>
+      <p class="ui muted">Step 2 of 2 — Delivery and payment</p>
+      <div class="field"><label class="ui" for="c-email">Email for the order note</label><input class="inp" id="c-email" type="email" autocomplete="email" required aria-describedby="c-email-err"><p class="err" id="c-email-err"></p></div>
+      <div class="field"><label class="ui" for="c-ship">Ship to</label><select class="inp" id="c-ship"><option value="ID">Indonesia</option><option value="SG">Singapore</option><option value="MY">Malaysia</option><option value="JP">Japan</option><option value="AU">Australia</option><option value="NL">Netherlands</option><option value="US">United States</option><option value="OT">Elsewhere</option></select></div>
+      <fieldset class="pm" id="pm" aria-describedby="pm-err">
+        <legend class="ui">Payment</legend>
+        <label class="pm-opt"><input type="radio" name="pm" value="QRIS"><b>QRIS</b><small>Scan with any banking or e-wallet app. The code appears after you confirm and stays valid for 15 minutes.</small></label>
+        <label class="pm-opt"><input type="radio" name="pm" value="bank virtual account"><b>Bank virtual account</b><small>We issue a virtual account number; transfer from any Indonesian bank within 24 hours.</small></label>
+        <label class="pm-opt"><input type="radio" name="pm" value="card"><b>Card</b><small>Credit or debit, with 3-D Secure. Charged in rupiah; your bank converts.</small></label>
+      </fieldset>
+      <p class="err" id="pm-err"></p>
+      <dl class="totals">
+        <div><dt class="ui">Subtotal</dt><dd id="t-sub">Rp 0</dd></div>
+        <div><dt class="ui">Shipping from Bandung</dt><dd id="t-ship">Rp 0</dd></div>
+        <div class="grand"><dt class="ui">Total</dt><dd id="t-total">Rp 0</dd></div>
+      </dl>
+      <button class="btn btn-block" type="submit" id="place">Place order</button>
+    </div>
+  </form>
+  <section class="d-step done" data-step="done" id="done" tabindex="-1" aria-live="polite" hidden>
+    <p class="done-big">Terima kasih.</p>
+    <p class="lede" id="done-text"></p>
+    <p class="muted">You’ll find the collection exactly where you left it.</p>
+    <button class="btn" type="button" id="done-close">Back to Collection 07</button>
+  </section>
+</aside>
+<p class="sr" aria-live="polite" id="live"></p>
+
+<script>
+(() => {
+  const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+  const fmt = n => 'Rp ' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+  const SHIP = {ID: 45000, SG: 285000, MY: 285000, JP: 420000, AU: 420000, NL: 560000, US: 560000, OT: 560000};
+  const MAX_QTY = 5;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const mast = $('#mast'), drawer = $('#bag'), scrim = $('#scrim'), live = $('#live');
+  const outside = [mast, $('main'), $('footer')];
+  const products = Object.fromEntries($$('.product').map(a => [a.id, {name: a.dataset.name, price: +a.dataset.price, img: $('img', a)}]));
+  let bag = [], opener = null;
+
+  const count = () => bag.reduce((s, l) => s + l.qty, 0);
+  const subtotal = () => bag.reduce((s, l) => s + l.qty * products[l.id].price, 0);
+  const say = msg => { live.textContent = ''; requestAnimationFrame(() => live.textContent = msg); };
+
+  addEventListener('scroll', () => mast.classList.toggle('scrolled', scrollY > 8), {passive: true});
+
+  /* mobile menu */
+  const menuBtn = $('#menu-btn'), sheet = $('#menu');
+  const setMenu = open => {
+    menuBtn.setAttribute('aria-expanded', String(open));
+    menuBtn.textContent = open ? 'Close' : 'Menu';
+    sheet.classList.toggle('open', open);
+    if (open) setTimeout(() => $('a', sheet).focus(), 60);
+  };
+  menuBtn.addEventListener('click', () => setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'));
+  $$('a', sheet).forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+  /* bag rendering */
+  function lineEl(l) {
+    const p = products[l.id], li = document.createElement('li');
+    li.className = 'line'; li.dataset.key = l.key;
+    li.innerHTML = '<img alt="" width="76" height="95"><div><p class="l-name"></p><p class="ui l-meta"></p>' +
+      '<div class="qty"><button class="q-btn" type="button" data-act="dec">−</button><output class="q-n"></output>' +
+      '<button class="q-btn" type="button" data-act="inc">+</button><button class="ui l-rm" type="button" data-act="rm">Remove</button></div></div>' +
+      '<p class="l-price"></p>';
+    $('img', li).src = p.img.currentSrc || p.img.src;
+    $('.l-name', li).textContent = p.name;
+    $('.l-meta', li).textContent = 'Size ' + l.size;
+    $('.q-n', li).textContent = l.qty;
+    $('.l-price', li).textContent = fmt(p.price * l.qty);
+    const [dec, inc] = $$('.q-btn', li);
+    dec.setAttribute('aria-label', `One fewer ${p.name}, size ${l.size}`); dec.disabled = l.qty <= 1;
+    inc.setAttribute('aria-label', `One more ${p.name}, size ${l.size}`); inc.disabled = l.qty >= MAX_QTY;
+    $('.l-rm', li).setAttribute('aria-label', `Remove ${p.name}, size ${l.size}`);
+    return li;
+  }
+  function render() {
+    const n = count();
+    $$('[data-count]').forEach(el => el.textContent = n);
+    $('#bag-n').textContent = `(${n})`;
+    $('#lines').replaceChildren(...bag.map(lineEl));
+    $('#empty').hidden = n > 0;
+    $('#sum').hidden = n === 0;
+    $('#subtotal').textContent = fmt(subtotal());
+  }
+  $('#lines').addEventListener('click', e => {
+    const btn = e.target.closest('[data-act]'); if (!btn) return;
+    const key = btn.closest('.line').dataset.key, i = bag.findIndex(l => l.key === key), l = bag[i], act = btn.dataset.act;
+    if (act === 'rm') bag = bag.filter(x => x.key !== key);
+    else bag = bag.map(x => x.key === key ? {...x, qty: Math.min(MAX_QTY, Math.max(1, x.qty + (act === 'inc' ? 1 : -1)))} : x);
+    render();
+    const name = products[l.id].name;
+    if (act === 'rm') {
+      say(`${name} removed. Subtotal ${fmt(subtotal())}.`);
+      const next = $$('.line .l-rm')[Math.min(i, bag.length - 1)];
+      (next || (bag.length ? null : $('#to-shop')) || $('#bag-title')).focus();
+    } else {
+      say(`${name}, quantity ${bag[i].qty}. Subtotal ${fmt(subtotal())}.`);
+      const again = $(`.line[data-key="${key}"] [data-act="${act}"]`);
+      (again && !again.disabled ? again : $(`.line[data-key="${key}"] .l-rm`)).focus();
+    }
+  });
+
+  /* add to bag with size validation */
+  $$('.p-form').forEach(form => {
+    const fs = $('.sizes', form), err = $('.err', form);
+    form.addEventListener('change', () => { fs.classList.remove('invalid'); err.textContent = ''; });
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const id = form.closest('.product').id, sel = $('input:checked', form);
+      if (!sel) {
+        fs.classList.add('invalid');
+        err.textContent = 'Choose a size first, XS to XL.';
+        $('input', form).focus();
+        return;
+      }
+      const key = id + '-' + sel.value;
+      bag = bag.some(l => l.key === key)
+        ? bag.map(l => l.key === key ? {...l, qty: Math.min(MAX_QTY, l.qty + 1)} : l)
+        : [...bag, {key, id, size: sel.value, qty: 1}];
+      render();
+      say(`${products[id].name}, size ${sel.value}, added to your bag.`);
+      openDrawer($('button[type=submit]', form));
+    });
+  });
+
+  /* drawer */
+  function showStep(step) { $$('.d-step', drawer).forEach(s => s.hidden = s.dataset.step !== step); }
+  function openDrawer(from) {
+    opener = from || document.activeElement;
+    setMenu(false); showStep('bag');
+    drawer.classList.add('open'); scrim.classList.add('open');
+    drawer.setAttribute('aria-hidden', 'false');
+    outside.forEach(el => el.inert = true);
+    document.body.classList.add('lock');
+    requestAnimationFrame(() => $('#bag-title').focus());
+  }
+  function closeDrawer() {
+    if (!drawer.classList.contains('open')) return;
+    drawer.classList.remove('open'); scrim.classList.remove('open');
+    drawer.setAttribute('aria-hidden', 'true');
+    outside.forEach(el => el.inert = false);
+    document.body.classList.remove('lock');
+    if (opener && document.contains(opener)) opener.focus({preventScroll: true});
+  }
+  $('#bag-open').addEventListener('click', e => openDrawer(e.currentTarget));
+  $('#bag-close').addEventListener('click', closeDrawer);
+  scrim.addEventListener('click', closeDrawer);
+  $('#to-shop').addEventListener('click', () => { opener = null; closeDrawer(); $('#shop').scrollIntoView({behavior: reduce ? 'auto' : 'smooth'}); $('#shop-title').setAttribute('tabindex', '-1'); $('#shop-title').focus({preventScroll: true}); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      if (drawer.classList.contains('open')) closeDrawer();
+      else if (sheet.classList.contains('open')) { setMenu(false); menuBtn.focus(); }
+    }
+    if (e.key === 'Tab' && drawer.classList.contains('open')) {
+      const f = $$('button, [href], input, select, [tabindex="0"]', drawer).filter(el => !el.disabled && el.offsetParent !== null);
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && (document.activeElement === first || !drawer.contains(document.activeElement) || document.activeElement === $('#bag-title'))) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+
+  /* checkout */
+  const pay = $('#pay'), shipSel = $('#c-ship'), email = $('#c-email'), pm = $('#pm');
+  function totals() {
+    const s = subtotal(), sh = SHIP[shipSel.value];
+    $('#t-sub').textContent = fmt(s); $('#t-ship').textContent = fmt(sh); $('#t-total').textContent = fmt(s + sh);
+    $('#place').textContent = 'Place order · ' + fmt(s + sh);
+    return s + sh;
+  }
+  $('#to-pay').addEventListener('click', () => { showStep('pay'); totals(); email.focus(); });
+  $('#pay-back').addEventListener('click', () => { showStep('bag'); $('#to-pay').focus(); });
+  shipSel.addEventListener('change', totals);
+  pm.addEventListener('change', () => { pm.classList.remove('invalid'); $('#pm-err').textContent = ''; });
+  email.addEventListener('input', () => { if (EMAIL.test(email.value.trim())) { $('#c-email-err').textContent = ''; email.removeAttribute('aria-invalid'); } });
+  pay.addEventListener('submit', e => {
+    e.preventDefault();
+    const okEmail = EMAIL.test(email.value.trim()), method = $('input[name=pm]:checked', pay);
+    $('#c-email-err').textContent = okEmail ? '' : 'We need an email to send the order note to.';
+    email.setAttribute('aria-invalid', String(!okEmail));
+    pm.classList.toggle('invalid', !method);
+    $('#pm-err').textContent = method ? '' : 'Choose how you would like to pay.';
+    if (!okEmail) return email.focus();
+    if (!method) return $('input', pm).focus();
+    const n = count(), total = totals(), ref = 'N07-' + String(Math.floor(1000 + Math.random() * 9000));
+    $('#done-text').textContent = `Order ${ref} is noted: ${n} ${n === 1 ? 'piece' : 'pieces'}, ${fmt(total)} with shipping to ${shipSel.selectedOptions[0].text}, paid by ${method.value}. ` +
+      'This is a concept site by Aleph One, so no payment was taken and nothing will leave Bandung.';
+    bag = []; render(); pay.reset(); pm.classList.remove('invalid');
+    showStep('done'); $('#done').focus();
+  });
+  $('#done-close').addEventListener('click', closeDrawer);
+
+  /* fitting request */
+  const appt = $('#appt-form'), apptDone = $('#appt-done');
+  const check = (input, ok, msg) => { $('#' + input.id + '-err').textContent = ok ? '' : msg; input.setAttribute('aria-invalid', String(!ok)); return ok; };
+  $$('[data-city]').forEach(b => b.addEventListener('click', () => {
+    $('#a-city').value = b.dataset.city;
+    appt.hidden = false; apptDone.hidden = true;
+    appt.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', block: 'center'});
+    $('#a-name').focus({preventScroll: true});
+  }));
+  appt.addEventListener('submit', e => {
+    e.preventDefault();
+    const name = $('#a-name'), em = $('#a-email');
+    const okName = check(name, name.value.trim().length > 1, 'Tell us who to expect.');
+    const okEm = check(em, EMAIL.test(em.value.trim()), 'An email we can write to, please.');
+    if (!okName || !okEm) return (okName ? em : name).focus();
+    const city = $('#a-city').value, w = $('#a-when').value, when = w.charAt(0).toLowerCase() + w.slice(1);
+    const what = city === 'Bandung' ? 'a visit to the flagship in Bandung' : `a fitting in ${city}`;
+    $('#appt-text').textContent = `Thank you, ${name.value.trim().split(' ')[0]}: ${what}, ${when}. This is a concept site by Aleph One, so no appointment was made and nobody will write back.`;
+    appt.hidden = true; apptDone.hidden = false; apptDone.focus();
+  });
+
+  /* reveal below the fold */
+  const io = 'IntersectionObserver' in window && new IntersectionObserver(entries => entries.forEach(en => {
+    if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); }
+  }), {rootMargin: '0px 0px -6% 0px'});
+  $$('.reveal').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,753 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Warung Lima — Modern Indonesian dinner in Kemang</title>
+<meta name="description" content="Warung Lima, Kemang, South Jakarta. A short Indonesian menu that changes with the market. Dinner from five, closed Mondays.">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#1F2A1E; --green-deep:#172016; --green-up:#263423;
+  --cream:#F4EFE4; --cream-2:rgba(244,239,228,.74); --cream-3:rgba(244,239,228,.5);
+  --amber:#E8B04B; --hair:rgba(232,176,75,.38);
+  --ink:#1F2A1E; --ink-2:#4B5547; --amber-ink:#8A5913; --paper:#F4EFE4;
+  --err:#F3A68C;
+  --serif:'Cormorant Garamond',Georgia,'Times New Roman',serif;
+  --sans:'Instrument Sans',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --gut:clamp(18px,5vw,64px);
+  --sec:clamp(96px,11vw,176px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:84px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--green);color:var(--cream);font:400 16.5px/1.65 var(--sans);overflow-x:hidden}
+body::after{content:"";position:fixed;inset:0;z-index:90;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .96 0 0 0 0 .9 0 0 0 0 .78 0 0 0 .045 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3{margin:0;font-family:var(--serif);font-style:italic;font-weight:500;letter-spacing:-.012em}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px;border-radius:2px}
+.wrap{width:min(1240px,100% - 2*var(--gut));margin-inline:auto}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.eyebrow{font:600 11.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--amber);display:flex;align-items:center;gap:14px}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--amber)}
+.h2{font-size:clamp(44px,5.6vw,88px);line-height:.98;text-wrap:balance}
+.btn{display:inline-flex;align-items:center;gap:12px;background:var(--amber);color:var(--green);border:0;padding:17px 26px;font:600 12.5px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background .25s,transform .25s var(--ease)}
+.btn:hover{background:#F1C26A;transform:translateY(-1px)}
+.btn:active{transform:translateY(0)}
+.btn::after{content:"";width:18px;height:1px;background:currentColor;transition:width .3s var(--ease)}
+.btn:hover::after{width:28px}
+.link{font:500 15px/1 var(--sans);text-decoration:none;padding:6px 0;background:linear-gradient(var(--amber),var(--amber)) 0 100%/100% 1px no-repeat;transition:background-size .35s var(--ease),color .2s}
+.link:hover{color:var(--amber);background-size:40% 1px}
+/* dotted leader rows */
+.leaders{margin:0}
+.leaders div{display:flex;align-items:baseline;gap:0}
+.leaders dt{flex:1;display:flex;align-items:baseline;min-width:0}
+.leaders dt::after{content:"";flex:1;min-width:24px;height:2px;margin:0 10px;background:radial-gradient(circle,currentColor 1px,transparent 1.3px) 0 0/6px 2px repeat-x;opacity:.55;transform:translateY(-3px)}
+.leaders dd{margin:0;white-space:nowrap}
+
+/* header */
+.site-head{position:fixed;inset:0 0 auto;z-index:50;transition:background .35s,border-color .35s;border-bottom:1px solid transparent}
+.site-head.scrolled,.site-head.open{background:rgba(23,32,22,.94);border-bottom-color:rgba(232,176,75,.18);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.head-in{height:78px;display:flex;align-items:center;gap:40px}
+.brand{font:500 italic 29px/1 var(--serif);text-decoration:none;letter-spacing:-.01em;display:flex;align-items:baseline;gap:10px;margin-right:auto}
+.brand small{font:600 10px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--amber);font-style:normal}
+.nav ul{list-style:none;margin:0;padding:0;display:flex;gap:34px}
+.nav a{font:500 14.5px/1 var(--sans);text-decoration:none;color:var(--cream-2);padding:8px 0;position:relative;transition:color .2s}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1px;background:var(--amber);transform:scaleX(0);transform-origin:left;transition:transform .3s var(--ease)}
+.nav a:hover{color:var(--cream)}
+.nav a:hover::after{transform:scaleX(1)}
+.cta{font:600 12px/1 var(--sans);letter-spacing:.2em;text-decoration:none;padding:13px 20px;border:1px solid var(--amber);color:var(--amber);border-radius:2px;transition:background .25s,color .25s}
+.cta:hover{background:var(--amber);color:var(--green)}
+.nav-toggle{display:none;background:none;border:1px solid rgba(244,239,228,.3);width:44px;height:44px;border-radius:2px;place-items:center}
+.nav-toggle span{display:block;width:18px;height:1px;background:var(--cream);box-shadow:0 -5px 0 var(--cream),0 5px 0 var(--cream);transition:box-shadow .2s}
+.open .nav-toggle span{box-shadow:none;background:var(--amber)}
+
+/* hero */
+.hero{position:relative;min-height:clamp(560px,100svh,1000px);display:flex;align-items:flex-end;padding:130px 0 clamp(40px,6.5vh,76px);isolation:isolate;overflow:hidden}
+.hero-photo{position:absolute;top:0;right:0;bottom:0;width:69%;margin:0;z-index:-2}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:52% 74%}
+.hero-photo::after{content:"";position:absolute;inset:0;background:
+  linear-gradient(90deg,var(--green) 0%,rgba(31,42,30,.8) 13%,rgba(31,42,30,.18) 40%,rgba(31,42,30,0) 60%),
+  linear-gradient(0deg,var(--green) 0%,rgba(31,42,30,.55) 16%,rgba(31,42,30,0) 34%),
+  radial-gradient(55% 45% at 100% 0%,rgba(23,32,22,.75),rgba(23,32,22,0) 75%)}
+.hero::before{content:"";position:absolute;inset:0 0 auto;height:200px;z-index:-1;background:linear-gradient(180deg,rgba(23,32,22,.7),rgba(23,32,22,0));pointer-events:none}
+.hero-photo figcaption{position:absolute;right:var(--gut);bottom:clamp(40px,6.5vh,76px);z-index:1;font:500 italic 17px/1.3 var(--serif);color:var(--cream-2);text-align:right}
+.hero-photo figcaption b{display:block;font:600 10px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;font-style:normal}
+.hero-in{max-width:820px;margin-left:max(var(--gut),(100% - 1240px)/2)}
+.hero h1{font-size:clamp(54px,7.4vw,126px);line-height:.94;margin:26px 0 30px;text-wrap:balance}
+.hero h1 span{display:block;white-space:nowrap}
+.hero h1 .amb{color:var(--amber)}
+.hero-sub{font-size:clamp(16.5px,1.3vw,19px);line-height:1.6;color:var(--cream-2);max-width:31em}
+.hero-actions{display:flex;flex-wrap:wrap;align-items:center;gap:20px 30px;margin:34px 0 44px}
+.hero .leaders{max-width:430px;border-top:1px solid var(--hair);padding-top:16px;font-size:14px;color:var(--cream-2)}
+.hero .leaders div+div{margin-top:7px}
+.hero .leaders dd{color:var(--cream)}
+
+/* sections */
+section{scroll-margin-top:78px}
+.sec{padding:var(--sec) 0}
+.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.js .reveal.in{opacity:1;transform:none}
+
+/* menu */
+.menu{background:radial-gradient(60% 50% at 78% 40%,rgba(232,176,75,.09),transparent 70%)}
+.menu-head{display:grid;grid-template-columns:1fr minmax(0,440px);gap:24px 64px;align-items:end;margin-bottom:clamp(44px,6vw,80px)}
+.menu-head .h2{font-size:clamp(64px,9vw,150px);line-height:.85;margin-top:18px}
+.menu-head .h2 em{font-size:.32em;color:var(--amber);letter-spacing:0;display:inline-block;vertical-align:.9em;margin-left:.4em}
+.menu-head p{color:var(--cream-2)}
+.menu-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);align-items:start}
+.card{position:relative;z-index:2;margin-right:-72px;margin-top:56px;background:linear-gradient(170deg,#F7F2E8,#EEE6D6);color:var(--ink);padding:clamp(30px,4.2vw,60px) clamp(22px,4.2vw,64px) clamp(30px,3.6vw,52px);box-shadow:0 40px 80px -30px rgba(0,0,0,.7),0 12px 24px -12px rgba(0,0,0,.4)}
+.card::before{content:"";position:absolute;inset:10px;border:1px solid rgba(138,89,19,.42);pointer-events:none}
+.card-top{text-align:center;font:500 italic 19px/1.2 var(--serif);color:var(--amber-ink)}
+.card-top span{display:block;font:600 10px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;font-style:normal;color:var(--ink-2);margin-top:8px}
+.tabs{display:flex;justify-content:center;gap:clamp(8px,3vw,36px);margin:26px 0 8px;border-bottom:1px solid rgba(31,42,30,.16)}
+.tab{background:none;border:0;padding:12px 4px 16px;position:relative;color:#6C7266;text-align:center;transition:color .2s}
+.tab b{display:block;font:500 italic clamp(21px,2.1vw,27px)/1.1 var(--serif)}
+.tab small{display:block;font:600 9.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;margin-top:7px}
+.tab::after{content:"";position:absolute;left:12%;right:12%;bottom:-1px;height:2px;background:var(--amber-ink);transform:scaleX(0);transition:transform .35s var(--ease)}
+.tab:hover{color:var(--ink)}
+.tab[aria-selected=true]{color:var(--ink)}
+.tab[aria-selected=true]::after{transform:scaleX(1)}
+.tab:focus-visible{outline-color:var(--amber-ink)}
+.dishes{list-style:none;margin:0;padding:0}
+.dish{padding:17px 0}
+.dish+.dish{border-top:1px solid rgba(31,42,30,.07)}
+.dish .leaders dt{font:500 italic clamp(21px,1.8vw,25px)/1.2 var(--serif);color:var(--ink)}
+.dish .leaders dt::after{opacity:.4}
+.dish .leaders dd{font:500 22px/1 var(--serif);color:var(--ink)}
+.dish p{font-size:14.5px;line-height:1.6;color:var(--ink-2);margin-top:3px;max-width:44ch}
+.panel-note{margin-top:22px;padding-top:18px;border-top:1px solid rgba(138,89,19,.35);font-size:12.5px;color:var(--ink-2);text-align:center}
+.js .panel[hidden]{display:none}
+.panel{animation:fade .45s var(--ease)}
+@keyframes fade{from{opacity:.2}to{opacity:1}}
+.menu-photos{position:relative;margin:0}
+.menu-photos .frame{position:relative;aspect-ratio:4/5;overflow:hidden;background:var(--green-up)}
+.menu-photos img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.04);transition:opacity .7s var(--ease),transform 1.4s var(--ease)}
+.menu-photos img.on{opacity:1;transform:none}
+.menu-photos figcaption{margin-top:16px;padding-left:96px;font:500 italic 18px/1.4 var(--serif);color:var(--cream-2)}
+.special{display:grid;grid-template-columns:132px 1fr;gap:22px;align-items:center;margin:48px 0 0 96px;padding-top:24px;border-top:1px solid var(--hair)}
+.special img{aspect-ratio:1;width:100%;object-fit:cover}
+.special .k{font:600 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin-bottom:10px}
+.special dt{font:500 italic 22px/1.2 var(--serif)}
+.special dd{font:500 21px/1 var(--serif)}
+.special div>p:last-child{font-size:14px;line-height:1.55;color:var(--cream-2);margin-top:6px}
+
+/* market */
+.market{padding-top:calc(var(--sec)*.55)}
+.market-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(48px,8vw,128px);align-items:center}
+.market-pics{position:relative;padding-bottom:70px}
+.market-pics .big{aspect-ratio:4/5;width:86%;object-fit:cover;object-position:50% 60%}
+.pin{position:absolute;right:0;bottom:0;width:46%;margin:0;background:var(--paper);padding:9px 9px 14px;transform:rotate(2.5deg);box-shadow:0 30px 50px -20px rgba(0,0,0,.7);color:var(--ink)}
+.pin img{aspect-ratio:4/5;width:100%;object-fit:cover}
+.pin figcaption{font:500 italic 15.5px/1.3 var(--serif);margin-top:10px;padding:0 4px}
+.market .h2{margin:22px 0 28px;font-size:clamp(40px,4.6vw,72px)}
+.note{font:500 italic clamp(21px,1.8vw,26px)/1.5 var(--serif);color:var(--cream)}
+.went{margin-top:36px;border-top:1px solid var(--hair);padding-top:8px}
+.went div{padding:12px 0;border-bottom:1px solid rgba(244,239,228,.08)}
+.went dt{font:500 italic 21px/1.2 var(--serif)}
+.went dt::after{color:var(--amber)}
+.went dd{font-size:14px;color:var(--cream-2)}
+.sign{margin-top:24px;font:500 italic 18px/1 var(--serif);color:var(--amber)}
+
+/* room */
+.room-head{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:24px 64px;align-items:end;margin-bottom:48px}
+.room .h2{margin-top:20px}
+.room-head p{color:var(--cream-2)}
+.room-photo{position:relative;aspect-ratio:21/9;overflow:hidden;margin:0}
+.room-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 55%}
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:44px}
+.facts div{border-top:1px solid var(--amber);padding-top:16px}
+.facts dt{font:600 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--amber)}
+.facts dd{margin:12px 0 0;font:500 italic 25px/1.25 var(--serif)}
+.facts dd span{display:block;font:400 14px/1.55 var(--sans);font-style:normal;color:var(--cream-2);margin-top:6px}
+
+/* private */
+.private{background:linear-gradient(180deg,var(--green) 0%,var(--green-deep) 100%)}
+.private-grid{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:clamp(40px,6vw,96px);align-items:center}
+.private-photo{margin:0;position:relative;isolation:isolate}
+.private-photo img{aspect-ratio:5/4;width:100%;object-fit:cover;object-position:60% 50%}
+.private-photo::after{content:"";position:absolute;inset:-14px 14px 14px -14px;border:1px solid var(--hair);z-index:-1}
+.private .h2{margin:20px 0 22px}
+.private p.lede{color:var(--cream-2)}
+.price{display:flex;align-items:baseline;flex-wrap:wrap;gap:6px 16px;margin:30px 0 26px;padding:20px 0;border-block:1px solid var(--hair)}
+.price strong{font:500 italic clamp(44px,4.4vw,64px)/1 var(--serif);color:var(--amber)}
+.price span{font-size:14px;color:var(--cream-2)}
+.incl{list-style:none;margin:0 0 26px;padding:0}
+.incl li{padding:7px 0 7px 30px;position:relative}
+.incl li::before{content:"";position:absolute;left:0;top:1.05em;width:16px;height:1px;background:var(--amber)}
+.fine{font-size:13.5px;color:var(--cream-3);margin-bottom:30px}
+.fine i{font:500 italic 16px/1.5 var(--serif);color:var(--cream-2);display:block;margin-top:8px}
+
+/* reserve */
+.reserve{background:var(--green-deep);border-top:1px solid rgba(232,176,75,.16)}
+.reserve-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:clamp(40px,7vw,112px);align-items:start}
+.reserve .h2{font-size:clamp(52px,6.6vw,108px);margin:22px 0 28px}
+.reserve-side p{color:var(--cream-2);max-width:30em}
+.reserve-side ul{list-style:none;padding:0;margin:30px 0 0;border-top:1px solid var(--hair)}
+.reserve-side li{padding:13px 0;border-bottom:1px solid rgba(244,239,228,.08);font:500 italic 20px/1.3 var(--serif)}
+.book{background:var(--green);border:1px solid rgba(232,176,75,.28);padding:clamp(24px,3.6vw,48px);position:relative}
+.mode{display:grid;grid-template-columns:1fr 1fr;border:1px solid rgba(244,239,228,.2);margin-bottom:10px}
+.mode button{background:none;border:0;padding:15px 14px;text-align:left;transition:background .2s,color .2s}
+.mode button+button{border-left:1px solid rgba(244,239,228,.2)}
+.mode b{display:block;font:500 italic 21px/1.15 var(--serif)}
+.mode small{display:block;font-size:12.5px;line-height:1.35;margin-top:4px;color:var(--cream-3)}
+.mode button:hover{background:rgba(244,239,228,.05)}
+.mode button[aria-pressed=true]{background:var(--amber);color:var(--green)}
+.mode button[aria-pressed=true] small{color:rgba(31,42,30,.75)}
+.mode-note{font-size:13.5px;color:var(--amber);min-height:1.65em;margin-bottom:22px}
+.field{border:0;padding:0;margin:0 0 26px;min-width:0}
+.field>label,.field legend{display:block;font:600 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--cream-2);margin-bottom:12px;padding:0}
+.field label span{letter-spacing:.08em;text-transform:none;font-weight:400;color:var(--cream-3)}
+.field input{width:100%;background:transparent;border:0;border-bottom:1px solid rgba(244,239,228,.32);color:var(--cream);font:400 18px/1.3 var(--sans);padding:10px 0;border-radius:0;color-scheme:dark;transition:border-color .2s}
+.field input::placeholder{color:rgba(244,239,228,.35)}
+.field input:hover{border-bottom-color:rgba(244,239,228,.6)}
+.field input:focus{outline:none;border-bottom-color:var(--amber)}
+.field input:focus-visible{box-shadow:0 1px 0 var(--amber)}
+.field input[aria-invalid=true]{border-bottom-color:var(--err)}
+.hint{font:500 italic 17px/1.3 var(--serif);color:var(--amber);margin-top:8px;min-height:0}
+.err{color:var(--err);font-size:13.5px;margin-top:8px}
+.err:empty,.hint:empty{display:none}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:transparent;border:1px solid rgba(244,239,228,.24);border-radius:2px;min-width:64px;padding:11px 10px;font:500 14.5px/1 var(--sans);font-variant-numeric:tabular-nums;transition:border-color .2s,background .2s,color .2s}
+.chip.n{min-width:46px}
+.chip:hover:not(:disabled){border-color:var(--amber)}
+.chip[aria-pressed=true]{background:var(--amber);border-color:var(--amber);color:var(--green)}
+.chip:disabled{opacity:.3;cursor:not-allowed;text-decoration:line-through}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0 26px}
+.book .btn{width:100%;justify-content:center;padding:20px;margin-top:6px}
+.book .small{font-size:12.5px;color:var(--cream-3);text-align:center;margin-top:14px}
+.slip{background:linear-gradient(170deg,#F7F2E8,#EEE6D6);color:var(--ink);padding:clamp(28px,4vw,52px);position:relative;outline:none}
+.slip::before{content:"";position:absolute;inset:10px;border:1px solid rgba(138,89,19,.42);pointer-events:none}
+.slip .k{font:600 10px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--amber-ink)}
+.slip h3{font-size:clamp(30px,3.2vw,44px);line-height:1.08;margin:16px 0 22px}
+.slip .leaders{font-size:15px;border-block:1px solid rgba(31,42,30,.14);padding:12px 0;margin-bottom:22px}
+.slip .leaders div{padding:5px 0}
+.slip .leaders dd{font-weight:600}
+.slip p{color:var(--ink-2);font-size:15px}
+.slip p+p{margin-top:12px}
+.slip .concept{font:500 italic 19px/1.45 var(--serif);color:var(--ink)}
+.slip button{margin-top:26px;background:none;border:1px solid var(--ink);color:var(--ink);padding:14px 22px;font:600 12px/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;border-radius:2px;transition:background .2s,color .2s}
+.slip button:hover{background:var(--ink);color:var(--paper)}
+.slip button:focus-visible{outline-color:var(--amber-ink)}
+
+/* visit */
+.visit-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(40px,7vw,120px);align-items:center}
+.five{font:500 italic clamp(260px,34vw,500px)/.8 var(--serif);font-variant-numeric:lining-nums;font-feature-settings:'lnum';color:rgba(232,176,75,.07);-webkit-text-stroke:1.2px var(--amber);margin:0 0 6px -.04em;user-select:none}
+@supports not (-webkit-text-stroke:1px black){.five{color:rgba(232,176,75,.25)}}
+.five-cap{font:500 italic clamp(24px,2.2vw,32px)/1.3 var(--serif);max-width:15em}
+.visit .leaders{font-size:16px;border-top:1px solid var(--hair);margin:26px 0 40px}
+.visit .leaders div{padding:14px 0;border-bottom:1px solid rgba(244,239,228,.08)}
+.visit .leaders dt{font:500 italic 22px/1.2 var(--serif)}
+.visit .leaders .today dt,.visit .leaders .today dd{color:var(--amber)}
+.visit .leaders .today dt span{font:600 9.5px/1 var(--sans);letter-spacing:.18em;text-transform:uppercase;font-style:normal;border:1px solid var(--amber);padding:4px 6px;margin-left:12px;align-self:center}
+.status{font-size:14px;color:var(--amber);margin-top:20px}
+.addr{font:500 italic clamp(24px,2.3vw,32px)/1.25 var(--serif)}
+.visit p.how{color:var(--cream-2);margin-top:14px;max-width:34em}
+
+/* footer */
+.foot{border-top:1px solid rgba(232,176,75,.2);padding:72px 0 128px;background:var(--green-deep)}
+.foot-grid{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:32px}
+.foot .brandline{font:500 italic clamp(48px,6vw,88px)/.9 var(--serif);color:var(--cream);margin:0}
+.foot p{color:var(--cream-3);font-size:14px;margin-top:14px}
+.foot ul{list-style:none;padding:0;margin:0;display:flex;gap:28px}
+.foot ul a{text-decoration:none;color:var(--cream-2);font-size:14.5px}
+.foot ul a:hover{color:var(--amber)}
+.credit{margin-top:56px;padding-top:22px;border-top:1px solid rgba(244,239,228,.08);font-size:12px;color:var(--cream-3);display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px}
+
+/* responsive */
+@media (max-width:980px){
+  .nav{display:none}
+  .nav-toggle{display:grid}
+  .head-in{gap:12px;height:66px}
+  .open .nav{display:block;position:absolute;top:66px;left:0;right:0;background:rgba(23,32,22,.98);border-bottom:1px solid var(--hair);padding:8px var(--gut) 26px}
+  .open .nav ul{flex-direction:column;gap:0}
+  .open .nav a{display:block;padding:18px 0;font:500 italic 30px/1 var(--serif);color:var(--cream);border-bottom:1px solid rgba(244,239,228,.08)}
+  .menu-head,.room-head{grid-template-columns:1fr}
+  .menu-grid{grid-template-columns:1fr}
+  .menu-side{display:contents}
+  .menu-photos{order:-1;width:min(620px,92%);margin-left:auto}
+  .menu-photos .frame{aspect-ratio:5/4}
+  .menu-photos figcaption{padding-left:0;margin-bottom:0}
+  .special{order:2;margin:40px 0 0;max-width:560px}
+  .card{margin:-64px 0 0}
+  .market-grid,.private-grid,.reserve-grid,.visit-grid{grid-template-columns:1fr}
+  .market-pics{max-width:560px}
+  .facts{grid-template-columns:1fr 1fr}
+  .room-photo{aspect-ratio:16/10}
+  .five{font-size:clamp(220px,60vw,360px)}
+}
+@media (max-width:899px){
+  .hero{align-items:flex-end;padding-top:0}
+  .hero-photo{width:100%;bottom:auto;height:66%}
+  .hero-photo img{object-position:56% 100%}
+  .hero-photo::after{background:linear-gradient(0deg,var(--green) 0%,rgba(31,42,30,.6) 22%,rgba(31,42,30,0) 50%),radial-gradient(70% 40% at 100% 10%,rgba(23,32,22,.7),rgba(23,32,22,0) 80%)}
+  .hero-photo figcaption{display:none}
+  .hero-in{margin-inline:var(--gut);max-width:none}
+  .hero h1{margin:16px 0 18px}
+  .hero-actions{margin:24px 0 0}
+  .hero .leaders{display:none}
+}
+@media (max-width:560px){
+  .brand small{display:none}
+  .brand{font-size:26px}
+  .cta{padding:12px 14px;font-size:11px;letter-spacing:.16em}
+  .hero h1{font-size:clamp(46px,13.4vw,60px)}
+  .hero-sub{font-size:16px}
+  .menu-photos{width:100%}
+  .card{margin-top:24px}
+  .special{grid-template-columns:96px 1fr;gap:16px}
+  .tabs{gap:4px}
+  .tab b{font-size:20px}
+  .tab small{font-size:8.5px;letter-spacing:.12em}
+  .dish .leaders dd{font-size:20px}
+  .two{grid-template-columns:1fr}
+  .facts{grid-template-columns:1fr}
+  .chip{min-width:calc(25% - 6px)}
+  .chip.n{min-width:calc(25% - 6px)}
+  .private-photo::after{inset:-10px 10px 10px -10px}
+  .visit .leaders dt{font-size:19px;white-space:nowrap}
+  .visit .leaders .today dt span{margin-left:8px;padding:3px 5px}
+  .mode b{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition:none!important;animation:none!important}
+  .js .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<header class="site-head" id="head">
+  <div class="wrap head-in">
+    <a class="brand" href="#top">Warung Lima <small>Kemang</small></a>
+    <nav class="nav" id="nav" aria-label="Main">
+      <ul>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#reserve">Reserve</a></li>
+        <li><a href="#private">Private</a></li>
+      </ul>
+    </nav>
+    <a class="cta" href="#reserve">RESERVE</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav" aria-label="Open navigation"><span></span></button>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-h">
+    <figure class="hero-photo">
+      <img src="https://images.unsplash.com/photo-1729168411881-5d46ecc5cd04?auto=format&fit=crop&w=1400&q=70"
+        srcset="https://images.unsplash.com/photo-1729168411881-5d46ecc5cd04?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1729168411881-5d46ecc5cd04?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1729168411881-5d46ecc5cd04?auto=format&fit=crop&w=2000&q=70 2000w"
+        sizes="(min-width: 900px) 69vw, 100vw" width="1400" height="2099" fetchpriority="high"
+        alt="A small table lamp glowing on a dark wooden table set for two, with garden greenery behind">
+      <figcaption><b>Terrace, table six</b>Seven-forty, a Thursday</figcaption>
+    </figure>
+    <div class="hero-in">
+      <p class="eyebrow">Kemang · South Jakarta</p>
+      <h1 id="hero-h"><span>Dinner from five.</span> <span class="amb">Book a table.</span></h1>
+      <p class="hero-sub">A short menu that changes with the market. Reservations by WhatsApp, private dining for twelve, closed Mondays.</p>
+      <div class="hero-actions">
+        <a class="btn" href="#reserve">Reserve a table</a>
+        <a class="link" href="#menu">See tonight’s menu</a>
+      </div>
+      <dl class="leaders">
+        <div><dt>Tuesday – Sunday</dt><dd>17:00 – 23:00</dd></div>
+        <div><dt>Kitchen</dt><dd>last orders 22:00</dd></div>
+        <div><dt>Monday</dt><dd>closed</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec menu" id="menu" aria-labelledby="menu-h">
+    <div class="wrap">
+      <div class="menu-head reveal">
+        <div>
+          <p class="eyebrow">The menu</p>
+          <h2 class="h2" id="menu-h">Tonight<em id="tonight-date">from 17:00</em></h2>
+        </div>
+        <p>Eighteen dishes, rewritten every Tuesday after Saturday’s market. Order three or four small plates and something from the grill to share between two. Rice and the sambal of the day come with the grill.</p>
+      </div>
+      <div class="menu-grid">
+        <div class="card reveal">
+          <p class="card-top">Warung Lima<span>Kemang Timur No. 5</span></p>
+          <div class="tabs" role="tablist" aria-label="Tonight’s menu">
+            <button class="tab" role="tab" id="t-kecil" aria-controls="p-kecil" aria-selected="true"><b>Kecil</b><small>small plates</small></button>
+            <button class="tab" role="tab" id="t-grill" aria-controls="p-grill" aria-selected="false" tabindex="-1"><b>Dari Panggangan</b><small>from the grill</small></button>
+            <button class="tab" role="tab" id="t-manis" aria-controls="p-manis" aria-selected="false" tabindex="-1"><b>Manis</b><small>sweet</small></button>
+          </div>
+          <div class="panel" role="tabpanel" id="p-kecil" aria-labelledby="t-kecil" tabindex="0">
+            <ul class="dishes">
+              <li class="dish"><dl class="leaders"><div><dt>Pepes ikan kembung</dt><dd>75</dd></div></dl><p>Mackerel steamed in banana leaf with turmeric, candlenut and kemangi</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Gohu ikan</dt><dd>85</dd></div></dl><p>Raw tuna, Ternate style: calamansi, bird’s-eye chilli, toasted coconut oil</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Gulai nangka muda</dt><dd>65</dd></div></dl><p>Young jackfruit in a turmeric coconut curry, fried shallot, melinjo crackers</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Perkedel jagung</dt><dd>55</dd></div></dl><p>Sweetcorn fritters with lime leaf and a sambal terasi mayonnaise</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Tahu telur</dt><dd>60</dd></div></dl><p>Crisp tofu omelette, peanut and petis sauce, bean sprouts, cucumber</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Sayur urap</dt><dd>50</dd></div></dl><p>Market greens and long beans with spiced grated coconut and kencur</p></li>
+            </ul>
+            <p class="panel-note">Prices in thousands of rupiah · Service and tax added · Tell us about allergies when you book</p>
+          </div>
+          <div class="panel" role="tabpanel" id="p-grill" aria-labelledby="t-grill" tabindex="0" hidden>
+            <ul class="dishes">
+              <li class="dish"><dl class="leaders"><div><dt>Ikan bakar jimbaran</dt><dd>165</dd></div></dl><p>Line-caught snapper, sambal matah, lime. Whole, for two</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Sate lilit</dt><dd>95</dd></div></dl><p>Minced mackerel and coconut wrapped on lemongrass, sambal sere</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Iga bakar</dt><dd>245</dd></div></dl><p>Beef short rib, eight hours, kecap manis glaze, pickled salak</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Ayam bakar taliwang</dt><dd>135</dd></div></dl><p>Half a free-range chicken, Lombok chilli paste, plecing kangkung</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Cumi bakar</dt><dd>120</dd></div></dl><p>Grilled squid, black pepper, sweet soy, torn kemangi</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Terong bakar</dt><dd>70</dd></div></dl><p>Charred eggplant, sambal dabu-dabu, toasted peanuts</p></li>
+            </ul>
+            <p class="panel-note">Served with rice and the sambal of the day · Prices in thousands of rupiah</p>
+          </div>
+          <div class="panel" role="tabpanel" id="p-manis" aria-labelledby="t-manis" tabindex="0" hidden>
+            <ul class="dishes">
+              <li class="dish"><dl class="leaders"><div><dt>Nagasari bakar</dt><dd>55</dd></div></dl><p>Rice-flour and coconut cake with banana, grilled in its leaf</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Klepon</dt><dd>45</dd></div></dl><p>Pandan rice balls that burst with palm sugar, fresh coconut, rambutan sorbet</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Es cendol</dt><dd>50</dd></div></dl><p>Pandan jelly, gula aren, coconut milk, shaved ice</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Pisang goreng</dt><dd>60</dd></div></dl><p>Banana fritters, toasted coconut ice cream, salted palm caramel</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Kue lumpur</dt><dd>50</dd></div></dl><p>Warm potato-custard cakes from the oven, a little nutmeg</p></li>
+              <li class="dish"><dl class="leaders"><div><dt>Bubur sumsum</dt><dd>45</dd></div></dl><p>Soft rice-flour pudding, pandan, palm sugar syrup</p></li>
+            </ul>
+            <p class="panel-note">Coffee from Flores, tea from Malabar · Prices in thousands of rupiah</p>
+          </div>
+        </div>
+        <div class="menu-side">
+        <figure class="menu-photos reveal">
+          <div class="frame">
+            <img class="on" data-panel="p-kecil" src="https://images.unsplash.com/photo-1731060384841-318790e98c5f?auto=format&fit=crop&w=1000&q=70" srcset="https://images.unsplash.com/photo-1731060384841-318790e98c5f?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1731060384841-318790e98c5f?auto=format&fit=crop&w=1000&q=70 1000w, https://images.unsplash.com/photo-1731060384841-318790e98c5f?auto=format&fit=crop&w=1400&q=70 1400w" sizes="(min-width: 980px) 40vw, 90vw" width="1000" height="1000" loading="lazy" decoding="async" alt="Spiced fish wrapped in banana leaf on a round wooden plate">
+            <img data-panel="p-grill" src="https://images.unsplash.com/photo-1718942899999-b3da4177ee2a?auto=format&fit=crop&w=1000&q=70" srcset="https://images.unsplash.com/photo-1718942899999-b3da4177ee2a?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1718942899999-b3da4177ee2a?auto=format&fit=crop&w=1000&q=70 1000w, https://images.unsplash.com/photo-1718942899999-b3da4177ee2a?auto=format&fit=crop&w=1400&q=70 1400w" sizes="(min-width: 980px) 40vw, 90vw" width="1000" height="667" loading="lazy" decoding="async" alt="A whole fish grilled over charcoal, laid on a banana leaf">
+            <img data-panel="p-manis" src="https://images.unsplash.com/photo-1677146324587-776b73513a6e?auto=format&fit=crop&w=1000&q=70" srcset="https://images.unsplash.com/photo-1677146324587-776b73513a6e?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1677146324587-776b73513a6e?auto=format&fit=crop&w=1000&q=70 1000w, https://images.unsplash.com/photo-1677146324587-776b73513a6e?auto=format&fit=crop&w=1400&q=70 1400w" sizes="(min-width: 980px) 40vw, 90vw" width="1000" height="667" loading="lazy" decoding="async" alt="Banana-leaf parcels charred on the grill">
+          </div>
+          <figcaption id="menu-cap">Pepes ikan kembung, in its leaf</figcaption>
+        </figure>
+        <aside class="special reveal" aria-label="Off the card tonight">
+          <img src="https://images.unsplash.com/photo-1761545832874-02e1d41dc649?auto=format&fit=crop&w=400&q=70" srcset="https://images.unsplash.com/photo-1761545832874-02e1d41dc649?auto=format&fit=crop&w=300&q=70 300w, https://images.unsplash.com/photo-1761545832874-02e1d41dc649?auto=format&fit=crop&w=600&q=70 600w" sizes="150px" width="400" height="400" loading="lazy" decoding="async" alt="An orange broth in a teal bowl on dark stone">
+          <div>
+            <p class="k">Off the card tonight</p>
+            <dl class="leaders"><div><dt>Sup kuah kuning</dt><dd>70</dd></div></dl>
+            <p>Snapper-head broth with turmeric, belimbing wuluh and lemon basil. Until the pot is empty.</p>
+          </div>
+        </aside>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec market" id="market" aria-labelledby="market-h">
+    <div class="wrap market-grid">
+      <div class="market-pics reveal">
+        <img class="big" src="https://images.unsplash.com/photo-1598063413828-0d42356b9573?auto=format&fit=crop&w=1000&q=70" srcset="https://images.unsplash.com/photo-1598063413828-0d42356b9573?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1598063413828-0d42356b9573?auto=format&fit=crop&w=1000&q=70 1000w, https://images.unsplash.com/photo-1598063413828-0d42356b9573?auto=format&fit=crop&w=1400&q=70 1400w" sizes="(min-width: 980px) 38vw, 86vw" width="1000" height="1250" loading="lazy" decoding="async" alt="A covered street market with stalls of melons, papaya and greens, and shoppers walking past">
+        <figure class="pin">
+          <img src="https://images.unsplash.com/photo-1554478299-725a76d9badc?auto=format&fit=crop&w=600&q=70" srcset="https://images.unsplash.com/photo-1554478299-725a76d9badc?auto=format&fit=crop&w=400&q=70 400w, https://images.unsplash.com/photo-1554478299-725a76d9badc?auto=format&fit=crop&w=800&q=70 800w" sizes="(min-width: 980px) 18vw, 42vw" width="600" height="750" loading="lazy" decoding="async" alt="A red chilli sliced into rings on a black stone surface">
+          <figcaption>Sambal of the week: matah with torch ginger</figcaption>
+        </figure>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow"><span id="week-of">From the market this week</span></p>
+        <h2 class="h2" id="market-h">From the market this week</h2>
+        <p class="note">The snapper came in small, so they go out whole and for two. The third stall had kecombrang again, which means sambal matah with torch ginger until it runs out. Rambutan are early this year.</p>
+        <dl class="leaders went" aria-label="Where it went on the menu">
+          <div><dt>Kecombrang</dt><dd>the sambal matah</dd></div>
+          <div><dt>Young jackfruit</dt><dd>gulai, on Kecil</dd></div>
+          <div><dt>Salak pondoh</dt><dd>pickled, with the iga bakar</dd></div>
+          <div><dt>Rambutan</dt><dd>sorbet, with the klepon</dd></div>
+          <div><dt>Kangkung, long beans</dt><dd>urap and plecing</dd></div>
+        </dl>
+        <p class="sign">— the kitchen, after Saturday at Pasar Santa</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec room" id="room" aria-labelledby="room-h" style="padding-top:0">
+    <div class="wrap">
+      <div class="room-head reveal">
+        <div>
+          <p class="eyebrow">The room</p>
+          <h2 class="h2" id="room-h">Low lamps, a long bar, and the grill in plain sight.</h2>
+        </div>
+        <p>A converted house on Kemang Timur: tables in the front room, the long table at the back, a terrace under the mango tree when it isn’t raining. We keep the lights low and the music lower.</p>
+      </div>
+      <figure class="room-photo reveal">
+        <img src="https://images.unsplash.com/photo-1709548145082-04d0cde481d4?auto=format&fit=crop&w=1400&q=70" srcset="https://images.unsplash.com/photo-1709548145082-04d0cde481d4?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1709548145082-04d0cde481d4?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1709548145082-04d0cde481d4?auto=format&fit=crop&w=2000&q=70 2000w" sizes="(min-width: 1240px) 1240px, 100vw" width="1400" height="933" loading="lazy" decoding="async" alt="A dim dining room with a long bar, warm pendant lights and empty tables before service">
+      </figure>
+      <dl class="facts reveal">
+        <div><dt>Seats</dt><dd>Thirty-four<span>inside, and six more on the terrace</span></dd></div>
+        <div><dt>The bar</dt><dd>Eight stools<span>facing the charcoal, kept for walk-ins</span></dd></div>
+        <div><dt>Children</dt><dd>Welcome early<span>high chairs until 19:00</span></dd></div>
+        <div><dt>Dress</dt><dd>As you are<span>whatever you wore to work is fine</span></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="sec private" id="private" aria-labelledby="private-h">
+    <div class="wrap private-grid">
+      <figure class="private-photo reveal">
+        <img src="https://images.unsplash.com/photo-1536060311845-1278df8e1010?auto=format&fit=crop&w=1400&q=70" srcset="https://images.unsplash.com/photo-1536060311845-1278df8e1010?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1536060311845-1278df8e1010?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1536060311845-1278df8e1010?auto=format&fit=crop&w=2000&q=70 2000w" sizes="(min-width: 980px) 55vw, 100vw" width="1400" height="933" loading="lazy" decoding="async" alt="A long wooden table with lit candles in a darkened room">
+      </figure>
+      <div class="reveal">
+        <p class="eyebrow">Private dining</p>
+        <h2 class="h2" id="private-h">The long table, for twelve.</h2>
+        <p class="lede">One table in the back room, candles down the middle, the door closed. We cook a set menu from that week’s market and send it to you two days before.</p>
+        <div class="price"><strong>Rp 650.000</strong><span>per head · seven courses · nine to twelve guests</span></div>
+        <ul class="incl">
+          <li>Seven courses, shared down the table</li>
+          <li>A welcome glass: jamu spritz or something sparkling</li>
+          <li>The sambal board, five sambals made that afternoon</li>
+          <li>Printed menus with your guests’ names on them</li>
+          <li>The room from 18:00 to 23:00, and a host who stays with you</li>
+        </ul>
+        <p class="fine">Drinks pairing Rp 350.000 per head. A deposit of Rp 1.500.000 holds the date.<i>Last month: gohu ikan · sate lilit · gulai nangka · pepes kembung · ikan bakar · iga bakar · nagasari bakar</i></p>
+        <button class="btn" type="button" data-private>Enquire about the long table</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec reserve" id="reserve" aria-labelledby="reserve-h">
+    <div class="wrap reserve-grid">
+      <div class="reserve-side reveal">
+        <p class="eyebrow">Reservation</p>
+        <h2 class="h2" id="reserve-h">Book a table.</h2>
+        <p>Seatings from 17:00, the last at 21:30. We hold a table for fifteen minutes, then it goes to the bar. For nine to twelve, choose the long table.</p>
+        <ul>
+          <li>Confirmed on WhatsApp within the hour</li>
+          <li>The bar is kept for walk-ins</li>
+          <li>Closed on Mondays</li>
+        </ul>
+      </div>
+      <div class="reveal">
+        <form class="book" id="book" novalidate>
+          <div class="mode" role="group" aria-label="Type of booking">
+            <button type="button" data-mode="table" aria-pressed="true"><b>A table</b><small>one to eight guests</small></button>
+            <button type="button" data-mode="private" aria-pressed="false"><b>The long table</b><small>private, nine to twelve</small></button>
+          </div>
+          <p class="mode-note" id="mode-note" aria-live="polite"></p>
+          <div class="field">
+            <label for="f-date">Date</label>
+            <input type="date" id="f-date" name="date" required aria-describedby="h-date e-date">
+            <p class="hint" id="h-date"></p>
+            <p class="err" id="e-date" aria-live="polite"></p>
+          </div>
+          <fieldset class="field">
+            <legend>Time</legend>
+            <div class="chips" id="slots"></div>
+            <p class="err" id="e-time" aria-live="polite"></p>
+          </fieldset>
+          <fieldset class="field">
+            <legend>Guests</legend>
+            <div class="chips" id="guests"></div>
+            <p class="err" id="e-guests" aria-live="polite"></p>
+          </fieldset>
+          <div class="two">
+            <div class="field">
+              <label for="f-name">Name</label>
+              <input id="f-name" name="name" autocomplete="name" required aria-describedby="e-name">
+              <p class="err" id="e-name" aria-live="polite"></p>
+            </div>
+            <div class="field">
+              <label for="f-phone">WhatsApp number</label>
+              <input id="f-phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="08…" required aria-describedby="e-phone">
+              <p class="err" id="e-phone" aria-live="polite"></p>
+            </div>
+          </div>
+          <div class="field">
+            <label for="f-note">Anything we should know <span>(optional)</span></label>
+            <input id="f-note" name="note" placeholder="Allergies, a birthday, a high chair">
+          </div>
+          <button class="btn" type="submit">Request this table</button>
+          <p class="small">No deposit for tables. We reply on WhatsApp during opening hours.</p>
+        </form>
+        <div class="slip" id="slip" tabindex="-1" hidden aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec visit" id="visit" aria-labelledby="visit-h">
+    <div class="wrap visit-grid">
+      <div class="reveal">
+        <p class="five" aria-hidden="true">5</p>
+        <p class="five-cap">Lima means five. Number five, Kemang Timur. Doors open at five.</p>
+      </div>
+      <div class="reveal">
+        <p class="eyebrow">Hours &amp; location</p>
+        <h2 class="sr" id="visit-h">Hours and location</h2>
+        <dl class="leaders" id="hours">
+          <div data-days="2,3,4,5,6,0"><dt>Tuesday – Sunday</dt><dd>17:00 – 23:00</dd></div>
+          <div><dt>Kitchen</dt><dd>last orders 22:00</dd></div>
+          <div><dt>Bar</dt><dd>until 23:00</dd></div>
+          <div data-days="1"><dt>Monday</dt><dd>closed</dd></div>
+        </dl>
+        <p class="addr">Jl. Kemang Timur No. 5<br>Kemang, South Jakarta 12730</p>
+        <p class="how">Ten minutes from Blok M. Parking for eight cars at the gate, valet from 18:00. Look for the lamp in the front window.</p>
+        <p class="status" id="status"></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <p class="brandline">Warung Lima</p>
+        <p>Modern Indonesian, Kemang. Tuesday to Sunday, from five.</p>
+      </div>
+      <ul>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#reserve">Reserve</a></li>
+        <li><a href="#private">Private</a></li>
+        <li><a href="#visit">Find us</a></li>
+      </ul>
+    </div>
+    <div class="credit"><span>Jl. Kemang Timur No. 5 · Closed Mondays</span><span>A concept site by Aleph One · Photography via Unsplash</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var $=function(s,c){return (c||document).querySelector(s)}, $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var WORDS=['zero','one','two','three','four','five','six','seven','eight','nine','ten','eleven','twelve'];
+  function fmt(d){return DAYS[d.getDay()]+' '+d.getDate()+' '+MONTHS[d.getMonth()]}
+  function iso(d){return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+  function rp(n){return 'Rp '+String(n).replace(/\B(?=(\d{3})+(?!\d))/g,'.')}
+  var now=new Date(), today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+
+  /* header + mobile sheet */
+  var head=$('#head'), toggle=$('.nav-toggle');
+  function onScroll(){head.classList.toggle('scrolled',scrollY>24)}
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  function setNav(open){head.classList.toggle('open',open);toggle.setAttribute('aria-expanded',open);toggle.setAttribute('aria-label',open?'Close navigation':'Open navigation')}
+  toggle.addEventListener('click',function(){setNav(!head.classList.contains('open'))});
+  $$('#nav a').forEach(function(a){a.addEventListener('click',function(){setNav(false)})});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&head.classList.contains('open')){setNav(false);toggle.focus()}});
+
+  /* dates */
+  var td=$('#tonight-date');
+  if(now.getDay()===1){var tu=new Date(today);tu.setDate(tu.getDate()+1);td.textContent='closed tonight · back '+fmt(tu)}
+  else td.textContent=fmt(now);
+  var mon=new Date(today);mon.setDate(mon.getDate()-((today.getDay()+6)%7));
+  $('#week-of').textContent='Week of '+mon.getDate()+' '+MONTHS[mon.getMonth()];
+  $$('#hours [data-days]').forEach(function(row){
+    if(row.dataset.days.split(',').indexOf(String(now.getDay()))>-1){row.classList.add('today');var t=document.createElement('span');t.textContent='Today';row.querySelector('dt').appendChild(t)}
+  });
+  var mins=now.getHours()*60+now.getMinutes(), st=$('#status');
+  st.textContent=now.getDay()===1?'Closed today. See you Tuesday from five.':mins<1020?'Open tonight from 17:00.':mins<1380?'Open now. Kitchen until 22:00.':'Closed for tonight. Back tomorrow at five.';
+
+  /* menu tabs */
+  var tabs=$$('[role=tab]'), photos=$$('.menu-photos img'), cap=$('#menu-cap');
+  var CAPS={'p-kecil':'Pepes ikan kembung, in its leaf','p-grill':'Ikan bakar jimbaran, over coconut-husk charcoal','p-manis':'Nagasari bakar, straight off the grill'};
+  function select(tab,focus){
+    tabs.forEach(function(t){var on=t===tab;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1;document.getElementById(t.getAttribute('aria-controls')).hidden=!on});
+    var id=tab.getAttribute('aria-controls');
+    photos.forEach(function(p){p.classList.toggle('on',p.dataset.panel===id)});
+    cap.textContent=CAPS[id];
+    if(focus)tab.focus();
+  }
+  tabs.forEach(function(t,i){
+    t.addEventListener('click',function(){select(t)});
+    t.addEventListener('keydown',function(e){
+      var k=e.key,n=null;
+      if(k==='ArrowRight')n=tabs[(i+1)%tabs.length];else if(k==='ArrowLeft')n=tabs[(i-1+tabs.length)%tabs.length];
+      else if(k==='Home')n=tabs[0];else if(k==='End')n=tabs[tabs.length-1];
+      if(n){e.preventDefault();select(n,true)}
+    });
+  });
+
+  /* reveal */
+  var rv=$$('.reveal');
+  if('IntersectionObserver' in window&&!reduced){
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{rootMargin:'0px 0px -8% 0px'});
+    rv.forEach(function(el){io.observe(el)});
+  } else rv.forEach(function(el){el.classList.add('in')});
+
+  /* reservation */
+  var form=$('#book'), slip=$('#slip'), dateIn=$('#f-date'), slotsEl=$('#slots'), guestsEl=$('#guests');
+  var S={mode:'table',time:'',guests:0}, PER_HEAD=650000;
+  var SLOTS=[];for(var m=17*60;m<=21*60+30;m+=30)SLOTS.push(String(Math.floor(m/60))+':'+(m%60?'30':'00'));
+  dateIn.min=iso(today);
+  function err(id,msg){var el=$('#e-'+id);el.textContent=msg||'';var inp=id==='date'?dateIn:id==='name'?$('#f-name'):id==='phone'?$('#f-phone'):null;if(inp)inp.setAttribute('aria-invalid',msg?'true':'false');return !msg}
+  function chip(label,val,cls,on,pressed){var b=document.createElement('button');b.type='button';b.className='chip'+(cls?' '+cls:'');b.textContent=label;b.dataset.v=val;b.setAttribute('aria-pressed',pressed?'true':'false');b.addEventListener('click',on);return b}
+  function renderSlots(){
+    slotsEl.textContent='';
+    var isToday=dateIn.value===iso(today), cut=now.getHours()*60+now.getMinutes()+30;
+    SLOTS.forEach(function(s){
+      var b=chip(s,s,'',function(){S.time=s;$$('.chip',slotsEl).forEach(function(c){c.setAttribute('aria-pressed',c.dataset.v===s)});err('time')},S.time===s);
+      var p=s.split(':'),t=+p[0]*60+ +p[1],early=S.mode==='private'&&t<1080;
+      if((isToday&&t<cut)||early){b.disabled=true;b.setAttribute('aria-label',s+(early?', the long table seats from 18:00':', no longer available today'));if(S.time===s)S.time=''}
+      slotsEl.appendChild(b);
+    });
+  }
+  function renderGuests(){
+    guestsEl.textContent='';
+    var lo=S.mode==='private'?9:1, hi=S.mode==='private'?12:8;
+    if(S.guests<lo||S.guests>hi)S.guests=0;
+    for(var g=lo;g<=hi;g++)(function(g){
+      guestsEl.appendChild(chip(String(g),g,'n',function(){S.guests=g;$$('.chip',guestsEl).forEach(function(c){c.setAttribute('aria-pressed',+c.dataset.v===g)});err('guests')},S.guests===g));
+    })(g);
+  }
+  function setMode(mode){
+    S.mode=mode;
+    $$('.mode button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.mode===mode)});
+    $('#mode-note').textContent=mode==='private'?'The long table: set menu at Rp 650.000 per head, seated from 18:00.':'Tables for one to eight. The bar is kept for walk-ins.';
+    form.querySelector('[type=submit]').textContent=mode==='private'?'Request the long table':'Request this table';
+    renderGuests();renderSlots();err('guests');
+  }
+  function checkDate(){
+    var v=dateIn.value;$('#h-date').textContent='';
+    if(!v)return err('date','Choose a date.');
+    var p=v.split('-'),d=new Date(+p[0],+p[1]-1,+p[2]);
+    if(d<today)return err('date','That date has passed. Choose today or later.');
+    if(d.getDay()===1)return err('date','We’re closed on Mondays');
+    $('#h-date').textContent=fmt(d);return err('date');
+  }
+  $$('.mode button').forEach(function(b){b.addEventListener('click',function(){setMode(b.dataset.mode)})});
+  dateIn.addEventListener('change',function(){checkDate();renderSlots()});
+  dateIn.addEventListener('input',function(){if(dateIn.value)checkDate()});
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var name=$('#f-name').value.trim(), phone=$('#f-phone').value.trim(), digits=phone.replace(/\D/g,'');
+    var ok=[checkDate(),
+      err('time',S.time?'':'Pick a time.'),
+      err('guests',S.guests?'':(S.mode==='private'?'How many at the long table? Nine to twelve.':'How many guests?')),
+      err('name',name.length>1?'':'Who should we hold it under?'),
+      err('phone',digits.length>=9&&digits.length<=15?'':'A WhatsApp number, so we can confirm.')];
+    if(ok.indexOf(false)>-1){var first=form.querySelector('[aria-invalid=true]')||(!S.time?slotsEl.querySelector('.chip:not(:disabled)'):guestsEl.querySelector('.chip'));if(first)first.focus();return}
+    showSlip(name,phone);
+  });
+  function row(k,v){return '<div><dt>'+k+'</dt><dd>'+v+'</dd></div>'}
+  function esc(s){return s.replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function showSlip(name,phone){
+    var p=dateIn.value.split('-'),d=new Date(+p[0],+p[1]-1,+p[2]), pv=S.mode==='private', who=WORDS[S.guests]+(S.guests===1?' guest':' guests');
+    slip.innerHTML='<p class="k">'+(pv?'The long table · request':'Reservation · request')+'</p>'+
+      '<h3>'+(pv?'The long table, held for ':'Held for ')+fmt(d)+', '+S.time+', '+who+'.</h3>'+
+      '<dl class="leaders">'+row('Name',esc(name))+row('Date',fmt(d))+row('Time',S.time)+row('Guests',String(S.guests))+
+      (pv?row('Set menu',S.guests+' × '+rp(PER_HEAD))+row('Before drinks',rp(S.guests*PER_HEAD)):'')+'</dl>'+
+      '<p>Normally we’d confirm on WhatsApp to '+esc(phone)+' within the hour'+(pv?', send the menu two days before, and ask for the deposit.':', and hold the table until fifteen minutes past '+S.time+'.')+'</p>'+
+      '<p class="concept">This is a concept site by Aleph One, so no table was booked and no message was sent.</p>'+
+      '<button type="button" id="again">Make another booking</button>';
+    form.hidden=true;slip.hidden=false;slip.focus({preventScroll:true});
+    slip.scrollIntoView({behavior:reduced?'auto':'smooth',block:'center'});
+    $('#again').addEventListener('click',reset);
+  }
+  function reset(){
+    form.reset();S.time='';S.guests=0;$('#h-date').textContent='';
+    ['date','time','guests','name','phone'].forEach(function(k){err(k)});
+    slip.hidden=true;form.hidden=false;renderSlots();renderGuests();dateIn.focus();
+  }
+  $$('[data-private]').forEach(function(b){b.addEventListener('click',function(){
+    if(!slip.hidden)reset();
+    setMode('private');
+    $('#reserve').scrollIntoView({behavior:reduced?'auto':'smooth'});
+    setTimeout(function(){dateIn.focus({preventScroll:true})},reduced?0:700);
+  })});
+  setMode('table');
+})();
+</script>
+</body>
+</html>

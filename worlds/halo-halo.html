@@ -1,0 +1,567 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Halo Halo — Creative studio, Jakarta</title>
+<meta name="description" content="Halo Halo is a creative studio in Jakarta making identity, campaign and motion work for brands that would rather be noticed.">
+<meta name="theme-color" content="#FF4E1A">
+<script>document.documentElement.classList.add('js')</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Instrument+Sans:wght@400..700&display=swap" rel="stylesheet">
+<style>
+:root{--o:#FF4E1A;--ink:#111111;--w:#FFFFFF;--g:clamp(16px,2.2vw,40px);--hh:68px;--rule:3px solid var(--ink);
+  --disp:'Archivo',system-ui,sans-serif;--body:'Instrument Sans',system-ui,sans-serif;--ease:cubic-bezier(.2,.7,.2,1)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--hh) + 8px);-webkit-text-size-adjust:100%}
+body{font-family:var(--body);background:var(--o);color:var(--ink);font-size:17px;line-height:1.5;overflow-x:clip;-webkit-font-smoothing:antialiased}
+body.lock{overflow:hidden}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+ul,ol{list-style:none}
+button,input,textarea{font:inherit;color:inherit}
+button{cursor:pointer;background:none;border:0}
+:focus-visible{outline:3px solid currentColor;outline-offset:3px}
+[hidden]{display:none!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{padding-inline:var(--g)}
+.d{font-family:var(--disp);font-weight:800;font-stretch:125%;letter-spacing:-.05em;text-transform:uppercase;line-height:.86}
+.lab{font:600 12px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase}
+.stk{display:inline-block;background:var(--w);color:var(--ink);border:2px solid var(--ink);padding:7px 11px;font:700 12px/1.15 var(--body);letter-spacing:.1em;text-transform:uppercase;transform:rotate(-4deg);box-shadow:4px 4px 0 var(--ink);transition:transform .3s var(--ease)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 22px;border:3px solid var(--ink);background:var(--ink);color:var(--w);font:800 15px/1 var(--disp);font-stretch:125%;letter-spacing:-.01em;text-transform:uppercase;text-decoration:none;white-space:nowrap;transition:transform .15s var(--ease),box-shadow .15s var(--ease),background .15s,color .15s}
+.btn:hover{transform:translate(-4px,-4px);box-shadow:4px 4px 0 var(--ink)}
+.btn:active{transform:none;box-shadow:none}
+.btn.ghost{background:transparent;color:var(--ink)}
+.btn.ghost:hover{background:var(--w)}
+.btn .ar{display:inline-block;transition:transform .2s var(--ease)}
+.btn:hover .ar{transform:translateX(4px)}
+
+/* header */
+.hd{position:sticky;top:0;z-index:30;height:var(--hh);display:flex;align-items:center;gap:24px;padding-inline:var(--g);background:var(--o);border-bottom:var(--rule)}
+.brand{display:flex;align-items:center;gap:10px;white-space:nowrap;text-decoration:none;font:800 22px/1 var(--disp);font-stretch:125%;letter-spacing:-.05em;text-transform:uppercase}
+.ring{width:30px;height:13px;border:4px solid var(--ink);border-radius:50%;transform:rotate(-14deg);transition:transform .4s var(--ease)}
+.brand:hover .ring{transform:rotate(166deg)}
+.hd nav{margin-left:auto}
+.hd nav ul{display:flex;gap:30px}
+.hd nav a{font-weight:600;font-size:15px;text-decoration:none;background:linear-gradient(var(--ink),var(--ink)) 0 100%/0 3px no-repeat;padding-bottom:3px;transition:background-size .25s var(--ease)}
+.hd nav a:hover{background-size:100% 3px}
+.hd-cta{height:42px;padding:0 18px;font-size:14px}
+.menu-btn{display:none;position:relative;width:42px;height:42px;border:3px solid var(--ink)}
+.menu-btn::before,.menu-btn::after{content:'';position:absolute;left:8px;right:8px;height:3px;background:var(--ink);transition:transform .2s var(--ease)}
+.menu-btn::before{top:12px}.menu-btn::after{bottom:12px}
+.menu-btn[aria-expanded=true]::before{transform:translateY(5px) rotate(45deg)}.menu-btn[aria-expanded=true]::after{transform:translateY(-5px) rotate(-45deg)}
+.sheet{position:fixed;inset:var(--hh) 0 auto 0;z-index:29;background:var(--o);border-bottom:var(--rule);padding:12px var(--g) 28px}
+.sheet a{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:3px solid var(--ink);text-decoration:none;font-size:40px}
+.sheet a span{font:600 13px var(--body);letter-spacing:.1em}
+
+/* hero */
+.hero{min-height:clamp(560px,calc(100svh - var(--hh)),1000px);display:flex;flex-direction:column;justify-content:space-between;gap:clamp(14px,2.2svh,28px);padding-bottom:clamp(20px,3.4svh,40px)}
+.meta{display:flex;justify-content:space-between;gap:16px;padding-block:12px;border-bottom:var(--rule)}
+.meta span:nth-child(2){text-align:center}
+.hero-type{position:relative;container-type:inline-size}
+.hero h1{--f1:min(calc(100cqi / 5.97),26svh);font-size:var(--f1);line-height:.82;white-space:nowrap}
+.hero h1 .l{display:block}
+.hero h1 .l3{font-size:min(calc(100cqi / 5.14),30.2svh)}
+.hero-fig{--f1:min(calc(100cqi / 5.97),26svh);position:absolute;top:calc(var(--f1) * .9);left:calc(var(--g) + var(--f1) * 3.64);right:var(--g);height:calc(var(--f1) * .62);transform:rotate(-1.5deg)}
+.hero-fig img{width:100%;height:100%;object-fit:cover;object-position:50% 32%;border:3px solid var(--ink);background:#2a2ad0}
+.hero-fig .stk{position:absolute;left:-14px;top:-18px;transform:rotate(-6deg)}
+.hero-fig:hover .stk{transform:rotate(3deg)}
+.hero-foot{display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+.sub{font-size:clamp(18px,1.55vw,23px);line-height:1.35;max-width:36ch;font-weight:500}
+.ctas{display:flex;gap:14px;flex:none}
+
+/* marquee */
+.mq-wrap{position:relative;background:linear-gradient(var(--o) 50%,var(--w) 50%);padding:26px 0 34px;overflow:hidden}
+.mq{position:relative;background:var(--ink);color:var(--w);transform:rotate(-1.8deg);margin-inline:-40px;overflow:hidden}
+.mq-track{display:flex;width:max-content;animation:mq 34s linear infinite}
+.mq:hover .mq-track,.mq.paused .mq-track{animation-play-state:paused}
+.mq-list{display:flex;align-items:center;padding-block:18px}
+.mq-list li{display:flex;align-items:center;font-size:clamp(34px,5vw,72px);white-space:nowrap}
+.mq-list li::after{content:'';width:.62em;height:.28em;margin:0 .45em;border:.09em solid var(--o);border-radius:50%;transform:rotate(-14deg)}
+.mq-btn{position:absolute;right:var(--g);bottom:6px;height:28px;padding:0 12px;background:var(--w);color:var(--ink);border:2px solid var(--ink);font:700 11px var(--body);letter-spacing:.12em;text-transform:uppercase}
+.mq-btn:hover{background:var(--o);color:var(--ink);border-color:var(--o)}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* work index */
+.idx{background:var(--w);padding-block:clamp(56px,8vw,120px) clamp(48px,6vw,96px)}
+.sec-head{display:grid;grid-template-columns:1fr auto;align-items:end;gap:20px 40px;margin-bottom:clamp(28px,4vw,52px)}
+.sec-head h2{font-size:clamp(46px,7.6vw,136px);margin-top:12px}
+.filters{display:flex;flex-wrap:wrap;gap:8px;justify-content:flex-end}
+.chip{height:40px;padding:0 16px;border:2px solid var(--ink);border-radius:999px;font-weight:600;font-size:14px;transition:background .15s,color .15s,transform .2s var(--ease)}
+.chip sup{font-size:10px;margin-left:3px}
+.chip:hover{background:var(--o)}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--w);transform:rotate(-3deg)}
+.f-live{margin-top:10px;text-align:right;font-size:13px}
+.rows{border-bottom:var(--rule)}
+.row{position:relative;display:grid;grid-template-columns:64px 1fr 230px 70px;align-items:center;gap:20px;padding:22px 0;border-top:var(--rule)}
+.row::before{content:'';position:absolute;inset:0 calc(var(--g) * -1);background:var(--o);transform:scaleY(0);transform-origin:50% 100%;transition:transform .3s var(--ease)}
+.row>*{position:relative}
+.r-n,.r-y{font:700 14px var(--body);letter-spacing:.06em}
+.r-y{text-align:right}
+.r-c{font-size:clamp(30px,4.3vw,66px);transition:transform .3s var(--ease)}
+.r-b{margin-top:8px;max-width:58ch;font-size:15px}
+.r-t{font-size:14px;font-weight:600}
+.r-img{display:none}
+@media (hover:hover) and (pointer:fine){.row:hover::before{transform:scaleY(1)}.row:hover .r-c{transform:translateX(18px)}}
+@media (hover:none),(pointer:coarse){
+  .row{grid-template-columns:64px 1fr 200px 60px 112px}
+  .r-img{display:block;width:112px;aspect-ratio:4/5;object-fit:cover;border:3px solid var(--ink);transform:rotate(3deg)}
+}
+.peek{position:fixed;left:0;top:0;z-index:40;pointer-events:none;width:clamp(240px,24vw,360px)}
+.peek-in{transform:translate(28px,-60%) rotate(-5deg) scale(.7);opacity:0;transition:opacity .2s,transform .35s var(--ease)}
+.peek.on .peek-in{opacity:1;transform:translate(28px,-60%) rotate(-5deg) scale(1)}
+.peek img{width:100%;aspect-ratio:4/3;object-fit:cover;border:4px solid var(--ink);box-shadow:8px 8px 0 var(--ink);background:var(--ink)}
+.peek .stk{position:absolute;right:-10px;bottom:-14px;transform:rotate(4deg)}
+
+/* work grid */
+.cases{background:var(--ink);color:var(--w);padding-block:clamp(56px,8vw,120px)}
+.cases .sec-head p{max-width:34ch;font-size:17px;color:#d8d8d8}
+.cases .lab{color:var(--o)}
+.bento{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(100px,10.4vw,190px);gap:clamp(10px,1.2vw,18px)}
+.t{position:relative;overflow:hidden;background:#222;margin:0}
+.t img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.t:hover img{transform:scale(1.05)}
+.t figcaption{position:absolute;left:16px;bottom:16px;right:16px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.t .stk{font:800 clamp(15px,1.5vw,22px)/1 var(--disp);font-stretch:125%;letter-spacing:-.04em;padding:9px 12px 8px}
+.t:hover .stk{transform:rotate(1deg)}
+.cap{background:var(--ink);color:var(--w);padding:6px 10px;font-size:13px;font-weight:600}
+.fact{position:absolute;top:16px;right:16px;background:var(--o);color:var(--ink);padding:8px 10px;font:700 12px/1.1 var(--body);letter-spacing:.08em;text-transform:uppercase;transform:rotate(5deg)}
+.t1{grid-column:1/9;grid-row:span 3}
+.t-txt{grid-column:9/13;grid-row:span 3;background:var(--o);color:var(--ink);padding:clamp(18px,2vw,30px);display:flex;flex-direction:column;justify-content:space-between}
+.t-txt .big{font-size:clamp(90px,13vw,230px);line-height:.8}
+.t-txt p{font-size:clamp(16px,1.3vw,19px);font-weight:500;line-height:1.35}
+.t2{grid-column:1/6;grid-row:span 4}
+.t3{grid-column:6/13;grid-row:span 2}
+.t4{grid-column:6/10;grid-row:span 2}
+.t5{grid-column:10/13;grid-row:span 2}
+.t6{grid-column:1/13;grid-row:span 2}
+.t6 img{object-position:50% 45%}
+
+/* studio */
+.studio{padding-block:clamp(56px,8vw,120px) 0}
+.st-top{display:grid;grid-template-columns:7fr 5fr;gap:clamp(24px,4vw,64px);align-items:start}
+.st-top h2{font-size:clamp(40px,5.4vw,100px);margin:14px 0 28px}
+.st-top p{font-size:clamp(17px,1.4vw,20px);max-width:52ch;margin-bottom:14px}
+.st-ph{position:relative;padding-bottom:18%}
+.st-ph img{border:10px solid var(--w);box-shadow:10px 10px 0 var(--ink);object-fit:cover}
+.ph1{width:66%;aspect-ratio:3/4;margin-left:auto;transform:rotate(3deg)}
+.ph2{position:absolute;left:0;bottom:0;width:62%;aspect-ratio:3/2;transform:rotate(-5deg)}
+.st-ph .stk{position:absolute;right:4%;bottom:6%;transform:rotate(-7deg);z-index:2}
+.band{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:clamp(48px,7vw,96px);padding-block:clamp(16px,2.2vw,30px);border-block:var(--rule);font-size:clamp(24px,3.5vw,66px);line-height:.95;white-space:nowrap}
+.band .dot{width:.55em;height:.26em;border:.09em solid var(--ink);border-radius:50%;transform:rotate(-14deg);flex:none;font-size:inherit;color:transparent;overflow:hidden}
+.svc{display:grid;grid-template-columns:repeat(3,1fr)}
+.svc>div{padding:clamp(24px,3vw,44px) clamp(18px,2.4vw,36px) clamp(40px,5vw,72px)}
+.svc>div+div{border-left:var(--rule)}
+.svc>div:first-child{padding-left:0}
+.svc>div:last-child{padding-right:0}
+.svc h3{font-size:clamp(32px,3.4vw,56px);margin:10px 0 14px}
+.svc p{font-size:16px;max-width:36ch}
+.svc ul{margin:20px 0 22px;border-top:2px solid var(--ink)}
+.svc li{padding:9px 0;border-bottom:2px solid var(--ink);font-weight:600;font-size:15px;display:flex;gap:10px}
+.svc li::before{content:'+';font-weight:800}
+.svc .lab{display:inline-block;background:var(--ink);color:var(--w);padding:7px 10px}
+
+/* process */
+.proc{background:var(--w);padding-block:clamp(56px,8vw,120px)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);border-block:var(--rule)}
+.steps li{position:relative;padding:clamp(20px,2.4vw,34px) clamp(16px,1.8vw,28px) clamp(28px,3vw,44px);transition:background .25s}
+.steps li+li{border-left:var(--rule)}
+.steps li:hover{background:var(--o)}
+.steps .num{font-size:clamp(70px,8.4vw,150px);color:var(--o);-webkit-text-stroke:3px var(--ink);line-height:.8;transition:color .25s}
+.steps li:hover .num{color:var(--w)}
+.steps h3{font-size:clamp(22px,2vw,32px);margin:22px 0 10px}
+.steps p{font-size:15.5px}
+.steps .wk{position:absolute;top:clamp(20px,2.4vw,34px);right:clamp(16px,1.8vw,28px);background:var(--ink);color:var(--w);padding:6px 9px;transform:rotate(4deg)}
+.wall{position:relative;margin-top:clamp(32px,4vw,60px)}
+.wall img{width:100%;aspect-ratio:21/8;object-fit:cover;object-position:50% 40%;border:var(--rule)}
+.wall .stk{position:absolute;left:clamp(14px,3vw,40px);bottom:clamp(-16px,-1vw,-10px);max-width:min(80%,460px);transform:rotate(-3deg);line-height:1.35}
+
+/* say hi */
+.hi{background:var(--ink);color:var(--w);padding-block:clamp(48px,6vw,90px) clamp(64px,8vw,120px)}
+.hi-big{container-type:inline-size}
+.hi-big h2{font-size:calc(100cqi / 4.21);line-height:.8;color:var(--o);white-space:nowrap}
+.hi-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(32px,6vw,100px);margin-top:clamp(28px,4vw,56px);padding-top:clamp(28px,3vw,40px);border-top:3px solid var(--w)}
+.hi-info p{font-size:clamp(18px,1.6vw,23px);line-height:1.4;max-width:30ch;font-weight:500}
+.hi-info dl{margin-top:32px;border-top:2px solid #444}
+.hi-info dl div{display:grid;grid-template-columns:110px 1fr;gap:12px;padding:12px 0;border-bottom:2px solid #444;font-size:15px}
+.hi-info dt{color:#bdbdbd}
+.form{display:grid;gap:30px}
+.form fieldset{border:0}
+.form legend,.form .fl{display:block;margin-bottom:12px;font:700 12px/1.2 var(--body);letter-spacing:.14em;text-transform:uppercase;color:#e9e9e9}
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.ci{position:relative}
+.ci input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.ci span{display:inline-flex;align-items:center;height:44px;padding:0 18px;border:2px solid var(--w);border-radius:999px;font-weight:600;font-size:15px;transition:background .15s,color .15s,border-color .15s,transform .25s var(--ease)}
+.ci input:hover+span{border-color:var(--o);color:var(--o)}
+.ci input:checked+span{background:var(--o);border-color:var(--o);color:var(--ink);transform:rotate(-3deg)}
+.ci input:focus-visible+span{outline:3px solid var(--w);outline-offset:3px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:30px}
+.fi{width:100%;background:transparent;border:0;border-bottom:3px solid var(--w);padding:8px 0 10px;font-size:20px;color:var(--w);border-radius:0;transition:border-color .2s}
+.fi:focus{border-color:var(--o);outline:none}
+.fi:focus-visible{outline:3px solid var(--o);outline-offset:4px}
+textarea.fi{resize:vertical;min-height:110px;line-height:1.4}
+.fi[aria-invalid=true]{border-color:var(--o)}
+.err{display:block;color:var(--o);font-size:14px;font-weight:600;margin-top:8px}
+.err:empty{display:none}
+.err::before{content:'! '}
+.f-end{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.f-end small{color:#bdbdbd;font-size:13px;max-width:36ch}
+.btn.o{background:var(--o);border-color:var(--o);color:var(--ink);height:60px;padding:0 30px;font-size:18px}
+.btn.o:hover{box-shadow:4px 4px 0 var(--w)}
+.done{border:3px solid var(--o);padding:clamp(24px,3vw,40px);transform:rotate(-1deg);background:var(--ink)}
+.done:focus{outline:none}
+.done h3{font-size:clamp(38px,5vw,80px);color:var(--o);margin:14px 0 18px;overflow-wrap:anywhere;line-height:.9}
+.done p{font-size:19px;max-width:42ch;margin-bottom:12px}
+.done .fine{font-size:15px;color:#cfcfcf}
+.done .btn{margin-top:14px;color:var(--w);border-color:var(--w)}
+.done .btn:hover{background:var(--w);color:var(--ink);box-shadow:4px 4px 0 var(--o)}
+
+/* footer */
+.ft{padding-top:clamp(40px,5vw,72px);padding-bottom:112px}
+.ft-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding-bottom:28px;border-bottom:var(--rule)}
+.ft-cols p,.ft-cols a{font-size:15px;font-weight:500}
+.ft-cols .lab{margin-bottom:10px}
+.ft-cols ul{display:flex;flex-wrap:wrap;gap:6px 18px}
+.ft-cols a{text-decoration-thickness:2px;text-underline-offset:3px}
+.ft-cols a:hover{background:var(--ink);color:var(--o)}
+.ft-word{container-type:inline-size;padding-block:clamp(16px,2vw,28px)}
+.ft-word p{font-size:calc(100cqi / 7.18);line-height:.8;white-space:nowrap}
+.ft-base{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;padding-top:16px;border-top:var(--rule);font-size:13px;font-weight:500}
+
+/* reveal */
+.js .rv{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+
+@media (max-width:1000px){
+  .row{grid-template-columns:48px 1fr 170px 56px}
+  .r-c{font-size:clamp(28px,4.6vw,46px)}
+  .steps{grid-template-columns:1fr 1fr}.steps li:nth-child(3){border-left:0}.steps li:nth-child(n+3){border-top:var(--rule)}
+}
+@media (min-width:761px) and (max-aspect-ratio:4/5){
+  .hero h1 .l2{font-size:calc(100cqi / 3.47)}
+  .hero-fig{position:relative;inset:auto;height:auto;aspect-ratio:21/9;margin-top:clamp(18px,3svh,36px);transform:rotate(-2deg)}
+  .hero-fig .stk{left:-4px}
+}
+@media (max-width:1000px) and (hover:none),(max-width:1000px) and (pointer:coarse){.row{grid-template-columns:48px 1fr 150px 50px 96px}.r-img{width:96px}}
+@media (max-width:760px){
+  :root{--hh:60px}
+  .hd{gap:10px}.brand{font-size:17px;gap:8px}.ring{width:24px;height:11px;border-width:3px}.hd nav{display:none}.hd-cta{margin-left:auto;height:40px;padding:0 12px;font-size:13px}.menu-btn{display:block;width:40px;height:40px}
+  .hero-fig .stk{left:-4px}
+  .meta span:not(:first-child){display:none}
+  .hero h1 .l2{font-size:calc(100cqi / 3.47)}
+  .hero-fig{position:relative;inset:auto;height:auto;aspect-ratio:16/9;margin-top:clamp(18px,4svh,30px);transform:rotate(-2deg)}
+  .hero-foot{flex-direction:column;align-items:stretch;gap:18px}
+  .ctas .btn{flex:1}
+  .row{grid-template-columns:1fr auto;grid-template-areas:"n i" "m i" "t i";gap:6px 16px;align-items:start}
+  .r-n{grid-area:n}.r-main{grid-area:m}.r-t{grid-area:t}.r-y{position:absolute;top:22px;left:40px;text-align:left}
+  .r-img{grid-area:i;width:96px;margin-top:6px}
+  .r-c{font-size:clamp(26px,7.4vw,44px)}
+  .sec-head{grid-template-columns:1fr}.filters,.f-live{justify-content:flex-start;text-align:left}
+  .bento{grid-template-columns:1fr 1fr;grid-auto-rows:auto}
+  .bento>*{grid-column:1/-1;grid-row:auto;aspect-ratio:4/3}
+  .t-txt{aspect-ratio:auto;gap:40px}.t2{aspect-ratio:1}.t4,.t5{grid-column:span 1;aspect-ratio:3/4}.t6{aspect-ratio:16/9}
+  .t4 .stk,.t5 .stk{font-size:14px}.t4 .cap,.t5 .cap{display:none}
+  .st-top,.hi-grid{grid-template-columns:1fr}
+  .st-ph{max-width:460px;width:100%;margin-inline:auto}
+  .band{flex-direction:column;align-items:flex-start;font-size:clamp(26px,8.6vw,60px)}.band .dot{display:none}
+  .svc{grid-template-columns:1fr}.svc>div{padding-inline:0}.svc>div+div{border-left:0;border-top:var(--rule)}
+  .steps{grid-template-columns:1fr}.steps li+li{border-left:0;border-top:var(--rule)}
+  .wall img{aspect-ratio:4/3}
+  .two{grid-template-columns:1fr}
+  .ft-cols{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .mq-track{animation:none}.mq-btn{display:none}
+  *,*::before,*::after{transition-duration:.01ms!important}
+  .js .rv{transform:none}
+}
+</style>
+</head>
+<body>
+<header class="hd">
+  <a class="brand" href="#top" aria-label="Halo Halo, back to top"><span class="ring" aria-hidden="true"></span>Halo Halo</a>
+  <nav aria-label="Main">
+    <ul><li><a href="#work">Work</a></li><li><a href="#studio">Studio</a></li><li><a href="#say-hi">Say hi</a></li></ul>
+  </nav>
+  <a class="btn hd-cta" href="#say-hi">SAY HI</a>
+  <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Menu"></button>
+</header>
+<div class="sheet" id="sheet" hidden>
+  <nav aria-label="Mobile">
+    <a class="d" href="#work">Work <span>01</span></a>
+    <a class="d" href="#studio">Studio <span>02</span></a>
+    <a class="d" href="#process">Process <span>03</span></a>
+    <a class="d" href="#say-hi">Say hi <span>04</span></a>
+  </nav>
+</div>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="meta wrap lab"><span>Creative studio — Jakarta</span><span>Identity / Campaign / Motion</span><span>Booking from January 2027</span></div>
+    <div class="hero-type wrap">
+      <h1 id="hero-h" class="d"><span class="l l1">WE MAKE</span> <span class="l l2">LOUD</span> <span class="l l3">THINGS.</span></h1>
+      <figure class="hero-fig">
+        <img src="https://images.unsplash.com/photo-1697033300784-6c9d143a30e2?auto=format&fit=crop&w=1400&q=70"
+          srcset="https://images.unsplash.com/photo-1697033300784-6c9d143a30e2?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1697033300784-6c9d143a30e2?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1697033300784-6c9d143a30e2?auto=format&fit=crop&w=2000&q=70 2000w"
+          sizes="(max-width:760px) 100vw, 45vw" width="1400" height="2240" fetchpriority="high"
+          alt="Poster from the Pasar Malam Festival campaign: yellow arcs and orange and pink diamonds on deep blue">
+        <figcaption class="stk">Pasar Malam Festival · 2026</figcaption>
+      </figure>
+    </div>
+    <div class="hero-foot wrap">
+      <p class="sub">Identity, campaign and motion for brands that would rather be noticed than liked by everyone.</p>
+      <div class="ctas"><a class="btn ghost" href="#work">See the work</a><a class="btn" href="#say-hi">Say hi <span class="ar" aria-hidden="true">→</span></a></div>
+    </div>
+  </section>
+
+  <div class="mq-wrap">
+    <div class="mq" role="region" aria-label="Services">
+      <div class="mq-track">
+        <ul class="mq-list d"><li>Identity</li><li>Campaign</li><li>Motion</li><li>Packaging</li><li>Type</li><li>Launch films</li><li>Identity</li><li>Campaign</li><li>Motion</li><li>Packaging</li><li>Type</li><li>Launch films</li></ul>
+        <ul class="mq-list d" aria-hidden="true"><li>Identity</li><li>Campaign</li><li>Motion</li><li>Packaging</li><li>Type</li><li>Launch films</li><li>Identity</li><li>Campaign</li><li>Motion</li><li>Packaging</li><li>Type</li><li>Launch films</li></ul>
+      </div>
+    </div>
+    <button class="mq-btn" type="button" aria-pressed="false">Pause ticker</button>
+  </div>
+
+  <section id="work" class="idx wrap" aria-labelledby="work-h">
+    <div class="sec-head">
+      <div><p class="lab">Index — 2023 to 2026</p><h2 id="work-h" class="d rv">Seven loud things</h2></div>
+      <div>
+        <div class="filters" role="group" aria-label="Filter projects by discipline">
+          <button class="chip" type="button" data-f="all" aria-pressed="true">All<sup></sup></button>
+          <button class="chip" type="button" data-f="identity" aria-pressed="false">Identity<sup></sup></button>
+          <button class="chip" type="button" data-f="campaign" aria-pressed="false">Campaign<sup></sup></button>
+          <button class="chip" type="button" data-f="motion" aria-pressed="false">Motion<sup></sup></button>
+          <button class="chip" type="button" data-f="packaging" aria-pressed="false">Packaging<sup></sup></button>
+        </div>
+        <p class="f-live" aria-live="polite">Showing all 7 projects</p>
+      </div>
+    </div>
+    <ol class="rows">
+      <li class="row" data-tags="identity packaging" data-img="photo-1712295214766-a604cc48c1e7"><span class="r-n">01</span><div class="r-main"><h3 class="r-c d">Kopi Kilat</h3><p class="r-b">Rebrand for a 14-outlet coffee bar chain. Kilat means lightning and gloss, so we did both: bolt cups, chrome everything.</p></div><span class="r-t">Identity, Packaging</span><span class="r-y">2026</span><img class="r-img" src="https://images.unsplash.com/photo-1712295214766-a604cc48c1e7?auto=format&fit=crop&w=300&q=70" srcset="https://images.unsplash.com/photo-1712295214766-a604cc48c1e7?auto=format&fit=crop&w=300&q=70 300w, https://images.unsplash.com/photo-1712295214766-a604cc48c1e7?auto=format&fit=crop&w=600&q=70 600w" sizes="112px" width="300" height="375" loading="lazy" decoding="async" alt="Iridescent chrome swirl from the Kopi Kilat identity"></li>
+      <li class="row" data-tags="campaign motion" data-img="photo-1697033300784-6c9d143a30e2"><span class="r-n">02</span><div class="r-main"><h3 class="r-c d">Pasar Malam Festival</h3><p class="r-b">Poster system and 20-second spots for a three-night market with 400 stalls and one very loud stage.</p></div><span class="r-t">Campaign, Motion</span><span class="r-y">2026</span><img class="r-img" src="https://images.unsplash.com/photo-1697033300784-6c9d143a30e2?auto=format&fit=crop&w=300&q=70" srcset="https://images.unsplash.com/photo-1697033300784-6c9d143a30e2?auto=format&fit=crop&w=300&q=70 300w, https://images.unsplash.com/photo-1697033300784-6c9d143a30e2?auto=format&fit=crop&w=600&q=70 600w" sizes="112px" width="300" height="375" loading="lazy" decoding="async" alt="Geometric festival poster in blue, yellow, orange and pink"></li>
+      <li class="row" data-tags="identity" data-img="photo-1639817754460-9af351966008"><span class="r-n">03</span><div class="r-main"><h3 class="r-c d">Sambal Club</h3><p class="r-b">A custom stencil typeface and menu system for a supper club that rates its sambal by sweat, not stars.</p></div><span class="r-t">Identity, Type</span><span class="r-y">2025</span><img class="r-img" src="https://images.unsplash.com/photo-1639817754460-9af351966008?auto=format&fit=crop&w=300&q=70" srcset="https://images.unsplash.com/photo-1639817754460-9af351966008?auto=format&fit=crop&w=300&q=70 300w, https://images.unsplash.com/photo-1639817754460-9af351966008?auto=format&fit=crop&w=600&q=70 600w" sizes="112px" width="300" height="375" loading="lazy" decoding="async" alt="Orange, yellow, pink and purple striped graphic for Sambal Club"></li>
+      <li class="row" data-tags="motion" data-img="photo-1667202374078-1683eda6b0b6"><span class="r-n">04</span><div class="r-main"><h3 class="r-c d">Radio Gelap</h3><p class="r-b">Idents and a four-note sound logo for a station that only broadcasts after midnight.</p></div><span class="r-t">Motion, Sound logo</span><span class="r-y">2025</span><img class="r-img" src="https://images.unsplash.com/photo-1667202374078-1683eda6b0b6?auto=format&fit=crop&w=300&q=70" srcset="https://images.unsplash.com/photo-1667202374078-1683eda6b0b6?auto=format&fit=crop&w=300&q=70 300w, https://images.unsplash.com/photo-1667202374078-1683eda6b0b6?auto=format&fit=crop&w=600&q=70 600w" sizes="112px" width="300" height="375" loading="lazy" decoding="async" alt="Glowing purple rings on black from the Radio Gelap idents"></li>
+      <li class="row" data-tags="campaign motion" data-img="photo-1622547748225-3fc4abd2cca0"><span class="r-n">05</span><div class="r-main"><h3 class="r-c d">Ojek Bunga</h3><p class="r-b">Launch film for flowers delivered by motorbike. Forty-five seconds, one take, zero petals lost.</p></div><span class="r-t">Campaign, Launch film</span><span class="r-y">2024</span><img class="r-img" src="https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?auto=format&fit=crop&w=300&q=70" srcset="https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?auto=format&fit=crop&w=300&q=70 300w, https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?auto=format&fit=crop&w=600&q=70 600w" sizes="112px" width="300" height="375" loading="lazy" decoding="async" alt="Soft pastel 3D discs from the Ojek Bunga launch film"></li>
+      <li class="row" data-tags="identity" data-img="photo-1671519821564-ced7e41ee7ae"><span class="r-n">06</span><div class="r-main"><h3 class="r-c d">Gudang Kaca</h3><p class="r-b">Identity and wayfinding for a glass warehouse turned gallery. Signs you can see straight through.</p></div><span class="r-t">Identity, Signage</span><span class="r-y">2024</span><img class="r-img" src="https://images.unsplash.com/photo-1671519821564-ced7e41ee7ae?auto=format&fit=crop&w=300&q=70" srcset="https://images.unsplash.com/photo-1671519821564-ced7e41ee7ae?auto=format&fit=crop&w=300&q=70 300w, https://images.unsplash.com/photo-1671519821564-ced7e41ee7ae?auto=format&fit=crop&w=600&q=70 600w" sizes="112px" width="300" height="375" loading="lazy" decoding="async" alt="Floating glossy glass cubes in blue and purple for Gudang Kaca"></li>
+      <li class="row" data-tags="packaging motion" data-img="photo-1617791160505-6f00504e3519"><span class="r-n">07</span><div class="r-main"><h3 class="r-c d">Nusa Ombak</h3><p class="r-b">Surf wax in tins that stack into a wave, plus a launch film shot at dawn on Sumbawa.</p></div><span class="r-t">Packaging, Launch film</span><span class="r-y">2023</span><img class="r-img" src="https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&w=300&q=70" srcset="https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&w=300&q=70 300w, https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&w=600&q=70 600w" sizes="112px" width="300" height="375" loading="lazy" decoding="async" alt="Purple and teal ribbon wave from the Nusa Ombak launch"></li>
+    </ol>
+  </section>
+  <div class="peek" aria-hidden="true"><div class="peek-in"><img alt=""><span class="stk"></span></div></div>
+
+  <section class="cases" aria-labelledby="cases-h">
+    <div class="sec-head wrap">
+      <div><p class="lab">Up close</p><h2 id="cases-h" class="d rv">Six of them, big</h2></div>
+      <p>Every one of these was supposed to be quieter. The clients changed their minds in the first meeting.</p>
+    </div>
+    <div class="bento wrap">
+      <figure class="t t1 rv"><img src="https://images.unsplash.com/photo-1712295214766-a604cc48c1e7?auto=format&fit=crop&w=1400&q=70" srcset="https://images.unsplash.com/photo-1712295214766-a604cc48c1e7?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1712295214766-a604cc48c1e7?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1712295214766-a604cc48c1e7?auto=format&fit=crop&w=2000&q=70 2000w" sizes="(max-width:760px) 100vw, 66vw" width="1400" height="788" loading="lazy" decoding="async" alt="Iridescent chrome swirl, the key visual for Kopi Kilat"><span class="fact">14 outlets</span><figcaption><span class="stk">Kopi Kilat</span><span class="cap">Identity, Packaging · 2026</span></figcaption></figure>
+      <div class="t-txt rv"><p class="lab">Since 2019</p><p class="d big">41</p><p>Launches shipped from one room in Kemang. These six are the ones we still talk about at lunch.</p></div>
+      <figure class="t t2 rv"><img src="https://images.unsplash.com/photo-1639817754460-9af351966008?auto=format&fit=crop&w=1000&q=70" srcset="https://images.unsplash.com/photo-1639817754460-9af351966008?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1639817754460-9af351966008?auto=format&fit=crop&w=1000&q=70 1000w, https://images.unsplash.com/photo-1639817754460-9af351966008?auto=format&fit=crop&w=1600&q=70 1600w" sizes="(max-width:760px) 100vw, 42vw" width="1000" height="1000" loading="lazy" decoding="async" alt="Striped orange, yellow, pink and purple graphic from Sambal Club"><span class="fact">1 custom typeface</span><figcaption><span class="stk">Sambal Club</span><span class="cap">Identity, Type · 2025</span></figcaption></figure>
+      <figure class="t t3 rv"><img src="https://images.unsplash.com/photo-1667202374078-1683eda6b0b6?auto=format&fit=crop&w=1400&q=70" srcset="https://images.unsplash.com/photo-1667202374078-1683eda6b0b6?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1667202374078-1683eda6b0b6?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1667202374078-1683eda6b0b6?auto=format&fit=crop&w=2000&q=70 2000w" sizes="(max-width:760px) 100vw, 58vw" width="1400" height="1064" loading="lazy" decoding="async" alt="Glowing purple rings on black, a frame from Radio Gelap"><span class="fact">On air 00:00–05:00</span><figcaption><span class="stk">Radio Gelap</span><span class="cap">Motion, Sound logo · 2025</span></figcaption></figure>
+      <figure class="t t4 rv"><img src="https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&w=1000&q=70" srcset="https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&w=1000&q=70 1000w, https://images.unsplash.com/photo-1617791160505-6f00504e3519?auto=format&fit=crop&w=1600&q=70 1600w" sizes="(max-width:760px) 50vw, 33vw" width="1000" height="625" loading="lazy" decoding="async" alt="Purple and teal 3D ribbon wave for Nusa Ombak"><figcaption><span class="stk">Nusa Ombak</span><span class="cap">Packaging · 2023</span></figcaption></figure>
+      <figure class="t t5 rv"><img src="https://images.unsplash.com/photo-1671519821564-ced7e41ee7ae?auto=format&fit=crop&w=1000&q=70" srcset="https://images.unsplash.com/photo-1671519821564-ced7e41ee7ae?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1671519821564-ced7e41ee7ae?auto=format&fit=crop&w=1000&q=70 1000w, https://images.unsplash.com/photo-1671519821564-ced7e41ee7ae?auto=format&fit=crop&w=1600&q=70 1600w" sizes="(max-width:760px) 50vw, 25vw" width="1000" height="760" loading="lazy" decoding="async" alt="Glossy glass cubes in blue and purple for Gudang Kaca"><figcaption><span class="stk">Gudang Kaca</span><span class="cap">Signage · 2024</span></figcaption></figure>
+      <figure class="t t6 rv"><img src="https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?auto=format&fit=crop&w=2000&q=70" srcset="https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?auto=format&fit=crop&w=2000&q=70 2000w" sizes="100vw" width="2000" height="1125" loading="lazy" decoding="async" alt="Soft pastel 3D discs floating, from the Ojek Bunga launch film"><span class="fact">45 sec, one take</span><figcaption><span class="stk">Ojek Bunga</span><span class="cap">Campaign, Launch film · 2024</span></figcaption></figure>
+    </div>
+  </section>
+
+  <section id="studio" class="studio" aria-labelledby="studio-h">
+    <div class="st-top wrap">
+      <div class="rv">
+        <p class="lab">The studio</p>
+        <h2 id="studio-h" class="d">A small room that makes a lot of noise</h2>
+        <p>Designers, animators, one type nerd and a producer who keeps us on time. We work with founders and in-house teams who want to be noticed, and we keep every team small so the person you brief is the person who makes the thing.</p>
+        <p>No account managers, no pitch theatre, no 80-page decks. Just work on the wall and a straight answer about what will get you seen.</p>
+      </div>
+      <div class="st-ph rv">
+        <img class="ph1" src="https://images.unsplash.com/photo-1677078610072-7f11ebc4d4d7?auto=format&fit=crop&w=900&q=70" srcset="https://images.unsplash.com/photo-1677078610072-7f11ebc4d4d7?auto=format&fit=crop&w=500&q=70 500w, https://images.unsplash.com/photo-1677078610072-7f11ebc4d4d7?auto=format&fit=crop&w=900&q=70 900w, https://images.unsplash.com/photo-1677078610072-7f11ebc4d4d7?auto=format&fit=crop&w=1400&q=70 1400w" sizes="(max-width:760px) 66vw, 28vw" width="900" height="1200" loading="lazy" decoding="async" alt="The team working around a long table in a room with an orange wall">
+        <img class="ph2" src="https://images.unsplash.com/photo-1785829413650-ba241aae5f92?auto=format&fit=crop&w=900&q=70" srcset="https://images.unsplash.com/photo-1785829413650-ba241aae5f92?auto=format&fit=crop&w=500&q=70 500w, https://images.unsplash.com/photo-1785829413650-ba241aae5f92?auto=format&fit=crop&w=900&q=70 900w, https://images.unsplash.com/photo-1785829413650-ba241aae5f92?auto=format&fit=crop&w=1400&q=70 1400w" sizes="(max-width:760px) 62vw, 26vw" width="900" height="600" loading="lazy" decoding="async" alt="Two designers cutting patterned print material at a table">
+        <span class="stk">Lantai 2, Kemang</span>
+      </div>
+    </div>
+    <p class="band d wrap"><span>Founded 2019</span><span class="dot">·</span><span>nine people</span><span class="dot">·</span><span>Jakarta</span></p>
+    <div class="svc wrap">
+      <div class="rv"><span class="lab">01 · 8–12 weeks · from IDR 120 jt</span><h3 class="d">Identity</h3><p>A name, a mark and a system loud enough to work on a cup, a billboard and a six-second story.</p>
+        <ul><li>Naming and tone of voice</li><li>Wordmark and logo systems</li><li>Custom display type</li><li>Packaging and signage</li><li>Living brand guidelines</li></ul></div>
+      <div class="rv"><span class="lab">02 · 4–8 weeks · from IDR 90 jt</span><h3 class="d">Campaign</h3><p>One idea, pushed across every surface it can survive. Then a few it probably shouldn't.</p>
+        <ul><li>Launch concepts</li><li>Posters and out-of-home</li><li>Social systems and templates</li><li>Retail and event activations</li><li>Copy in Bahasa and English</li></ul></div>
+      <div class="rv"><span class="lab">03 · 3–6 weeks · from IDR 60 jt</span><h3 class="d">Motion</h3><p>Things that move, with sound that sticks. Built so your team can keep making them after we leave.</p>
+        <ul><li>Launch films, 15 to 90 seconds</li><li>Logo animation and sound logos</li><li>Idents and title sequences</li><li>Motion toolkits for in-house teams</li><li>Social cut-downs</li></ul></div>
+    </div>
+  </section>
+
+  <section id="process" class="proc wrap" aria-labelledby="proc-h">
+    <div class="sec-head">
+      <div><p class="lab">Process</p><h2 id="proc-h" class="d rv">Nine weeks, four steps</h2></div>
+      <p style="max-width:34ch">Give or take. No mystery, no reveal theatre. You see the work while it is still on the wall.</p>
+    </div>
+    <ol class="steps">
+      <li class="rv"><span class="wk lab">Week 1</span><p class="num d" aria-hidden="true">01</p><h3 class="d">Brief, loudly</h3><p>One two-hour workshop, no slides. We leave with a single sentence your brand should be remembered for.</p></li>
+      <li class="rv"><span class="wk lab">Weeks 2–3</span><p class="num d" aria-hidden="true">02</p><h3 class="d">Pin it up</h3><p>Three directions on the crit wall. You come to the studio and pick a fight with one of them.</p></li>
+      <li class="rv"><span class="wk lab">Weeks 4–8</span><p class="num d" aria-hidden="true">03</p><h3 class="d">Make it</h3><p>Type, colour, motion and words built together, then tested at billboard size and at phone size.</p></li>
+      <li class="rv"><span class="wk lab">Week 9</span><p class="num d" aria-hidden="true">04</p><h3 class="d">Ship it</h3><p>Files, guidelines and a motion toolkit your team can use on Monday. We stay on call for 30 days.</p></li>
+    </ol>
+    <figure class="wall rv">
+      <img src="https://images.unsplash.com/photo-1613759612065-d5971d32ca49?auto=format&fit=crop&w=1400&q=70" srcset="https://images.unsplash.com/photo-1613759612065-d5971d32ca49?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1613759612065-d5971d32ca49?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1613759612065-d5971d32ca49?auto=format&fit=crop&w=2000&q=70 2000w" sizes="100vw" width="1400" height="533" loading="lazy" decoding="async" alt="Two people walking past a wall of pinned prints in the studio">
+      <figcaption class="stk">The crit wall. Every direction gets pinned. None get precious.</figcaption>
+    </figure>
+  </section>
+
+  <section id="say-hi" class="hi wrap" aria-labelledby="hi-h">
+    <div class="hi-big"><h2 id="hi-h" class="d">SAY HI.</h2></div>
+    <div class="hi-grid">
+      <div class="hi-info rv">
+        <p>Tell us what needs to be loud. A rough brief is fine. A loud one is better.</p>
+        <dl>
+          <div><dt>Reply</dt><dd>Within two working days</dd></div>
+          <div><dt>Studio</dt><dd>Lantai 2, Kemang, Jakarta Selatan</dd></div>
+          <div><dt>Hours</dt><dd>Mon–Fri, 10:00–18:00 WIB</dd></div>
+          <div><dt>Next start</dt><dd>January 2027, two slots</dd></div>
+        </dl>
+      </div>
+      <div>
+        <form class="form" id="hi-form" action="#say-hi" novalidate>
+          <fieldset aria-describedby="e-type"><legend>What are we making?</legend>
+            <div class="chips">
+              <label class="ci"><input type="checkbox" name="type" value="Identity"><span>Identity</span></label>
+              <label class="ci"><input type="checkbox" name="type" value="Campaign"><span>Campaign</span></label>
+              <label class="ci"><input type="checkbox" name="type" value="Motion"><span>Motion</span></label>
+              <label class="ci"><input type="checkbox" name="type" value="Packaging"><span>Packaging</span></label>
+              <label class="ci"><input type="checkbox" name="type" value="Type"><span>Type</span></label>
+              <label class="ci"><input type="checkbox" name="type" value="Launch film"><span>Launch film</span></label>
+            </div><span class="err" id="e-type"></span>
+          </fieldset>
+          <fieldset aria-describedby="e-budget"><legend>Budget band (IDR)</legend>
+            <div class="chips">
+              <label class="ci"><input type="radio" name="budget" value="under IDR 50 jt"><span>Under 50 jt</span></label>
+              <label class="ci"><input type="radio" name="budget" value="IDR 50–150 jt"><span>50–150 jt</span></label>
+              <label class="ci"><input type="radio" name="budget" value="IDR 150–400 jt"><span>150–400 jt</span></label>
+              <label class="ci"><input type="radio" name="budget" value="IDR 400 jt and up"><span>400 jt +</span></label>
+              <label class="ci"><input type="radio" name="budget" value="a budget to be decided"><span>Not sure yet</span></label>
+            </div><span class="err" id="e-budget"></span>
+          </fieldset>
+          <div class="two">
+            <div><label class="fl" for="f-name">Your name</label><input class="fi" id="f-name" name="name" type="text" autocomplete="name" aria-describedby="e-name"><span class="err" id="e-name"></span></div>
+            <div><label class="fl" for="f-email">Email</label><input class="fi" id="f-email" name="email" type="email" autocomplete="email" aria-describedby="e-email"><span class="err" id="e-email"></span></div>
+          </div>
+          <div><label class="fl" for="f-msg">The loud thing</label><textarea class="fi" id="f-msg" name="msg" rows="4" placeholder="We're launching a…" aria-describedby="e-msg"></textarea><span class="err" id="e-msg"></span></div>
+          <div class="f-end"><small>Every field is needed. We read everything, usually with coffee.</small><button class="btn o" type="submit">Send it <span class="ar" aria-hidden="true">→</span></button></div>
+        </form>
+        <div class="done" tabindex="-1" hidden>
+          <p class="lab">Message received. Sort of.</p>
+          <h3 class="d">Loud and clear, <span data-n></span>.</h3>
+          <p data-s></p>
+          <p class="fine">This is a concept site by Aleph One, so nothing was sent and nobody at Halo Halo is reading this. If they were, your brief would already be pinned to the crit wall.</p>
+          <button class="btn ghost" type="button" data-reset>Write another</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="ft wrap">
+  <div class="ft-cols">
+    <div><p class="lab">Studio</p><p>Lantai 2, Kemang, Jakarta Selatan<br>Mon–Fri, 10:00–18:00 WIB</p></div>
+    <div><p class="lab">Index</p><ul><li><a href="#work">Work</a></li><li><a href="#studio">Studio</a></li><li><a href="#process">Process</a></li><li><a href="#say-hi">Say hi</a></li></ul></div>
+    <div><p class="lab">Now</p><p>Booking projects from January 2027.<br>Two slots left for Q1.</p></div>
+  </div>
+  <div class="ft-word" aria-hidden="true"><p class="d">Halo Halo</p></div>
+  <div class="ft-base"><span>© 2026 Halo Halo. Loud since 2019.</span><span>A concept site by Aleph One · Photography via Unsplash</span></div>
+</footer>
+
+<script>
+(()=>{
+  const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+  const reduce=matchMedia('(prefers-reduced-motion: reduce)');
+
+  /* mobile menu */
+  const mb=$('.menu-btn'), sheet=$('#sheet');
+  const setMenu=open=>{mb.setAttribute('aria-expanded',open);sheet.hidden=!open;mb.setAttribute('aria-label',open?'Close menu':'Menu');document.body.classList.toggle('lock',open)};
+  mb.addEventListener('click',()=>setMenu(mb.getAttribute('aria-expanded')!=='true'));
+  $$('a',sheet).forEach(a=>a.addEventListener('click',()=>setMenu(false)));
+  addEventListener('keydown',e=>{if(e.key==='Escape'&&!sheet.hidden){setMenu(false);mb.focus()}});
+  matchMedia('(min-width:761px)').addEventListener('change',e=>{if(e.matches)setMenu(false)});
+
+  /* marquee pause */
+  const mq=$('.mq'), mqb=$('.mq-btn');
+  mqb.addEventListener('click',()=>{const p=mq.classList.toggle('paused');mqb.setAttribute('aria-pressed',p);mqb.textContent=p?'Play ticker':'Pause ticker'});
+
+  /* work index filter */
+  const rows=$$('.row'), chips=$$('.filters .chip'), live=$('.f-live');
+  const has=(r,f)=>f==='all'||r.dataset.tags.split(' ').includes(f);
+  chips.forEach(c=>{
+    const f=c.dataset.f;
+    $('sup',c).textContent=rows.filter(r=>has(r,f)).length;
+    c.addEventListener('click',()=>{
+      chips.forEach(x=>x.setAttribute('aria-pressed',x===c));
+      let n=0; rows.forEach(r=>{const s=has(r,f);r.hidden=!s;if(s)n++});
+      live.textContent=f==='all'?`Showing all ${n} projects`:`Showing ${n} of ${rows.length} projects: ${c.firstChild.textContent.trim()}`;
+    });
+  });
+
+  /* cursor-following preview (desktop pointers only) */
+  const fine=matchMedia('(hover:hover) and (pointer:fine)');
+  const peek=$('.peek'), pimg=$('img',peek), plab=$('.stk',peek);
+  const U=(id,w)=>`https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&h=${Math.round(w*.75)}&q=70`;
+  let tx=0,ty=0,x=0,y=0,raf=0,active=false,warmed=false,cur=null,sc=0;
+  const place=()=>{peek.style.transform=`translate3d(${x}px,${y}px,0)`};
+  const loop=()=>{x+=(tx-x)*.18;y+=(ty-y)*.18;place();raf=(active||Math.abs(tx-x)+Math.abs(ty-y)>.5)?requestAnimationFrame(loop):0};
+  const show=r=>{
+    cur=r; pimg.src=U(r.dataset.img,720); plab.textContent=`${$('.r-t',r).textContent} · ${$('.r-y',r).textContent}`;
+    if(!active&&!peek.classList.contains('on')){x=tx;y=ty;place()}
+    active=true; peek.classList.add('on');
+    if(!reduce.matches&&!raf)raf=requestAnimationFrame(loop);
+  };
+  const hide=()=>{active=false;cur=null;peek.classList.remove('on')};
+  $('.rows').addEventListener('pointerenter',()=>{if(warmed||!fine.matches)return;warmed=true;rows.forEach(r=>{new Image().src=U(r.dataset.img,720)})});
+  rows.forEach(r=>{
+    r.addEventListener('pointerenter',e=>{if(!fine.matches||e.pointerType!=='mouse')return;tx=e.clientX;ty=e.clientY;show(r)});
+    r.addEventListener('pointerleave',hide);
+  });
+  addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY;if(reduce.matches&&active){x=tx;y=ty;place()}},{passive:true});
+  /* scrolling moves rows under a still cursor: re-check what is under it */
+  addEventListener('scroll',()=>{if(!active||sc)return;sc=requestAnimationFrame(()=>{sc=0;const el=document.elementFromPoint(tx,ty),r=el&&el.closest('.row');if(!r)hide();else if(r!==cur)show(r)})},{passive:true});
+
+  /* reveal on scroll */
+  const rv=$$('.rv');
+  if('IntersectionObserver' in window&&!reduce.matches){
+    const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{rootMargin:'0px 0px -6% 0px'});
+    rv.forEach(el=>io.observe(el));
+  } else rv.forEach(el=>el.classList.add('in'));
+
+  /* say hi form */
+  const form=$('#hi-form'), done=$('.done');
+  const setErr=(k,msg)=>{
+    $('#e-'+k).textContent=msg;
+    const el=form.elements[k];
+    if(el&&el.tagName)el.setAttribute('aria-invalid',msg?'true':'false');
+  };
+  form.addEventListener('change',e=>{const k=e.target.name;if(k==='type'||k==='budget')setErr(k,'')});
+  form.addEventListener('input',e=>{const k=e.target.name;if(k&&$('#e-'+k).textContent)setErr(k,'')});
+  form.addEventListener('submit',e=>{
+    e.preventDefault();
+    const fd=new FormData(form);
+    const types=fd.getAll('type'), budget=fd.get('budget'), name=String(fd.get('name')||'').trim(), email=String(fd.get('email')||'').trim(), msg=String(fd.get('msg')||'').trim();
+    const errs={
+      type:types.length?'':'Pick at least one. Several is fine.',
+      budget:budget?'':'Pick a band. A rough one is fine.',
+      name:name?'':'We need a name to shout.',
+      email:/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)?'':(email?'That email looks off.':'Where should we write back?'),
+      msg:msg.length>=10?'':'Give us a sentence or two.'
+    };
+    let first=null;
+    for(const k in errs){setErr(k,errs[k]);if(errs[k]&&!first)first=k}
+    if(first){const el=form.elements[first];(el.tagName?el:el[0]).focus();return}
+    $('[data-n]',done).textContent=name.split(/\s+/)[0];
+    $('[data-s]',done).textContent=`${types.join(' + ')}, ${budget}. Sounds like our kind of noise.`;
+    form.hidden=true; done.hidden=false; done.focus();
+  });
+  $('[data-reset]',done).addEventListener('click',()=>{form.reset();done.hidden=true;form.hidden=false;form.elements.type[0].focus()});
+})();
+</script>
+</body>
+</html>

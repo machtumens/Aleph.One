@@ -1,0 +1,915 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maison Ardent — A harbour hotel of forty rooms</title>
+<meta name="description" content="Maison Ardent: forty rooms and one kitchen on the old harbour, ten minutes from the ferry pier. Book directly and the third night is on the house.">
+<meta name="theme-color" content="#F1EBE1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Instrument+Sans:wght@400..600&display=swap">
+<script>document.documentElement.classList.add('js')</script>
+<style>
+:root{
+  --paper:#F1EBE1; --ink:#1B1A17; --bronze:#9A7B4F; --night:#15130F;
+  --ink-2:#57524A;            /* muted body text on paper */
+  --bronze-text:#7A5F38;      /* bronze deepened for small text on paper (5:1) */
+  --rule:rgba(154,123,79,.5); --err:#A3402D;
+  --serif:"Cormorant Garamond","Cormorant",Georgia,serif;
+  --sans:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --gutter:clamp(16px,4.4vw,72px); --max:1440px; --col:clamp(16px,2.4vw,40px);
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --grain:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .11 0 0 0 0 .09 0 0 0 0 .06 0 0 0 .11 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:76px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--paper) var(--grain);color:var(--ink);font:400 16px/1.65 var(--sans);-webkit-font-smoothing:antialiased;overflow-x:clip}
+img{display:block;max-width:100%;height:auto}
+a{color:inherit}
+h1,h2,h3,p,dl,dd,ol,ul,figure{margin:0}
+ol,ul{padding:0;list-style:none}
+em{font-style:italic}
+:focus-visible{outline:1px solid var(--bronze);outline-offset:4px}
+.hero :focus-visible,.dining :focus-visible,.site-header:not(.solid):not(.menu-open) :focus-visible{outline-color:var(--paper)}
+.menu-card :focus-visible{outline-color:var(--bronze)}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.wrap{max-width:var(--max);margin-inline:auto;padding-inline:var(--gutter)}
+.grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--col)}
+.label{display:flex;align-items:center;gap:14px;font:500 11.5px/1.2 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--bronze-text)}
+.label .n{font:italic 400 17px/1 var(--serif);letter-spacing:0}
+.label::after{content:"";width:56px;height:1px;background:var(--bronze)}
+.display{font:400 clamp(2.3rem,1.2rem + 3.4vw,4.7rem)/1.02 var(--serif);letter-spacing:-.015em;text-wrap:balance;margin-top:.4em}
+.plate{font:italic 400 15px/1.4 var(--serif);color:var(--ink-2);margin-top:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:44px;padding:0 24px;border:1px solid currentColor;background:none;color:inherit;font:600 11.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background-color .3s,color .3s,border-color .3s}
+.btn-solid{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.btn-solid:hover{background:var(--bronze-text);border-color:var(--bronze-text)}
+.btn-line{display:inline-flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid currentColor;font:600 11.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;text-decoration:none;transition:color .3s}
+.btn-line .arr{transition:transform .4s var(--ease)}
+.btn-line:hover{color:var(--bronze-text)}
+.btn-line:hover .arr{transform:translateX(6px)}
+
+/* header */
+.site-header{position:absolute;inset:0 0 auto;z-index:50;color:var(--paper)}
+.js .site-header{position:fixed}
+.hdr{position:relative;z-index:2;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;height:76px;padding-inline:var(--gutter);border-bottom:1px solid rgba(241,235,225,.24);transition:background-color .35s,color .35s,border-color .35s}
+.solid .hdr,.menu-open .hdr{background:rgba(241,235,225,.95);color:var(--ink);border-color:var(--rule);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}
+.brand{display:inline-flex;align-items:center;gap:10px;justify-self:start;text-decoration:none;font:500 26px/1 var(--serif);letter-spacing:.01em;white-space:nowrap}
+.brand svg{width:24px;height:24px;flex:none}
+.nav{display:flex;gap:40px}
+.nav a{position:relative;padding:8px 0;font:500 11.5px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;text-decoration:none}
+.nav a::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1px;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .45s var(--ease)}
+.nav a:hover::after,.nav a:focus-visible::after{transform:scaleX(1)}
+.hdr-end{display:flex;align-items:center;gap:20px;justify-self:end}
+.lang{display:flex;align-items:center;font:500 11.5px/1 var(--sans);letter-spacing:.16em}
+.lang button{background:none;border:0;color:inherit;font:inherit;letter-spacing:inherit;padding:10px 5px;cursor:pointer;opacity:.62;transition:opacity .25s}
+.lang button:hover{opacity:1}
+.lang button[aria-pressed="true"]{opacity:1;text-decoration:underline;text-decoration-color:var(--bronze);text-decoration-thickness:1px;text-underline-offset:6px}
+.btn-book{min-height:40px;padding:0 22px}
+.site-header:not(.solid):not(.menu-open) .btn-book:hover{background:var(--paper);border-color:var(--paper);color:var(--ink)}
+.solid .btn-book,.menu-open .btn-book{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.solid .btn-book:hover,.menu-open .btn-book:hover{background:var(--bronze-text);border-color:var(--bronze-text)}
+.menu-btn{display:none;width:40px;height:40px;margin-right:-8px;background:none;border:0;color:inherit;cursor:pointer;position:relative}
+.menu-btn i{position:absolute;left:9px;right:9px;height:1px;background:currentColor;transition:transform .35s var(--ease)}
+.menu-btn i:first-of-type{top:16px}.menu-btn i:last-of-type{top:23px}
+.menu-btn[aria-expanded="true"] i:first-of-type{transform:translateY(3.5px) rotate(45deg)}
+.menu-btn[aria-expanded="true"] i:last-of-type{transform:translateY(-3.5px) rotate(-45deg)}
+.sheet{position:fixed;inset:0;z-index:1;display:flex;flex-direction:column;justify-content:space-between;gap:32px;padding:108px var(--gutter) 112px;background:var(--paper) var(--grain);color:var(--ink);overflow-y:auto}
+.sheet[hidden]{display:none}
+.sheet nav a{display:flex;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid var(--rule);font:400 2.6rem/1.05 var(--serif);text-decoration:none}
+.sheet nav a b{font-weight:400}
+.sheet nav a span{font:italic 400 1rem/1 var(--serif);color:var(--bronze-text);width:1.6em}
+.sheet p{font-size:14px;color:var(--ink-2)}
+
+/* hero */
+.hero{position:relative;isolation:isolate;overflow:hidden;min-height:clamp(560px,100svh,1000px);display:flex;flex-direction:column;justify-content:flex-end;padding:120px var(--gutter) 26px;background:var(--night);color:var(--paper)}
+.hero-img{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover;object-position:50% 55%}
+.hero-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(16,13,9,.6) 0,rgba(16,13,9,.18) 14%,rgba(16,13,9,0) 26%,rgba(16,13,9,0) 42%,rgba(16,13,9,.42) 66%,rgba(16,13,9,.78) 100%)}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,340px);gap:40px;align-items:end;max-width:var(--max);margin-inline:auto;width:100%}
+.hero .kicker{color:var(--paper)}
+.hero .kicker::after{background:rgba(241,235,225,.6)}
+.hero h1{font:400 clamp(3.3rem,1.3rem + 7.7vw,9.8rem)/.9 var(--serif);letter-spacing:-.022em;margin-top:.2em;text-shadow:0 2px 30px rgba(10,8,5,.25)}
+.hero-sub{font-size:clamp(15px,.9rem + .2vw,17px);line-height:1.6;color:rgba(241,235,225,.92);max-width:36ch}
+.hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:14px 26px;margin-top:26px}
+.hero .btn:hover{background:var(--paper);border-color:var(--paper);color:var(--ink)}
+.hero-meta{display:flex;align-items:center;flex-wrap:wrap;gap:10px 40px;max-width:var(--max);width:100%;margin:clamp(28px,5vh,52px) auto 0;padding-top:16px;border-top:1px solid rgba(241,235,225,.32);font:500 11px/1.4 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:rgba(241,235,225,.86)}
+.hero-meta b{font-weight:500;color:var(--paper)}
+.hero-meta .plate{margin:0 0 0 auto;color:rgba(241,235,225,.8);letter-spacing:0;text-transform:none;font-size:15px}
+
+/* portrait screens: crop the sky so the hills and town lights sit above the headline */
+@media (max-aspect-ratio:1/1){.hero-img{top:auto;height:130%;object-position:38% 50%}}
+
+/* the house */
+.house{padding:clamp(96px,13vw,200px) 0 clamp(56px,7vw,110px)}
+.house .label{grid-column:1/4;align-self:start;margin-top:1.4em}
+.house-main{grid-column:4/13}
+.statement{font:400 clamp(2.05rem,1.1rem + 3vw,4.1rem)/1.08 var(--serif);letter-spacing:-.012em;text-wrap:balance;max-width:19ch}
+.house-cols{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,52px);max-width:880px;margin-top:clamp(36px,4vw,60px);color:var(--ink-2)}
+.figures{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);margin-top:clamp(64px,8vw,128px);border-top:1px solid var(--bronze)}
+.figures div{padding:26px 20px 0 0}
+.figures div+div{padding-left:clamp(16px,2vw,32px);border-left:1px solid var(--rule)}
+.figures dt{font:400 clamp(3.1rem,2rem + 3.4vw,6rem)/.95 var(--serif);color:var(--bronze);letter-spacing:-.02em;font-variant-numeric:lining-nums}
+.figures dd{margin-top:12px;font-size:14px;color:var(--ink-2);max-width:22ch}
+
+/* rooms */
+.rooms{padding:clamp(24px,4vw,64px) 0 clamp(100px,12vw,190px)}
+.sec-head{align-items:end;margin-bottom:clamp(48px,7vw,110px)}
+.sec-head .label{grid-column:1/-1}
+.sec-head .display{grid-column:1/9}
+.sec-note{grid-column:9/13;font-size:15px;color:var(--ink-2);padding:0 0 .7em 20px;border-left:1px solid var(--rule)}
+.room-grid{display:grid;grid-template-columns:1.2fr .92fr 1.04fr;gap:clamp(20px,3.4vw,60px);align-items:start}
+.room:nth-child(2){margin-top:clamp(56px,11vw,190px)}
+.room:nth-child(3){margin-top:clamp(20px,4vw,70px)}
+.room-fig{position:relative;overflow:hidden;aspect-ratio:4/5;background:rgba(154,123,79,.16)}
+.room:nth-child(2) .room-fig{aspect-ratio:3/4}
+.room-fig img{width:100%;height:100%;object-fit:cover;transition:transform 1.4s var(--ease)}
+.room:hover .room-fig img{transform:scale(1.04)}
+.room-fig .no{position:absolute;top:14px;left:14px;padding:6px 10px 5px;background:var(--paper);font:italic 400 15px/1 var(--serif);color:var(--ink)}
+.room-body{margin-top:26px}
+.room .count{font:500 11px/1.3 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-text)}
+.room h3{font:400 clamp(2.1rem,1.5rem + 1.3vw,2.9rem)/1 var(--serif);letter-spacing:-.01em;margin:12px 0 12px}
+.room-desc{color:var(--ink-2);max-width:36ch;margin-bottom:22px}
+.specs{border-top:1px solid var(--rule)}
+.specs div{display:grid;grid-template-columns:96px 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--rule);font-size:14px}
+.specs dt{align-self:center;font:500 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-text)}
+.room-foot{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:14px 20px;margin-top:22px}
+.price .amt{font:500 1.75rem/1 var(--serif)}
+.price .per{margin-left:6px;font-size:13px;color:var(--ink-2)}
+
+/* dining (night) */
+.dining{background:var(--night);color:var(--paper);padding-bottom:clamp(96px,12vw,180px)}
+.dining-hero{position:relative;height:clamp(380px,74vh,780px)}
+.dining-hero img{width:100%;height:100%;object-fit:cover;object-position:50% 60%}
+.dining-hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(21,19,15,0) 55%,var(--night) 100%)}
+.dining-hero figcaption{position:absolute;z-index:1;left:var(--gutter);top:22px;font:italic 400 15px/1.4 var(--serif);color:rgba(241,235,225,.82)}
+.dining-text{grid-column:1/6;grid-row:2;padding-top:clamp(40px,5vw,72px)}
+.dining .label,.dining .label .n{color:var(--bronze)}
+.dining-text p.lede{margin-top:28px;color:rgba(241,235,225,.78);max-width:44ch}
+.hours{margin-top:40px;border-top:1px solid rgba(154,123,79,.6)}
+.hours div{display:grid;grid-template-columns:118px 1fr;gap:12px;padding:13px 0;border-bottom:1px solid rgba(154,123,79,.32);font-size:15px}
+.hours dt{align-self:center;font:500 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--bronze)}
+.hours dd{color:rgba(241,235,225,.9)}
+.table-fig{grid-column:1/4;grid-row:1;position:relative;z-index:1;margin-top:calc(-1 * clamp(110px,17vw,270px));padding:10px 10px 4px;background:var(--paper) var(--grain);box-shadow:0 30px 70px -34px rgba(0,0,0,.85)}
+.table-fig .img{aspect-ratio:4/5;overflow:hidden;background:rgba(154,123,79,.2)}
+.table-fig img{width:100%;height:100%;object-fit:cover}
+.table-fig .plate{margin-top:8px;font-size:14px}
+.menu-card{grid-column:7/13;grid-row:1/3;position:relative;align-self:start;margin-top:calc(-1 * clamp(100px,11vw,170px));padding:clamp(28px,3.6vw,60px) clamp(22px,3.6vw,60px) clamp(30px,3.4vw,52px);background:var(--paper) var(--grain);color:var(--ink);box-shadow:0 40px 90px -40px rgba(0,0,0,.8)}
+.menu-card::before{content:"";position:absolute;inset:10px;border:1px solid var(--rule);pointer-events:none}
+.menu-head{text-align:center}
+.menu-head .tonight{font:500 10.5px/1.4 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--bronze-text)}
+.menu-head h3{font:italic 400 clamp(2.2rem,1.6rem + 1.4vw,3.2rem)/1 var(--serif);margin-top:12px}
+.course{margin-top:30px;font:500 10.5px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--bronze-text);display:flex;align-items:center;gap:12px}
+.course::after{content:"";flex:1;height:1px;background:var(--rule)}
+.menu li{display:grid;grid-template-columns:1fr auto;column-gap:18px;padding:13px 0;border-bottom:1px solid rgba(154,123,79,.28)}
+.menu li:last-child{border-bottom:0}
+.menu .dish{font:500 1.38rem/1.2 var(--serif)}
+.menu .pr{font:500 1.2rem/1.3 var(--serif);color:var(--bronze-text)}
+.menu .note{grid-column:1/-1;margin-top:3px;font-size:14px;color:var(--ink-2)}
+.menu-foot{margin-top:24px;padding-top:16px;border-top:1px solid var(--rule);font:italic 400 15px/1.5 var(--serif);color:var(--ink-2);text-align:center}
+
+/* journal */
+.journal{padding:clamp(100px,12vw,190px) 0 clamp(90px,10vw,160px)}
+.entries{display:grid;grid-template-columns:1.32fr 1fr 1fr;border-top:1px solid var(--ink)}
+.entry{padding:30px clamp(18px,2.6vw,44px) 0 0}
+.entry+.entry{padding-left:clamp(18px,2.6vw,44px);border-left:1px solid var(--rule)}
+.entry time{font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-text)}
+.entry h3{font:400 clamp(1.8rem,1.3rem + 1vw,2.3rem)/1.06 var(--serif);margin:18px 0 14px;letter-spacing:-.01em}
+.entry:first-child h3{font-size:clamp(2.3rem,1.5rem + 2.2vw,3.6rem)}
+.entry p{font-size:15px;color:var(--ink-2)}
+.entry:first-child p::first-letter{float:left;font:400 4.4em/.78 var(--serif);margin:.08em .1em 0 0;color:var(--bronze)}
+
+/* booking */
+.book{padding:clamp(96px,11vw,170px) 0;border-top:1px solid var(--rule)}
+.book-intro{grid-column:1/6}
+.book-intro .copy{margin-top:28px;color:var(--ink-2);max-width:42ch}
+.terms{margin-top:36px;border-top:1px solid var(--rule)}
+.terms li{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid var(--rule);font-size:14.5px}
+.terms li::before{content:"";flex:none;width:6px;height:6px;margin-top:.62em;border:1px solid var(--bronze);transform:rotate(45deg)}
+.book-card{grid-column:7/13;position:relative;padding:clamp(22px,3.2vw,52px);border:1px solid var(--bronze)}
+.book-card::before{content:"";position:absolute;inset:6px;border:1px solid rgba(154,123,79,.25);pointer-events:none}
+fieldset{border:0;margin:0;padding:0;min-width:0}
+.f-label,legend.f-label{display:block;padding:0;margin-bottom:12px;font:500 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-text)}
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.opt{position:relative;display:block;cursor:pointer}
+.opt input{position:absolute;opacity:0;pointer-events:none}
+.opt span.box{display:flex;flex-direction:column;gap:6px;height:100%;padding:14px 14px 13px;border:1px solid var(--rule);transition:background-color .25s,color .25s,border-color .25s}
+.opt b{font:500 1.25rem/1.05 var(--serif)}
+.opt small{font-size:12.5px;color:var(--ink-2);transition:color .25s}
+.opt:hover span.box{border-color:var(--ink)}
+.opt input:checked+span.box{background:var(--ink);border-color:var(--ink);color:var(--paper)}
+.opt input:checked+span.box small{color:rgba(241,235,225,.75)}
+.opt input:focus-visible+span.box{outline:1px solid var(--bronze);outline-offset:3px}
+.f-row{display:grid;gap:18px 22px;margin-top:28px}
+.f-row.three{grid-template-columns:1fr 1fr .8fr}
+.f-row.two{grid-template-columns:1fr 1fr}
+.field label{display:block;margin-bottom:4px;font:500 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-text)}
+.field input,.field select{width:100%;height:46px;padding:8px 0;border:0;border-bottom:1px solid var(--ink);border-radius:0;background:transparent;color:var(--ink);font:400 16px/1.2 var(--sans);color-scheme:light;-webkit-appearance:none;appearance:none}
+.field select{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%231B1A17'/%3E%3C/svg%3E") no-repeat right 2px center;padding-right:20px;cursor:pointer}
+.field input:focus,.field select:focus{outline:none;border-bottom-color:var(--bronze);box-shadow:0 1px 0 var(--bronze)}
+.err{min-height:0;font-size:13px;line-height:1.35;color:var(--err);margin-top:6px}
+.err:empty{margin:0}
+[aria-invalid="true"]{border-bottom-color:var(--err)!important}
+.folio{margin-top:32px;padding-top:18px;border-top:1px solid var(--ink)}
+.folio div{display:flex;justify-content:space-between;gap:16px;padding:5px 0;font-size:15px}
+.folio dt{color:var(--ink-2)}
+.folio dd{font-variant-numeric:tabular-nums;text-align:right}
+.folio .save dd{color:var(--bronze-text)}
+.folio .save.on dt,.folio .save.on dd{color:var(--bronze-text);font-weight:600}
+.folio .total{align-items:baseline;margin-top:12px;padding-top:16px;border-top:1px solid var(--rule)}
+.folio .total dt{font:500 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--ink)}
+.folio .total dd{font:500 clamp(1.9rem,1.5rem + 1vw,2.5rem)/1 var(--serif)}
+.nudge{min-height:1.5em;margin-top:10px;font:italic 400 1.12rem/1.4 var(--serif);color:var(--bronze-text);text-align:right}
+.submit-row{display:flex;align-items:center;flex-wrap:wrap;gap:12px 22px;margin-top:24px}
+.submit-row .btn{flex:1 1 240px;min-height:54px}
+.fine{font-size:13px;color:var(--ink-2)}
+.confirm{padding:clamp(8px,1vw,16px) 0}
+.confirm:focus{outline:none}
+.confirm h3{font:400 clamp(2.4rem,1.6rem + 2vw,3.6rem)/1 var(--serif);letter-spacing:-.01em}
+.confirm .c-body{margin-top:22px;font:400 1.4rem/1.45 var(--serif);max-width:34ch}
+.confirm .c-note{margin-top:26px;padding:14px 16px;border:1px solid var(--rule);font-size:14px;color:var(--ink-2)}
+.confirm .btn{margin-top:26px}
+
+/* getting here */
+.here{padding:0 0 clamp(100px,12vw,180px)}
+.here-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--col);align-items:start}
+.here-text{padding-left:max(var(--gutter),calc((100vw - var(--max)) / 2 + var(--gutter)));padding-top:clamp(20px,3vw,48px)}
+.routes{margin-top:40px;border-top:1px solid var(--rule)}
+.routes li{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:18px 0;border-bottom:1px solid var(--rule)}
+.routes h3{font:italic 400 1.35rem/1.2 var(--serif)}
+.routes p{font-size:15px;color:var(--ink-2)}
+.here-fig{position:relative}
+.here-fig .img{aspect-ratio:1/1;max-height:920px;width:100%;overflow:hidden;background:rgba(154,123,79,.16)}
+.here-fig img{width:100%;height:100%;object-fit:cover;object-position:34% 55%}
+@media (min-width:1600px){.here-fig img{object-position:6% 55%}} /* keep the building's signage out of frame when the box stops being square */
+.here-fig{display:flex;flex-direction:column}
+.here-fig .plate{order:3;padding:0 var(--gutter) 0 58%;text-align:right}
+.map{position:absolute;left:clamp(16px,2vw,32px);bottom:-36px;width:min(400px,56%);padding:18px 18px 12px;background:var(--paper) var(--grain);box-shadow:0 30px 70px -36px rgba(27,26,23,.55);border:1px solid var(--rule)}
+.map svg{display:block;width:100%;height:auto}
+.map text{font-family:var(--sans);font-size:9.5px;letter-spacing:.18em;text-transform:uppercase;fill:var(--ink)}
+.map .t-serif{font-family:var(--serif);font-style:italic;font-size:17px;letter-spacing:0;text-transform:none}
+.map .t-bronze{fill:var(--bronze-text)}
+
+/* footer */
+.site-foot{padding:clamp(64px,8vw,110px) 0 120px;border-top:1px solid var(--bronze)}
+.foot-mark{font:400 clamp(3.3rem,15.2vw,15.5rem)/.85 var(--serif);letter-spacing:-.03em;white-space:nowrap}
+.foot-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px var(--col);margin-top:clamp(36px,5vw,64px);padding-top:22px;border-top:1px solid var(--rule);font-size:14px;color:var(--ink-2)}
+.foot-grid h2{margin-bottom:10px;font:500 10.5px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--bronze-text)}
+.foot-grid nav a{display:block;width:fit-content;padding:2px 0;text-decoration:none;color:var(--ink)}
+.foot-grid nav a:hover{color:var(--bronze-text);text-decoration:underline;text-underline-offset:4px}
+.credit{margin-top:48px;font-size:12px;letter-spacing:.04em;color:var(--ink-2)}
+
+/* reveal (below the fold only) */
+.js .reveal{opacity:0;transform:translateY(24px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.js .reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal{opacity:1;transform:none;transition:none}
+  *,*::before,*::after{transition-duration:.01ms!important}
+}
+
+/* responsive */
+@media (max-width:1100px){
+  .room-grid{grid-template-columns:1fr 1fr}
+  .room:nth-child(3){grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:var(--col);margin-top:20px;align-items:end}
+  .room:nth-child(3) .room-body{margin-top:0}
+  .dining-text{grid-column:1/7}.menu-card{grid-column:7/13}.table-fig{grid-column:1/5}
+  .book-intro{grid-column:1/-1}.book-card{grid-column:1/-1;margin-top:48px}
+}
+@media (max-width:860px){
+  html{scroll-padding-top:64px}
+  .nav{display:none}
+  .menu-btn{display:block}
+  .hdr{grid-template-columns:auto 1fr;height:64px;gap:12px}
+  .hdr-end{gap:10px}
+  .brand{font-size:22px}
+  .btn-book{min-height:36px;padding:0 14px}
+  .hero{padding-top:96px}
+  .hero-grid{grid-template-columns:1fr;gap:22px}
+  .hero-meta{gap:8px 22px}.hero-meta .plate{display:none}
+  .house .label,.house-main{grid-column:1/-1}
+  .house .label{margin:0 0 28px}
+  .house-cols{grid-template-columns:1fr}
+  .figures{grid-template-columns:1fr 1fr}
+  .figures div:nth-child(3){border-left:0;padding-left:0}
+  .figures div:nth-child(n+3){border-top:1px solid var(--rule);margin-top:26px}
+  .sec-head .display,.sec-note{grid-column:1/-1}
+  .sec-note{margin-top:24px}
+  .dining-text,.menu-card,.table-fig{grid-column:1/-1;grid-row:auto}
+  .dining-text{order:1;padding-top:40px}.menu-card{order:2;margin-top:56px}
+  .table-fig{order:3;width:min(74%,320px);margin:56px 0 0 auto}
+  .entries{grid-template-columns:1fr}
+  .entry+.entry{border-left:0;padding-left:0;border-top:1px solid var(--rule);margin-top:34px}
+  .entry{padding-bottom:6px}
+  .here-grid{grid-template-columns:1fr}
+  .here-text{padding-inline:var(--gutter)}
+  .here-fig{margin-top:40px}
+  .map{order:2;position:relative;left:auto;bottom:auto;width:auto;margin:-64px var(--gutter) 0}
+  .here-fig .plate{padding-left:var(--gutter)}
+  .foot-grid{grid-template-columns:1fr 1fr}
+}
+@media (max-width:620px){
+  .room-grid{grid-template-columns:1fr}
+  .room:nth-child(n){margin-top:0;display:block}
+  .room+.room{margin-top:72px}
+  .room:nth-child(3) .room-body{margin-top:26px}
+  .opts{grid-template-columns:1fr}
+  .opt span.box{flex-direction:row;justify-content:space-between;align-items:baseline}
+  .f-row.three{grid-template-columns:1fr 1fr}
+  .f-row.three .field:last-child{grid-column:1/-1}
+  .f-row.two{grid-template-columns:1fr}
+  .routes li{grid-template-columns:1fr;gap:4px}
+  .hours div{grid-template-columns:96px 1fr}
+}
+@media (max-width:480px){
+  .hero-actions .btn-line,.hero-meta span:nth-child(2){display:none}
+}
+@media (max-width:400px){
+  .brand svg{display:none}
+  .btn-book{padding:0 12px}
+  .lang button{padding:10px 3px}
+}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="hdr">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1"><path d="M5 15a7 7 0 0 1 14 0"/><path d="M2 15h20M5 18.5h14M8.5 22h7"/></svg>
+      <span>Maison Ardent</span>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#rooms" data-i18n="nav.rooms">Rooms</a>
+      <a href="#dining" data-i18n="nav.dining">Dining</a>
+      <a href="#journal" data-i18n="nav.journal">Journal</a>
+    </nav>
+    <div class="hdr-end">
+      <div class="lang" role="group" aria-label="Language / Bahasa">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button><span aria-hidden="true">/</span><button type="button" data-lang="id" aria-pressed="false">ID</button>
+      </div>
+      <a class="btn btn-book" href="#book" data-i18n="cta.book">BOOK</a>
+      <button class="menu-btn" id="menu-btn" type="button" aria-expanded="false" aria-controls="sheet"><span class="sr-only" data-i18n="nav.menu">Menu</span><i></i><i></i></button>
+    </div>
+  </div>
+  <div class="sheet" id="sheet" hidden>
+    <nav aria-label="Mobile">
+      <a href="#rooms"><span>II</span><b data-i18n="nav.rooms">Rooms</b></a>
+      <a href="#dining"><span>III</span><b data-i18n="nav.dining">Dining</b></a>
+      <a href="#journal"><span>IV</span><b data-i18n="nav.journal">Journal</b></a>
+      <a href="#book"><span>V</span><b data-i18n="nav.book">Book directly</b></a>
+      <a href="#here"><span>VI</span><b data-i18n="nav.here">Getting here</b></a>
+    </nav>
+    <p data-i18n="foot.addr">On the old harbour, ten minutes from the ferry pier.</p>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero" aria-labelledby="hero-title">
+    <img class="hero-img" src="https://images.unsplash.com/photo-1779321787223-1e56664934f1?auto=format&fit=crop&w=1400&q=70" srcset="https://images.unsplash.com/photo-1779321787223-1e56664934f1?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1779321787223-1e56664934f1?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1779321787223-1e56664934f1?auto=format&fit=crop&w=2000&q=70 2000w" sizes="(max-aspect-ratio: 1/1) 200vh, 100vw" width="2000" height="1333" fetchpriority="high" decoding="async" alt="A wide bay at dusk: dark hills behind a small harbour town whose lights are coming on along the water.">
+    <div class="hero-shade" aria-hidden="true"></div>
+    <div class="hero-grid">
+      <div>
+        <p class="label kicker" data-i18n="hero.kicker">A hotel on the old harbour</p>
+        <h1 id="hero-title" data-i18n="hero.title">Rooms above <br><em>the harbour.</em></h1>
+      </div>
+      <div>
+        <p class="hero-sub" data-i18n="hero.sub">Forty rooms, one kitchen, a view that changes with the tide. Book directly and the third night is on the house.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#book" data-i18n="cta.dates">Check your dates</a>
+          <a class="btn-line" href="#rooms"><span data-i18n="cta.rooms">See the rooms</span><span class="arr" aria-hidden="true">&rarr;</span></a>
+        </div>
+      </div>
+    </div>
+    <div class="hero-meta">
+      <span data-i18n="meta.tide">High water <b>19:42</b></span>
+      <span data-i18n="meta.dinner">Dinner from <b>18:30</b></span>
+      <span data-i18n="meta.pier">Ferry pier <b>10 min</b></span>
+      <p class="plate" data-i18n="plate.1">Plate I — The bay from the roof terrace, a little after six</p>
+    </div>
+  </section>
+
+  <section class="house" id="house" aria-labelledby="house-title">
+    <div class="wrap grid">
+      <h2 class="label" id="house-title"><span class="n">I</span><span data-i18n="house.label">The house</span></h2>
+      <div class="house-main reveal">
+        <p class="statement" data-i18n="house.statement">Forty rooms, one kitchen, and <em>the whole bay</em> at the window.</p>
+        <div class="house-cols">
+          <p data-i18n="house.p1">Maison Ardent stands on the old harbour, ten minutes from the ferry pier: the harbourmaster’s house and the warehouse beside it, joined by a courtyard of frangipani and given over, slowly, to rooms.</p>
+          <p data-i18n="house.p2">There is one kitchen and it cooks for the house: breakfast on the terrace as the boats go out, dinner as the lights come on across the water. No conference rooms, no pool bar, no lobby music.</p>
+        </div>
+      </div>
+      <dl class="figures reveal">
+        <div><dt>40</dt><dd data-i18n="fig.rooms">Rooms, and every one of them faces the water</dd></div>
+        <div><dt>1</dt><dd data-i18n="fig.kitchen">Kitchen, open to guests and to the harbour</dd></div>
+        <div><dt>10<span style="font-size:.4em;letter-spacing:0"> min</span></dt><dd data-i18n="fig.pier">From the ferry pier, along the harbour road</dd></div>
+        <div><dt data-i18n="fig.third">3<sup style="font-size:.4em">rd</sup></dt><dd data-i18n="fig.free">Night on the house when you book with us directly</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="rooms" id="rooms" aria-labelledby="rooms-title">
+    <div class="wrap">
+      <div class="sec-head grid reveal">
+        <h2 class="label" id="rooms-title"><span class="n">II</span><span data-i18n="rooms.label">Rooms</span></h2>
+        <p class="display" data-i18n="rooms.title">Three ways to wake up <em>on the water.</em></p>
+        <p class="sec-note" data-i18n="rooms.note">Every room faces the bay. Rates are per night for two, with breakfast, tax and service included.</p>
+      </div>
+      <div class="room-grid">
+        <article class="room reveal">
+          <figure>
+            <div class="room-fig"><img src="https://images.unsplash.com/photo-1605346434674-a440ca4dc4c0?auto=format&fit=crop&w=900&q=70" srcset="https://images.unsplash.com/photo-1605346434674-a440ca4dc4c0?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1605346434674-a440ca4dc4c0?auto=format&fit=crop&w=900&q=70 900w, https://images.unsplash.com/photo-1605346434674-a440ca4dc4c0?auto=format&fit=crop&w=1300&q=70 1300w" sizes="(min-width:1100px) 38vw, (min-width:620px) 46vw, 92vw" width="900" height="1350" loading="lazy" decoding="async" alt="A Harbour Room: a bed with a tufted headboard between two lamps, beside a tall window."><span class="no">No. 01</span></div>
+            <figcaption class="plate" data-i18n="plate.2">Plate II — A Harbour Room on the second floor</figcaption>
+          </figure>
+          <div class="room-body">
+            <p class="count" data-i18n="r1.count">24 rooms · Floors one to three</p>
+            <h3>Harbour Room</h3>
+            <p class="room-desc" data-i18n="r1.desc">Teak floors, washed linen and a window seat set low enough to watch the boats come in.</p>
+            <dl class="specs">
+              <div><dt data-i18n="spec.size">Size</dt><dd>28 m²</dd></div>
+              <div><dt data-i18n="spec.bed">Bed</dt><dd data-i18n="r1.bed">One king, or two singles</dd></div>
+              <div><dt data-i18n="spec.view">View</dt><dd data-i18n="r1.view">The moorings and the bay</dd></div>
+              <div><dt data-i18n="spec.sleeps">Sleeps</dt><dd data-i18n="r1.sleeps">2 guests</dd></div>
+            </dl>
+            <div class="room-foot">
+              <p class="price"><span class="amt">Rp&nbsp;2.400.000</span><span class="per" data-i18n="room.per">/ night</span></p>
+              <a class="btn-line" href="#book" data-room="harbour"><span data-i18n="room.book">Book this room</span><span class="arr" aria-hidden="true">&rarr;</span></a>
+            </div>
+          </div>
+        </article>
+        <article class="room reveal">
+          <figure>
+            <div class="room-fig"><img src="https://images.unsplash.com/photo-1711059985570-4c32ed12a12c?auto=format&fit=crop&w=900&q=70" srcset="https://images.unsplash.com/photo-1711059985570-4c32ed12a12c?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1711059985570-4c32ed12a12c?auto=format&fit=crop&w=900&q=70 900w, https://images.unsplash.com/photo-1711059985570-4c32ed12a12c?auto=format&fit=crop&w=1300&q=70 1300w" sizes="(min-width:1100px) 30vw, (min-width:620px) 46vw, 92vw" width="900" height="1200" loading="lazy" decoding="async" alt="The Terrace Suite bedroom at night: a white bed under a brass pendant lamp, walls in deep shadow."><span class="no">No. 02</span></div>
+            <figcaption class="plate" data-i18n="plate.3">Plate III — Terrace Suite, the bedroom after dark</figcaption>
+          </figure>
+          <div class="room-body">
+            <p class="count" data-i18n="r2.count">12 suites · The top floor</p>
+            <h3>Terrace Suite</h3>
+            <p class="room-desc" data-i18n="r2.desc">A sitting room, a deep stone bath and a terrace wide enough for dinner for two over the water.</p>
+            <dl class="specs">
+              <div><dt data-i18n="spec.size">Size</dt><dd>46 m²</dd></div>
+              <div><dt data-i18n="spec.bed">Bed</dt><dd data-i18n="r2.bed">One king</dd></div>
+              <div><dt data-i18n="spec.view">View</dt><dd data-i18n="r2.view">The harbour mouth and the lighthouse</dd></div>
+              <div><dt data-i18n="spec.sleeps">Sleeps</dt><dd data-i18n="r2.sleeps">3 guests</dd></div>
+            </dl>
+            <div class="room-foot">
+              <p class="price"><span class="amt">Rp&nbsp;4.100.000</span><span class="per" data-i18n="room.per">/ night</span></p>
+              <a class="btn-line" href="#book" data-room="terrace"><span data-i18n="room.book">Book this room</span><span class="arr" aria-hidden="true">&rarr;</span></a>
+            </div>
+          </div>
+        </article>
+        <article class="room reveal">
+          <figure>
+            <div class="room-fig"><img src="https://images.unsplash.com/photo-1698927100805-2a32718a7e05?auto=format&fit=crop&w=900&q=70" srcset="https://images.unsplash.com/photo-1698927100805-2a32718a7e05?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1698927100805-2a32718a7e05?auto=format&fit=crop&w=900&q=70 900w, https://images.unsplash.com/photo-1698927100805-2a32718a7e05?auto=format&fit=crop&w=1300&q=70 1300w" sizes="(min-width:1100px) 33vw, (min-width:620px) 46vw, 92vw" width="900" height="1350" loading="lazy" decoding="async" alt="A Tide House bedroom: cream wall panelling, a velvet headboard and a brass wall sconce."><span class="no">No. 03</span></div>
+            <figcaption class="plate" data-i18n="plate.4">Plate IV — Tide House, the front bedroom</figcaption>
+          </figure>
+          <div class="room-body">
+            <p class="count" data-i18n="r3.count">4 houses · On the jetty</p>
+            <h3>Tide House</h3>
+            <p class="room-desc" data-i18n="r3.desc">A two-bedroom house at the end of the jetty, with its own steps down into the sea at high water.</p>
+            <dl class="specs">
+              <div><dt data-i18n="spec.size">Size</dt><dd>82 m²</dd></div>
+              <div><dt data-i18n="spec.bed">Bed</dt><dd data-i18n="r3.bed">One king, two singles</dd></div>
+              <div><dt data-i18n="spec.view">View</dt><dd data-i18n="r3.view">Open sea, from the end of the jetty</dd></div>
+              <div><dt data-i18n="spec.sleeps">Sleeps</dt><dd data-i18n="r3.sleeps">4 guests</dd></div>
+            </dl>
+            <div class="room-foot">
+              <p class="price"><span class="amt">Rp&nbsp;6.800.000</span><span class="per" data-i18n="room.per">/ night</span></p>
+              <a class="btn-line" href="#book" data-room="tide"><span data-i18n="room.book">Book this room</span><span class="arr" aria-hidden="true">&rarr;</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="dining" id="dining" aria-labelledby="dining-title">
+    <figure class="dining-hero">
+      <img src="https://images.unsplash.com/photo-1784391169939-3927f589263b?auto=format&fit=crop&w=1400&q=70" srcset="https://images.unsplash.com/photo-1784391169939-3927f589263b?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1784391169939-3927f589263b?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1784391169939-3927f589263b?auto=format&fit=crop&w=2000&q=70 2000w" sizes="100vw" width="2000" height="1333" loading="lazy" decoding="async" alt="A thatched terrace restaurant built out over the sea, its tables laid as the sun goes down.">
+      <figcaption data-i18n="plate.5">Plate V — The terrace, an hour before dinner</figcaption>
+    </figure>
+    <div class="wrap grid">
+      <figure class="table-fig reveal">
+        <div class="img"><img src="https://images.unsplash.com/photo-1760533536699-85be9a478652?auto=format&fit=crop&w=700&q=70" srcset="https://images.unsplash.com/photo-1760533536699-85be9a478652?auto=format&fit=crop&w=500&q=70 500w, https://images.unsplash.com/photo-1760533536699-85be9a478652?auto=format&fit=crop&w=700&q=70 700w, https://images.unsplash.com/photo-1760533536699-85be9a478652?auto=format&fit=crop&w=1000&q=70 1000w" sizes="(min-width:860px) 300px, 72vw" width="700" height="1050" loading="lazy" decoding="async" alt="A single table with a rattan chair and a lit lantern at dusk."></div>
+        <figcaption class="plate" data-i18n="plate.6">Plate VI — Table nine, the one everybody asks for</figcaption>
+      </figure>
+      <div class="dining-text reveal">
+        <h2 class="label" id="dining-title"><span class="n">III</span><span data-i18n="dining.label">Dining</span></h2>
+        <p class="display" data-i18n="dining.title">One kitchen, <em>and the morning’s catch.</em></p>
+        <p class="lede" data-i18n="dining.p">Two boats land below the terrace at five each morning. The kitchen buys what they bring, cooks it over coconut-husk coals and writes the menu in the afternoon. Guests and the harbour eat in the same room; there is no separate hotel restaurant.</p>
+        <dl class="hours">
+          <div><dt data-i18n="h.bf">Breakfast</dt><dd data-i18n="h.bf.t">07:00 – 10:30, on the terrace</dd></div>
+          <div><dt data-i18n="h.lu">Lunch</dt><dd data-i18n="h.lu.t">12:00 – 15:00, small plates</dd></div>
+          <div><dt data-i18n="h.di">Dinner</dt><dd data-i18n="h.di.t">18:30 – 22:30, last seating 21:30</dd></div>
+        </dl>
+      </div>
+      <div class="menu-card reveal">
+        <div class="menu-head">
+          <p class="tonight" id="tonight">Tonight</p>
+          <h3 data-i18n="menu.title">Tonight’s menu</h3>
+        </div>
+        <p class="course" data-i18n="c.begin">To begin</p>
+        <ol class="menu">
+          <li><span class="dish" data-i18n="d1">Raw red snapper</span><span class="pr">145</span><span class="note" data-i18n="d1.n">calamansi, green chilli oil, shallot</span></li>
+          <li><span class="dish" data-i18n="d2">Grilled squid</span><span class="pr">165</span><span class="note" data-i18n="d2.n">burnt coconut, lemongrass, lime leaf</span></li>
+          <li><span class="dish" data-i18n="d3">Clams in torch-ginger broth</span><span class="pr">155</span><span class="note" data-i18n="d3.n">sourdough from the oven next door</span></li>
+        </ol>
+        <p class="course" data-i18n="c.coals">From the coals</p>
+        <ol class="menu">
+          <li><span class="dish" data-i18n="d4">Whole grouper</span><span class="pr">420</span><span class="note" data-i18n="d4.n">sambal matah, red rice from the hills; for two</span></li>
+          <li><span class="dish" data-i18n="d5">Slow lamb shoulder</span><span class="pr">310</span><span class="note" data-i18n="d5.n">smoked eggplant, flatbread, mint</span></li>
+        </ol>
+        <p class="course" data-i18n="c.finish">To finish</p>
+        <ol class="menu">
+          <li><span class="dish" data-i18n="d6">Palm sugar tart</span><span class="pr">85</span><span class="note" data-i18n="d6.n">salted coconut cream</span></li>
+        </ol>
+        <p class="menu-foot" data-i18n="menu.foot">Prices in thousands of rupiah. Written each afternoon from the morning’s catch.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="journal" id="journal" aria-labelledby="journal-title">
+    <div class="wrap">
+      <div class="sec-head grid reveal">
+        <h2 class="label" id="journal-title"><span class="n">IV</span><span data-i18n="journal.label">Journal</span></h2>
+        <p class="display" data-i18n="journal.title">Notes from <em>the harbour wall.</em></p>
+      </div>
+      <div class="entries reveal">
+        <article class="entry">
+          <time datetime="2026-09-21">21 September 2026</time>
+          <h3 data-i18n="j1.t">The spring tides</h3>
+          <p data-i18n="j1.p">Twice a year the water climbs over the bottom three steps of the jetty. This week the Tide House guests swam from their doorstep before breakfast, and the kitchen moved dinner one row of tables further up the terrace.</p>
+        </article>
+        <article class="entry">
+          <time datetime="2026-09-03">3 September 2026</time>
+          <h3 data-i18n="j2.t">A grill for the coals</h3>
+          <p data-i18n="j2.p">The kitchen has a new grill, built by the boatyard two doors down from an old anchor chain and a sheet of iron. It holds a whole grouper and takes forty minutes to heat. Nobody minds.</p>
+        </article>
+        <article class="entry">
+          <time datetime="2026-08-12" data-i18n="j3.d">12 August 2026</time>
+          <h3 data-i18n="j3.t">The colour of wet sand</h3>
+          <p data-i18n="j3.p">In the quiet weeks we repaint the shutters, one floor at a time. The colour is mixed by eye to match the beach at low tide, which means it is never quite the same twice.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="book" id="book" aria-labelledby="book-title">
+    <div class="wrap grid">
+      <div class="book-intro reveal">
+        <h2 class="label" id="book-title"><span class="n">V</span><span data-i18n="book.label">Book directly</span></h2>
+        <p class="display" data-i18n="book.title">The third night <em>is on the house.</em></p>
+        <p class="copy" data-i18n="book.p">Stay three nights and pay for two; stay six and pay for four. It applies to every room in every week of the year, whenever you book here rather than through an agent.</p>
+        <ul class="terms">
+          <li data-i18n="t.1">Breakfast for two, every morning</li>
+          <li data-i18n="t.2">Check-in from 14:00, check-out until 12:00</li>
+          <li data-i18n="t.3">Free changes up to seven days before arrival</li>
+          <li data-i18n="t.4">Tax and service included in every rate</li>
+        </ul>
+      </div>
+      <div class="book-card">
+        <form id="book-form" novalidate>
+          <fieldset id="f-room" aria-describedby="err-room">
+            <legend class="f-label" data-i18n="f.room">Room</legend>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="room" value="harbour"><span class="box"><b>Harbour Room</b><small>Rp&nbsp;2.400.000 · <span data-i18n="o.s2">up to 2</span></small></span></label>
+              <label class="opt"><input type="radio" name="room" value="terrace"><span class="box"><b>Terrace Suite</b><small>Rp&nbsp;4.100.000 · <span data-i18n="o.s3">up to 3</span></small></span></label>
+              <label class="opt"><input type="radio" name="room" value="tide"><span class="box"><b>Tide House</b><small>Rp&nbsp;6.800.000 · <span data-i18n="o.s4">up to 4</span></small></span></label>
+            </div>
+            <p class="err" id="err-room"></p>
+          </fieldset>
+          <div class="f-row three">
+            <div class="field"><label for="ci">Check-in</label><input id="ci" name="checkin" type="date" required aria-describedby="err-ci"><p class="err" id="err-ci"></p></div>
+            <div class="field"><label for="co">Check-out</label><input id="co" name="checkout" type="date" required aria-describedby="err-co"><p class="err" id="err-co"></p></div>
+            <div class="field"><label for="guests" data-i18n="f.guests">Guests</label>
+              <select id="guests" name="guests" aria-describedby="err-guests">
+                <option value="1" data-i18n="g1">1 guest</option><option value="2" selected data-i18n="g2">2 guests</option><option value="3" data-i18n="g3">3 guests</option><option value="4" data-i18n="g4">4 guests</option>
+              </select><p class="err" id="err-guests"></p></div>
+          </div>
+          <div class="f-row two">
+            <div class="field"><label for="bname" data-i18n="f.name">Name for the booking</label><input id="bname" name="name" type="text" autocomplete="name" required aria-describedby="err-name"><p class="err" id="err-name"></p></div>
+            <div class="field"><label for="bemail">Email</label><input id="bemail" name="email" type="email" autocomplete="email" required aria-describedby="err-email"><p class="err" id="err-email"></p></div>
+          </div>
+          <dl class="folio">
+            <div><dt data-i18n="o.nights">Nights</dt><dd id="o-nights">—</dd></div>
+            <div><dt data-i18n="o.rate">Nightly rate</dt><dd id="o-rate">—</dd></div>
+            <div><dt data-i18n="o.sub">Subtotal</dt><dd id="o-sub">—</dd></div>
+            <div class="save" id="o-save-row"><dt><span data-i18n="o.save">Third-night saving</span><span id="o-free"></span></dt><dd id="o-save">—</dd></div>
+            <div class="total" aria-live="polite"><dt>Total</dt><dd id="o-total">—</dd></div>
+          </dl>
+          <p class="nudge" id="nudge" aria-live="polite"></p>
+          <div class="submit-row">
+            <button class="btn btn-solid" type="submit" data-i18n="f.submit">Request these dates</button>
+            <p class="fine" data-i18n="f.fine">No payment is taken here.</p>
+          </div>
+        </form>
+        <div class="confirm" id="confirm" tabindex="-1" hidden>
+          <p class="label" data-i18n="c.label">Your stay</p>
+          <h3 id="c-title" style="margin-top:18px"></h3>
+          <p class="c-body" id="c-body"></p>
+          <p class="c-note" id="c-note"></p>
+          <button class="btn" type="button" id="c-again"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="here" id="here" aria-labelledby="here-title">
+    <div class="here-grid">
+      <div class="here-text reveal">
+        <h2 class="label" id="here-title"><span class="n">VI</span><span data-i18n="here.label">Getting here</span></h2>
+        <p class="display" data-i18n="here.title">On the old harbour, <em>ten minutes from the ferry pier.</em></p>
+        <ol class="routes">
+          <li><h3 data-i18n="r.ferry">By ferry</h3><p data-i18n="r.ferry.p">The house car meets every ferry until 22:00 and brings you ten minutes along the harbour road. Tell us your sailing when you book.</p></li>
+          <li><h3 data-i18n="r.foot">On foot</h3><p data-i18n="r.foot.p">Twenty-five minutes along the sea wall, past the fish market and the boatyard. A porter will come back for your bags.</p></li>
+          <li><h3 data-i18n="r.road">By road</h3><p data-i18n="r.road.p">Ninety minutes from the airport on the coast road. Guests park in the courtyard.</p></li>
+        </ol>
+      </div>
+      <figure class="here-fig reveal">
+        <div class="img"><img src="https://images.unsplash.com/photo-1579187560114-de0f763d7dd0?auto=format&fit=crop&w=1400&q=70" srcset="https://images.unsplash.com/photo-1579187560114-de0f763d7dd0?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1579187560114-de0f763d7dd0?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1579187560114-de0f763d7dd0?auto=format&fit=crop&w=2000&q=70 2000w" sizes="(min-width:860px) 58vw, 100vw" width="1400" height="933" loading="lazy" decoding="async" alt="A white villa on a cliff above the sea at dusk, a palm tree in silhouette."></div>
+        <figcaption class="plate" data-i18n="plate.7">Plate VII — The headland, a short walk at dusk</figcaption>
+        <div class="map">
+          <svg viewBox="0 0 400 250" role="img" aria-labelledby="map-t">
+            <title id="map-t">Sketch map: Maison Ardent sits on the harbour shore, ten minutes by road from the ferry pier.</title>
+            <defs><pattern id="sea" width="8" height="6" patternUnits="userSpaceOnUse"><path d="M0 3h8" stroke="#9A7B4F" stroke-width=".5" opacity=".55"/></pattern></defs>
+            <path d="M0 132C42 126 70 104 112 112S170 160 214 150 270 82 318 86 376 112 400 104V250H0Z" fill="url(#sea)"/>
+            <path d="M0 132C42 126 70 104 112 112S170 160 214 150 270 82 318 86 376 112 400 104" fill="none" stroke="#1B1A17" stroke-width="1.2"/>
+            <path d="M150 140l26 64" stroke="#1B1A17" stroke-width="3"/>
+            <path d="M176 204l-4 9h8z" fill="#9A7B4F"/>
+            <path d="M318 88l18 56" stroke="#1B1A17" stroke-width="4"/>
+            <path d="M112 104C118 70 160 50 210 52S296 50 318 84" fill="none" stroke="#9A7B4F" stroke-width="1.4" stroke-dasharray="4 4"/>
+            <rect x="254" y="72" width="9" height="9" fill="none" stroke="#1B1A17"/>
+            <circle cx="112" cy="104" r="11" fill="none" stroke="#9A7B4F"/>
+            <circle cx="112" cy="104" r="4.5" fill="#1B1A17"/>
+            <text x="96" y="100" text-anchor="end" class="t-serif">Maison Ardent</text>
+            <text x="246" y="81" text-anchor="end" data-i18n="map.market">Fish market</text>
+            <text x="300" y="164" data-i18n="map.pier">Ferry pier</text>
+            <text x="186" y="230" data-i18n="map.light">Lighthouse</text>
+            <text x="186" y="42" class="t-bronze" data-i18n="map.min">10 min</text>
+            <text x="40" y="200" class="t-serif" data-i18n="map.bay">the bay</text>
+            <path d="M372 18v24M366 30l6-12 6 12" fill="none" stroke="#1B1A17"/><text x="368" y="56">N</text>
+            <path d="M300 230h60M300 226v8M360 226v8" stroke="#1B1A17" fill="none"/><text x="312" y="222">500 m</text>
+          </svg>
+        </div>
+      </figure>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p class="foot-mark" aria-hidden="true">Maison Ardent</p>
+    <div class="foot-grid">
+      <div><h2 data-i18n="foot.where">Where</h2><p data-i18n="foot.addr">On the old harbour, ten minutes from the ferry pier.</p></div>
+      <div><h2 data-i18n="foot.hours">Hours</h2><p data-i18n="foot.hours.p">Reception keeps the door open day and night. Dinner 18:30 – 22:30.</p></div>
+      <div><h2 data-i18n="foot.house">The house</h2><nav aria-label="Footer"><a href="#rooms" data-i18n="nav.rooms">Rooms</a><a href="#dining" data-i18n="nav.dining">Dining</a><a href="#journal" data-i18n="nav.journal">Journal</a><a href="#here" data-i18n="nav.here">Getting here</a></nav></div>
+      <div><h2 data-i18n="foot.stay">Stay</h2><a class="btn-line" href="#book"><span data-i18n="nav.book">Book directly</span><span class="arr" aria-hidden="true">&rarr;</span></a></div>
+    </div>
+    <p class="credit">A concept site by Aleph One · Photography via Unsplash</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+  var $ = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+  var root = document.documentElement;
+
+  /* ---------- language ---------- */
+  var ID = {
+    'nav.rooms':'Kamar','nav.dining':'Bersantap','nav.journal':'Jurnal','nav.menu':'Menu','nav.book':'Pesan langsung','nav.here':'Cara ke sini','cta.book':'PESAN',
+    'hero.kicker':'Hotel di pelabuhan lama','hero.title':'Kamar di atas <br><em>pelabuhan.</em>',
+    'hero.sub':'Empat puluh kamar, satu dapur, dan pemandangan yang berganti mengikuti pasang surut. Pesan langsung kepada kami, dan malam ketiga gratis.',
+    'cta.dates':'Cek tanggal','cta.rooms':'Lihat kamar','meta.tide':'Air pasang <b>19.42</b>','meta.dinner':'Makan malam <b>18.30</b>','meta.pier':'Dermaga feri <b>10 menit</b>',
+    'plate.1':'Gambar I — Teluk dari teras atap, selepas pukul enam',
+    'house.label':'Rumah ini','house.statement':'Empat puluh kamar, satu dapur, dan <em>seluruh teluk</em> di bingkai jendela.',
+    'house.p1':'Maison Ardent berdiri di pelabuhan lama, sepuluh menit dari dermaga feri: bekas rumah syahbandar dan gudang di sebelahnya, disatukan oleh halaman berpohon kamboja, lalu perlahan diubah menjadi kamar-kamar.',
+    'house.p2':'Hanya ada satu dapur, dan ia memasak untuk seisi rumah: sarapan di teras saat perahu berangkat, makan malam saat lampu menyala di seberang air. Tanpa ruang rapat, tanpa bar kolam, tanpa musik lobi.',
+    'fig.rooms':'Kamar, dan semuanya menghadap air','fig.kitchen':'Dapur, terbuka untuk tamu dan warga pelabuhan','fig.pier':'Dari dermaga feri, menyusuri jalan pelabuhan',
+    'fig.third':'ke-3','fig.free':'Malam ketiga gratis bila memesan langsung kepada kami',
+    'rooms.label':'Kamar','rooms.title':'Tiga cara terbangun <em>di atas air.</em>','rooms.note':'Semua kamar menghadap teluk. Tarif per malam untuk dua orang, sudah termasuk sarapan, pajak, dan layanan.',
+    'plate.2':'Gambar II — Harbour Room di lantai dua','plate.3':'Gambar III — Terrace Suite, kamar tidur selepas gelap','plate.4':'Gambar IV — Tide House, kamar tidur depan',
+    'r1.count':'24 kamar · Lantai satu sampai tiga','r1.desc':'Lantai kayu jati, linen yang lembut, dan bangku jendela yang cukup rendah untuk menonton perahu merapat.','r1.bed':'Satu king, atau dua single','r1.view':'Tambatan perahu dan teluk','r1.sleeps':'2 tamu',
+    'r2.count':'12 suite · Lantai teratas','r2.desc':'Ruang duduk, bak mandi batu yang dalam, dan teras yang cukup lapang untuk makan malam berdua di atas air.','r2.bed':'Satu king','r2.view':'Mulut pelabuhan dan mercusuar','r2.sleeps':'3 tamu',
+    'r3.count':'4 rumah · Di ujung dermaga','r3.desc':'Rumah dua kamar tidur di ujung dermaga, dengan anak tangga sendiri yang turun ke laut saat air pasang.','r3.bed':'Satu king, dua single','r3.view':'Laut lepas, dari ujung dermaga','r3.sleeps':'4 tamu',
+    'spec.size':'Luas','spec.bed':'Ranjang','spec.view':'Pemandangan','spec.sleeps':'Kapasitas','room.per':'/ malam','room.book':'Pesan kamar ini',
+    'plate.5':'Gambar V — Teras, sejam sebelum makan malam','plate.6':'Gambar VI — Meja sembilan, yang selalu diminta','plate.7':'Gambar VII — Tanjung, dekat untuk jalan sore',
+    'dining.label':'Bersantap','dining.title':'Satu dapur, <em>dan tangkapan pagi ini.</em>',
+    'dining.p':'Dua perahu merapat di bawah teras setiap pukul lima pagi. Dapur membeli apa pun yang mereka bawa, memasaknya di atas bara sabut kelapa, lalu menulis menu pada sore hari. Tamu menginap dan warga pelabuhan makan di ruang yang sama; tidak ada restoran hotel yang terpisah.',
+    'h.bf':'Sarapan','h.bf.t':'07.00 – 10.30, di teras','h.lu':'Makan siang','h.lu.t':'12.00 – 15.00, hidangan kecil','h.di':'Makan malam','h.di.t':'18.30 – 22.30, pesanan terakhir 21.30',
+    'menu.title':'Menu malam ini','c.begin':'Pembuka','c.coals':'Dari bara','c.finish':'Penutup',
+    'd1':'Kakap merah mentah','d1.n':'jeruk kalamansi, minyak cabai hijau, bawang merah','d2':'Cumi bakar','d2.n':'kelapa sangrai, serai, daun jeruk',
+    'd3':'Kerang kuah kecombrang','d3.n':'roti sourdough dari oven sebelah','d4':'Kerapu utuh','d4.n':'sambal matah, nasi merah dari perbukitan; untuk berdua',
+    'd5':'Bahu domba masak perlahan','d5.n':'terung asap, roti pipih, daun mint','d6':'Tart gula aren','d6.n':'krim kelapa asin',
+    'menu.foot':'Harga dalam ribuan rupiah. Ditulis setiap sore dari tangkapan pagi.',
+    'journal.label':'Jurnal','journal.title':'Catatan dari <em>tembok pelabuhan.</em>',
+    'j1.t':'Pasang purnama','j1.p':'Dua kali setahun air naik melewati tiga anak tangga terbawah dermaga. Pekan ini tamu Tide House berenang langsung dari depan pintu sebelum sarapan, dan dapur memindahkan meja makan malam satu baris lebih ke atas teras.',
+    'j2.t':'Panggangan untuk bara','j2.p':'Dapur punya panggangan baru, dibuat oleh galangan kapal dua pintu dari sini, dari rantai jangkar bekas dan selembar besi. Muat satu ekor kerapu utuh dan butuh empat puluh menit untuk panas. Tak ada yang keberatan.',
+    'j3.d':'12 Agustus 2026','j3.t':'Warna pasir basah','j3.p':'Di pekan-pekan yang sepi kami mengecat ulang daun jendela, satu lantai demi satu lantai. Warnanya dicampur dengan mata agar serupa pantai saat air surut, jadi tak pernah persis sama dua kali.',
+    'book.label':'Pesan langsung','book.title':'Malam ketiga <em>gratis dari kami.</em>',
+    'book.p':'Menginap tiga malam, bayar dua; menginap enam malam, bayar empat. Berlaku untuk semua kamar sepanjang tahun, asalkan Anda memesan langsung di sini, bukan lewat agen.',
+    't.1':'Sarapan untuk dua orang setiap pagi','t.2':'Check-in mulai 14.00, check-out hingga 12.00','t.3':'Ubah jadwal gratis hingga tujuh hari sebelum kedatangan','t.4':'Pajak dan layanan sudah termasuk',
+    'f.room':'Kamar','o.s2':'maks. 2','o.s3':'maks. 3','o.s4':'maks. 4','f.guests':'Tamu','g1':'1 tamu','g2':'2 tamu','g3':'3 tamu','g4':'4 tamu',
+    'f.name':'Nama pemesan','o.nights':'Jumlah malam','o.rate':'Tarif per malam','o.sub':'Subtotal','o.save':'Hemat malam ketiga',
+    'f.submit':'Ajukan tanggal ini','f.fine':'Tidak ada pembayaran di sini.','c.label':'Masa inap Anda',
+    'here.label':'Cara ke sini','here.title':'Di pelabuhan lama, <em>sepuluh menit dari dermaga feri.</em>',
+    'r.ferry':'Dengan feri','r.ferry.p':'Mobil kami menjemput setiap kedatangan feri hingga pukul 22.00, sepuluh menit menyusuri jalan pelabuhan. Beri tahu jadwal kapal Anda saat memesan.',
+    'r.foot':'Berjalan kaki','r.foot.p':'Dua puluh lima menit menyusuri tembok laut, melewati pasar ikan dan galangan kapal. Porter kami akan kembali menjemput koper Anda.',
+    'r.road':'Lewat darat','r.road.p':'Sembilan puluh menit dari bandara lewat jalan pesisir. Tamu bisa parkir di halaman.',
+    'map.market':'Pasar ikan','map.pier':'Dermaga feri','map.light':'Mercusuar','map.min':'10 menit','map.bay':'teluk',
+    'foot.where':'Alamat','foot.addr':'Di pelabuhan lama, sepuluh menit dari dermaga feri.','foot.hours':'Jam','foot.hours.p':'Resepsionis berjaga siang dan malam. Makan malam 18.30 – 22.30.','foot.house':'Rumah ini','foot.stay':'Menginap'
+  };
+  var nodes = $$('[data-i18n]');
+  var EN = {};
+  nodes.forEach(function (n) { if (!(n.dataset.i18n in EN)) EN[n.dataset.i18n] = n.innerHTML; });
+  var lang = 'en';
+
+  var ROOMS = {
+    harbour: { name: 'Harbour Room', rate: 2400000, sleeps: 2 },
+    terrace: { name: 'Terrace Suite', rate: 4100000, sleeps: 3 },
+    tide:    { name: 'Tide House', rate: 6800000, sleeps: 4 }
+  };
+  var T = {
+    en: {
+      days: ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'],
+      months: ['January','February','March','April','May','June','July','August','September','October','November','December'],
+      date: function (d, t) { return t.days[d.getDay()] + ' ' + d.getDate() + ' ' + t.months[d.getMonth()]; },
+      tonight: 'Tonight', nights: function (n) { return n === 1 ? '1 night' : n + ' nights'; },
+      word: function (n) { return ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'][n] || String(n); },
+      free: function (n) { return n === 1 ? ' (1 night)' : ' (' + n + ' nights)'; },
+      pick: 'Choose a room',
+      nudgeOne: 'Add one more night and it costs nothing.',
+      nudgeFree: function (n) { return n === 1 ? 'Your third night is on the house.' : n + ' of your nights are on the house.'; },
+      nudgeStart: 'Stay three nights and the third is on the house.',
+      eRoom: 'Choose a room.', eCi: 'Choose a check-in date.', ePast: 'Check-in can’t be before today.',
+      eCo: 'Choose a check-out date after check-in.', eName: 'Tell us whose name to hold it under.', eEmail: 'Enter a valid email address.',
+      eCap: function (r, g) { return 'The ' + r.name + ' sleeps ' + r.sleeps + '. For ' + g + ' guests, choose a larger room.'; },
+      cTitle: 'Held, <em>provisionally.</em>',
+      cBody: function (b, t) {
+        var w = t.word, s = b.r.name + ', ' + t.date(b.a, t) + ' to ' + t.date(b.b, t) + ' ' + b.b.getFullYear() + ': ' + w(b.n) + (b.n === 1 ? ' night' : ' nights') + ' for ' + w(b.g) + (b.g === 1 ? ' guest' : ' guests') + ', under the name ' + b.name + '. ';
+        if (!b.free) return s + 'The total is ' + rp(b.total) + '.';
+        var f = w(b.free); return s + f.charAt(0).toUpperCase() + f.slice(1) + (b.free === 1 ? ' night is' : ' nights are') + ' on the house, so the total is ' + rp(b.total) + '.';
+      },
+      cNote: 'This is a concept site by Aleph One, so no booking was made and nothing was sent.',
+      cAgain: 'Change the details'
+    },
+    id: {
+      days: ['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'],
+      months: ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'],
+      date: function (d, t) { return t.days[d.getDay()] + ', ' + d.getDate() + ' ' + t.months[d.getMonth()]; },
+      tonight: 'Malam ini', nights: function (n) { return n + ' malam'; },
+      guests: function (n) { return n + ' tamu'; },
+      free: function (n) { return ' (' + n + ' malam)'; },
+      pick: 'Pilih kamar',
+      nudgeOne: 'Tambah satu malam lagi, dan malam itu gratis.',
+      nudgeFree: function (n) { return n === 1 ? 'Malam ketiga Anda gratis.' : n + ' malam Anda gratis.'; },
+      nudgeStart: 'Menginap tiga malam, dan malam ketiga gratis.',
+      eRoom: 'Pilih kamar.', eCi: 'Pilih tanggal check-in.', ePast: 'Tanggal check-in tidak boleh sebelum hari ini.',
+      eCo: 'Pilih tanggal check-out setelah check-in.', eName: 'Tulis nama untuk pemesanan ini.', eEmail: 'Masukkan alamat email yang valid.',
+      eCap: function (r, g) { return r.name + ' untuk maksimal ' + r.sleeps + ' tamu. Untuk ' + g + ' tamu, pilih kamar yang lebih besar.'; },
+      cTitle: 'Sudah kami <em>catat.</em>',
+      cBody: function (b, t) {
+        var s = b.r.name + ', ' + t.date(b.a, t) + ' sampai ' + t.date(b.b, t) + ' ' + b.b.getFullYear() + ': ' + t.nights(b.n) + ' untuk ' + t.guests(b.g) + ', atas nama ' + b.name + '. ';
+        return s + (b.free ? b.free + ' malam gratis, jadi totalnya ' + rp(b.total) + '.' : 'Total ' + rp(b.total) + '.');
+      },
+      cNote: 'Ini situs konsep buatan Aleph One, jadi tidak ada pemesanan yang dibuat dan tidak ada data yang terkirim.',
+      cAgain: 'Ubah detail'
+    }
+  };
+
+  /* ---------- helpers ---------- */
+  var DAY = 864e5;
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function iso(d) { return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+  function parse(v) { if (!/^\d{4}-\d{2}-\d{2}$/.test(v)) return null; var p = v.split('-'); return new Date(+p[0], p[1] - 1, +p[2]); }
+  function addDays(d, n) { return new Date(d.getFullYear(), d.getMonth(), d.getDate() + n); }
+  function rp(n) { return 'Rp\u00a0' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+
+  /* ---------- header + mobile sheet ---------- */
+  var header = $('.site-header'), hero = $('.hero'), menuBtn = $('#menu-btn'), sheet = $('#sheet');
+  function onScroll() { header.classList.toggle('solid', window.scrollY > hero.offsetHeight - 80); }
+  window.addEventListener('scroll', onScroll, { passive: true }); onScroll();
+  function setMenu(open) {
+    menuBtn.setAttribute('aria-expanded', String(open));
+    sheet.hidden = !open;
+    header.classList.toggle('menu-open', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+  menuBtn.addEventListener('click', function () { setMenu(menuBtn.getAttribute('aria-expanded') !== 'true'); });
+  sheet.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !sheet.hidden) { setMenu(false); menuBtn.focus(); } });
+  window.matchMedia('(min-width: 861px)').addEventListener('change', function (e) { if (e.matches) setMenu(false); });
+
+  /* ---------- reveal below the fold ---------- */
+  var reveals = $$('.reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -6% 0px' });
+    reveals.forEach(function (el) { io.observe(el); });
+  } else reveals.forEach(function (el) { el.classList.add('in'); });
+
+  /* ---------- booking ---------- */
+  var form = $('#book-form'), ci = $('#ci'), co = $('#co'), guests = $('#guests'), nameI = $('#bname'), email = $('#bemail');
+  var confirmBox = $('#confirm'), out = { nights: $('#o-nights'), rate: $('#o-rate'), sub: $('#o-sub'), save: $('#o-save'), free: $('#o-free'), total: $('#o-total'), row: $('#o-save-row'), nudge: $('#nudge') };
+  var tried = false, held = null;
+  ci.min = iso(today); co.min = iso(addDays(today, 1));
+
+  function roomKey() { var r = form.querySelector('input[name="room"]:checked'); return r ? r.value : null; }
+  function calc() {
+    var a = parse(ci.value), b = parse(co.value), r = ROOMS[roomKey()] || null;
+    var n = (a && b && b > a) ? Math.round((b - a) / DAY) : 0, free = Math.floor(n / 3);
+    var sub = r ? n * r.rate : 0, save = r ? free * r.rate : 0;
+    return { a: a, b: b, r: r, n: n, free: free, sub: sub, save: save, total: sub - save, g: +guests.value };
+  }
+  function render() {
+    var t = T[lang], c = calc(), priced = !!(c.r && c.n);
+    out.nights.textContent = c.n ? t.nights(c.n) : '—';
+    out.rate.textContent = c.r ? rp(c.r.rate) : t.pick;
+    out.sub.textContent = priced ? rp(c.sub) : '—';
+    out.free.textContent = c.free ? t.free(c.free) : '';
+    out.save.textContent = priced && c.free ? '− ' + rp(c.save) : '—';
+    out.row.classList.toggle('on', priced && c.free > 0);
+    out.total.textContent = priced ? rp(c.total) : '—';
+    out.nudge.textContent = !c.n ? '' : (c.n % 3 === 2 ? t.nudgeOne : (c.free ? t.nudgeFree(c.free) : t.nudgeStart));
+  }
+  function errors() {
+    var t = T[lang], c = calc(), e = {};
+    if (!c.r) e.room = t.eRoom;
+    if (!c.a) e.ci = t.eCi; else if (c.a < today) e.ci = t.ePast;
+    if (!c.b || (c.a && c.b <= c.a)) e.co = t.eCo;
+    if (c.r && c.g > c.r.sleeps) e.guests = t.eCap(c.r, c.g);
+    if (!nameI.value.trim()) e.name = t.eName;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value.trim())) e.email = t.eEmail;
+    return e;
+  }
+  var FIELDS = { room: $$('input[name="room"]'), ci: [ci], co: [co], guests: [guests], name: [nameI], email: [email] };
+  function showErrors(e) {
+    Object.keys(FIELDS).forEach(function (k) {
+      $('#err-' + k).textContent = e[k] || '';
+      FIELDS[k].forEach(function (el) { if (e[k]) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid'); });
+    });
+  }
+  function update() { render(); if (tried) showErrors(errors()); }
+
+  ci.addEventListener('change', function () {
+    var a = parse(ci.value);
+    if (a) {
+      co.min = iso(addDays(a, 1));
+      var b = parse(co.value);
+      if (!b || b <= a) co.value = iso(addDays(a, 3));   /* suggest the three-night stay the offer is built on */
+    }
+    update();
+  });
+  form.addEventListener('input', update);
+  form.addEventListener('change', update);
+
+  function showConfirm(focus) {
+    var t = T[lang];
+    $('#c-title').innerHTML = t.cTitle;
+    $('#c-body').textContent = t.cBody(held, t);
+    $('#c-note').textContent = t.cNote;
+    $('#c-again').textContent = t.cAgain;
+    form.hidden = true; confirmBox.hidden = false;
+    if (focus) confirmBox.focus({ preventScroll: true });
+  }
+  function showForm() { held = null; confirmBox.hidden = true; form.hidden = false; }
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    tried = true;
+    var e = errors(); showErrors(e);
+    var first = Object.keys(e)[0];
+    if (first) { FIELDS[first][0].focus(); return; }
+    held = calc(); held.name = nameI.value.trim();
+    showConfirm(true);
+    $('#book').scrollIntoView({ block: 'start' });
+  });
+  $('#c-again').addEventListener('click', function () { showForm(); ci.focus(); });
+
+  /* room cards preselect their room; every other BOOK link just scrolls */
+  $$('[data-room]').forEach(function (a) {
+    a.addEventListener('click', function () {
+      var r = form.querySelector('input[name="room"][value="' + a.dataset.room + '"]');
+      if (held) showForm();
+      if (r) r.checked = true;
+      update();
+    });
+  });
+
+  /* ---------- apply language ---------- */
+  function fillTonight() { var t = T[lang]; $('#tonight').textContent = t.tonight + ' · ' + t.date(today, t); }
+  function setLang(l) {
+    lang = l; root.lang = l;
+    var dict = l === 'id' ? ID : EN;
+    nodes.forEach(function (n) { var v = dict[n.dataset.i18n]; if (v !== undefined) n.innerHTML = v; });
+    $$('[data-lang]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.lang === l)); });
+    fillTonight(); update();
+    if (held) showConfirm(false);
+  }
+  $$('[data-lang]').forEach(function (b) { b.addEventListener('click', function () { setLang(b.dataset.lang); }); });
+  fillTonight(); render();
+})();
+</script>
+</body>
+</html>

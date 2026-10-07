@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Studio Garis — Architecture in Java</title>
+<meta name="description" content="Studio Garis, Bandung. Houses, clinics and one school across Java, each shown in plan, section and photographs.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://images.unsplash.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+<script>document.documentElement.classList.add('js')</script>
+<noscript><style>.dwg{display:none}</style></noscript>
+<style>
+*,*::before,*::after{box-sizing:border-box}
+[hidden]{display:none!important}
+:root{--bg:#E9E9E6;--paper:#F0F0ED;--ink:#111111;--accent:#111111;--mute:#57574f;--line:rgba(17,17,17,.2);--hair:rgba(17,17,17,.075);
+  --pad:clamp(16px,3.3vw,48px);--gut:clamp(12px,1.7vw,24px);--max:1680px;--hd:56px;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;--ease:cubic-bezier(.2,.7,.2,1)}
+@media(min-width:900px){:root{--hd:68px}}
+html{background:var(--bg);color:var(--ink);scroll-padding-top:calc(var(--hd) + 16px);-webkit-text-size-adjust:100%}
+@media(prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+body{margin:0;background:var(--bg);font:400 16px/1.55 "Space Grotesk",system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+a{color:inherit}
+button,input,textarea{font:inherit;color:inherit}
+h1,h2,h3,p,dl,dd,figure{margin:0}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.mono{font-family:var(--mono);font-size:.8125em;letter-spacing:.02em;font-variant-numeric:tabular-nums}
+.mute{color:var(--mute)}
+.skip{position:absolute;left:-999px;top:8px;z-index:60;background:var(--ink);color:var(--bg);padding:10px 14px}
+.skip:focus{left:16px}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+.g{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut)}
+.g>*{grid-column:1/-1}
+/* the visible 12-column drafting grid */
+.lines{position:fixed;inset:0;z-index:0;pointer-events:none;transition:opacity .4s}
+.lines .wrap{height:100%}
+.lines i{grid-column:auto;border-left:1px solid var(--hair)}
+.lines i:last-child{border-right:1px solid var(--hair)}
+.grid-off .lines{opacity:0}
+main,footer{position:relative;z-index:1}
+/* buttons + links */
+.btn{display:inline-flex;align-items:center;gap:10px;min-height:42px;padding:0 18px;border:1px solid var(--ink);background:transparent;font-size:12px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:background .18s,color .18s}
+.btn:hover{background:var(--ink);color:var(--bg)}
+.btn-fill{background:var(--ink);color:var(--bg)}
+.btn-fill:hover{background:transparent;color:var(--ink)}
+.tlink{background:none;border:0;padding:4px 0;cursor:pointer;font-size:15px;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:5px;transition:text-underline-offset .2s}
+.tlink:hover{text-underline-offset:9px}
+/* header */
+.hdr{position:sticky;top:0;z-index:30;background:rgba(233,233,230,.92);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.hdr-in{height:var(--hd);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:500;font-size:17px;letter-spacing:-.015em;white-space:nowrap}
+.brand svg{width:18px;height:18px;flex:none}
+.nav{display:none;gap:clamp(20px,2.6vw,44px);font-size:14px}
+.nav a{display:inline-flex;gap:8px;align-items:baseline;padding:6px 0;text-decoration:none;background:linear-gradient(var(--ink),var(--ink)) 0 100%/0 1px no-repeat;transition:background-size .35s var(--ease)}
+.nav a:hover{background-size:100% 1px}
+.nav b,.sheet b{font:400 11px var(--mono);color:var(--mute)}
+.hdr-cta{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+.hdr .btn{min-height:36px;padding:0 12px;font-size:11px;letter-spacing:.12em}
+.sheet{border-top:1px solid var(--line);padding:4px var(--pad) 22px}
+.sheet a{display:flex;gap:14px;align-items:baseline;padding:14px 0;border-bottom:1px solid var(--line);font:300 32px/1.1 "Space Grotesk";letter-spacing:-.025em;text-decoration:none}
+@media(min-width:900px){
+  .hdr-in{display:grid;column-gap:var(--gut)}.brand{grid-column:1/5}.nav{display:flex;grid-column:7/11}.hdr-cta{grid-column:11/-1}
+  .menu-btn,.sheet{display:none!important}.hdr .btn{min-height:40px;padding:0 18px;font-size:12px}
+}
+/* hero */
+.hero{min-height:clamp(560px,calc(100svh - var(--hd)),1000px);display:flex;flex-direction:column}
+.hero>.wrap{flex:1;width:100%}
+.hero-g{padding-block:16px 28px;display:flex;flex-direction:column}
+.hero-txt,.hero-foot{display:contents}
+.kick{display:flex;flex-wrap:wrap;gap:4px 16px;align-items:baseline;font-size:13px;color:var(--mute);order:1}
+.kick .n{color:var(--ink)}
+.kick .co{display:none}
+.disp{font-weight:300;letter-spacing:-.03em;line-height:.9}
+.hero h1{order:2;font-size:clamp(52px,8.6vw,150px);margin-top:clamp(14px,5vh,60px)}
+.hero h1 span{display:block}
+.lede{order:3;font-size:clamp(16px,1.35vw,21px);line-height:1.45;max-width:31ch;margin-top:18px}
+.hero-fig{order:4;position:relative;aspect-ratio:1/1;margin-top:22px;background:#d6d6d2}
+.hero-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.hero-act{order:5;display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center;margin-top:24px}
+.reg{order:6;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));column-gap:var(--gut);margin-top:28px;border-top:1px solid var(--ink)}
+.reg a{display:block;padding:10px 10px 0 0;text-decoration:none}
+.reg .k{display:block;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.reg .v{display:block;font:300 30px/1.1 "Space Grotesk";letter-spacing:-.02em;transition:transform .3s var(--ease)}
+.reg a:hover .v{transform:translateX(6px)}
+@media(min-width:900px){
+  .hero-g{display:grid;align-items:stretch}
+  .hero-txt{display:flex;flex-direction:column;grid-column:1/7}
+  .hero-foot{display:block;order:3;margin-top:auto;padding-top:32px}
+  .kick .co{display:inline}
+  .reg{grid-template-columns:repeat(6,minmax(0,1fr))}.reg a{grid-column:span 2}
+  .hero-fig{grid-column:7/-1;aspect-ratio:auto;margin:0}
+}
+/* drawing title blocks */
+.tb{display:flex;border:1px solid var(--ink);background:var(--bg);font-size:13px;line-height:1.25}
+.tb>span{display:flex;flex-direction:column;gap:3px;padding:7px 11px;border-left:1px solid var(--ink);white-space:nowrap}
+.tb>span:first-child{border-left:0}
+.tb .w{flex:1;white-space:normal}
+.tb i{font-style:normal;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--mute)}
+.tb b{font-weight:500}
+.hero-fig .tb{position:absolute;right:0;bottom:0;max-width:calc(100% - 24px)}
+/* sections */
+.sec{padding-top:clamp(96px,11vw,180px)}
+.sec-h{border-top:1px solid var(--ink);padding-top:16px;margin-bottom:clamp(36px,5vw,72px);row-gap:14px;align-items:end}
+.sec-n{font:400 13px var(--mono);align-self:start}
+.sec-t{font-weight:300;letter-spacing:-.03em;line-height:.95;font-size:clamp(42px,5.6vw,92px)}
+.sec-d{color:var(--mute);max-width:42ch}
+@media(min-width:900px){.sec-n{grid-column:1/2}.sec-t{grid-column:2/9}.sec-d{grid-column:9/-1}}
+/* index */
+.filters{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:28px}
+.chip{display:inline-flex;gap:8px;align-items:baseline;padding:9px 14px;border:1px solid var(--line);background:none;font-size:14px;cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.chip .ct{font:400 10.5px var(--mono);color:var(--mute)}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip[aria-pressed=true] .ct{color:inherit;opacity:.7}
+.count{margin-left:auto;font-size:12px;color:var(--mute)}
+.ix-head{display:none;font:400 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute);padding-bottom:12px;border-bottom:1px solid var(--ink)}
+.ix{list-style:none;margin:0;padding:0}
+.ix>li{border-bottom:1px solid var(--line)}
+.row{position:relative;isolation:isolate;width:100%;display:grid;grid-template-columns:2rem auto auto 1fr auto;column-gap:12px;row-gap:4px;align-items:baseline;padding:18px 0;border:0;background:none;text-align:left;cursor:pointer;transition:color .2s}
+.row::before{content:"";position:absolute;z-index:-1;inset:0 calc(var(--gut) * -.5);background:var(--ink);opacity:0;transition:opacity .2s}
+.row:hover::before{opacity:.05}
+.row>span{font-size:13px;color:var(--mute)}
+.row .c-no{grid-area:1/1;color:inherit}
+.row .c-nm{grid-area:1/2/2/5;font-size:clamp(25px,2.5vw,40px);font-weight:300;letter-spacing:-.025em;line-height:1.05;color:inherit;transition:transform .4s var(--ease)}
+.row:hover .c-nm{transform:translateX(10px)}
+.row .c-go{grid-area:1/5;justify-self:end;font:300 26px/1 "Space Grotesk";color:inherit;transition:transform .35s var(--ease)}
+.row .c-ty{grid-area:2/2}.row .c-tw{grid-area:2/3}.row .c-yr{grid-area:2/4}.row .c-ar{grid-area:2/5;text-align:right}
+.is-open .row{color:var(--bg)}
+.is-open .row::before,.is-open .row:hover::before{opacity:1}
+.is-open .row>span{color:var(--bg)}
+.is-open .row .c-go{transform:rotate(45deg)}
+.is-open .row:focus-visible{outline-color:var(--bg);outline-offset:-5px}
+@media(min-width:900px){
+  .ix-head{display:grid}
+  .row{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));column-gap:var(--gut);padding:22px 0}
+  .row>span{font-size:15px;color:var(--ink)}
+  .ix-head :nth-child(1),.row .c-no{grid-area:auto;grid-column:1/2}
+  .ix-head :nth-child(2),.row .c-nm{grid-area:auto;grid-column:2/6}
+  .ix-head :nth-child(3),.row .c-ty{grid-area:auto;grid-column:6/8}
+  .ix-head :nth-child(4),.row .c-tw{grid-area:auto;grid-column:8/10}
+  .ix-head :nth-child(5),.row .c-yr{grid-area:auto;grid-column:10/11}
+  .ix-head :nth-child(6),.row .c-ar{grid-area:auto;grid-column:11/12;text-align:right}
+  .row .c-go{grid-area:auto;grid-column:12/13}
+  .c-ar .u{display:none}
+}
+/* case study */
+.ix>li.case-li{border-bottom:1px solid var(--ink)}
+.case{padding:clamp(28px,4vw,56px) 0 clamp(44px,6vw,96px);row-gap:clamp(28px,4vw,48px)}
+.case.enter{animation:rise .7s var(--ease) both}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}}
+.case-ph .fr{position:relative;aspect-ratio:var(--ar,4/5);max-height:80svh;overflow:hidden;background:#d6d6d2}
+.case-ph img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cap{margin-top:10px;font-size:12px;color:var(--mute)}
+.case-title{font-weight:300;font-size:clamp(42px,4.6vw,76px);letter-spacing:-.03em;line-height:.95;margin:12px 0 10px}
+.case-p{margin-top:22px;max-width:46ch}
+.facts{margin-top:28px;border-top:1px solid var(--ink)}
+.facts div{display:grid;grid-template-columns:8.5em 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.facts dt{color:var(--mute)}
+.case-nav{display:flex;flex-wrap:wrap;gap:14px 24px;align-items:center;margin-top:28px}
+.sheetp{border:1px solid var(--line);border-bottom:0;background:var(--paper);padding:clamp(10px,1.3vw,18px)}
+.dwg svg{display:block;width:100%;height:auto}
+.dwg svg.wipe{animation:wipe 1.5s var(--ease) both}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.dwg .ln{fill:none;stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+.dwg .wall{fill:var(--paper)}
+.dwg .tr{fill:var(--paper);stroke:#77776f;stroke-width:1;vector-effect:non-scaling-stroke}
+.dwg .tc,.dwg .fi,.dwg .pc{fill:var(--ink)}
+.dwg .tc{fill:#77776f}
+.dwg .ctr{fill:none;stroke:rgba(17,17,17,.32);stroke-dasharray:3 3;vector-effect:non-scaling-stroke}
+.dwg .hl{stroke:rgba(17,17,17,.42);stroke-width:.7}
+.dwg .cut{stroke:var(--ink);stroke-width:1;stroke-dasharray:10 3 2 3;vector-effect:non-scaling-stroke}
+.dwg .bub{fill:var(--paper);stroke:var(--ink);stroke-width:1;vector-effect:non-scaling-stroke}
+.dwg text{font:500 10px var(--mono);letter-spacing:.06em;text-transform:uppercase;fill:var(--ink);text-anchor:middle;dominant-baseline:middle;paint-order:stroke;stroke:var(--paper);stroke-width:4px;stroke-linejoin:round}
+.dwg text.st{text-anchor:start;text-transform:none}
+@media(min-width:900px){
+  .case-ph{grid-column:1/8;grid-row:1}
+  .case-tx{grid-column:9/-1;grid-row:1/3;align-self:start;position:sticky;top:calc(var(--hd) + 28px)}
+  .dwg-p{grid-column:1/5;grid-row:2}.dwg-s{grid-column:5/9;grid-row:2}
+}
+/* studio */
+.studio-g{row-gap:clamp(40px,5vw,64px)}
+.big{font-weight:300;font-size:clamp(30px,3.6vw,58px);line-height:1.06;letter-spacing:-.03em;max-width:19ch}
+.princ{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.princ li{display:grid;gap:6px;padding:20px 0 26px;border-bottom:1px solid var(--line)}
+.princ .n{font:400 13px var(--mono)}
+.princ h3{font-weight:400;font-size:22px;letter-spacing:-.015em;line-height:1.2}
+.princ p{color:var(--mute);max-width:46ch}
+.sreg{display:grid;grid-template-columns:repeat(2,1fr);gap:0 var(--gut)}
+.sreg div{border-top:1px solid var(--ink);padding:12px 0 18px}
+.sreg dt{font:300 clamp(34px,3.4vw,52px)/1 "Space Grotesk";letter-spacing:-.03em}
+.sreg dd{margin-top:8px;font-size:13px;color:var(--mute);max-width:22ch}
+.studio-fig .fr{position:relative;aspect-ratio:3/4;background:#ecece9}
+.studio-fig img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:78% 50%}
+.studio-fig .tb{border-top:0}
+@media(min-width:900px){
+  .studio-g>.big{grid-column:1/9}.princ{grid-column:1/9;grid-row:2}.sreg{grid-column:1/9;grid-row:3;grid-template-columns:repeat(4,1fr)}
+  .studio-fig{grid-column:10/-1;grid-row:1/4;align-self:start;position:sticky;top:calc(var(--hd) + 28px)}
+  .princ li{grid-template-columns:repeat(8,minmax(0,1fr));column-gap:var(--gut)}
+  .princ .n{grid-column:1/2}.princ h3{grid-column:2/5}.princ p{grid-column:5/9}
+}
+/* contact */
+.ct-g{row-gap:48px}
+.ct-l p+p{margin-top:18px}
+.ct-l .body{color:var(--mute);max-width:42ch;margin-top:22px}
+.ct-dl{margin-top:32px;border-top:1px solid var(--ink)}
+.ct-dl div{display:grid;grid-template-columns:8em 1fr;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+.ct-dl dt{color:var(--mute)}
+.form{display:grid;gap:34px}
+.fld{border:0;margin:0;padding:0;min-width:0}
+.lbl{display:flex;gap:12px;align-items:baseline;padding:0;margin-bottom:12px;font-size:14px;font-weight:500}
+.lbl .n{font:400 11px var(--mono);color:var(--mute)}
+.lbl .o{font-weight:400;color:var(--mute);font-size:13px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{position:relative}
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt span{display:inline-flex;padding:10px 15px;border:1px solid var(--line);font-size:14px;cursor:pointer;transition:border-color .2s,background .2s,color .2s}
+.opt span:hover{border-color:var(--ink)}
+.opt input:checked+span{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.opt input:focus-visible+span{outline:2px solid var(--ink);outline-offset:3px}
+.in{width:100%;border:0;border-bottom:1px solid var(--ink);border-radius:0;background:transparent;padding:10px 0;font-size:21px;font-weight:300;letter-spacing:-.01em}
+.in::placeholder{color:#8a8a84}
+.in:focus{outline:none;box-shadow:0 1px 0 var(--ink)}
+textarea.in{min-height:132px;resize:vertical;font-size:17px;line-height:1.5}
+.err{margin-top:10px;font-size:13px;display:flex;gap:8px}
+.err::before{content:"×";font-family:var(--mono)}
+.bad .opt span{border-style:dashed;border-color:var(--ink)}
+.bad .in{border-bottom-style:dashed}
+.form-foot{display:flex;flex-wrap:wrap;gap:16px 24px;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:22px}
+.form-foot p{font-size:13px;color:var(--mute);max-width:36ch}
+.done{border:1px solid var(--ink);background:var(--paper);align-self:start}
+#d-budget,#d-town{white-space:nowrap}
+.done .tb{border:0;border-bottom:1px solid var(--ink)}
+.done-b{padding:clamp(22px,3vw,40px)}
+.done-b .big{font-size:clamp(28px,2.8vw,44px);max-width:22ch}
+.done-b p+p{margin-top:16px;max-width:48ch}
+.done .btn{margin-top:28px}
+@media(min-width:900px){.ct-l{grid-column:1/6}.form,.done{grid-column:7/-1}}
+/* footer */
+.ftr{margin-top:clamp(110px,13vw,200px);border-top:1px solid var(--ink);padding:24px 0 124px;font-size:14px}
+.ftr .g{row-gap:24px}
+.ftr nav{display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.ftr nav a{text-decoration:none}.ftr nav a:hover{text-decoration:underline;text-underline-offset:4px}
+.f-big{font-weight:300;letter-spacing:-.045em;line-height:.82;font-size:clamp(52px,16.8vw,290px);margin-top:clamp(44px,7vw,110px);white-space:nowrap}
+.fine{margin-top:22px;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between;font-size:12px;color:var(--mute)}
+.fine button{background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+@media(max-width:899px){.f2{grid-column:1/7}.f3{grid-column:7/-1}}
+@media(min-width:900px){.f1{grid-column:1/5}.f2{grid-column:7/9}.f3{grid-column:9/11}.f4{grid-column:11/-1}}
+@media(max-width:899px){.lines .g{grid-template-columns:repeat(4,minmax(0,1fr))}.lines i:nth-child(n+5){display:none}.lines i:nth-child(4){border-right:1px solid var(--hair)}}
+/* reveal below the fold only */
+.js .rv{opacity:0;transform:translateY(16px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
+.js .rv.is-in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation:none!important}
+  .js .rv{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="lines" aria-hidden="true"><div class="wrap g"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+
+<header class="hdr">
+  <div class="wrap g hdr-in">
+    <a class="brand" href="#top" aria-label="Studio Garis, back to top">
+      <svg viewBox="0 0 18 18" aria-hidden="true"><rect x=".5" y=".5" width="17" height="17" fill="none" stroke="currentColor"/><line x1=".5" y1="17.5" x2="17.5" y2=".5" stroke="currentColor"/></svg>Studio Garis</a>
+    <nav class="nav" aria-label="Main"><a href="#projects"><b>01</b>Projects</a><a href="#studio"><b>02</b>Studio</a><a href="#contact"><b>03</b>Contact</a></nav>
+    <div class="hdr-cta">
+      <a class="btn btn-fill" href="#contact">ENQUIRE</a>
+      <button class="btn menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button>
+    </div>
+  </div>
+  <div class="sheet" id="sheet" hidden>
+    <nav aria-label="Mobile"><a href="#projects"><b>01</b>Projects</a><a href="#studio"><b>02</b>Studio</a><a href="#contact"><b>03</b>Contact</a></nav>
+  </div>
+</header>
+
+<main id="main">
+<section class="hero" id="top" aria-labelledby="h-title">
+  <div class="wrap g hero-g">
+    <div class="hero-txt">
+      <p class="kick"><span class="n mono">00</span><span>Architecture across Java</span><span class="co mono">Bandung · 6.91° S 107.61° E</span></p>
+      <h1 id="h-title" class="disp"><span>Buildings</span> <span>that stay</span> <span>quiet.</span></h1>
+      <div class="hero-foot">
+        <p class="lede">Houses, clinics and one school across Java. Each project shown in plan, section and the photographs that mattered.</p>
+        <div class="hero-act"><a class="btn btn-fill" href="#projects">See the index <span class="mono">06</span></a><a class="tlink" href="#studio">How the studio works</a></div>
+        <div class="reg" role="group" aria-label="Jump to a building type">
+          <a href="#projects" data-jump="house"><span class="k">Houses</span><span class="v">03</span></a>
+          <a href="#projects" data-jump="clinic"><span class="k">Clinics</span><span class="v">02</span></a>
+          <a href="#projects" data-jump="school"><span class="k">School</span><span class="v">01</span></a>
+        </div>
+      </div>
+    </div>
+    <figure class="hero-fig">
+      <img src="https://images.unsplash.com/photo-1741163269578-c51176eddb3c?auto=format&fit=crop&w=1400&q=70"
+        srcset="https://images.unsplash.com/photo-1741163269578-c51176eddb3c?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1741163269578-c51176eddb3c?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1741163269578-c51176eddb3c?auto=format&fit=crop&w=2000&q=70 2000w"
+        sizes="(min-width: 900px) 52vw, 100vw" width="3632" height="5456" fetchpriority="high"
+        alt="White site model seen from above: low blocks, courtyards and rows of small model trees">
+      <figcaption class="tb"><span><i>No.</i><b class="mono">00</b></span><span class="w"><i>Title</i><b>Site model, Sekolah Lereng</b></span><span><i>Scale</i><b class="mono">1:500</b></span><span><i>Year</i><b class="mono">2023</b></span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec" id="projects" aria-labelledby="t-projects">
+  <div class="wrap">
+    <div class="sec-h g rv"><p class="sec-n">01</p><h2 class="sec-t" id="t-projects">Index of works, 2018–2025</h2><p class="sec-d">Six buildings, all in Java, all still used the way they were drawn. Select a row to open its plan, section and photographs.</p></div>
+    <div class="filters" role="group" aria-label="Filter projects by type">
+      <button class="chip" type="button" data-f="all" aria-pressed="true">All <span class="ct">06</span></button>
+      <button class="chip" type="button" data-f="house" aria-pressed="false">Houses <span class="ct">03</span></button>
+      <button class="chip" type="button" data-f="clinic" aria-pressed="false">Clinics <span class="ct">02</span></button>
+      <button class="chip" type="button" data-f="school" aria-pressed="false">School <span class="ct">01</span></button>
+      <p class="count mono" id="count" aria-live="polite">Showing 06 of 06</p>
+    </div>
+    <div class="ix-head g" aria-hidden="true"><span>No.</span><span>Project</span><span>Type</span><span>Town</span><span>Year</span><span>Area m²</span></div>
+    <ol class="ix" id="ix">
+      <li class="is-open" data-i="0" data-t="house"><button class="row" type="button" aria-expanded="true" aria-controls="case" aria-label="01, Rumah Kebun: house, Salatiga, 2018, 214 square metres"><span class="c-no mono">01</span><span class="c-nm">Rumah Kebun</span><span class="c-ty">House</span><span class="c-tw">Salatiga</span><span class="c-yr mono">2018</span><span class="c-ar mono">214<span class="u"> m²</span></span><span class="c-go" aria-hidden="true">+</span></button></li>
+      <li class="case-li" id="case-li">
+        <section class="case g" id="case" aria-labelledby="case-t">
+          <figure class="case-ph"><div class="fr" id="case-fr" style="--ar:4/5"><img id="case-img" loading="lazy" decoding="async" width="1200" height="1500" style="object-position:60% 62%"
+            src="https://images.unsplash.com/photo-1619312701367-325c8fad647a?auto=format&fit=crop&w=1400&q=70"
+            srcset="https://images.unsplash.com/photo-1619312701367-325c8fad647a?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1619312701367-325c8fad647a?auto=format&fit=crop&w=1400&q=70 1400w, https://images.unsplash.com/photo-1619312701367-325c8fad647a?auto=format&fit=crop&w=2000&q=70 2000w"
+            sizes="(min-width: 900px) 56vw, 100vw" alt="A plain white concrete house half hidden by tropical trees, dappled shade on its wall"></div>
+            <figcaption class="cap mono" id="case-cap">Fig. 01.1 — East wall in the afternoon, from the orchard path</figcaption></figure>
+          <div class="case-tx">
+            <p class="mono mute">Case study <span id="case-no">01</span> / 06</p>
+            <h3 class="case-title" id="case-t">Rumah Kebun</h3>
+            <p class="mute" id="case-sub">House · Salatiga, Central Java · 2018 · 214 m²</p>
+            <p class="case-p" id="case-p">A house for two retired teachers in an old mango and durian orchard on the lower slopes of Merbabu. We moved the plan twice to keep eleven trees. The walls are board-marked concrete, left as struck; the long window in the study sits at desk height, so the orchard reads as a horizon rather than a view.</p>
+            <dl class="facts" id="case-facts"><div><dt>Site</dt><dd>1,150 m² orchard, 650 m above sea level</dd></div><div><dt>Structure</dt><dd>In-situ concrete, teak roof frame</dd></div><div><dt>Storeys</dt><dd>2</dd></div><div><dt>On site</dt><dd>14 months</dd></div><div><dt>Trees kept</dt><dd>11 of 11</dd></div></dl>
+            <div class="case-nav"><button class="btn" type="button" id="case-next">Next: 02 Rumah Tengah</button><button class="tlink" type="button" id="case-close">Close case study</button></div>
+          </div>
+          <figure class="dwg dwg-p"><div class="sheetp"><svg id="svg-p" viewBox="0 0 400 260" role="img" aria-label="Floor plan drawing"></svg></div>
+            <figcaption class="tb"><span><i>No.</i><b class="mono" id="dp-no">01.2</b></span><span class="w"><i>Drawing</i><b>Plan 1:200</b></span><span><i>Year</i><b class="mono dy">2018</b></span></figcaption></figure>
+          <figure class="dwg dwg-s"><div class="sheetp"><svg id="svg-s" viewBox="0 0 400 260" role="img" aria-label="Section drawing A–A"></svg></div>
+            <figcaption class="tb"><span><i>No.</i><b class="mono" id="ds-no">01.3</b></span><span class="w"><i>Drawing</i><b>Section A–A</b></span><span><i>Year</i><b class="mono dy">2018</b></span></figcaption></figure>
+        </section>
+      </li>
+      <li data-i="1" data-t="house"><button class="row" type="button" aria-expanded="false" aria-controls="case" aria-label="02, Rumah Tengah: house, Yogyakarta, 2020, 286 square metres"><span class="c-no mono">02</span><span class="c-nm">Rumah Tengah</span><span class="c-ty">House</span><span class="c-tw">Yogyakarta</span><span class="c-yr mono">2020</span><span class="c-ar mono">286<span class="u"> m²</span></span><span class="c-go" aria-hidden="true">+</span></button></li>
+      <li data-i="2" data-t="clinic"><button class="row" type="button" aria-expanded="false" aria-controls="case" aria-label="03, Klinik Pagi: clinic, Bogor, 2021, 420 square metres"><span class="c-no mono">03</span><span class="c-nm">Klinik Pagi</span><span class="c-ty">Clinic</span><span class="c-tw">Bogor</span><span class="c-yr mono">2021</span><span class="c-ar mono">420<span class="u"> m²</span></span><span class="c-go" aria-hidden="true">+</span></button></li>
+      <li data-i="3" data-t="school"><button class="row" type="button" aria-expanded="false" aria-controls="case" aria-label="04, Sekolah Lereng: school, Malang, 2023, 1,860 square metres"><span class="c-no mono">04</span><span class="c-nm">Sekolah Lereng</span><span class="c-ty">School</span><span class="c-tw">Malang</span><span class="c-yr mono">2023</span><span class="c-ar mono">1,860<span class="u"> m²</span></span><span class="c-go" aria-hidden="true">+</span></button></li>
+      <li data-i="4" data-t="house"><button class="row" type="button" aria-expanded="false" aria-controls="case" aria-label="05, Rumah Batu: house, Bandung, 2024, 198 square metres"><span class="c-no mono">05</span><span class="c-nm">Rumah Batu</span><span class="c-ty">House</span><span class="c-tw">Bandung</span><span class="c-yr mono">2024</span><span class="c-ar mono">198<span class="u"> m²</span></span><span class="c-go" aria-hidden="true">+</span></button></li>
+      <li data-i="5" data-t="clinic"><button class="row" type="button" aria-expanded="false" aria-controls="case" aria-label="06, Klinik Teras: clinic, Semarang, 2025, 640 square metres"><span class="c-no mono">06</span><span class="c-nm">Klinik Teras</span><span class="c-ty">Clinic</span><span class="c-tw">Semarang</span><span class="c-yr mono">2025</span><span class="c-ar mono">640<span class="u"> m²</span></span><span class="c-go" aria-hidden="true">+</span></button></li>
+    </ol>
+  </div>
+</section>
+
+<section class="sec" id="studio" aria-labelledby="t-studio">
+  <div class="wrap">
+    <div class="sec-h g rv"><p class="sec-n">02</p><h2 class="sec-t" id="t-studio">Studio</h2><p class="sec-d">A small practice by choice. We take on four projects a year and see each one through to the last site visit.</p></div>
+    <div class="g studio-g">
+      <p class="big rv">Eleven people in Bandung, around one long table: architects, a model maker and a site engineer.</p>
+      <ol class="princ rv">
+        <li><span class="n">2.1</span><h3>Survey before sketch.</h3><p>We walk the site at three times of day and draw every tree over three metres before we draw a wall. The plan takes what is left.</p></li>
+        <li><span class="n">2.2</span><h3>One material, said plainly.</h3><p>Concrete, timber or stone, each where it does its work. Nothing clad to look like something else, nothing painted to hide a joint.</p></li>
+        <li><span class="n">2.3</span><h3>Shade before glass.</h3><p>Deep roofs, louvres and courts do the cooling. Air-conditioning is the last thing we draw, and in four of these six buildings we never drew it.</p></li>
+      </ol>
+      <dl class="sreg rv">
+        <div><dt>11</dt><dd>People in the studio, Bandung</dd></div>
+        <div><dt>04</dt><dd>Projects on the table, never more</dd></div>
+        <div><dt>2014</dt><dd>Year the first house was drawn</dd></div>
+        <div><dt>1:50</dt><dd>Scale of every working model we build</dd></div>
+      </dl>
+      <figure class="studio-fig rv"><div class="fr"><img loading="lazy" decoding="async" width="1200" height="1600"
+        src="https://images.unsplash.com/photo-1586073054612-fdd6537fc6d4?auto=format&fit=crop&w=1000&q=70"
+        srcset="https://images.unsplash.com/photo-1586073054612-fdd6537fc6d4?auto=format&fit=crop&w=600&q=70 600w, https://images.unsplash.com/photo-1586073054612-fdd6537fc6d4?auto=format&fit=crop&w=1000&q=70 1000w, https://images.unsplash.com/photo-1586073054612-fdd6537fc6d4?auto=format&fit=crop&w=1400&q=70 1400w"
+        sizes="(min-width: 900px) 24vw, 100vw" alt="A row of slender white columns under a thin flat roof, against a white sky"></div>
+        <figcaption class="tb"><span><i>No.</i><b class="mono">02.4</b></span><span class="w"><i>Pinned above the table</i><b>Columns, a thin roof, nothing else</b></span></figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="contact" aria-labelledby="t-contact">
+  <div class="wrap">
+    <div class="sec-h g rv"><p class="sec-n">03</p><h2 class="sec-t" id="t-contact">Enquire</h2><p class="sec-d">Houses, clinics, schools. Tell us where the site is and roughly what you can spend; we start from there.</p></div>
+    <div class="g ct-g">
+      <div class="ct-l rv">
+        <p class="big">Start with the site, not the style.</p>
+        <p class="body">Most of our work begins with a walk on the plot and a long conversation about light and rain. We answer every enquiry within a week, usually with questions. Houses within a day's drive of Bandung; clinics and schools anywhere in Java.</p>
+        <dl class="ct-dl"><div><dt>Studio</dt><dd>Bandung, West Java</dd></div><div><dt>Hours</dt><dd>Mon–Fri, 09.00–17.00 WIB</dd></div><div><dt>Site visits</dt><dd>Thursdays, by appointment</dd></div><div><dt>Languages</dt><dd>Bahasa Indonesia, English</dd></div></dl>
+      </div>
+      <form class="form rv" id="enq" novalidate>
+        <fieldset class="fld" id="f-type" aria-describedby="e-type"><legend class="lbl"><span class="n">03.1</span>Project type</legend>
+          <div class="opts"><label class="opt"><input type="radio" name="type" value="house"><span>House</span></label><label class="opt"><input type="radio" name="type" value="clinic"><span>Clinic</span></label><label class="opt"><input type="radio" name="type" value="school"><span>School</span></label><label class="opt"><input type="radio" name="type" value="building"><span>Something else</span></label></div>
+          <p class="err" id="e-type" hidden>Choose the nearest type.</p></fieldset>
+        <div class="fld" id="f-town"><label class="lbl" for="town"><span class="n">03.2</span>Site town</label>
+          <input class="in" id="town" name="town" type="text" autocomplete="off" placeholder="e.g. Salatiga" aria-describedby="e-town">
+          <p class="err" id="e-town" hidden>Tell us the nearest town to the site.</p></div>
+        <fieldset class="fld" id="f-budget" aria-describedby="e-budget"><legend class="lbl"><span class="n">03.3</span>Approximate budget <span class="o">IDR, building only</span></legend>
+          <div class="opts"><label class="opt"><input type="radio" name="budget" value="under IDR 2 bn"><span>Under 2 bn</span></label><label class="opt"><input type="radio" name="budget" value="IDR 2–5 bn"><span>2–5 bn</span></label><label class="opt"><input type="radio" name="budget" value="IDR 5–10 bn"><span>5–10 bn</span></label><label class="opt"><input type="radio" name="budget" value="above IDR 10 bn"><span>Above 10 bn</span></label><label class="opt"><input type="radio" name="budget" value="a budget still to be set"><span>Not sure yet</span></label></div>
+          <p class="err" id="e-budget" hidden>Pick a band, even a rough one.</p></fieldset>
+        <div class="fld" id="f-msg"><label class="lbl" for="msg"><span class="n">03.4</span>About the site</label>
+          <textarea class="in" id="msg" name="msg" placeholder="Size of the plot, the slope, the trees, who will use the building…" aria-describedby="e-msg"></textarea>
+          <p class="err" id="e-msg" hidden>A few lines about the site, please (20 characters or more).</p></div>
+        <div class="form-foot"><p>All four fields are needed. We read every enquiry ourselves.</p><button class="btn btn-fill" type="submit">Send enquiry</button></div>
+      </form>
+      <div class="done" id="done" hidden tabindex="-1">
+        <div class="tb"><span><i>No.</i><b class="mono" id="d-no">E-26-041</b></span><span class="w"><i>Enquiry</i><b>Filed, concept only</b></span><span><i>Date</i><b class="mono" id="d-date">07.10.26</b></span></div>
+        <div class="done-b">
+          <p class="big">Noted: <span id="d-type">a house</span> in <span id="d-town">Salatiga</span>, <span id="d-budget">IDR 2–5 bn</span>.</p>
+          <p>This is a concept site by Aleph One, so nothing was sent and no one at Studio Garis will reply. In the real studio, an answer would come within a week, with questions first.</p>
+          <button class="btn" type="button" id="again">Write another enquiry</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ftr">
+  <div class="wrap">
+    <div class="g">
+      <p class="f1">Studio Garis<br><span class="mute">Architecture across Java since 2014. Bandung, West Java.</span></p>
+      <nav class="f2" aria-label="Footer"><a href="#projects">01 Projects</a><a href="#studio">02 Studio</a><a href="#contact">03 Contact</a></nav>
+      <p class="f3"><span class="mute">Hours</span><br>Mon–Fri<br>09.00–17.00 WIB</p>
+      <p class="f4"><a href="#top">Back to top ↑</a></p>
+    </div>
+    <p class="f-big" aria-hidden="true">Studio Garis</p>
+    <div class="fine"><span>A concept site by Aleph One · Photography via Unsplash</span><button type="button" id="grid-t" aria-pressed="true">Grid lines: on</button></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+const U=id=>w=>`https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
+const P=[
+ {nm:'Rumah Kebun',ty:'House',pl:'Salatiga, Central Java',yr:'2018',ar:'214',img:'1619312701367-325c8fad647a',asp:'4/5',pos:'60% 62%',
+  alt:'A plain white concrete house half hidden by tropical trees, dappled shade on its wall',fig:'East wall in the afternoon, from the orchard path',
+  p:'A house for two retired teachers in an old mango and durian orchard on the lower slopes of Merbabu. We moved the plan twice to keep eleven trees. The walls are board-marked concrete, left as struck; the long window in the study sits at desk height, so the orchard reads as a horizon rather than a view.',
+  f:[['Site','1,150 m² orchard, 650 m above sea level'],['Structure','In-situ concrete, teak roof frame'],['Storeys','2'],['On site','14 months'],['Trees kept','11 of 11']],
+  u:15,plan:{o:['60,50 340,50 340,130 160,130 160,210 60,210'],l:[[160,50,160,130],[260,50,260,130],[60,130,160,130]],st:[[228,58,24,64,8]],
+   r:[[110,92,'Living'],[200,92,'Kitchen'],[300,92,'Study'],[110,172,'Bed']],tr:[[225,182,16],[288,170,11],[324,206,15],[196,232,9],[262,230,8]],cut:[36,114,364,114]},
+  sec:{o:['60,160 60,70','340,70 340,160'],pg:['46,64 350,64 350,70 46,70'],f:[[60,340,112]],l:[[160,112,160,160]],tr:[[26,11,160]],lv:[[160,'+0.00'],[112,'+3.20'],[64,'+6.40']]}},
+ {nm:'Rumah Tengah',ty:'House',pl:'Yogyakarta, Special Region',yr:'2020',ar:'286',img:'1666307578906-164f8887a839',asp:'3/2',pos:'50% 45%',
+  alt:'An open courtyard house under a concrete canopy, tall timber doors folded back and a spiral concrete stair',fig:'The court, with all six doors folded back',
+  p:'A single-storey house built around a court, the way the old houses of the city gather around their pendopo. Every room opens to the court through folding teak doors; the concrete canopy sends the rain to one spout and one stone basin. A spiral stair climbs to the roof, where the family dries chillies and looks for Merapi on clear mornings.',
+  f:[['Site','520 m², off a kampung lane'],['Structure','Concrete canopy on brick walls'],['Storeys','1, plus roof terrace'],['On site','11 months'],['Court','96 m², open to the sky']],
+  u:12,plan:{o:['60,40 340,40 340,220 60,220'],hz:[[140,100,120,80]],pg:['140,100 260,100 260,180 140,180'],l:[[140,40,140,100],[260,40,260,100],[140,180,140,220],[260,180,260,220],[60,130,140,130],[260,140,340,140]],
+   sp:[244,116,11],tr:[[180,146,13]],r:[[100,86,'Bed'],[100,176,'Bed'],[200,70,'Living'],[300,92,'Kitchen'],[300,182,'Store'],[200,202,'Entry'],[222,166,'Court']],cut:[36,150,364,150]},
+  sec:{o:['60,160 60,100','140,100 140,160','260,160 260,100','340,100 340,160','230,160 246,148 230,136 246,124 230,112 246,100','262,94 262,84 346,84 346,94'],l:[[238,160,238,100]],pg:['52,94 156,94 156,100 52,100','244,94 348,94 348,100 244,100'],tr:[[180,13,160],[22,9,160]],lv:[[160,'+0.00'],[94,'+4.40']]}},
+ {nm:'Klinik Pagi',ty:'Clinic',pl:'Bogor, West Java',yr:'2021',ar:'420',img:'1614595737476-42487331b8a1',asp:'4/5',pos:'40% 40%',
+  alt:'A board-marked concrete building with tall timber louvred shutters set into its windows',fig:'Louvres on the east face, half open at 08.00',
+  p:'A general practice for a neighbourhood that queues before seven. The waiting room faces east and fills with morning light; the consulting rooms sit behind timber louvres that the nurses set by hand as the sun moves round. Bogor rains most afternoons, so the corridor roof is lifted to pull air through without fans.',
+  f:[['Client','Three family doctors'],['Rooms','4 consulting, treatment, lab'],['Structure','Concrete frame, merbau louvres'],['Storeys','2, with roof light'],['On site','16 months']],
+  u:13.5,plan:{o:['40,70 360,70 360,190 40,190'],l:[[40,115,360,115],[40,145,360,145],[130,70,130,115],[190,70,190,115],[250,70,250,115],[310,70,310,115],[100,145,100,190],[170,145,170,190],[260,145,260,190]],
+   lo:[[134,306,70,-6],[176,256,190,6]],r:[[85,93,'Wait'],[160,93,'Cons.'],[220,93,'Cons.'],[280,93,'Lab'],[335,93,'WC'],[70,168,'Entry'],[135,168,'Pharm.'],[215,168,'Treatment'],[310,168,'Staff'],[260,131,'Corridor']],
+   tr:[[70,36,13],[330,224,15],[112,228,9]],cut:[200,48,200,212]},
+  sec:{o:['120,160 120,64','280,64 280,160','186,58 186,46 214,46 214,58'],pg:['108,58 292,58 292,64 108,64'],f:[[120,280,112]],l:[[185,160,185,64],[215,160,215,64],[114,72,114,104],[114,120,114,152],[286,72,286,104],[286,120,286,152]],tr:[[56,15,160],[334,11,160]],lv:[[160,'+0.00'],[112,'+3.20'],[58,'+6.80']]}},
+ {nm:'Sekolah Lereng',ty:'School',pl:'Malang, East Java',yr:'2023',ar:'1,860',img:'1614595737683-1740e41bfaac',asp:'4/5',pos:'30% 55%',
+  alt:'White stepped school buildings behind a long low concrete wall, in evening light',fig:'The lowest bar and its boundary wall, from the street',
+  p:'A primary school for 240 children on a hillside south of the city. Instead of levelling the slope we stepped the classrooms down it in three bars, so each roof becomes the playground of the class above. Low concrete walls hold the terraces and double as benches; every classroom has windows on two sides and none needs a fan before eleven.',
+  f:[['Pupils','240, grades 1 to 6'],['Site','6,400 m², 9 m fall'],['Structure','Concrete terraces, retaining walls'],['Classrooms','12, plus hall'],['On site','22 months']],
+  u:4.2,plan:{ct:['M10,58 C120,46 260,80 390,60','M10,128 C130,116 250,150 390,126','M10,198 C140,184 260,214 390,194'],o:['40,36 240,36 240,86 40,86','80,104 300,104 300,154 80,154','120,172 340,172 340,222 120,222'],
+   l:[[90,36,90,86],[140,36,140,86],[190,36,190,86],[135,104,135,154],[190,104,190,154],[245,104,245,154],[175,172,175,222],[230,172,230,222],[285,172,285,222],[30,95,250,95],[70,163,310,163]],
+   r:[[65,62,'1A'],[115,62,'1B'],[165,62,'2A'],[215,62,'2B'],[107,130,'3A'],[162,130,'3B'],[217,130,'4A'],[272,130,'4B'],[147,198,'5A'],[202,198,'5B'],[257,198,'6A'],[312,198,'6B']],
+   tr:[[290,52,14],[334,72,9],[364,146,12],[36,150,13],[64,232,10]],cut:[182,20,182,240]},
+  sec:{g:'10,80 145,80 145,125 260,125 260,170 390,170',o:['30,80 30,35 130,35 130,80','245,80 245,125','345,125 345,170','245,80 245,72','345,125 345,117'],pg:['26,31 134,31 134,35 26,35','145,77 249,77 249,80 145,80','260,122 349,122 349,125 260,125'],tr:[[16,7,80]],lv:[[170,'+0.00'],[125,'+3.00'],[80,'+6.00']]}},
+ {nm:'Rumah Batu',ty:'House',pl:'Bandung, West Java',yr:'2024',ar:'198',img:'1766603636502-99ac1abcb6c7',asp:'3/2',pos:'50% 55%',
+  alt:'A modern house with a timber-battened upper floor over a stone base, palms and lawn in front',fig:'West face, battens open, late afternoon',
+  p:'A compact house on a steep lot in north Bandung, where the nights are cool enough for a fire. The ground floor is set into a wall of local andesite; the bedrooms above sit in a light timber box with sliding screens of vertical battens that close against the rain. The overhang is 1.8 metres on the west side, measured, not guessed.',
+  f:[['Site','410 m², 1,050 m above sea level'],['Structure','Andesite base, timber frame above'],['Storeys','2'],['On site','12 months'],['Overhang','1.8 m west, 1.2 m east']],
+  u:20,plan:{o:['70,50 330,50 330,210 70,210'],hz:[[70,50,14,160]],l:[[84,50,84,210],[84,124,330,124],[170,124,170,210],[220,124,220,210]],st:[[282,60,36,52,9]],
+   r:[[180,88,'Living'],[127,168,'Bed'],[195,168,'Bath'],[275,168,'Bed']],tr:[[40,232,12],[356,62,14],[364,104,9],[34,34,10]],cut:[46,102,354,102]},
+  sec:{o:['70,160 70,73','330,51 330,160'],pg:['56,68 346,44 346,50 56,74'],hz:[[70,112,10,48]],f:[[70,330,112]],l:[[338,54,338,112]],tr:[[26,12,160]],lv:[[160,'+0.00'],[112,'+3.20'],[44,'+7.70']]}},
+ {nm:'Klinik Teras',ty:'Clinic',pl:'Semarang, Central Java',yr:'2025',ar:'640',img:'1522743791393-522312deeebf',asp:'4/5',pos:'60% 75%',
+  alt:'Stepped concrete volumes with deep window reveals against a clear teal sky',fig:'The three volumes from the corner, morning',
+  p:'A physiotherapy clinic on a narrow corner plot near the harbour. Three concrete volumes step up from the street, each a little taller than the last: entrance and waiting low and close to the pavement, the therapy hall in the tallest, where the ceiling is high enough for the slow work of learning to walk again. Deep reveals keep the coastal sun off the glass.',
+  f:[['Site','780 m², corner plot'],['Therapy hall','140 m², 5.2 m clear'],['Structure','In-situ concrete, deep reveals'],['Storeys','1 to 2'],['Opened','March 2025']],
+  u:8.5,plan:{o:['50,210 50,150 130,150 130,100 210,100 210,50 350,50 350,210'],l:[[130,150,130,210],[210,100,210,210],[210,150,350,150],[280,50,280,150]],
+   r:[[90,180,'Entry'],[170,160,'Wait'],[245,100,'Cons.'],[315,100,'Cons.'],[280,180,'Therapy hall']],tr:[[84,92,16],[150,66,11],[370,124,10]],cut:[30,196,370,196]},
+  sec:{o:['50,160 50,124 130,124 130,100 210,100 210,64 350,64 350,160'],f:[[210,350,112]],l:[[130,124,130,160],[210,100,210,160]],tr:[[24,11,160]],lv:[[160,'+0.00'],[124,'+2.40'],[100,'+4.00'],[64,'+6.40']]}}
+];
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const n2=i=>String(i+1).padStart(2,'0');
+const ln=(a,b,c,d,k='ln')=>`<line x1="${+a.toFixed(1)}" y1="${+b.toFixed(1)}" x2="${+c.toFixed(1)}" y2="${+d.toFixed(1)}" class="${k}"/>`;
+const pat=id=>`<defs><pattern id="${id}" width="5" height="5" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" class="hl"/></pattern></defs>`;
+const lab=(x,y,t,k='')=>`<text x="${x}" y="${y}"${k?` class="${k}"`:''}>${t}</text>`;
+
+function plan(d,u){
+  let s=pat('hp');
+  s+=(d.ct||[]).map(p=>`<path d="${p}" class="ctr"/>`).join('');
+  s+=d.o.map(p=>`<polygon points="${p}" class="ln wall"/>`).join('');
+  s+=(d.hz||[]).map(([x,y,w,h])=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#hp)" class="ln"/>`).join('');
+  s+=(d.pg||[]).map(p=>`<polygon points="${p}" class="ln"/>`).join('');
+  s+=(d.l||[]).map(a=>ln(...a)).join('');
+  (d.st||[]).forEach(([x,y,w,h,k])=>{s+=`<rect x="${x}" y="${y}" width="${w}" height="${h}" class="ln"/>`;for(let i=1;i<k;i++)s+=w<h?ln(x,y+h*i/k,x+w,y+h*i/k):ln(x+w*i/k,y,x+w*i/k,y+h)});
+  if(d.sp){const[x,y,r]=d.sp;s+=`<circle cx="${x}" cy="${y}" r="${r}" class="ln wall"/>`;for(let i=0;i<8;i++)s+=ln(x,y,x+r*Math.cos(i*Math.PI/4),y+r*Math.sin(i*Math.PI/4))}
+  (d.lo||[]).forEach(([a,b,y,dy])=>{for(let x=a;x<=b;x+=6)s+=ln(x,y,x,y+dy)});
+  s+=(d.tr||[]).map(([x,y,r])=>`<circle cx="${x}" cy="${y}" r="${r}" class="tr"/><circle cx="${x}" cy="${y}" r="1.3" class="tc"/>`).join('');
+  s+=d.r.map(([x,y,t])=>lab(x,y,t)).join('');
+  const[x1,y1,x2,y2]=d.cut,v=x1===x2,o=8;
+  s+=v?ln(x1,y1+o,x2,y2-o,'cut'):ln(x1+o,y1,x2-o,y2,'cut');
+  [[x1,y1],[x2,y2]].forEach(([x,y])=>{s+=`<circle cx="${x}" cy="${y}" r="7.5" class="bub"/>`+lab(x,y+.5,'A')});
+  s+=`<circle cx="376" cy="32" r="9" class="ln"/>${ln(376,41,376,23)}<path d="M376 20 l-3.5 8 h7z" class="fi"/>${lab(376,13,'N')}`;
+  const m=[5,10,20].find(m=>m*u>=55)||20,w=m*u;
+  s+=ln(20,246,20+w,246)+[0,.5,1].map(t=>ln(20+w*t,242,20+w*t,250)).join('')+`<rect x="20" y="244.5" width="${w/2}" height="3" class="pc"/>`+lab(20+w+6,246.5,m+' m','st');
+  return s;
+}
+function section(d){
+  let s=pat('hs')+'<g transform="translate(0,40)">';
+  const g=d.g||'16,160 384,160',pts=g.split(' '),fx=pts[0].split(',')[0],lx=pts[pts.length-1].split(',')[0];
+  s+=`<polygon points="${g} ${lx},200 ${fx},200" fill="url(#hs)" stroke="none"/><polyline points="${g}" class="ln"/>`;
+  s+=(d.hz||[]).map(([x,y,w,h])=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#hs)" class="ln"/>`).join('');
+  s+=(d.o||[]).map(p=>`<polyline points="${p}" class="ln"/>`).join('');
+  s+=(d.l||[]).map(a=>ln(...a)).join('');
+  s+=(d.pg||[]).map(p=>`<polygon points="${p}" class="pc"/>`).join('');
+  s+=(d.f||[]).map(([a,b,y])=>`<rect x="${a}" y="${y-1.5}" width="${b-a}" height="3" class="pc"/>`).join('');
+  s+=(d.tr||[]).map(([x,r,gy])=>ln(x,gy,x,gy-r*1.4)+`<circle cx="${x}" cy="${gy-r*2.3}" r="${r}" class="tr"/>`).join('');
+  s+=(d.lv||[]).map(([y,t])=>ln(356,y,392,y)+`<path d="M362 ${y} l-3.5 -6 h7z" class="fi"/>`+lab(368,y-6,t,'st')).join('');
+  return s+'</g>';
+}
+
+const ix=$('#ix'),caseLi=$('#case-li'),cs=$('#case');
+let cur=0,filt='all';
+function fill(i){
+  const d=P[i],no=n2(i);
+  $('#case-no').textContent=no;$('#case-t').textContent=d.nm;
+  $('#case-sub').textContent=`${d.ty} · ${d.pl} · ${d.yr} · ${d.ar} m²`;
+  $('#case-p').textContent=d.p;$('#case-cap').textContent=`Fig. ${no}.1 — ${d.fig}`;
+  $('#case-facts').innerHTML=d.f.map(([k,v])=>`<div><dt>${k}</dt><dd>${v}</dd></div>`).join('');
+  const im=$('#case-img'),src=U(d.img);
+  $('#case-fr').style.setProperty('--ar',d.asp);im.style.objectPosition=d.pos;im.alt=d.alt;
+  im.srcset=`${src(800)} 800w, ${src(1400)} 1400w, ${src(2000)} 2000w`;im.src=src(1400);
+  $('#dp-no').textContent=no+'.2';$('#ds-no').textContent=no+'.3';$$('.dy').forEach(e=>e.textContent=d.yr);
+  const sp=$('#svg-p'),ss=$('#svg-s');
+  sp.innerHTML=plan(d.plan,d.u);ss.innerHTML=section(d.sec);
+  sp.setAttribute('aria-label',`Floor plan of ${d.nm}, 1:200, with section line A–A`);ss.setAttribute('aria-label',`Section A–A through ${d.nm}`);
+  const nx=nextOf(i);$('#case-next').textContent=nx<0?'Back to the top of the index':`Next: ${n2(nx)} ${P[nx].nm}`;
+}
+const visible=()=>$$('#ix>li[data-i]').filter(li=>!li.hidden).map(li=>+li.dataset.i);
+function nextOf(i){const v=visible(),k=v.indexOf(i);return v.length>1?v[(k+1)%v.length]:-1}
+function open(i,scroll){
+  const li=$(`#ix>li[data-i="${i}"]`),before=li.getBoundingClientRect().top;
+  $$('#ix>li[data-i]').forEach(x=>{x.classList.toggle('is-open',x===li);x.querySelector('.row').setAttribute('aria-expanded',x===li)});
+  cur=i;fill(i);li.after(caseLi);caseLi.hidden=false;
+  window.scrollBy(0,li.getBoundingClientRect().top-before);
+  if(!reduce){cs.classList.remove('enter');$$('.dwg svg').forEach(s=>s.classList.remove('wipe'));void cs.offsetWidth;cs.classList.add('enter');$$('.dwg svg').forEach(s=>s.classList.add('wipe'))}
+  if(scroll)li.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+}
+function close(){
+  const li=$(`#ix>li[data-i="${cur}"]`);caseLi.hidden=true;
+  li.classList.remove('is-open');li.querySelector('.row').setAttribute('aria-expanded','false');li.querySelector('.row').focus();
+}
+ix.addEventListener('click',e=>{const b=e.target.closest('.row');if(!b)return;const i=+b.parentNode.dataset.i;
+  (i===cur&&!caseLi.hidden)?close():open(i,true)});
+$('#case-close').addEventListener('click',close);
+$('#case-next').addEventListener('click',()=>{const nx=nextOf(cur);if(nx<0){$('#projects').scrollIntoView({behavior:reduce?'auto':'smooth'});return}open(nx,true)});
+function setFilter(f){
+  filt=f;$$('.chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.f===f));
+  let n=0;$$('#ix>li[data-i]').forEach(li=>{const show=f==='all'||li.dataset.t===f;li.hidden=!show;if(show)n++});
+  const cl=$(`#ix>li[data-i="${cur}"]`);if(cl.hidden){caseLi.hidden=true;cl.classList.remove('is-open');cl.querySelector('.row').setAttribute('aria-expanded','false')}
+  else if(!caseLi.hidden)fill(cur);
+  $('#count').textContent=`Showing ${String(n).padStart(2,'0')} of 06`;
+}
+$$('.chip').forEach(c=>c.addEventListener('click',()=>setFilter(c.dataset.f)));
+$$('[data-jump]').forEach(a=>a.addEventListener('click',()=>setFilter(a.dataset.jump)));
+fill(0);
+
+/* mobile sheet */
+const mb=$('.menu-btn'),sh=$('#sheet');
+const setSheet=o=>{sh.hidden=!o;mb.setAttribute('aria-expanded',o);mb.textContent=o?'Close':'Menu'};
+mb.addEventListener('click',()=>setSheet(sh.hidden));
+sh.addEventListener('click',e=>{if(e.target.closest('a'))setSheet(false)});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!sh.hidden){setSheet(false);mb.focus()}});
+
+/* enquiry form */
+const fm=$('#enq'),done=$('#done');
+const err=(id,bad)=>{$('#e-'+id).hidden=!bad;$('#f-'+id).classList.toggle('bad',bad);$$(`#f-${id} input,#f-${id} textarea`).forEach(x=>x.setAttribute('aria-invalid',bad))};
+const val=()=>({type:(fm.querySelector('[name=type]:checked')||{}).value,town:fm.town.value.trim(),budget:(fm.querySelector('[name=budget]:checked')||{}).value,msg:fm.msg.value.trim()});
+fm.addEventListener('input',e=>{const v=val();if(e.target.name==='type')err('type',false);if(e.target.name==='budget')err('budget',false);if(e.target.id==='town'&&v.town)err('town',false);if(e.target.id==='msg'&&v.msg.length>=20)err('msg',false)});
+fm.addEventListener('submit',e=>{
+  e.preventDefault();const v=val(),bad={type:!v.type,town:!v.town,budget:!v.budget,msg:v.msg.length<20};
+  Object.keys(bad).forEach(k=>err(k,bad[k]));
+  const first=Object.keys(bad).find(k=>bad[k]);
+  if(first){(fm.querySelector(`#f-${first} input,#f-${first} textarea`)).focus();return}
+  const art={house:'a house',clinic:'a clinic',school:'a school',building:'a building'};
+  $('#d-type').textContent=art[v.type];$('#d-town').textContent=v.town;$('#d-budget').textContent=v.budget;
+  const t=new Date();$('#d-date').textContent=[t.getDate(),t.getMonth()+1,t.getFullYear()%100].map(x=>String(x).padStart(2,'0')).join('.');
+  $('#d-no').textContent='E-26-'+String(40+Math.floor(Math.random()*60)).padStart(3,'0');
+  fm.hidden=true;done.hidden=false;done.focus();
+});
+$('#again').addEventListener('click',()=>{fm.reset();done.hidden=true;fm.hidden=false;fm.querySelector('input').focus()});
+
+/* grid toggle */
+const gt=$('#grid-t');gt.addEventListener('click',()=>{const off=document.body.classList.toggle('grid-off');gt.setAttribute('aria-pressed',!off);gt.textContent='Grid lines: '+(off?'off':'on')});
+
+/* reveal below the fold */
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(en=>{if(en.isIntersecting){en.target.classList.add('is-in');io.unobserve(en.target)}}),{rootMargin:'0px 0px -8% 0px'});
+  $$('.rv').forEach(el=>io.observe(el));
+}else $$('.rv').forEach(el=>el.classList.add('is-in'));
+})();
+</script>
+</body>
+</html>
