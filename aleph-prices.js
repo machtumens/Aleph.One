@@ -1,7 +1,7 @@
 // Authoritative price data: "Aleph One Price list 2026" (PDF, 4 pages). Every price on index.html and site.html derives from here.
 window.ALEPH_PRICES = {
   currency: 'IDR',
-  whatsapp: '62XXXXXXXXXX', // TODO: studio WhatsApp number, international format without +
+  whatsapp: '6281511124199', // studio WhatsApp, international format without +
   tiers: [
     { id: 'basic', name: 'Basic', tagline: 'Business profile', desc: 'A clean business profile, easy to find on Google.', price: 1000000,
       pages: 'Up to 5', days: 7, revisions: 2, hosting: 'Static, free',
