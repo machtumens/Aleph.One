@@ -2,15 +2,16 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#070809">
 <title>Aleph One — Creative Technology</title>
-<meta name="description" content="We design and build websites from the business outward, so the first impression is yours and not a template's. Tangerang / Jakarta.">
+<meta name="description" content="Fixed-price websites and web applications from Jakarta. Full source code, accounts in your name, maintained after launch. From Rp 1.000.000.">
 <link rel="icon" type="image/png" href="./uploads/aleph-icon.png">
 <link rel="apple-touch-icon" href="./uploads/aleph-icon.png">
 <link rel="canonical" href="https://machtumens.github.io/Aleph.One/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Aleph One — Creative Technology">
-<meta property="og:description" content="We design and build websites from the business outward, so the first impression is yours and not a template's. Tangerang / Jakarta.">
+<meta property="og:title" content="Aleph One — Websites, built properly.">
+<meta property="og:description" content="Fixed-price websites and web applications from Jakarta. Full source code, accounts in your name, maintained after launch. From Rp 1.000.000.">
 <meta property="og:url" content="https://machtumens.github.io/Aleph.One/">
 <meta property="og:image" content="https://machtumens.github.io/Aleph.One/uploads/logo-1788542093578-5d6b.jpeg">
 <meta name="twitter:card" content="summary_large_image">
@@ -24,277 +25,578 @@
 <script src="./aleph-prices.js"></script>
 <script type="module" src="./aleph-rocket.js"></script>
 <style>
-body{margin:0;background:#070809;color:#EDEFF0;font-family:'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-size:16px;line-height:1.5}
-a{color:#35D6F0;text-decoration:none}a:hover{color:#EDEFF0}
+/* Phone first. Base rules are the phone layout; @media (min-width:900px) adds the laptop layout on top. */
+:root{--bg:#070809;--ink:#EDEFF0;--mute:#9BA1A4;--dim:#5C6367;--line:rgba(255,255,255,.13);--line2:rgba(255,255,255,.24);--cy:#35D6F0;--tan:#C8A77C;--glass:rgba(11,13,15,.66);--pad:20px;--disp:Archivo,sans-serif;--ease:cubic-bezier(.2,.7,.2,1);--st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px)}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+a{color:var(--cy);text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;-webkit-appearance:none;appearance:none;text-align:inherit}
 input,select,textarea{font:inherit;color:inherit}
-input::placeholder,textarea::placeholder{color:#5C6367}
+input::placeholder,textarea::placeholder{color:var(--dim)}
+:focus-visible{outline:2px solid var(--cy);outline-offset:3px}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
 @keyframes cueDrop{0%{transform:scaleY(0);transform-origin:top}45%{transform:scaleY(1);transform-origin:top}55%{transform:scaleY(1);transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
 @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
-@media (max-width:900px){[data-desktop]{display:none!important}}
-/* Phones: layouts are inline styles, so these hooks override them (!important beats inline). */
-@media (max-width:700px){
-[data-m-stack]{grid-template-columns:minmax(0,1fr)!important}
-[data-m-stack]>:empty{display:none}
-[data-m-stack]>*{position:static!important}
-[data-m-row]{grid-template-columns:minmax(0,1fr) auto auto!important;gap:6px 16px!important}
-[data-m-row]>:first-child{grid-column:1/-1}
-/* Index lists in the sticky scenes 01/02: the card already shows the active item, and both don't fit in 100vh. */
-[data-m-hide]{display:none!important}
-}
-/* A card poster and the full-screen world share the name "world"; the browser morphs one into the other. */
+@keyframes fade{from{opacity:0}}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+@keyframes nudgeX{0%,100%{transform:none}50%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+@media (max-width:899px){.only-d{display:none!important}}
+@media (min-width:900px){.only-m{display:none!important}}
+
+/* Swipe, not scroll: on touch screens every story beat is a snap point, so one swipe moves the launch one step.
+   A hard flick can still pass several. Long sections (prices, form) are single snap areas you scroll inside freely. */
+[data-sec]{position:relative}
+.h-hero{--h:160vh}.h-pre{--h:460vh}.h-eng{--h:640vh}.h-asm{--h:280vh}.h-ign{--h:400vh}.h-asc{--h:300vh}
+@supports (height:1svh){.h-hero{--h:160svh}.h-pre{--h:460svh}.h-eng{--h:640svh}.h-asm{--h:280svh}.h-ign{--h:400svh}.h-asc{--h:300svh}}
+.h-hero,.h-pre,.h-eng,.h-asm,.h-ign,.h-asc{height:var(--h)}
+.snap{position:absolute;left:0;width:1px;height:1px;opacity:0;pointer-events:none;top:calc(var(--t) * (var(--h) - 100vh))}
+@supports (height:1svh){.snap{top:calc(var(--t) * (var(--h) - 100svh))}}
+@media (pointer:coarse){html{scroll-snap-type:y mandatory}.snap,.snap-sec{scroll-snap-align:start}footer{scroll-snap-align:end}}
+
+/* type */
+.eyebrow{font-size:11px;letter-spacing:.09em;color:var(--mute);text-transform:uppercase}
+.h-xl,.h-l,.h-m,.h-card,.h-xxl,.h-giant{margin:0;font-family:var(--disp);font-weight:600;font-variation-settings:'wdth' 84;letter-spacing:-.04em}
+.h-xl{font-size:clamp(44px,13vw,96px);line-height:.9;margin-left:-2px}
+.h-l{font-size:clamp(36px,10vw,76px);line-height:.93;margin-left:-2px}
+.h-m{font-size:clamp(30px,8.4vw,52px);line-height:.95}
+.h-card{font-size:clamp(30px,8vw,40px);line-height:1;letter-spacing:-.03em;display:block}
+.h-xxl{font-size:clamp(42px,11.5vw,112px);line-height:.88;transition:opacity .6s,transform .7s var(--ease)}
+.h-giant{font-size:clamp(84px,24vw,220px);line-height:.84;letter-spacing:-.05em;margin-left:-4px}
+.lede{margin:0;color:var(--mute);max-width:54ch}
+.mute{color:var(--mute)}.cy{color:var(--cy)}.ink{color:var(--ink)}
+.fine{margin:0;font-size:12px;color:var(--dim);line-height:1.45}
+.price{display:inline-flex;align-items:flex-start;font-family:var(--disp);font-weight:300;font-variation-settings:'wdth' 100;font-size:clamp(46px,13vw,58px);line-height:1;letter-spacing:-.035em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.price .rp{font-size:13px;font-weight:500;letter-spacing:0;color:var(--tan);margin:.35em .35em 0 0}
+.price.sm{font-size:32px}.price.md{font-size:clamp(38px,10vw,48px)}
+/* add-on icons: masks built from the path data in aleph-prices.js at mount, so the raw template never holds an invalid <path d> */
+.ico{width:26px;height:26px;display:block;background:currentColor;-webkit-mask:var(--i) center/contain no-repeat;mask:var(--i) center/contain no-repeat}
+
+/* controls */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;min-height:56px;padding:0 26px;border-radius:999px;background:var(--ink);color:var(--bg);font-size:13px;font-weight:650;letter-spacing:.06em;transition:transform .16s var(--ease),box-shadow .4s,background .2s,color .2s;box-sizing:border-box}
+.btn:active{transform:scale(.97)}
+.btn-block{width:100%}
+.btn-ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1px var(--line2)}
+.btn-cy{background:var(--cy);color:var(--bg)}
+.btn-sm{min-height:44px;padding:0 18px;font-size:12px}
+@media (hover:hover){.btn:hover{transform:translateY(-2px)}.btn-ghost:hover{box-shadow:inset 0 0 0 1px var(--cy)}}
+.link{color:var(--ink);font-size:12px;letter-spacing:.06em;border-bottom:1px solid var(--cy);padding:6px 0 2px;min-height:32px}
+.pill{min-height:36px;padding:0 14px;border-radius:999px;font-size:11px;font-weight:650;letter-spacing:.08em;background:rgba(237,239,240,.1);box-shadow:inset 0 0 0 1px var(--line2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.glass{background:var(--glass);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border:1px solid var(--line);border-radius:18px}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 1px var(--line)}
+.seg button{min-height:40px;border-radius:999px;font-size:13px;font-weight:600;text-align:center;color:var(--mute);transition:background .25s var(--ease),color .2s}
+.seg button.on{background:var(--ink);color:var(--bg)}
+.rail{display:flex;gap:12px;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:none;margin:0 calc(-1*var(--pad));padding:2px var(--pad) 6px;scroll-padding:0 var(--pad)}
+.rail::-webkit-scrollbar{display:none}
+.hint{display:flex;align-items:center;gap:8px;font-size:11px;letter-spacing:.06em;color:var(--mute)}
+.hint i{font-style:normal;animation:nudgeX 1.6s var(--ease) infinite}
+
+/* chrome */
+.scene{position:fixed;top:0;left:0;width:100%;height:100vh;height:100lvh;z-index:0;display:block}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.shade{position:fixed;inset:0;z-index:1;pointer-events:none;background:var(--bg);transition:opacity .8s var(--ease)}
+.vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(0,0,0,.55))}
+.bar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(10px + var(--st)) var(--pad) 18px;background:linear-gradient(rgba(7,8,9,.78),rgba(7,8,9,0))}
+.bar-prog{position:absolute;left:0;top:0;height:2px;width:100%;background:var(--cy);transform-origin:left;transition:transform .2s linear}
+.brand{display:flex;align-items:center;gap:9px;min-height:44px;font-weight:650;font-size:15px;letter-spacing:-.01em}
+.brand img{height:22px;width:auto;filter:drop-shadow(0 0 6px rgba(53,214,240,.55))}
+.phase{display:flex;gap:10px;align-items:center;font-size:11px;letter-spacing:.08em;white-space:nowrap}
+.phase i{width:6px;height:6px;background:var(--cy);animation:blink 1.6s infinite;display:inline-block}
+.tel-m{position:fixed;z-index:19;top:calc(58px + var(--st));left:var(--pad);display:flex;gap:10px;padding:6px 10px;border-radius:999px;font-size:10px;letter-spacing:.06em;font-variant-numeric:tabular-nums;background:rgba(11,13,15,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:inset 0 0 0 1px var(--line);transition:opacity .4s,transform .4s var(--ease);opacity:0;transform:translateY(-6px);pointer-events:none}
+.tel-m.on{opacity:1;transform:none}.tel-m b{color:var(--mute);font-weight:500}
+.tel-d{position:fixed;right:40px;bottom:28px;z-index:20;opacity:0;transition:opacity .5s;display:grid;grid-template-columns:auto auto;gap:4px 18px;font-size:11px;font-variant-numeric:tabular-nums;text-align:right}
+.tel-d b{color:var(--mute);font-weight:500}.tel-d.on{opacity:1}
+.dock{position:fixed;z-index:25;left:12px;right:12px;bottom:calc(12px + var(--sb));display:flex;align-items:center;justify-content:space-between;gap:12px;padding:6px 6px 6px 18px;border-radius:999px;background:rgba(14,16,18,.8);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3);box-shadow:inset 0 0 0 1px var(--line),0 18px 40px rgba(0,0,0,.45);transform:translateY(calc(100% + 24px + var(--sb)));transition:transform .5s var(--ease)}
+.dock.on{transform:none}
+.dock-t{display:flex;flex-direction:column;min-width:0;line-height:1.25}
+.dock-k{font-size:10px;letter-spacing:.08em;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dock-v{font-family:var(--disp);font-weight:600;font-variation-settings:'wdth' 84;font-size:18px;letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+/* loader */
+.loader{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;justify-content:space-between;padding:calc(20px + var(--st)) var(--pad) calc(24px + var(--sb));box-sizing:border-box;transition:clip-path 1.4s cubic-bezier(.7,0,.3,1);will-change:clip-path}
+.loader-top,.loader-bot{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;font-size:11px;letter-spacing:.06em;color:var(--mute);transition:opacity .4s}
+.loader-logo{display:flex;align-items:center;justify-content:center;gap:clamp(14px,4vw,24px);transition:transform 1.4s cubic-bezier(.7,0,.3,1),opacity 1s .3s,filter 1.2s;will-change:transform,filter}
+.loader-logo img{height:clamp(62px,17vw,96px);width:auto;filter:drop-shadow(0 0 10px rgba(53,214,240,.55)) drop-shadow(0 0 2px rgba(53,214,240,.4))}
+.loader-logo span{font-family:var(--disp);font-weight:600;font-size:clamp(38px,11vw,84px);letter-spacing:-.04em;font-variation-settings:'wdth' 84;line-height:1}
+.loader-pct{font-family:var(--disp);font-weight:500;font-size:52px;line-height:.9;letter-spacing:-.03em;color:var(--ink);font-variation-settings:'wdth' 70;font-variant-numeric:tabular-nums}
+.loader-pct small{font-size:20px;color:var(--mute)}
+.loader-cue{display:flex;gap:12px;align-items:center;color:var(--ink);transition:opacity .6s}
+.loader-cue i{width:1px;height:28px;background:linear-gradient(var(--cy),transparent);animation:cueDrop 1.6s infinite}
+.loader-left{display:flex;flex-direction:column;gap:14px}
+
+/* sections */
+main{position:relative;z-index:2}
+.stick{position:sticky;top:0;height:100vh;height:100svh;box-sizing:border-box;padding:calc(72px + var(--st)) var(--pad) calc(92px + var(--sb));display:flex;flex-direction:column;justify-content:space-between;gap:20px}
+.flow{padding:14vh var(--pad) 10vh;display:flex;flex-direction:column;gap:28px;box-sizing:border-box}
+.sec-head{display:flex;flex-direction:column;gap:12px;max-width:820px;text-shadow:0 1px 2px rgba(0,0,0,.5),0 2px 18px rgba(0,0,0,.65)}
+.sec-head .lede{color:#B4BABD}
+/* 00 hero */
+.hero{justify-content:flex-end;padding-bottom:calc(28px + var(--sb))}
+.scrim{position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(rgba(7,8,9,0),rgba(7,8,9,.62) 45%,rgba(7,8,9,.9));pointer-events:none}
+.hero-in{position:relative;display:flex;flex-direction:column;gap:18px;transition:transform .24s var(--ease)}
+.facts{display:flex;flex-wrap:wrap;gap:6px}
+.facts span{font-size:12px;padding:7px 11px;border-radius:999px;background:rgba(11,13,15,.6);box-shadow:inset 0 0 0 1px var(--line);color:var(--mute)}
+.facts b{color:var(--ink);font-weight:600}
+.hold{font-size:11px;letter-spacing:.08em;color:var(--cy);text-align:center;transition:opacity .4s}
+/* 01 / 02 systems check */
+.col-a{display:flex;flex-direction:column;gap:14px}
+.index{display:flex;flex-direction:column;border-top:1px solid var(--line)}
+.index div{display:grid;grid-template-columns:28px 1fr auto;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);font-size:13px;transition:color .4s}
+.index b{font-weight:600;letter-spacing:.04em}
+.card{display:flex;flex-direction:column;gap:12px;padding:20px}
+.steps{display:flex;gap:4px}
+.steps i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.15);transition:background .4s}
+.steps i.done{background:rgba(237,239,240,.7)}.steps i.now{background:var(--cy)}
+.row-k{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.07em;color:var(--mute)}
+.card p{margin:0;font-size:16px;line-height:1.45}
+/* 03 assembly */
+.systems{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;font-size:11px;letter-spacing:.07em}
+.systems div{display:flex;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:12px;background:rgba(11,13,15,.62);box-shadow:inset 0 0 0 1px var(--line);transition:color .3s}
+.systems div:last-child{grid-column:1/-1}
+/* 04 ignition */
+.ign{align-items:flex-end;text-align:right}
+.count-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.count{font-family:var(--disp);font-weight:600;font-size:clamp(132px,40vw,340px);line-height:.8;letter-spacing:-.06em;font-variation-settings:'wdth' 70;font-variant-numeric:tabular-nums;transition:color .3s}
+/* 05 ascent */
+.asc{justify-content:flex-end;gap:18px}
+.asc-head{display:flex;flex-direction:column;gap:10px}
+.world{flex:0 0 min(42vw,210px);scroll-snap-align:center;display:flex;flex-direction:column;gap:10px}
+.poster{position:relative;display:block;overflow:hidden;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.5),inset 0 0 0 1px var(--line)}
+.poster img{width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .8s var(--ease)}
+.poster .open{position:absolute;right:10px;bottom:10px;padding:8px 11px;border-radius:999px;background:rgba(7,8,9,.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);font-size:10px;font-weight:650;letter-spacing:.08em;pointer-events:none}
+.world-meta{display:flex;flex-direction:column;gap:1px;font-size:10px;letter-spacing:.05em;color:var(--mute)}
+.world-meta b{color:var(--ink);font-weight:600;font-size:13px;letter-spacing:0}
+@media (hover:hover){.world:hover .poster img{transform:scale(1.03)}}
+/* 06 orbit */
+.orbit{min-height:100vh;min-height:100svh;justify-content:center;padding-top:24vh;gap:18px}
+/* 07 packages */
+.pkg-grid{display:grid;gap:12px;touch-action:pan-y}
+.pkg{display:none;flex-direction:column;gap:20px;padding:24px 22px;border-radius:20px;background:rgba(11,13,15,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:inset 0 0 0 1px var(--line);animation:rise .45s var(--ease) both}
+.pkg.on{display:flex;box-shadow:inset 0 0 0 1px var(--line2),inset 0 2px 0 var(--cy)}
+.pkg header{display:flex;flex-direction:column;gap:6px}
+.pkg-name{display:flex;align-items:center;gap:8px;font-family:var(--disp);font-weight:600;font-variation-settings:'wdth' 84;font-size:28px;letter-spacing:-.03em}
+.tan-dot{width:7px;height:7px;border-radius:50%;background:var(--tan)}
+.pkg-tag{font-size:14px;color:var(--mute)}
+.specs{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.specs div{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04)}
+.specs dt{font-size:11px;letter-spacing:.06em;color:var(--mute)}.specs dd{margin:0;font-weight:600;font-size:14px}
+.feats{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:9px;font-size:14px}
+.feats li{display:grid;grid-template-columns:14px 1fr;gap:10px}
+.feats li::before{content:'';width:6px;height:6px;margin-top:8px;border-radius:50%;background:var(--cy)}
+.feats li.carry{color:var(--mute)}.feats li.carry::before{background:var(--dim)}
+/* 08 configurator */
+.cfg{display:grid;gap:28px}
+.cfg-main{display:flex;flex-direction:column;gap:24px}
+.field{display:flex;flex-direction:column;gap:12px}
+.field-k{font-size:11px;letter-spacing:.09em;color:var(--mute)}
+.field-note{font-size:13px;color:var(--mute)}
+.addons{display:flex;flex-direction:column;gap:8px}
+.addon{display:grid;grid-template-columns:1fr auto;align-items:center;border-radius:16px;background:rgba(11,13,15,.62);box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .25s,background .25s}
+.addon.on{background:rgba(53,214,240,.07);box-shadow:inset 0 0 0 1px rgba(53,214,240,.45)}
+.addon-hit{display:grid;grid-template-columns:44px 1fr 14px;gap:12px;align-items:center;padding:12px 4px 12px 12px;min-height:64px;box-sizing:border-box}
+.addon-ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(53,214,240,.08);color:var(--cy)}
+.addon-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.addon-txt b{font-weight:600;font-size:15px;line-height:1.25}
+.addon-price{font-family:var(--disp);font-weight:500;font-variation-settings:'wdth' 84;font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}
+.addon-price em{font-style:normal;font-size:11px;font-family:'Instrument Sans',sans-serif;font-weight:400}
+.chev{color:var(--dim);font-size:22px;line-height:1}
+.sw-hit{min-width:62px;min-height:62px;display:grid;place-items:center}
+.sw{width:46px;height:28px;border-radius:999px;background:rgba(255,255,255,.14);position:relative;transition:background .25s;display:block}
+.sw i{position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--ink);transition:transform .25s var(--ease)}
+.addon.on .sw,.sw.on{background:var(--cy)}.addon.on .sw i,.sw.on i{transform:translateX(18px);background:var(--bg)}
+.qty{grid-column:1/-1;display:flex;align-items:center;gap:14px;padding:0 16px 14px 68px;font-size:13px;color:var(--mute)}
+.qty button{width:40px;height:40px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line2);font-size:18px;text-align:center;color:var(--ink)}
+.qty b{min-width:2ch;text-align:center;color:var(--ink);font-family:var(--disp);font-size:20px}
+.qty span{flex:1}
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.plan{display:flex;flex-direction:column;gap:10px;padding:14px;border-radius:16px;background:rgba(11,13,15,.62);box-shadow:inset 0 0 0 1px var(--line);transition:box-shadow .25s,background .25s}
+.plan.on{background:rgba(53,214,240,.07);box-shadow:inset 0 0 0 1px rgba(53,214,240,.55)}
+.plan-top{display:flex;justify-content:space-between;align-items:center;gap:6px;font-size:13px}
+.plan-top em{font-style:normal;font-size:10px;letter-spacing:.04em;color:var(--tan);white-space:nowrap}
+.plan-unit{font-size:12px;color:var(--mute)}.plan-unit s{color:var(--dim);margin-left:4px}
+.more{border-radius:16px;box-shadow:inset 0 0 0 1px var(--line);background:rgba(11,13,15,.5)}
+.more summary{list-style:none;display:flex;justify-content:space-between;align-items:center;min-height:52px;padding:0 16px;font-size:14px;font-weight:600;cursor:pointer}
+.more summary::-webkit-details-marker{display:none}
+.more summary::after{content:'+';font-size:20px;font-weight:300;color:var(--mute);transition:transform .25s}
+.more[open] summary::after{transform:rotate(45deg)}
+.more-in{padding:0 16px 16px;display:grid;gap:16px;font-size:13px}
+.more-in h4{margin:0 0 8px;font-size:12px;letter-spacing:.06em;color:var(--mute);font-weight:500}
+.more-in ul{margin:0;padding:0 0 0 16px;display:grid;gap:6px}
+.more-in .x li{color:var(--mute)}
+.resp{display:flex;gap:16px;align-items:center;padding:14px;border-radius:12px;background:rgba(200,167,124,.08)}
+.resp b{font-family:var(--disp);font-weight:300;font-size:34px;line-height:1;letter-spacing:-.03em;white-space:nowrap}
+.resp span{font-size:12px;color:var(--mute)}
+.input{width:100%;box-sizing:border-box;min-height:52px;padding:14px 16px;border-radius:14px;border:0;background:rgba(11,13,15,.62);box-shadow:inset 0 0 0 1px var(--line2);font-size:16px;outline:none;transition:box-shadow .2s}
+.input:focus{box-shadow:inset 0 0 0 1px var(--cy)}
+.input.bad{box-shadow:inset 0 0 0 1px #E2685A}
+textarea.input{resize:vertical;min-height:88px}
+select.input{background-image:linear-gradient(45deg,transparent 50%,var(--mute) 50%),linear-gradient(135deg,var(--mute) 50%,transparent 50%);background-position:calc(100% - 22px) 23px,calc(100% - 17px) 23px;background-size:5px 5px;background-repeat:no-repeat}
+select.input option{background:#111315}
+.summary{display:flex;flex-direction:column;gap:18px;padding:22px}
+.sum-rows{display:flex;flex-direction:column;border-top:1px solid var(--line);font-size:14px}
+.sum-rows div{display:grid;grid-template-columns:auto 1fr;gap:16px;padding:9px 0;border-bottom:1px solid var(--line)}
+.sum-rows span:first-child{color:var(--mute)}.sum-rows span:last-child{text-align:right}
+.pay{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pay div{display:flex;flex-direction:column;gap:4px;padding:12px;border-radius:12px;background:rgba(255,255,255,.04)}
+.pay span{font-size:11px;letter-spacing:.05em;color:var(--mute)}
+.pay b{font-family:var(--disp);font-weight:500;font-variation-settings:'wdth' 84;font-size:17px;font-variant-numeric:tabular-nums}
+.pay small{font-size:11px;color:var(--mute)}
+/* 09 start */
+.start{display:grid;gap:30px}
+.steps-rail{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1*var(--pad));padding:0 var(--pad)}
+.steps-rail::-webkit-scrollbar{display:none}
+.steps-rail span{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;background:rgba(11,13,15,.6);box-shadow:inset 0 0 0 1px var(--line);font-size:12px;white-space:nowrap}
+.steps-rail b{font-family:var(--disp);font-weight:300;color:var(--tan);font-size:15px}
+.process{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
+.process li{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--mute)}
+.process li>b{font-family:var(--disp);font-weight:300;font-size:26px;line-height:1;color:var(--tan)}
+.process strong{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
+.form{display:grid;gap:14px}
+.form label{display:flex;flex-direction:column;gap:8px;font-size:11px;letter-spacing:.08em;color:var(--mute)}
+.form label small{font-size:11px;letter-spacing:0;color:var(--dim)}
+.need{font-size:12px;color:#E2685A;letter-spacing:0}
+footer{position:relative;z-index:2;padding:32px var(--pad) calc(120px + var(--sb));display:flex;flex-direction:column;gap:14px;font-size:12px;color:var(--mute);border-top:1px solid var(--line)}
+footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}footer a{color:var(--mute)}
+/* add-on sheet: slides up on a phone (swipe down to close, sideways for the next add-on), a dialog on a laptop */
+.sheet-bg{position:fixed;inset:0;z-index:70;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);animation:fade .3s both}
+.sheet{position:fixed;z-index:71;left:0;right:0;bottom:0;max-height:88vh;max-height:88svh;overflow-y:auto;overscroll-behavior:contain;touch-action:pan-y;display:flex;flex-direction:column;gap:16px;padding:10px 22px calc(22px + var(--sb));box-sizing:border-box;border-radius:26px 26px 0 0;background:#0E1012;box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 -30px 80px rgba(0,0,0,.6);animation:sheetUp .45s var(--ease) both;transition:transform .3s var(--ease)}
+.sheet.drag{transition:none}
+.grab{align-self:center;width:40px;height:5px;border-radius:3px;background:rgba(255,255,255,.25)}
+.sheet-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.sheet-ico{width:64px;height:64px;border-radius:18px;display:grid;place-items:center;color:var(--cy);background:radial-gradient(circle at 30% 20%,rgba(53,214,240,.28),rgba(53,214,240,.04));box-shadow:inset 0 0 0 1px rgba(53,214,240,.35)}
+.sheet-ico .ico{width:36px;height:36px}
+.sheet-x{width:40px;height:40px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line2);font-size:22px;line-height:1;text-align:center;color:var(--mute)}
+.sheet h3{margin:0}
+.sheet-price{display:flex;align-items:baseline;gap:10px}
+.sheet p{margin:0;font-size:15px;line-height:1.5;color:#C8CDD0}
+.good{padding:12px 14px;border-radius:12px;background:rgba(200,167,124,.08);font-size:13px;color:var(--mute)}
+.good b{color:var(--tan);font-weight:600;font-size:11px;letter-spacing:.08em;display:block;margin-bottom:2px}
+.sheet-nav{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.sheet-nav button{width:44px;height:44px;border-radius:50%;box-shadow:inset 0 0 0 1px var(--line2);text-align:center;font-size:18px}
+.dots{display:flex;gap:6px;align-items:center}
+.dots i{width:6px;height:6px;border-radius:3px;background:rgba(255,255,255,.2);transition:width .3s var(--ease),background .3s}
+.dots i.on{background:var(--cy);width:18px}
+/* world overlay + final */
+.visit{position:fixed;inset:0;z-index:55;view-transition-name:world}
+.visit iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
+.visit-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;pointer-events:none;transition:opacity .6s}
+.visit-bar{position:absolute;left:50%;bottom:calc(14px + var(--sb));transform:translateX(-50%);display:flex;align-items:center;padding:5px;border-radius:999px;background:rgba(7,8,9,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:.06em;white-space:nowrap;box-shadow:0 12px 40px rgba(0,0,0,.35);color:var(--ink)}
+.visit-bar .back{min-height:40px;padding:0 16px;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:650}
+.visit-bar>span{padding:0 12px;color:var(--mute)}
+.final{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;justify-content:space-between;padding:calc(76px + var(--st)) var(--pad) calc(40px + var(--sb));box-sizing:border-box;pointer-events:none}
+.final-top{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.07em;color:var(--mute);animation:rise .8s both}
+.final-in{display:flex;flex-direction:column;gap:20px;animation:rise 1s both}
 ::view-transition-group(world){animation-duration:.8s;animation-timing-function:cubic-bezier(.7,0,.2,1)}
 ::view-transition-old(world),::view-transition-new(world){height:100%;object-fit:cover;object-position:top}
+
+/* laptop */
+@media (min-width:900px){
+  :root{--pad:40px}
+  .h-hero{--h:200vh}.h-pre{--h:600vh}.h-eng{--h:900vh}.h-asm{--h:360vh}.h-ign{--h:480vh}.h-asc{--h:320vh}
+  .stick{padding:110px var(--pad) 90px}
+  .hero{padding-bottom:90px}.hero-in{max-width:760px}.scrim{display:none}.hero-cta{width:auto;align-self:flex-start}.hold{text-align:left}
+  .split{display:grid;grid-template-columns:minmax(0,440px) 1fr minmax(0,440px);align-items:end;gap:40px}
+  .split .col-a{align-self:start}
+  .card{padding:24px 26px}
+  .systems{grid-template-columns:repeat(5,minmax(0,1fr));max-width:980px}.systems div:last-child{grid-column:auto}
+  .world{flex-basis:min(44vw,600px)}
+  .world-meta{flex-direction:row;justify-content:space-between;font-size:11px}
+  .flow{padding:16vh var(--pad) 12vh;gap:44px}
+  .seg-pkgs{display:none}
+  .pkg-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;align-items:stretch}
+  .pkg{display:flex;cursor:pointer;transition:box-shadow .3s,transform .3s var(--ease)}
+  .pkg:hover{transform:translateY(-3px)}
+  .cfg{grid-template-columns:minmax(0,1fr) minmax(360px,420px);gap:48px;align-items:start}
+  .summary{position:sticky;top:100px}
+  .addons{display:grid;grid-template-columns:1fr 1fr}
+  .start{grid-template-columns:minmax(300px,440px) minmax(0,1fr);gap:64px;align-items:start}
+  .start-side{position:sticky;top:100px}
+  .form{grid-template-columns:1fr 1fr}.form .wide{grid-column:1/-1}
+  .dock{left:50%;right:auto;width:min(560px,calc(100% - 80px));transform:translate(-50%,calc(100% + 40px))}
+  .dock.on{transform:translate(-50%,0)}
+  .sheet{left:50%;right:auto;bottom:auto;top:50%;width:520px;max-height:84vh;border-radius:24px;animation:fade .3s both;transform:translate(-50%,-50%)}
+  .grab{display:none}
+  footer{flex-direction:row;justify-content:space-between;padding:40px var(--pad) 120px}
+}
 </style>
 </helmet>
 
-<canvas ref="{{ canvasRef }}" style="position:fixed;inset:0;width:100%;height:100%;z-index:0;display:{{ canvasDisplay }}"></canvas>
+<canvas ref="{{ canvasRef }}" class="scene" style="display:{{ canvasDisplay }}"></canvas>
+<div class="shade" aria-hidden="true" style="opacity:{{ shadeOp }}"></div>
+<div class="vignette" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
 
-<!-- LOADER -->
-<div style="position:fixed;inset:0;z-index:60;background:#070809;display:flex;flex-direction:column;justify-content:space-between;padding:28px 40px;box-sizing:border-box;pointer-events:{{ loaderEvents }};clip-path:{{ tvClip }};transition:clip-path 1.4s cubic-bezier(.7,0,.3,1);will-change:clip-path">
-  <div style="display:flex;justify-content:space-between;font-size:12px;color:#9BA1A4;opacity:{{ tvChromeOp }};transition:opacity .4s"><span>ALEPH ONE — LAUNCH COMPLEX 01</span><span>{{ loaderStep }}</span></div>
-  <div style="display:flex;align-items:center;justify-content:center;gap:24px;transform:{{ tvLogoT }};opacity:{{ tvLogoOp }};filter:{{ tvLogoBlur }};transition:transform 1.4s cubic-bezier(.7,0,.3,1),opacity 1s .3s,filter 1.2s;will-change:transform,filter"><img src="uploads/aleph-mark.png" alt="" width="157" height="185" style="height:96px;width:auto;display:block;filter:drop-shadow(0 0 10px rgba(53,214,240,.55)) drop-shadow(0 0 2px rgba(53,214,240,.4))"><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,6vw,84px);letter-spacing:-.04em;font-variation-settings:'wdth' 84;line-height:1">aleph.one</span></div>
-  <div style="display:flex;justify-content:space-between;align-items:end;font-size:12px;color:#9BA1A4;opacity:{{ tvChromeOp }};transition:opacity .4s">
-    <span style="display:flex;flex-direction:column;gap:14px"><span style="font-family:Archivo,sans-serif;font-weight:500;font-size:56px;line-height:.9;letter-spacing:-.03em;color:#EDEFF0;font-variation-settings:'wdth' 70;font-variant-numeric:tabular-nums">{{ pct }}<span style="font-size:22px;color:#9BA1A4">%</span></span><span style="display:flex;gap:12px;align-items:center;letter-spacing:.06em;color:#EDEFF0;opacity:{{ cueOp }};transition:opacity .6s"><span style="width:1px;height:28px;background:linear-gradient(#35D6F0,transparent);animation:cueDrop 1.6s infinite"></span>SCROLL TO ENTER</span></span>
-    <button onClick="{{ skipToConfig }}" style="all:unset;cursor:pointer;color:#EDEFF0;border-bottom:1px solid #35D6F0;padding-bottom:2px">SKIP TO CONFIGURATOR</button></div>
+<!-- LOADER: tap, swipe or scroll to enter -->
+<div class="loader" onClick="{{ tapEnter }}" style="pointer-events:{{ loaderEvents }};clip-path:{{ tvClip }}">
+  <div class="loader-top" style="opacity:{{ tvChromeOp }}"><span>ALEPH ONE — LAUNCH COMPLEX 01</span><span>{{ loaderStep }}</span></div>
+  <div class="loader-logo" style="transform:{{ tvLogoT }};opacity:{{ tvLogoOp }};filter:{{ tvLogoBlur }}"><img src="uploads/aleph-mark.png" alt="" width="157" height="185"><span>aleph.one</span></div>
+  <div class="loader-bot" style="opacity:{{ tvChromeOp }}">
+    <span class="loader-left"><span class="loader-pct">{{ pct }}<small>%</small></span><span class="loader-cue" style="opacity:{{ cueOp }}"><i></i>{{ cueText }}</span></span>
+    <button class="link" onClick="{{ skipToPrices }}">SKIP TO PRICES</button>
+  </div>
 </div>
 
-<!-- HUD -->
-<nav style="position:fixed;top:0;left:0;right:0;z-index:20;padding:22px 40px;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;font-size:12px;color:#EDEFF0;mix-blend-mode:difference">
-  <button onClick="{{ goTop }}" style="all:unset;cursor:pointer;font-weight:600;font-size:14px;justify-self:start">aleph.one</button>
-  <span data-desktop style="display:flex;gap:10px;align-items:center;letter-spacing:.06em;white-space:nowrap"><span style="width:6px;height:6px;background:#35D6F0;animation:blink 1.6s infinite"></span>{{ phase }}</span>
-  <button onClick="{{ goConfig }}" style="all:unset;cursor:pointer;justify-self:end;font-weight:600;letter-spacing:.04em;white-space:nowrap" style-hover="color:#35D6F0">CONFIGURE MISSION</button>
-</nav>
-<div data-desktop style="position:fixed;right:40px;bottom:28px;z-index:20;display:grid;grid-template-columns:auto auto;gap:4px 18px;font-size:11px;font-variant-numeric:tabular-nums;color:#EDEFF0;mix-blend-mode:difference;text-align:right">
-  <span style="color:#9BA1A4">ALT</span><span>{{ telAlt }}</span><span style="color:#9BA1A4">THRUST</span><span>{{ telThrust }}</span><span style="color:#9BA1A4">CLOCK</span><span>{{ telClock }}</span><span style="color:#9BA1A4">RENDER</span><span>{{ telQuality }}</span>
+<!-- CHROME -->
+<header class="bar">
+  <span class="bar-prog" style="transform:scaleX({{ scrollFrac }})"></span>
+  <button class="brand" onClick="{{ goTop }}" aria-label="Aleph One, back to the launch pad"><img src="uploads/aleph-mark.png" alt="" width="157" height="185"><span>aleph.one</span></button>
+  <span class="phase only-d"><i></i>{{ phase }}</span>
+  <button class="pill" onClick="{{ goPrices }}">PRICES</button>
+</header>
+<div class="tel-m only-m {{ telCls }}" aria-hidden="true"><span><b>ALT</b> {{ telAlt }}</span><span><b>THR</b> {{ telThrust }}</span><span><b>T</b> {{ telClock }}</span></div>
+<div class="tel-d only-d {{ telDCls }}" aria-hidden="true"><b>ALT</b><span>{{ telAlt }}</span><b>THRUST</b><span>{{ telThrust }}</span><b>CLOCK</b><span>{{ telClock }}</span><b>RENDER</b><span>{{ telQuality }}</span></div>
+<div class="dock {{ dock.cls }}" aria-hidden="{{ dock.hidden }}">
+  <span class="dock-t"><span class="dock-k">{{ dock.k }}</span><span class="dock-v">{{ dock.v }}</span></span>
+  <button class="btn btn-sm" onClick="{{ dock.go }}" tabIndex="{{ dock.tab }}">{{ dock.cta }} <span aria-hidden="true">→</span></button>
 </div>
-<div style="position:fixed;left:40px;bottom:28px;z-index:20;font-size:11px;color:#EDEFF0;mix-blend-mode:difference;display:flex;gap:14px;align-items:center"><span style="font-variant-numeric:tabular-nums">{{ secNum }} / 11</span><span style="width:120px;height:1px;background:rgba(255,255,255,.2);position:relative"><span style="position:absolute;left:0;top:0;height:100%;width:{{ scrollPct }}%;background:#35D6F0"></span></span></div>
 
-<main style="position:relative;z-index:1">
+<main>
 
-<!-- 0 LAUNCH SITE -->
-<section data-sec="0" data-screen-label="00 Launch site" style="height:280vh;position:relative">
-  <div style="position:sticky;top:0;min-height:100vh;padding:100px 40px 70px;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,760px) 1fr;align-content:end;gap:40px">
-    <div style="display:flex;flex-direction:column;gap:32px;transform:{{ s0.nudgeY }};transition:transform .24s cubic-bezier(.2,.7,.2,1)">
-      <span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">LAUNCH COMPLEX 01 · T-MINUS HOLD</span>
-      <h1 style="margin:0 0 0 -4px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5.4vw,84px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84;opacity:{{ s0.h }};transform:translateY({{ s0.hy }}px);transition:opacity .5s,transform .6s">Most businesses don't need another website.<br><span style="color:#9BA1A4">They need a website that actually takes them somewhere.</span></h1>
-      <div style="display:grid;grid-template-rows:{{ s0.rows }};transition:grid-template-rows .6s cubic-bezier(.2,.7,.2,1),opacity .5s;opacity:{{ s0.p }}"><div style="overflow:hidden;display:flex;flex-direction:column;gap:14px">
-        <span style="font-size:12px;color:#5C6367">The usual choices</span>
-        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);max-width:720px">
-          <span style="background:rgba(7,8,9,.85);padding:14px 16px;font-size:14px">A cheap template</span><span style="background:rgba(7,8,9,.85);padding:14px 16px;font-size:14px">A freelancer on someone else's theme</span><span style="background:rgba(7,8,9,.85);padding:14px 16px;font-size:14px">An agency invoice</span><span style="background:rgba(7,8,9,.85);padding:14px 16px;font-size:14px">A beautiful site that never sells</span>
-        </div>
-        <p style="margin:6px 0 0;font-size:17px;color:#EDEFF0;max-width:52ch">Aleph One builds websites engineered around the business itself.</p>
-      </div></div>
-      <button onClick="{{ beginMission }}" style="all:unset;cursor:pointer;align-self:flex-start;display:flex;gap:18px;align-items:center;padding:18px 28px;background:#EDEFF0;color:#070809;font-size:13px;font-weight:600;letter-spacing:.04em;opacity:{{ s0.c }};transition:opacity .5s,transform .16s,box-shadow .4s;box-shadow:{{ s0.glow }}" style-hover="transform:translateY(-2px)">BEGIN MISSION <span style="font-family:Archivo,sans-serif">→</span></button>
-      <span style="font-size:12px;color:#35D6F0;letter-spacing:.06em;opacity:{{ s0.hold }};transition:opacity .4s">RANGE HOLD · BEGIN MISSION TO PROCEED</span>
+<!-- 00 LAUNCH SITE -->
+<section data-sec="0" data-screen-label="00 Launch site" class="h-hero">
+  <i class="snap" style="--t:0"></i><i class="snap" style="--t:1"></i>
+  <div class="stick hero">
+    <div class="scrim"></div>
+    <div class="hero-in" style="transform:{{ s0.nudgeY }}">
+      <span class="eyebrow">Launch complex 01 · Jakarta</span>
+      <h1 class="h-xl">Not another website.<br><span class="mute">One that takes you somewhere.</span></h1>
+      <div class="facts"><span>From <b>Rp 1.000.000</b></span><span>Fixed price</span><span>Code is yours</span></div>
+      <button class="btn btn-block hero-cta" onClick="{{ beginMission }}" style="box-shadow:{{ s0.glow }}">BEGIN MISSION <span aria-hidden="true">→</span></button>
+      <span class="hold" style="opacity:{{ s0.hold }}">TAP BEGIN MISSION TO LAUNCH</span>
     </div>
   </div>
 </section>
 
-<!-- 1 PRE-LAUNCH: THE PROBLEM -->
-<section data-sec="1" data-screen-label="01 Pre-launch" style="height:600vh;position:relative">
-  <div data-m-stack style="position:sticky;top:0;height:100vh;padding:110px 40px 80px;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,420px) 1fr minmax(0,460px);gap:40px;align-items:end">
-    <div style="display:flex;flex-direction:column;gap:24px;align-self:start">
-      <span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">PRE-LAUNCH · SYSTEMS CHECK</span>
-      <h2 style="margin:0;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(32px,3.4vw,52px);line-height:.94;letter-spacing:-.035em;font-variation-settings:'wdth' 84">A website has the same failure points as a launch vehicle.</h2>
-      <div data-m-hide style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.14)">
-        <sc-for list="{{ problems }}" as="p" hint-placeholder-count="5">
-          <div style="display:grid;grid-template-columns:28px 1fr auto;gap:14px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:13px;color:{{ p.color }};transition:color .4s"><span style="font-variant-numeric:tabular-nums">{{ p.n }}</span><span style="font-weight:600;letter-spacing:.04em">{{ p.part }}</span><span style="color:#9BA1A4">{{ p.sys }}</span></div>
-        </sc-for>
+<!-- 01 PRE-LAUNCH: THE PROBLEM -->
+<section data-sec="1" data-screen-label="01 Pre-launch" class="h-pre">
+  <i class="snap" style="--t:.1"></i><i class="snap" style="--t:.3"></i><i class="snap" style="--t:.5"></i><i class="snap" style="--t:.7"></i><i class="snap" style="--t:.9"></i>
+  <div class="stick split">
+    <div class="col-a">
+      <span class="eyebrow">Pre-launch · systems check</span>
+      <h2 class="h-m">Five ways a website fails.</h2>
+      <div class="index only-d">
+        <sc-for list="{{ problems }}" as="p" hint-placeholder-count="5"><div style="color:{{ p.color }}"><span>{{ p.n }}</span><b>{{ p.part }}</b><span class="mute">{{ p.sys }}</span></div></sc-for>
       </div>
     </div>
-    <div></div>
-    <div style="display:flex;flex-direction:column;gap:16px;border-left:1px solid #35D6F0;padding-left:24px;background:rgba(7,8,9,.55);padding:22px 24px;backdrop-filter:blur(8px)">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#9BA1A4;letter-spacing:.06em"><span>COMPONENT {{ activeProblem.n }}</span><span>{{ activeProblem.sys }}</span></div>
-      <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:40px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 84">{{ activeProblem.part }}</span>
-      <p style="margin:0;font-size:16px;color:#EDEFF0;line-height:1.5">{{ activeProblem.desc }}</p>
+    <div class="only-d"></div>
+    <div class="glass card" aria-live="polite">
+      <div class="steps" aria-hidden="true"><sc-for list="{{ problems }}" as="p" hint-placeholder-count="5"><i class="{{ p.step }}"></i></sc-for></div>
+      <div class="row-k"><span>{{ activeProblem.n }} / 05</span><span class="cy">{{ activeProblem.sys }}</span></div>
+      <span class="h-card">{{ activeProblem.part }}</span>
+      <p>{{ activeProblem.desc }}</p>
     </div>
   </div>
 </section>
 
-<!-- 2 SOLUTION -->
-<section data-sec="2" data-screen-label="02 Engineering" style="height:900vh;position:relative">
-  <div data-m-stack style="position:sticky;top:0;height:100vh;padding:110px 40px 80px;box-sizing:border-box;display:grid;grid-template-columns:minmax(0,460px) 1fr minmax(0,420px);gap:40px;align-items:end">
-    <div style="display:flex;flex-direction:column;gap:24px;align-self:start">
-      <span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">ENGINEERING · SPECIFICATION</span>
-      <h2 style="margin:0 0 0 -3px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5vw,76px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">So we built it differently.</h2>
-      <div data-m-hide style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.14)">
-        <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="7">
-          <div style="display:grid;grid-template-columns:28px 1fr auto;gap:14px;padding:11px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:13px;color:{{ p.color }};transition:color .4s"><span style="font-variant-numeric:tabular-nums">{{ p.n }}</span><span style="font-weight:600;letter-spacing:.04em">{{ p.name }}</span><span style="color:{{ p.stateColor }}">{{ p.state }}</span></div>
-        </sc-for>
+<!-- 02 ENGINEERING: THE SOLUTION -->
+<section data-sec="2" data-screen-label="02 Engineering" class="h-eng">
+  <i class="snap" style="--t:.07"></i><i class="snap" style="--t:.21"></i><i class="snap" style="--t:.36"></i><i class="snap" style="--t:.5"></i><i class="snap" style="--t:.64"></i><i class="snap" style="--t:.79"></i><i class="snap" style="--t:.93"></i>
+  <div class="stick split">
+    <div class="col-a">
+      <span class="eyebrow">Engineering</span>
+      <h2 class="h-l">So we built it differently.</h2>
+      <div class="index only-d">
+        <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="7"><div style="color:{{ p.color }}"><span>{{ p.n }}</span><b>{{ p.name }}</b><span style="color:{{ p.stateColor }}">{{ p.state }}</span></div></sc-for>
       </div>
     </div>
-    <div></div>
-    <div style="display:flex;flex-direction:column;gap:16px;background:rgba(7,8,9,.55);padding:22px 24px;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(8px)">
-      <div style="display:flex;justify-content:space-between;font-size:11px;color:#9BA1A4;letter-spacing:.06em"><span>SPEC {{ activePillar.n }} / 07</span><span style="color:#35D6F0">{{ activePillar.part }}</span></div>
-      <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:36px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 84">{{ activePillar.name }}</span>
-      <p style="margin:0;font-size:16px;line-height:1.5">{{ activePillar.desc }}</p>
-      <div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ activePillar.specs }}" as="s" hint-placeholder-count="2"><span style="font-size:11px;letter-spacing:.04em;padding:5px 8px;border:1px solid rgba(255,255,255,.2);color:#9BA1A4">{{ s }}</span></sc-for></div>
+    <div class="only-d"></div>
+    <div class="glass card" aria-live="polite">
+      <div class="steps" aria-hidden="true"><sc-for list="{{ pillars }}" as="p" hint-placeholder-count="7"><i class="{{ p.step }}"></i></sc-for></div>
+      <div class="row-k"><span>{{ activePillar.n }} / 07</span><span class="cy">{{ activePillar.part }}</span></div>
+      <span class="h-card">{{ activePillar.name }}</span>
+      <p>{{ activePillar.desc }}</p>
     </div>
   </div>
 </section>
 
-<!-- 3 ASSEMBLY -->
-<section data-sec="3" data-screen-label="03 Assembly" style="height:360vh;position:relative">
-  <div style="position:sticky;top:0;height:100vh;padding:110px 40px 90px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);max-width:900px;font-size:12px;letter-spacing:.06em">
-      <sc-for list="{{ systems }}" as="s" hint-placeholder-count="5"><div style="background:rgba(7,8,9,.7);padding:14px 16px;display:flex;justify-content:space-between;gap:12px;color:{{ s.color }};transition:color .3s"><span>{{ s.name }}</span><span style="font-weight:600">{{ s.state }}</span></div></sc-for>
-    </div>
-    <h2 style="margin:0 0 0 -4px;max-width:1100px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(44px,7.4vw,112px);line-height:.88;letter-spacing:-.04em;font-variation-settings:'wdth' 84;opacity:{{ s3.h }};transform:translateY({{ s3.hy }}px);transition:opacity .6s,transform .7s">WHAT IF YOUR WEBSITE COULD FEEL LIKE THIS?</h2>
+<!-- 03 ASSEMBLY -->
+<section data-sec="3" data-screen-label="03 Assembly" class="h-asm">
+  <i class="snap" style="--t:.35"></i><i class="snap" style="--t:.92"></i>
+  <div class="stick">
+    <div class="systems"><sc-for list="{{ systems }}" as="s" hint-placeholder-count="5"><div style="color:{{ s.color }}"><span>{{ s.name }}</span><b>{{ s.state }}</b></div></sc-for></div>
+    <h2 class="h-xxl" style="opacity:{{ s3.h }};transform:translateY({{ s3.hy }}px)">WHAT IF YOUR WEBSITE FELT LIKE THIS?</h2>
   </div>
 </section>
 
-<!-- 4 IGNITION -->
-<section data-sec="4" data-screen-label="04 Ignition" style="height:480vh;position:relative">
-  <div style="position:sticky;top:0;height:100vh;padding:110px 40px 90px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;align-items:flex-end;text-align:right">
-    <span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">{{ s4.label }}</span>
-    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:12px">
-      <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(120px,24vw,340px);line-height:.8;letter-spacing:-.06em;font-variation-settings:'wdth' 70;font-variant-numeric:tabular-nums;color:{{ s4.color }};transition:color .3s">{{ s4.count }}</span>
-      <span style="font-size:14px;color:#9BA1A4;max-width:40ch">{{ s4.sub }}</span>
-    </div>
+<!-- 04 IGNITION -->
+<section data-sec="4" data-screen-label="04 Ignition" class="h-ign">
+  <i class="snap" style="--t:.28"></i><i class="snap" style="--t:.66"></i><i class="snap" style="--t:.97"></i>
+  <div class="stick ign">
+    <span class="eyebrow">{{ s4.label }}</span>
+    <div class="count-wrap"><span class="count" style="color:{{ s4.color }}">{{ s4.count }}</span><span class="lede">{{ s4.sub }}</span></div>
   </div>
 </section>
 
-<!-- 5 ASCENT: PORTFOLIO -->
-<section data-sec="5" data-screen-label="05 Ascent / Portfolio" style="position:relative;padding:20vh 40px 10vh;box-sizing:border-box;display:flex;flex-direction:column;gap:14vh">
-  <div style="display:flex;flex-direction:column;gap:16px;max-width:800px"><span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">ASCENT · PAYLOAD MANIFEST</span><h2 style="margin:0 0 0 -3px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5vw,76px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">Nine sample missions. Each one a different world.</h2><p style="margin:0;color:#9BA1A4;max-width:56ch">Two are built and live: Morrow Coffee and Ace House. The other seven are concepts, built to show range. Open any of them and the site fills the screen; you never leave this page.</p></div>
-  <sc-for list="{{ worlds }}" as="w" hint-placeholder-count="10">
-    <div style="display:flex;justify-content:{{ w.align }}">
-      <button onClick="{{ w.open }}" aria-label="Enter {{ w.brand }} ({{ w.status }})" style="all:unset;cursor:pointer;width:min(100%,1040px);display:flex;flex-direction:column;gap:14px" style-focus-visible="outline:2px solid #35D6F0;outline-offset:8px">
-        <span style="position:relative;display:block;aspect-ratio:{{ w.ratio }};overflow:hidden;background:{{ w.bg }};box-shadow:0 40px 120px rgba(0,0,0,.5)">
-          <img data-poster="{{ w.slug }}" src="{{ w.poster }}" alt="{{ w.brand }}: {{ w.headline }}" loading="lazy" decoding="async" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block;transition:transform .8s cubic-bezier(.2,.7,.2,1)" style-hover="transform:scale(1.025)">
-          <span style="position:absolute;right:16px;bottom:16px;padding:10px 14px;background:rgba(7,8,9,.8);backdrop-filter:blur(8px);color:#EDEFF0;font-size:11px;font-weight:600;letter-spacing:.08em;pointer-events:none">ENTER SITE →</span>
-        </span>
-        <span style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px 16px;font-size:11px;letter-spacing:.06em;color:#9BA1A4;border-top:1px solid rgba(255,255,255,.14);padding-top:12px"><span>MISSION {{ w.n }} · <span style="color:#EDEFF0">{{ w.brand }}</span> · {{ w.category }}</span><span><span style="color:{{ w.statusColor }}">{{ w.status }}</span> · {{ w.tag }}</span></span>
-      </button>
-    </div>
-  </sc-for>
-</section>
-
-<!-- 6 ORBIT -->
-<section data-sec="6" data-screen-label="06 Orbit" style="min-height:100vh;padding:30vh 40px 20vh;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;gap:28px">
-  <span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">TRANS-LUNAR · BURN COMPLETE · COASTING</span>
-  <h2 style="margin:0 0 0 -5px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(72px,14vw,220px);line-height:.85;letter-spacing:-.05em;font-variation-settings:'wdth' 84">Your turn.</h2>
-  <p style="margin:0;font-size:18px;color:#9BA1A4;max-width:46ch">You have watched the mission. The next one is planned from here, and it is yours.</p>
-</section>
-
-<!-- 7 MISSION CLASSES -->
-<section data-sec="7" data-screen-label="07 Choose your mission" style="min-height:100vh;padding:14vh 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:56px">
-  <div style="display:flex;flex-direction:column;gap:16px;max-width:800px"><span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">MISSION SELECT</span><h2 style="margin:0 0 0 -3px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5vw,76px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">Choose your mission class.</h2><p style="margin:0;color:#9BA1A4;max-width:56ch">Three vehicle configurations. Prices are the studio's current list, before tax; half on start, half on handover.</p></div>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14)">
-    <sc-for list="{{ classes }}" as="c" hint-placeholder-count="3">
-      <button onClick="{{ c.select }}" style="all:unset;cursor:pointer;display:flex;flex-direction:column;gap:28px;padding:32px;background:{{ c.bg }};color:#EDEFF0;min-height:520px;box-sizing:border-box;transition:background .3s;border-top:2px solid {{ c.line }}" style-hover="background:rgba(53,214,240,.06)">
-        <div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.06em;color:#9BA1A4;white-space:nowrap"><span>CLASS {{ c.n }}</span><span style="color:#35D6F0">{{ c.badge }}</span></div>
-        <div style="display:flex;flex-direction:column;gap:8px"><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:48px;line-height:.9;letter-spacing:-.04em;font-variation-settings:'wdth' 84">{{ c.name }}</span><span style="font-size:13px;color:#9BA1A4">{{ c.tierName }} · {{ c.pagesLabel }} · {{ c.days }} working days</span></div>
-        <p style="margin:0;font-size:16px;color:#EDEFF0;max-width:36ch">{{ c.desc }}</p>
-        <div style="display:flex;flex-direction:column;gap:8px;font-size:14px;color:#9BA1A4;border-top:1px solid rgba(255,255,255,.14);padding-top:16px;flex:1"><sc-for list="{{ c.scope }}" as="s" hint-placeholder-count="4"><span>{{ s }}</span></sc-for></div>
-        <div style="display:flex;justify-content:space-between;align-items:end"><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:34px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 70;white-space:nowrap">{{ c.price }}</span><span style="font-size:12px;letter-spacing:.06em;color:{{ c.selColor }}">{{ c.selLabel }}</span></div>
-      </button>
-    </sc-for>
-  </div>
-</section>
-
-<!-- 8 WEBSITE TYPE -->
-<section data-sec="8" data-screen-label="08 Payload type" style="min-height:100vh;padding:14vh 40px;box-sizing:border-box;display:flex;flex-direction:column;gap:48px">
-  <div style="display:flex;flex-direction:column;gap:16px;max-width:800px"><span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">PAYLOAD TYPE</span><h2 style="margin:0 0 0 -3px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5vw,76px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">I want a</h2></div>
-  <div style="display:grid;grid-template-columns:minmax(0,420px) 1fr;gap:40px;align-items:start">
-    <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.14)">
-      <sc-for list="{{ types }}" as="t" hint-placeholder-count="9">
-        <button onClick="{{ t.select }}" style="all:unset;cursor:pointer;display:grid;grid-template-columns:20px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.14);font-family:Archivo,sans-serif;font-weight:600;font-size:26px;letter-spacing:-.02em;font-variation-settings:'wdth' 84;color:{{ t.color }};transition:color .2s,padding-left .2s" style-hover="color:#35D6F0;padding-left:8px"><span style="font-size:18px">{{ t.arrow }}</span><span>{{ t.name }}</span></button>
-      </sc-for>
-    </div>
-    <button onClick="{{ typeWorld.open }}" aria-label="Enter {{ typeWorld.brand }}" style="all:unset;cursor:pointer;min-height:520px;background:{{ typeWorld.bg }};color:{{ typeWorld.fg }};font-family:{{ typeWorld.font }};padding:32px 40px;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between;gap:32px;transition:background .5s,color .5s;box-shadow:0 40px 120px rgba(0,0,0,.5)" style-focus-visible="outline:2px solid #35D6F0;outline-offset:6px">
-      <span style="display:flex;justify-content:space-between;font-family:'Instrument Sans',sans-serif;font-size:12px;letter-spacing:.04em"><span style="font-weight:600">{{ typeWorld.brand }}</span><span style="opacity:.7">{{ typeWorld.category }}</span></span>
-      <span style="display:block;font-weight:{{ typeWorld.weight }};font-style:{{ typeWorld.italic }};font-size:clamp(40px,5vw,84px);line-height:.94;letter-spacing:{{ typeWorld.tracking }};font-variation-settings:{{ typeWorld.fvs }};max-width:14ch">{{ typeWorld.headline }}</span>
-      <span style="display:flex;justify-content:space-between;align-items:end;gap:24px;font-family:'Instrument Sans',sans-serif"><span style="font-size:15px;opacity:.85;max-width:40ch">{{ typeWorld.sub }}</span><span style="font-size:11px;letter-spacing:.06em;opacity:.7;white-space:nowrap">STEP INSIDE →</span></span>
-    </button>
-  </div>
-</section>
-
-<!-- 9 CONFIGURATOR -->
-<section data-sec="9" data-screen-label="09 Mission configuration" style="min-height:100vh;padding:14vh 40px;box-sizing:border-box;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:48px;align-items:start">
-  <div style="display:flex;flex-direction:column;gap:40px">
-    <div style="display:flex;flex-direction:column;gap:16px"><span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">MISSION CONFIGURATION</span><h2 style="margin:0 0 0 -3px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(40px,5vw,76px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">Configure the vehicle.</h2><p style="margin:0;color:#9BA1A4;max-width:56ch">Every switch changes the estimate and the timeline. Nothing here is a quote until we have talked.</p></div>
-    <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.2)">
-      <div data-m-stack style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">MISSION CLASS</span><div style="display:inline-grid;grid-auto-flow:column;grid-auto-columns:max-content;gap:1px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);align-self:start;justify-self:start"><sc-for list="{{ classes }}" as="c" hint-placeholder-count="3"><button onClick="{{ c.select }}" style="all:unset;cursor:pointer;padding:10px 16px;font-size:13px;font-weight:600;white-space:nowrap;background:{{ c.chipBg }};color:{{ c.chipFg }};transition:background .2s">{{ c.name }}</button></sc-for></div></div>
-      <div data-m-stack style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">PAYLOAD TYPE</span><span style="font-size:15px">{{ typeWorld.typeName }} <button onClick="{{ goTypes }}" style="all:unset;cursor:pointer;color:#35D6F0;margin-left:12px;font-size:12px;letter-spacing:.04em">CHANGE</button></span></div>
-      <div data-m-stack style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">PAGES</span><div style="display:flex;align-items:center;gap:18px"><button onClick="{{ pagesDown }}" style="all:unset;cursor:pointer;width:36px;height:36px;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:18px" style-hover="border-color:#35D6F0">−</button><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:28px;font-variation-settings:'wdth' 70;min-width:2ch;text-align:center">{{ cfg.pages }}</span><button onClick="{{ pagesUp }}" style="all:unset;cursor:pointer;width:36px;height:36px;border:1px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:18px" style-hover="border-color:#35D6F0">+</button><span style="font-size:13px;color:#9BA1A4">{{ pagesNote }}</span></div></div>
-      <sc-for list="{{ toggles }}" as="t" hint-placeholder-count="9">
-        <button onClick="{{ t.toggle }}" data-m-row style="all:unset;cursor:pointer;display:grid;grid-template-columns:180px 1fr auto auto;gap:24px;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center;color:#EDEFF0;transition:padding-left .16s" style-hover="padding-left:6px">
-          <span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">{{ t.label }}</span>
-          <span style="display:flex;flex-direction:column;gap:2px"><span style="font-size:15px">{{ t.name }}</span><span style="font-size:12px;color:#5C6367">{{ t.note }}</span></span>
-          <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:16px;font-variation-settings:'wdth' 70;white-space:nowrap;color:{{ t.priceColor }}">{{ t.price }}</span>
-          <span style="width:44px;height:22px;border:1px solid {{ t.swBorder }};position:relative;transition:border-color .2s"><span style="position:absolute;top:3px;left:{{ t.swLeft }}px;width:14px;height:14px;background:{{ t.swBg }};transition:left .2s,background .2s"></span></span>
+<!-- 05 ASCENT: SAMPLE SITES -->
+<section data-sec="5" data-screen-label="05 Ascent / Portfolio" class="h-asc">
+  <i class="snap" style="--t:.12"></i><i class="snap" style="--t:.55"></i><i class="snap" style="--t:.9"></i>
+  <div class="stick asc">
+    <div class="asc-head"><span class="eyebrow">Payload manifest</span><h2 class="h-m">Nine sample sites.</h2><span class="hint">Swipe to browse, tap to open <i aria-hidden="true">→</i></span></div>
+    <div class="rail" role="list" aria-label="Sample websites">
+      <sc-for list="{{ worlds }}" as="w" hint-placeholder-count="9">
+        <button class="world" role="listitem" onClick="{{ w.open }}" aria-label="Open {{ w.brand }} ({{ w.status }})">
+          <span class="poster" style="aspect-ratio:{{ w.ratio }};background:{{ w.bg }}"><img data-poster="{{ w.slug }}" src="{{ w.poster }}" alt="{{ w.brand }}: {{ w.headline }}" loading="lazy" decoding="async"><span class="open">OPEN →</span></span>
+          <span class="world-meta"><b>{{ w.brand }}</b><span>{{ w.category }} · <span style="color:{{ w.statusColor }}">{{ w.status }}</span></span></span>
         </button>
       </sc-for>
-      <div data-m-stack style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:center"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4">MAINTENANCE</span><div style="display:flex;flex-wrap:wrap;gap:6px"><sc-for list="{{ maint }}" as="m" hint-placeholder-count="5"><button onClick="{{ m.select }}" style="all:unset;cursor:pointer;padding:10px 14px;font-size:13px;background:{{ m.bg }};color:{{ m.fg }};border:1px solid rgba(255,255,255,.2);transition:background .2s;display:flex;gap:10px;white-space:nowrap"><span style="font-weight:600">{{ m.name }}</span><span style="opacity:.7">{{ m.price }}</span></button></sc-for></div></div>
-      <div data-m-stack style="display:grid;grid-template-columns:180px 1fr;gap:24px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.14);align-items:start"><span style="font-size:12px;letter-spacing:.06em;color:#9BA1A4;padding-top:10px">CUSTOM FEATURES</span><input value="{{ cfg.custom }}" onChange="{{ onCustom }}" placeholder="Anything not listed. Quoted separately after a call." style="all:unset;width:100%;box-sizing:border-box;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:15px"></div>
     </div>
-  </div>
-  <div style="position:sticky;top:100px;display:flex;flex-direction:column;gap:24px;padding:28px;border:1px solid rgba(255,255,255,.2);background:rgba(7,8,9,.7);backdrop-filter:blur(10px)">
-    <div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.06em;color:#9BA1A4"><span>MISSION CONFIGURATION</span><span style="color:#35D6F0">LIVE</span></div>
-    <div style="display:flex;flex-direction:column;font-size:14px;border-top:1px solid rgba(255,255,255,.14)">
-      <sc-for list="{{ summary }}" as="r" hint-placeholder-count="6"><div style="display:grid;grid-template-columns:1fr auto;gap:16px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.1)"><span style="color:#9BA1A4">{{ r.k }}</span><span style="text-align:right">{{ r.v }}</span></div></sc-for>
-    </div>
-    <div style="display:flex;flex-direction:column;gap:6px"><span style="font-size:11px;letter-spacing:.06em;color:#9BA1A4">ESTIMATED MISSION COST</span><span style="font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(36px,3.2vw,52px);line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 70;white-space:nowrap">{{ est.total }}</span><span style="font-size:13px;color:#9BA1A4">{{ est.recurring }}</span><span style="font-size:13px;color:#9BA1A4">Timeline {{ est.timeline }}</span></div>
-    <button onClick="{{ goProfile }}" style="all:unset;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:18px 22px;background:#EDEFF0;color:#070809;font-size:13px;font-weight:600;letter-spacing:.04em;transition:transform .16s" style-hover="transform:translateY(-2px)">READY FOR LAUNCH <span style="font-family:Archivo,sans-serif">→</span></button>
-    <span style="font-size:12px;color:#5C6367">{{ terms }}</span>
   </div>
 </section>
 
-<!-- 10 MISSION PROFILE + INQUIRY -->
-<section data-sec="10" data-screen-label="10 Mission profile" data-m-stack style="min-height:100vh;padding:14vh 40px 20vh;box-sizing:border-box;display:grid;grid-template-columns:minmax(300px,420px) minmax(0,1fr);gap:64px;align-items:start">
-  <div style="display:flex;flex-direction:column;gap:24px;position:sticky;top:100px">
-    <span style="font-size:12px;color:#9BA1A4;letter-spacing:.06em">MISSION PROFILE</span>
-    <div style="display:flex;flex-direction:column;font-size:14px;border-top:1px solid rgba(255,255,255,.2)">
-      <sc-for list="{{ profile }}" as="r" hint-placeholder-count="7"><div style="display:grid;grid-template-columns:130px 1fr;gap:16px;padding:12px 0;border-bottom:1px solid rgba(255,255,255,.12)"><span style="color:#9BA1A4;font-size:12px;letter-spacing:.04em;padding-top:2px">{{ r.k }}</span><span>{{ r.v }}</span></div></sc-for>
-    </div>
-    <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:40px;line-height:1;letter-spacing:-.03em;font-variation-settings:'wdth' 70">{{ est.total }}</span>
+<!-- 06 ORBIT -->
+<section data-sec="6" data-screen-label="06 Orbit" class="flow orbit snap-sec">
+  <span class="eyebrow">Trans-lunar coast</span>
+  <h2 class="h-giant">Your turn.</h2>
+  <p class="lede">The next mission is yours.</p>
+</section>
+
+<!-- 07 PACKAGES -->
+<section data-sec="7" data-screen-label="07 Packages" class="flow snap-sec" id="prices">
+  <div class="sec-head"><span class="eyebrow">Price list 2026</span><h2 class="h-l">Three packages. Fixed prices.</h2><p class="lede">Full source code. Hosting and domain in your name.</p></div>
+  <div class="seg seg-pkgs" role="tablist" aria-label="Package"><sc-for list="{{ pkgs }}" as="p" hint-placeholder-count="3"><button role="tab" aria-selected="{{ p.on }}" class="{{ p.onCls }}" onClick="{{ p.select }}">{{ p.name }}</button></sc-for></div>
+  <div class="pkg-grid" onTouchStart="{{ swipeStart }}" onTouchEnd="{{ pkgSwipe }}">
+    <sc-for list="{{ pkgs }}" as="p" hint-placeholder-count="3">
+      <article class="pkg {{ p.onCls }}" onClick="{{ p.select }}">
+        <header><span class="pkg-name">{{ p.name }}<sc-if value="{{ p.featured }}" hint-placeholder-val="{{ false }}"><i class="tan-dot" title="Recommended"></i></sc-if></span><span class="pkg-tag">{{ p.desc }}</span></header>
+        <span class="price"><span class="rp">Rp</span>{{ p.num }}</span>
+        <dl class="specs"><sc-for list="{{ p.specs }}" as="r" hint-placeholder-count="4"><div><dt>{{ r.k }}</dt><dd>{{ r.v }}</dd></div></sc-for></dl>
+        <ul class="feats"><sc-for list="{{ p.features }}" as="f" hint-placeholder-count="3"><li class="{{ f.cls }}">{{ f.t }}</li></sc-for></ul>
+        <button class="btn {{ p.btnCls }}" onClick="{{ p.choose }}">{{ p.cta }} <span aria-hidden="true">→</span></button>
+      </article>
+    </sc-for>
   </div>
-  <div style="display:flex;flex-direction:column;gap:32px">
-    <div style="display:flex;flex-direction:column;gap:12px"><h2 style="margin:0 0 0 -3px;font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(36px,4.4vw,64px);line-height:.92;letter-spacing:-.04em;font-variation-settings:'wdth' 84">Start your project.</h2><p style="margin:0;color:#9BA1A4;max-width:56ch">Only what we need to begin. The specification opens in WhatsApp with your configuration attached; reply there and we schedule the first call.</p></div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px 32px">
-      <label style="display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.06em;color:#9BA1A4">NAME<input value="{{ form.name }}" onChange="{{ onName }}" style="all:unset;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:16px;color:#EDEFF0"></label>
-      <label style="display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.06em;color:#9BA1A4">BUSINESS<input value="{{ form.business }}" onChange="{{ onBusiness }}" style="all:unset;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:16px;color:#EDEFF0"></label>
-      <label style="display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.06em;color:#9BA1A4">EMAIL<input type="email" value="{{ form.email }}" onChange="{{ onEmail }}" style="all:unset;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:16px;color:#EDEFF0"></label>
-      <label style="display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.06em;color:#9BA1A4">WEBSITE / SOCIAL<input value="{{ form.social }}" onChange="{{ onSocial }}" placeholder="instagram.com/…" style="all:unset;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:16px;color:#EDEFF0"></label>
-      <label style="display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.06em;color:#9BA1A4;grid-column:1/-1">WHAT THE BUSINESS DOES<textarea rows="2" value="{{ form.about }}" onChange="{{ onAbout }}" style="all:unset;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:16px;color:#EDEFF0;resize:vertical"></textarea></label>
-      <label style="display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.06em;color:#9BA1A4;grid-column:1/-1">ADDITIONAL REQUIREMENTS<textarea rows="2" value="{{ form.extra }}" onChange="{{ onExtra }}" style="all:unset;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:16px;color:#EDEFF0;resize:vertical"></textarea></label>
-      <label style="display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.06em;color:#9BA1A4">BUDGET RANGE<select value="{{ form.budget }}" onChange="{{ onBudget }}" style="all:unset;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:16px;color:#EDEFF0;background:transparent"><option value="Under Rp 1.000.000">Under Rp 1.000.000</option><option value="Rp 1.000.000 – 2.000.000">Rp 1.000.000 – 2.000.000</option><option value="Rp 2.000.000 – 5.000.000">Rp 2.000.000 – 5.000.000</option><option value="Above Rp 5.000.000">Above Rp 5.000.000</option></select></label>
-      <label style="display:flex;flex-direction:column;gap:6px;font-size:11px;letter-spacing:.06em;color:#9BA1A4">PREFERRED TIMELINE<select value="{{ form.when }}" onChange="{{ onWhen }}" style="all:unset;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.25);font-size:16px;color:#EDEFF0;background:transparent"><option value="This week">This week</option><option value="This month">This month</option><option value="This quarter">This quarter</option><option value="Flexible">Flexible</option></select></label>
-      <label style="display:flex;flex-direction:column;gap:10px;font-size:11px;letter-spacing:.06em;color:#9BA1A4;grid-column:1/-1">PROJECT MATERIALS<span style="border:1px dashed rgba(255,255,255,.3);padding:22px;display:flex;justify-content:space-between;align-items:center;gap:16px;cursor:pointer;font-size:14px;letter-spacing:0;color:#EDEFF0"><span>Brand guidelines, logos, catalogues, references, existing site, images</span><span style="color:#35D6F0;font-size:12px;letter-spacing:.04em;white-space:nowrap">{{ filesLabel }}</span></span><input type="file" multiple onChange="{{ onFiles }}" style="display:none"></label>
+  <span class="hint only-m">Swipe the card to compare <i aria-hidden="true">→</i></span>
+  <details class="more"><summary>Included in every package</summary><div class="more-in"><ul><sc-for list="{{ included }}" as="i" hint-placeholder-count="10"><li>{{ i }}</li></sc-for></ul></div></details>
+</section>
+
+<!-- 08 CONFIGURATOR -->
+<section data-sec="8" data-screen-label="08 Configure" class="flow cfg snap-sec">
+  <div class="cfg-main">
+    <div class="sec-head"><span class="eyebrow">Configure</span><h2 class="h-l">Build your package.</h2></div>
+    <div class="field">
+      <span class="field-k">PACKAGE</span>
+      <div class="seg" role="radiogroup" aria-label="Package"><sc-for list="{{ pkgs }}" as="p" hint-placeholder-count="3"><button role="radio" aria-checked="{{ p.on }}" class="{{ p.onCls }}" onClick="{{ p.select }}">{{ p.name }}</button></sc-for></div>
+      <span class="field-note">{{ tierNote }}</span>
     </div>
-    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><button onClick="{{ submit }}" style="all:unset;cursor:pointer;display:flex;gap:18px;align-items:center;padding:20px 32px;background:#EDEFF0;color:#070809;font-size:13px;font-weight:600;letter-spacing:.04em;transition:transform .16s" style-hover="transform:translateY(-2px)">START YOUR PROJECT <span style="font-family:Archivo,sans-serif">→</span></button><span style="font-size:12px;color:#5C6367">{{ submitNote }}</span></div>
+    <div class="field">
+      <span class="field-k">ADD-ONS · TAP ONE TO SEE WHAT IT DOES</span>
+      <div class="addons">
+        <sc-for list="{{ addonRows }}" as="a" hint-placeholder-count="6">
+          <div class="addon {{ a.onCls }}">
+            <button class="addon-hit" onClick="{{ a.open }}" aria-label="{{ a.name }}, details">
+              <span class="addon-ico"><span class="ico ico-{{ a.id }}" aria-hidden="true"></span></span>
+              <span class="addon-txt"><b>{{ a.name }}</b><span class="addon-price">{{ a.price }} <em>{{ a.unit }}</em></span></span>
+              <span class="chev" aria-hidden="true">›</span>
+            </button>
+            <button class="sw-hit" role="switch" aria-checked="{{ a.on }}" aria-label="Add {{ a.name }}" onClick="{{ a.toggle }}"><span class="sw"><i></i></span></button>
+            <sc-if value="{{ a.qtyOn }}" hint-placeholder-val="{{ false }}"><div class="qty"><span>Integrations</span><button onClick="{{ a.dec }}" aria-label="One fewer integration">−</button><b>{{ a.qty }}</b><button onClick="{{ a.inc }}" aria-label="One more integration">+</button></div></sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+    <div class="field">
+      <span class="field-k">MAINTENANCE · SAME FOR EVERY PACKAGE</span>
+      <div class="plans" role="radiogroup" aria-label="Maintenance billing">
+        <sc-for list="{{ plans }}" as="m" hint-placeholder-count="2">
+          <button class="plan {{ m.onCls }}" role="radio" aria-checked="{{ m.on }}" onClick="{{ m.select }}">
+            <span class="plan-top"><b>{{ m.name }}</b><em>{{ m.badge }}</em></span>
+            <span class="price sm"><span class="rp">Rp</span>{{ m.num }}</span>
+            <span class="plan-unit">{{ m.unit }}<s>{{ m.was }}</s></span>
+          </button>
+        </sc-for>
+      </div>
+      <details class="more">
+        <summary>What maintenance covers</summary>
+        <div class="more-in">
+          <p class="fine" style="font-size:13px">{{ planNote }}</p>
+          <div><h4>WHAT WE DO</h4><ul><sc-for list="{{ maintDoes }}" as="i" hint-placeholder-count="6"><li>{{ i }}</li></sc-for></ul></div>
+          <div><h4>NOT INCLUDED</h4><ul class="x"><sc-for list="{{ maintExcludes }}" as="i" hint-placeholder-count="4"><li>{{ i }}</li></sc-for></ul></div>
+          <div class="resp"><b>{{ resp.value }}</b><span>{{ resp.note }}</span></div>
+        </div>
+      </details>
+    </div>
+    <div class="field">
+      <label class="field-k" for="f-custom">ANYTHING ELSE?</label>
+      <input id="f-custom" class="input" value="{{ cfg.custom }}" onChange="{{ onCustom }}" placeholder="A feature not listed. Quoted after a call.">
+    </div>
+  </div>
+  <aside class="summary glass" aria-label="Your estimate" aria-live="polite">
+    <div class="row-k"><span>YOUR PACKAGE</span><span class="cy">LIVE</span></div>
+    <div class="sum-rows"><sc-for list="{{ summary }}" as="r" hint-placeholder-count="4"><div><span>{{ r.k }}</span><span>{{ r.v }}</span></div></sc-for></div>
+    <div style="display:flex;flex-direction:column;gap:6px"><span class="field-k">PROJECT PRICE</span><span class="price md"><span class="rp">Rp</span>{{ est.num }}</span></div>
+    <div class="pay">
+      <div><span>DEPOSIT · 50%</span><b>{{ est.deposit }}</b><small>to start</small></div>
+      <div><span>BEFORE LAUNCH</span><b>{{ est.final }}</b><small>+ {{ est.maint }}</small></div>
+    </div>
+    <button class="btn btn-block" onClick="{{ goProfile }}">READY FOR LAUNCH <span aria-hidden="true">→</span></button>
+  </aside>
+</section>
+
+<!-- 09 START -->
+<section data-sec="9" data-screen-label="09 Start your project" class="flow start snap-sec">
+  <div class="start-side">
+    <span class="eyebrow">How we work</span>
+    <div class="steps-rail only-m" style="margin-top:12px"><sc-for list="{{ process }}" as="p" hint-placeholder-count="5"><span><b>{{ p.n }}</b>{{ p.t }}</span></sc-for></div>
+    <ol class="process only-d" style="margin-top:12px"><sc-for list="{{ process }}" as="p" hint-placeholder-count="5"><li><b>{{ p.n }}</b><span><strong>{{ p.t }}</strong>{{ p.d }}</span></li></sc-for></ol>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:24px">
+    <div class="sec-head"><h2 class="h-l">Start your project.</h2><p class="lede">Your package opens in WhatsApp. Reply there and we book the first call.</p></div>
+    <div class="form">
+      <label for="f-name">NAME <span class="need">{{ need.name }}</span><input id="f-name" class="input {{ bad.name }}" autocomplete="name" value="{{ form.name }}" onChange="{{ onName }}"></label>
+      <label for="f-business">BUSINESS <span class="need">{{ need.business }}</span><input id="f-business" class="input {{ bad.business }}" autocomplete="organization" value="{{ form.business }}" onChange="{{ onBusiness }}"></label>
+      <label for="f-when" class="wide">WHEN DO YOU WANT TO START<select id="f-when" class="input" value="{{ form.when }}" onChange="{{ onWhen }}"><option value="This week">This week</option><option value="This month">This month</option><option value="This quarter">This quarter</option><option value="Flexible">Flexible</option></select></label>
+    </div>
+    <details class="more"><summary>Add more details (optional)</summary><div class="more-in"><div class="form">
+      <label for="f-social">INSTAGRAM OR WEBSITE<input id="f-social" class="input" inputMode="url" value="{{ form.social }}" onChange="{{ onSocial }}" placeholder="instagram.com/…"></label>
+      <label for="f-email">EMAIL<input id="f-email" class="input" type="email" inputMode="email" autocomplete="email" value="{{ form.email }}" onChange="{{ onEmail }}"></label>
+      <label for="f-about" class="wide">WHAT THE BUSINESS DOES<textarea id="f-about" class="input" rows="2" value="{{ form.about }}" onChange="{{ onAbout }}"></textarea></label>
+    </div></div></details>
+    <button class="btn btn-block" onClick="{{ submit }}">SEND ON WHATSAPP <span aria-hidden="true">→</span></button>
+    <p class="fine" role="status">{{ submitNote }}</p>
+    <details class="more"><summary>Terms</summary><div class="more-in"><ul><sc-for list="{{ terms }}" as="t" hint-placeholder-count="9"><li>{{ t }}</li></sc-for></ul></div></details>
   </div>
 </section>
 
-<footer style="position:relative;padding:40px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;font-size:12px;color:#9BA1A4;border-top:1px solid rgba(255,255,255,.12)"><span>ALEPH ONE — Creative technology studio, Tangerang / Jakarta</span><span style="display:flex;gap:24px"><a href="#" style="color:#9BA1A4">Instagram</a><a href="#" style="color:#9BA1A4">LinkedIn</a><a href="{{ waHref }}" style="color:#9BA1A4">WhatsApp</a><span>© 2026</span></span></footer>
+<footer><span>ALEPH ONE — Creative technology studio, Jakarta, Indonesia</span><nav><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="{{ waHref }}">WhatsApp</a><span>© 2026</span></nav></footer>
 </main>
+
+<!-- ADD-ON SHEET -->
+<sc-if value="{{ sheet }}" hint-placeholder-val="{{ false }}">
+  <div class="sheet-bg" onClick="{{ sheet.close }}"></div>
+  <div class="sheet" role="dialog" aria-modal="true" aria-label="{{ sheet.name }}" onTouchStart="{{ sheet.ts }}" onTouchMove="{{ sheet.tm }}" onTouchEnd="{{ sheet.te }}">
+    <span class="grab only-m" aria-hidden="true"></span>
+    <div class="sheet-top"><span class="sheet-ico"><span class="ico ico-{{ sheet.id }}" aria-hidden="true"></span></span><button class="sheet-x" onClick="{{ sheet.close }}" aria-label="Close">×</button></div>
+    <div style="display:flex;flex-direction:column;gap:6px"><span class="eyebrow">{{ sheet.sub }}</span><h3 class="h-card">{{ sheet.name }}</h3></div>
+    <span class="sheet-price"><span class="price md"><span class="rp">Rp</span>{{ sheet.num }}</span><span class="field-note">{{ sheet.unit }}</span></span>
+    <ul class="feats"><sc-for list="{{ sheet.benefits }}" as="b" hint-placeholder-count="3"><li>{{ b }}</li></sc-for></ul>
+    <div class="good"><b>GOOD FOR</b>{{ sheet.goodFor }}</div>
+    <button class="btn btn-block {{ sheet.btnCls }}" onClick="{{ sheet.toggle }}">{{ sheet.cta }}</button>
+    <div class="sheet-nav"><button onClick="{{ sheet.prev }}" aria-label="Previous add-on">←</button><span class="dots" aria-hidden="true"><sc-for list="{{ sheet.dots }}" as="d" hint-placeholder-count="6"><i class="{{ d }}"></i></sc-for></span><button onClick="{{ sheet.next }}" aria-label="Next add-on">→</button></div>
+  </div>
+</sc-if>
 
 <!-- WORLD: a sample site opened full-screen in place. The poster covers the iframe until it has loaded. -->
 <sc-if value="{{ visit }}" hint-placeholder-val="{{ false }}">
-  <div role="dialog" aria-modal="true" aria-label="{{ visit.brand }}" style="position:fixed;inset:0;z-index:55;background:{{ visit.bg }};view-transition-name:world">
-    <iframe src="{{ visit.src }}" title="{{ visit.brand }}" onLoad="{{ worldLoaded }}" style="position:absolute;inset:0;width:100%;height:100%;border:0;display:block"></iframe>
-    <img src="{{ visit.poster }}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;pointer-events:none;opacity:{{ visit.posterOp }};transition:opacity .6s">
-    <div style="position:absolute;left:50%;bottom:16px;transform:translateX(-50%);display:flex;align-items:center;padding:5px;background:rgba(7,8,9,.84);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:#EDEFF0;font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:.06em;white-space:nowrap;box-shadow:0 12px 40px rgba(0,0,0,.35)">
-      <button onClick="{{ closeWorld }}" style="all:unset;cursor:pointer;padding:10px 14px;background:#EDEFF0;color:#070809;font-weight:600" style-focus-visible="outline:2px solid #35D6F0;outline-offset:2px">← ALEPH ONE</button>
-      <span style="padding:0 12px;color:#9BA1A4"><span data-desktop>MISSION {{ visit.n }} · </span><span style="color:#EDEFF0">{{ visit.brand }}</span> · {{ visit.status }}</span>
-      <sc-if value="{{ visit.live }}" hint-placeholder-val="{{ false }}"><a href="{{ visit.live }}" target="_blank" rel="noopener" style="padding:10px 12px 10px 0;color:#35D6F0">OPEN ↗</a></sc-if>
+  <div class="visit" role="dialog" aria-modal="true" aria-label="{{ visit.brand }}" style="background:{{ visit.bg }}">
+    <iframe src="{{ visit.src }}" title="{{ visit.brand }}" onLoad="{{ worldLoaded }}"></iframe>
+    <img class="visit-poster" src="{{ visit.poster }}" alt="" style="opacity:{{ visit.posterOp }}">
+    <div class="visit-bar">
+      <button class="back" onClick="{{ closeWorld }}">← ALEPH ONE</button>
+      <span><span class="only-d">MISSION {{ visit.n }} · </span><span style="color:var(--ink)">{{ visit.brand }}</span> · {{ visit.status }}</span>
+      <sc-if value="{{ visit.live }}" hint-placeholder-val="{{ false }}"><a href="{{ visit.live }}" target="_blank" rel="noopener" style="padding:10px 12px 10px 0">OPEN ↗</a></sc-if>
     </div>
   </div>
 </sc-if>
 
-<!-- 11 FINAL -->
+<!-- 10 FINAL -->
 <sc-if value="{{ launched }}" hint-placeholder-val="{{ false }}">
-  <div style="position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;justify-content:space-between;padding:110px 40px 90px;box-sizing:border-box;pointer-events:none;color:#EDEFF0">
-    <div style="display:flex;justify-content:space-between;font-size:12px;letter-spacing:.06em;color:#9BA1A4;animation:rise .8s both"><span>{{ finalStage }}</span><span>MISSION {{ missionId }}</span></div>
+  <div class="final">
+    <div class="final-top"><span>{{ finalStage }}</span><span>MISSION {{ missionId }}</span></div>
     <sc-if value="{{ finalText }}" hint-placeholder-val="{{ false }}">
-      <div style="display:flex;flex-direction:column;gap:24px;animation:rise 1s both">
-        <span style="font-family:Archivo,sans-serif;font-weight:600;font-size:clamp(56px,9vw,140px);line-height:.88;letter-spacing:-.04em;font-variation-settings:'wdth' 84">MISSION ACCEPTED</span>
-        <span style="font-size:13px;letter-spacing:.1em">ALEPH ONE</span>
-        <span style="font-family:Archivo,sans-serif;font-weight:500;font-size:clamp(22px,2.4vw,34px);letter-spacing:-.02em;color:#9BA1A4;max-width:30ch">Let's build something that goes somewhere.</span>
-        <button onClick="{{ resetAll }}" style="all:unset;cursor:pointer;pointer-events:auto;align-self:flex-start;margin-top:12px;font-size:12px;letter-spacing:.06em;color:#EDEFF0;border-bottom:1px solid #35D6F0">BACK TO THE PAD</button>
+      <div class="final-in">
+        <span class="h-xxl" style="opacity:1">MISSION ACCEPTED</span>
+        <span class="h-m mute" style="font-weight:500;max-width:22ch">Let's build something that goes somewhere.</span>
+        <button class="link" onClick="{{ resetAll }}" style="pointer-events:auto;align-self:flex-start">BACK TO THE PAD</button>
       </div>
     </sc-if>
   </div>
@@ -303,53 +605,62 @@ input::placeholder,textarea::placeholder{color:#5C6367}
 <script type="text/x-dc" data-dc-script data-props="{}">
 class Component extends DCLogic {
   canvasRef = React.createRef();
-  state = { quality: 'standard', steps: 0, locked: false, loaderGone: false, ready: false, entering: false, sec: 0, local: 0, scrollPct: 0, tel: { alt: 0, thrust: 0 }, tierIdx: 1, typeIdx: 0, pages: 5, opts: {}, maint: 'none', custom: '',
-    form: { name: '', business: '', email: '', social: '', about: '', extra: '', budget: 'Rp 1.000.000 – 2.000.000', when: 'This month' }, files: 0, launched: false, launchAt: 0, finalT: 0, visit: null, visitLoaded: false };
-  PHASES = ['LAUNCH SITE', 'PRE-LAUNCH', 'ENGINEERING', 'ASSEMBLY', 'IGNITION', 'ASCENT', 'ORBIT', 'MISSION SELECT', 'PAYLOAD TYPE', 'CONFIGURATION', 'MISSION SPEC'];
+  state = { quality: 'standard', steps: 0, locked: false, loaderGone: false, ready: false, entering: false, sec: 0, local: 0, scrollPct: 0, tel: { alt: 0, thrust: 0 }, tierIdx: 1, addons: {}, apiQty: 1, maint: 'annual', custom: '', sheet: null,
+    form: { name: '', business: '', email: '', social: '', about: '', when: 'This month' }, tried: false, launched: false, launchAt: 0, finalT: 0, visit: null, visitLoaded: false };
+  PHASES = ['LAUNCH SITE', 'PRE-LAUNCH', 'ENGINEERING', 'ASSEMBLY', 'IGNITION', 'ASCENT', 'ORBIT', 'PACKAGES', 'CONFIGURE', 'MISSION PROFILE'];
   PROBLEMS = [
-    ['THE BODY', 'BRAND', 'The structure everyone sees first. A business needs an identity that holds at a glance, and a template borrows someone else\'s.'],
-    ['THE ENGINE', 'PERFORMANCE', 'A site that takes eight seconds to load on a phone has lost the visitor before the first image. Speed is the first feature, and it is decided in engineering.'],
-    ['THE GUIDANCE SYSTEM', 'UX', 'Visitors arrive with one question. The site has to answer it and show the next step without a search box or a second thought.'],
-    ['THE FUEL SYSTEM', 'CONVERSION', 'Attention is fuel, and most sites leak it. Each page here ends in an action: a WhatsApp tap, an order, a booking.'],
-    ['THE PAYLOAD', 'CONTENT', 'Products, services, prices, hours. The cargo the whole vehicle exists to carry, presented so it can be found and understood.']];
+    ['THE BODY', 'BRAND', 'A template borrows someone else\'s identity.'],
+    ['THE ENGINE', 'SPEED', 'Slow on a phone means gone before it loads.'],
+    ['THE GUIDANCE', 'UX', 'Visitors can\'t see the next step.'],
+    ['THE FUEL', 'CONVERSION', 'Attention leaks out with nothing to tap.'],
+    ['THE PAYLOAD', 'CONTENT', 'Products, prices and hours buried or missing.']];
   PILLARS = [
-    ['DESIGN', 'BODY', 'An identity built around the business, with no theme underneath it.', ['Type set on your content', 'Layout decided before code']],
-    ['3D & MOTION', 'FAIRING', 'Real-time 3D and motion where they answer a question, and nowhere else.', ['Three.js / WebGPU', 'Render ladder for every phone']],
-    ['ENGINEERING', 'ENGINES', 'Fast on a mid-range phone over 4G, indexed by Google, monitored after launch.', ['LCP under 2.5 s', 'Edge hosting, daily backups']],
-    ['CONVERSION', 'FUEL SYSTEM', 'Each interaction leads somewhere: an order, a booking, a message you can answer.', ['WhatsApp routing', 'Payment and booking systems']],
-    ['CUSTOMIZATION', 'GUIDANCE', 'The site is shaped around how the business already works, not the other way round.', ['Catalogue structure yours', 'Flows mapped on a call']],
-    ['AI + AUTOMATION', 'PAYLOAD', 'Chatbots trained on your catalogue and auto-replies, added only where they save you time.', ['Claude-based assistant', 'WhatsApp auto-reply']],
-    ['MANAGED EXPERIENCE', 'UPPER STAGE', 'Hosting, security, backups and updates handled by us. You get a status report, not a ticket queue.', ['Uptime monitoring', 'SLA from 24 h']]];
+    ['DESIGN', 'BODY', 'Built around your brand, approved before any code.'],
+    ['3D & MOTION', 'FAIRING', 'Motion where it helps, with a fallback for older phones.'],
+    ['ENGINEERING', 'ENGINES', 'Fast on a mid-range phone. Found on Google.'],
+    ['CONVERSION', 'FUEL SYSTEM', 'Every page ends in a WhatsApp tap, an order or a booking.'],
+    ['CUSTOMIZATION', 'GUIDANCE', 'Shaped around how your business already works.'],
+    ['AI + AUTOMATION', 'PAYLOAD', 'A chatbot that answers from your own content.'],
+    ['MAINTENANCE', 'UPPER STAGE', 'Updates, backups and monitoring for one yearly price.']];
   SYSTEMS = ['SYSTEMS', 'GUIDANCE', 'PROPULSION', 'PAYLOAD', 'MISSION'];
   SYS_STATE = ['NOMINAL', 'ONLINE', 'READY', 'SECURED', 'READY'];
   WORLDS = [
-    { slug: 'maison-ardent', brand: 'Maison Ardent', category: 'LUXURY HOTEL', bg: '#F1EBE1', fg: '#1B1A17', accent: '#9A7B4F', font: "'Cormorant Garamond',serif", weight: 400, italic: 'normal', tracking: '-.01em', fvs: 'normal', headline: 'Rooms above the harbour.', sub: 'Forty rooms, one kitchen, a view that changes with the tide. Book directly and the third night is on the house.', nav1: 'Rooms', nav2: 'Dining', nav3: 'Journal', cta: 'BOOK', tag: 'BOOKING · MULTILINGUAL' },
-    { slug: 'morrow-coffee', brand: 'Morrow Coffee', category: 'SPECIALTY COFFEE', bg: '#0c1712', fg: '#f2e9d9', accent: '#c9973f', font: "Caprasimo,serif", weight: 400, italic: 'normal', tracking: '-.035em', fvs: 'normal', headline: 'Four origins at a time.', sub: 'A roastery on Ossington Avenue. Espresso, filter, and a kitchen that bakes from six. Every origin bought from a farm we have stood on.', nav1: 'Menu', nav2: 'Origin', nav3: 'Shop', cta: 'ORDER', live: 'https://machtumens.github.io/Morrow-Coffee/', tag: 'CATALOGUE · SHOP' },
-    { slug: 'ace-house', brand: 'Ace House', category: 'TENNIS CLUB', bg: '#06100C', fg: '#F4F2EC', accent: '#E4FF4F', font: "Anton,sans-serif", weight: 400, italic: 'normal', tracking: '-.015em', fvs: 'normal', headline: 'DAYLIGHT TO NIGHT COURT.', sub: 'Four courts as one scroll-driven WebGL walkthrough. The camera moves through the club and takes the light with it, while booking tracks the same scroll position.', nav1: 'Courts', nav2: 'Booking', nav3: 'Club', cta: 'BOOK', live: 'https://machtumens.github.io/Ace-House-Tennis-Club/', tag: 'WEBGL · BOOKING' },
-    { slug: 'studio-garis', brand: 'Studio Garis', category: 'ARCHITECTURE STUDIO', bg: '#E9E9E6', fg: '#111111', accent: '#111111', font: "'Space Grotesk',sans-serif", weight: 300, italic: 'normal', tracking: '-.03em', fvs: 'normal', headline: 'Buildings that stay quiet.', sub: 'Houses, clinics and one school across Java. Each project shown in plan, section and the photographs that mattered.', nav1: 'Projects', nav2: 'Studio', nav3: 'Contact', cta: 'ENQUIRE', tag: 'PORTFOLIO · CASE STUDIES' },
-    { slug: 'velocita', brand: 'Velocità', category: 'AUTOMOTIVE', bg: '#0A0A0B', fg: '#EDEDED', accent: '#E23B2E', font: "Archivo,sans-serif", weight: 600, italic: 'normal', tracking: '-.05em', fvs: "'wdth' 72", headline: '0–100 IN THE FIRST SCROLL.', sub: 'Configurator, test-drive booking, and every trim in real-time 3D. Built for the showroom floor and the phone in the queue.', nav1: 'Models', nav2: 'Configure', nav3: 'Dealers', cta: 'TEST DRIVE', tag: 'CONFIGURATOR · BOOKING' },
-    { slug: 'warung-lima', brand: 'Warung Lima', category: 'RESTAURANT', bg: '#1F2A1E', fg: '#F4EFE4', accent: '#E8B04B', font: "'Cormorant Garamond',serif", weight: 500, italic: 'italic', tracking: '-.01em', fvs: 'normal', headline: 'Dinner from five. Book a table.', sub: 'A short menu that changes with the market. Reservations by WhatsApp, private dining for twelve, closed Mondays.', nav1: 'Menu', nav2: 'Reserve', nav3: 'Private', cta: 'RESERVE', tag: 'MENU · RESERVATIONS' },
-    { slug: 'atelier-nol', brand: 'Atelier Nol', category: 'FASHION / LUXURY', bg: '#FFFFFF', fg: '#000000', accent: '#000000', font: "'Cormorant Garamond',serif", weight: 400, italic: 'italic', tracking: '-.02em', fvs: 'normal', headline: 'Collection 07.', sub: 'Twenty-two pieces, made in Bandung, shipped worldwide. Editorial first; the shop is one tap away.', nav1: 'Collection', nav2: 'Shop', nav3: 'Stockists', cta: 'SHOP', tag: 'E-COMMERCE · PAYMENT GATEWAY' },
-    { slug: 'kavling', brand: 'Kavling', category: 'REAL ESTATE', bg: '#F5F2EC', fg: '#17211E', accent: '#2E7D5B', font: "'Instrument Sans',sans-serif", weight: 600, italic: 'normal', tracking: '-.03em', fvs: 'normal', headline: 'Find the plot before the market does.', sub: 'Land and houses across Tangerang and Bogor, mapped, filtered, and answered by a human within the hour.', nav1: 'Listings', nav2: 'Map', nav3: 'Sell', cta: 'ENQUIRE', tag: 'LISTINGS · MAP · LEAD ROUTING' },
-    { slug: 'halo-halo', brand: 'Halo Halo', category: 'CREATIVE STUDIO', bg: '#FF4E1A', fg: '#111111', accent: '#FFFFFF', font: "Archivo,sans-serif", weight: 800, italic: 'normal', tracking: '-.05em', fvs: "'wdth' 100", headline: 'WE MAKE LOUD THINGS.', sub: 'Identity, campaign and motion for brands that would rather be noticed than liked by everyone.', nav1: 'Work', nav2: 'Studio', nav3: 'Say hi', cta: 'SAY HI', tag: 'PORTFOLIO · MOTION' }];
-  TYPES = [['Business website', 7], ['E-commerce website', 6], ['Restaurant / café', 1], ['Luxury brand', 0], ['Portfolio', 3], ['Startup / SaaS', 7], ['Hospitality', 5], ['Sports / fitness', 2], ['Custom experience', 8]];
-  TOGGLES = [['3D / INTERACTIVE', 'motion', 'Cinematic motion upgrade'], ['E-COMMERCE', 'payment', 'Payment gateway: Midtrans / Xendit, QRIS'], ['BOOKING SYSTEM', 'booking', 'Reservations, slots, confirmations'], ['AI / AUTOMATION', 'chatbot', 'AI chatbot trained on your business'], ['AI / AUTOMATION', 'autoreply', 'WhatsApp auto-reply'], ['LANGUAGE', 'bilingual', 'Indonesian + English'], ['BRAND ASSETS', 'logo', 'Logo'], ['BRAND ASSETS', 'photo', 'Product photography, 10 items'], ['DOMAIN', 'domain', '.com / .id domain, registered to you'], ['SPEED', 'express', 'Express: 50% faster, +50%']];
-  ADDON_DAYS = { payment: 3, booking: 3, chatbot: 2, bilingual: 2, motion: 1, autoreply: 1 };
+    { slug: 'maison-ardent', brand: 'Maison Ardent', category: 'LUXURY HOTEL', bg: '#F1EBE1', headline: 'Rooms above the harbour.' },
+    { slug: 'morrow-coffee', brand: 'Morrow Coffee', category: 'SPECIALTY COFFEE', bg: '#0c1712', headline: 'Four origins at a time.', live: 'https://machtumens.github.io/Morrow-Coffee/' },
+    { slug: 'ace-house', brand: 'Ace House', category: 'TENNIS CLUB', bg: '#06100C', headline: 'DAYLIGHT TO NIGHT COURT.', live: 'https://machtumens.github.io/Ace-House-Tennis-Club/' },
+    { slug: 'studio-garis', brand: 'Studio Garis', category: 'ARCHITECTURE STUDIO', bg: '#E9E9E6', headline: 'Buildings that stay quiet.' },
+    { slug: 'velocita', brand: 'Velocità', category: 'AUTOMOTIVE', bg: '#0A0A0B', headline: '0–100 IN THE FIRST SCROLL.' },
+    { slug: 'warung-lima', brand: 'Warung Lima', category: 'RESTAURANT', bg: '#1F2A1E', headline: 'Dinner from five. Book a table.' },
+    { slug: 'atelier-nol', brand: 'Atelier Nol', category: 'FASHION / LUXURY', bg: '#FFFFFF', headline: 'Collection 07.' },
+    { slug: 'kavling', brand: 'Kavling', category: 'REAL ESTATE', bg: '#F5F2EC', headline: 'Find the plot before the market does.' },
+    { slug: 'halo-halo', brand: 'Halo Halo', category: 'CREATIVE STUDIO', bg: '#FF4E1A', headline: 'WE MAKE LOUD THINGS.' }];
   get P() { return window.ALEPH_PRICES; }
   get q() { return new URLSearchParams(location.search); }
-  idr(n) { return 'Rp ' + Math.round(n).toLocaleString('id-ID'); }
+  num(n) { return Math.round(n).toLocaleString('id-ID'); }
+  idr(n) { return 'Rp ' + this.num(n); }
+
+  // Render tier for this device: 'poster' (no WebGL, page without the 3D scene), 'standard' (phones, most laptops),
+  // 'cinema' (more texture, light and particle detail). ?quality=… in the URL overrides it for testing.
+  pickQuality() {
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches; let gl = false;
+    try { gl = !!document.createElement('canvas').getContext('webgl2'); } catch (e) {}
+    if (reduced || !gl) return 'poster';
+    // TODO(you): decide when a visitor gets 'cinema' and when a phone should drop to 'poster'. Signals worth weighing:
+    // navigator.deviceMemory, navigator.hardwareConcurrency, navigator.connection.saveData / effectiveType, innerWidth.
+    return (navigator.deviceMemory || 4) >= 8 && matchMedia('(pointer:fine)').matches && innerWidth > 900 ? 'cinema' : 'standard';
+  }
 
   componentDidMount() {
     this.t0 = performance.now();
-    const rm = matchMedia('(prefers-reduced-motion: reduce)').matches; let gl = false; try { gl = !!document.createElement('canvas').getContext('webgl2'); } catch (e) {}
-    let quality = (rm || !gl) ? 'poster' : ((navigator.deviceMemory || 4) >= 8 && matchMedia('(pointer:fine)').matches && innerWidth > 900 ? 'cinema' : 'standard');
-    if (this.q.get('quality')) quality = this.q.get('quality');
+    const ico = d => 'url("data:image/svg+xml,' + encodeURIComponent("<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='" + d + "'/></svg>") + '")';
+    const st = document.createElement('style'); st.textContent = this.P.addons.map(a => '.ico-' + a.id + '{--i:' + ico(a.icon) + '}').join(''); document.head.appendChild(st);
+    let quality = this.pickQuality(); if (this.q.get('quality')) quality = this.q.get('quality');
     this.setState({ quality });
     const step = () => this.setState(s => ({ steps: s.steps + 1 }));
     document.fonts.ready.then(step);
     if (quality === 'poster') { step(); step(); } else {
       let tries = 0; const wait = () => {
-        if (window.AlephRocket) { step(); try { window.AlephRocket.init(this.canvasRef.current, { quality, onFirstFrame: step }); this.pushAccent(); } catch (err) { console.error("scene init: " + (err && err.message)); this.setState({ quality: "poster", steps: 3 }); } }
+        if (window.AlephRocket) { step(); try { window.AlephRocket.init(this.canvasRef.current, { quality, onFirstFrame: step }); } catch (err) { console.error('scene init: ' + (err && err.message)); this.setState({ quality: 'poster', steps: 3 }); } }
         else if (++tries < 240) setTimeout(wait, 50); else this.setState({ quality: 'poster', steps: 3 });
       }; wait();
     }
@@ -360,9 +671,10 @@ class Component extends DCLogic {
     addEventListener('scroll', this.onScroll, { passive: true }); addEventListener('resize', this.onScroll);
     this.onGuard = e => this.guard(e); this.onTouchStart = e => { this.touchY = e.touches[0].clientY; };
     addEventListener('wheel', this.onGuard, { passive: false }); addEventListener('touchstart', this.onTouchStart, { passive: true }); addEventListener('touchmove', this.onGuard, { passive: false }); addEventListener('keydown', this.onGuard);
-    this.onPop = () => this.leaveWorld(); addEventListener('popstate', this.onPop);
-    this.onEsc = e => { if (e.key === 'Escape' && this.state.visit !== null) this.closeWorld(); }; addEventListener('keydown', this.onEsc);
-    this.telT = setInterval(() => { if (window.AlephRocket) { const s = window.AlephRocket.stats(); this.setState({ tel: { alt: s.alt, thrust: s.thrust } }); } if (this.state.launched) this.setState({ finalT: (performance.now() - this.state.launchAt) / 1000 }); }, 250);
+    // Back on a phone closes the add-on sheet first, then a sample site, before it leaves the page.
+    this.onPop = () => { if (this.state.sheet !== null) this.dropSheet(); else this.leaveWorld(); }; addEventListener('popstate', this.onPop);
+    this.onEsc = e => { if (e.key !== 'Escape') return; if (this.state.sheet !== null) this.closeSheet(); else if (this.state.visit !== null) this.closeWorld(); }; addEventListener('keydown', this.onEsc);
+    this.telT = setInterval(() => { if (window.AlephRocket && window.AlephRocket.stats) { const s = window.AlephRocket.stats(); this.setState({ tel: { alt: s.alt, thrust: s.thrust } }); } if (this.state.launched) this.setState({ finalT: (performance.now() - this.state.launchAt) / 1000 }); }, 250);
     this.measure();
   }
   componentWillUnmount() { removeEventListener('scroll', this.onScroll); removeEventListener('popstate', this.onPop); removeEventListener('keydown', this.onEsc); this.unguard(); clearTimeout(this.commitT); clearInterval(this.telT); clearTimeout(this.hardCap); clearTimeout(this.visitT); }
@@ -382,7 +694,6 @@ class Component extends DCLogic {
     });
   }
   // View Transitions API: the clicked poster and the world overlay take turns holding the name "world".
-  // No API (older Firefox) or reduced motion: the state change just happens.
   morph(el, opening, update) {
     if (!el || !document.startViewTransition || matchMedia('(prefers-reduced-motion: reduce)').matches) return update();
     if (opening) el.style.viewTransitionName = 'world';
@@ -390,26 +701,31 @@ class Component extends DCLogic {
     return t.finished.catch(() => {}).then(() => { el.style.viewTransitionName = ''; });
   }
   onWorldLoad(e) {
-    // Same-origin worlds: Esc works from inside the iframe, and #anchor clicks scroll without adding history
-    // entries (each one would otherwise eat a Back press before the world closes). Cross-origin: skipped.
     try {
       const w = e.target.contentWindow, d = w.document; w.addEventListener('keydown', this.onEsc);
       d.addEventListener('click', ev => { const a = !ev.defaultPrevented && ev.target.closest && ev.target.closest('a[href^="#"]'), t = a && a.getAttribute('href').length > 1 && d.getElementById(a.getAttribute('href').slice(1)); if (t) { ev.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); } });
     } catch (_) {}
     this.setState({ visitLoaded: true });
   }
+  // Add-on sheet. Opening pushes a history entry too, so Back closes it.
+  openSheet(i) { if (this.state.sheet === null) { history.pushState({ alephSheet: true }, ''); document.documentElement.style.overflow = 'hidden'; } this.setState({ sheet: i }); }
+  closeSheet() { if (history.state && history.state.alephSheet) history.back(); else this.dropSheet(); }
+  dropSheet() { document.documentElement.style.overflow = ''; this.setState({ sheet: null }); }
+  stepSheet(d) { const n = this.P.addons.length; this.setState(s => ({ sheet: (s.sheet + d + n) % n })); }
+  // Sheet gestures: drag down past 90px closes it, a sideways swipe moves to the next add-on. The drag writes the
+  // transform straight to the element so the whole page does not re-render on every touchmove.
+  sheetTs(e) { const t = e.touches[0]; this.sw = { x: t.clientX, y: t.clientY, dx: 0, dy: 0, top: e.currentTarget.scrollTop }; e.currentTarget.classList.add('drag'); }
+  sheetTm(e) { if (!this.sw) return; const t = e.touches[0], el = e.currentTarget; this.sw.dx = t.clientX - this.sw.x; this.sw.dy = t.clientY - this.sw.y;
+    if (this.sw.top <= 0 && this.sw.dy > 0 && this.sw.dy > Math.abs(this.sw.dx) && innerWidth < 900) el.style.transform = 'translateY(' + this.sw.dy + 'px)'; }
+  sheetTe(e) { const el = e.currentTarget, s = this.sw; this.sw = null; el.classList.remove('drag'); el.style.transform = ''; if (!s) return;
+    if (s.top <= 0 && s.dy > 90 && s.dy > Math.abs(s.dx)) this.closeSheet(); else if (Math.abs(s.dx) > 60 && Math.abs(s.dx) > Math.abs(s.dy) * 1.2) this.stepSheet(s.dx < 0 ? 1 : -1); }
   componentDidUpdate(_, ps) {
-    // The dc runtime calls componentDidUpdate without prevState, so `ps` arrives undefined.
-    // Falling back to {} made every `!ps.x` test true forever - which fired the one-shot
-    // scrollTo(0,0) below on every single update and pinned the page at the top. Keep our own.
+    // The dc runtime calls componentDidUpdate without prevState; keep our own.
     const s = this.state; if (!s) return; ps = ps || this.prevState || {};
     if (!s.ready && s.steps >= 3 && performance.now() - this.t0 > 600) this.setState({ ready: true });
     if (s.ready && !ps.ready) { scrollTo(0, 0); if (window.AlephRocket) window.AlephRocket.set({ enter: 0 }); }
-    if (ps.typeIdx !== undefined && ps.typeIdx !== s.typeIdx) this.pushAccent();
-    if (s.launched && !ps.launched) this.telFast = true;
     this.prevState = s;
   }
-  pushAccent() { if (!window.AlephRocket || !this.state) return; const w = this.WORLDS[this.TYPES[this.state.typeIdx][1]]; const a = w.accent === '#000000' || w.accent === '#111111' ? '#35D6F0' : w.accent; try { window.AlephRocket.setAccent(a); } catch (e) {} }
   secEls() { return Array.from(document.querySelectorAll('[data-sec]')); }
   measure() {
     const vh = innerHeight, els = this.secEls(); if (!els.length) return;
@@ -438,72 +754,85 @@ class Component extends DCLogic {
   }
   unguard() { removeEventListener('wheel', this.onGuard); removeEventListener('touchstart', this.onTouchStart); removeEventListener('touchmove', this.onGuard); removeEventListener('keydown', this.onGuard); }
   release() { if (this.begun) return; this.begun = true; this.unguard(); if (this.state.locked || this.state.nudge) this.setState({ locked: false, nudge: 0 }); }
-  goSec(i) { return () => { const el = this.secEls()[i]; if (el) scrollTo({ top: el.getBoundingClientRect().top + scrollY + 2, behavior: 'smooth' }); }; }
+  goSec(i) { return () => { this.release(); const el = this.secEls()[i]; if (el) scrollTo({ top: el.getBoundingClientRect().top + scrollY + 2, behavior: 'smooth' }); }; }
+  // Price list 2026: package + add-ons is the project price, paid 50/50. Maintenance is billed with the final payment.
   calc() {
     const P = this.P, s = this.state, tier = P.tiers[s.tierIdx];
-    const ids = Object.keys(s.opts).filter(k => s.opts[k] && k !== 'express');
-    const extraPages = Math.max(0, s.pages - tier.pages), pageItem = P.addons.find(a => a.id === 'page');
-    const sel = ids.map(id => P.addons.find(a => a.id === id)).filter(Boolean);
-    if (s.opts.chatbot) sel.push(P.addons.find(a => a.id === 'chatbotHosting'));
-    const free = new Set(); if (tier.freeAddons) sel.filter(a => !a.recurring && a.price <= tier.freeAddons.cap).sort((a, b) => b.price - a.price).slice(0, tier.freeAddons.count).forEach(a => free.add(a.id));
-    const oneTime = sel.filter(a => !a.recurring).reduce((t, a) => t + (free.has(a.id) ? 0 : a.price), 0) + extraPages * pageItem.price;
-    const monthly = sel.filter(a => a.recurring && a.unit === '/bln').reduce((t, a) => t + a.price, 0), yearly = sel.filter(a => a.recurring && a.unit === '/thn').reduce((t, a) => t + a.price, 0);
-    const m = P.maintenance.find(x => x.id === s.maint);
-    const express = s.opts.express ? tier.price * P.express.pct : 0;
-    const total = tier.price + oneTime + express + (m && m.id === 'lifetime' ? m.price : 0);
-    const monthlyAll = monthly + (m && m.id !== 'lifetime' ? m.price : 0);
-    let [lo, hi] = tier.days.split('–').map(Number); const extraDays = sel.reduce((t, a) => t + (this.ADDON_DAYS[a.id] || 0), 0) + Math.ceil(extraPages / 2); lo += extraDays; hi += extraDays;
-    if (s.opts.express) { lo = Math.ceil(lo / 2); hi = Math.ceil(hi / 2); }
-    return { tier, sel, free, extraPages, total, monthlyAll, yearly, m, timeline: lo + '–' + hi + ' working days' };
+    const sel = P.addons.filter(a => s.addons[a.id]).map(a => ({ ...a, qty: a.perUnit ? s.apiQty : 1 }));
+    const project = tier.price + sel.reduce((t, a) => t + a.price * a.qty, 0), deposit = Math.round(project * P.deposit);
+    const m = P.maintenance.plans.find(x => x.id === s.maint);
+    return { tier, sel, project, deposit, final: project - deposit, m };
   }
+  telAlt(alt) { return alt < 1 ? '0.0 km' : alt < 1000 ? alt.toFixed(1) + ' km' : Math.round(alt).toLocaleString('en-US') + ' km'; }
   renderVals() {
-    const P = this.P, s = this.state, t = s.local, c = this.calc(), isPoster = s.quality === 'poster', W = this.WORLDS, cls = ['LAUNCH', 'ORBIT', 'DEEP SPACE'];
-    const pct = Math.min(100, Math.round(s.steps / 3 * 100));
-    const activeP = Math.min(4, Math.floor(t * 5)), problems = this.PROBLEMS.map((p, i) => ({ n: '0' + (i + 1), part: p[0], sys: p[1], desc: p[2], color: s.sec === 1 && i === activeP ? '#35D6F0' : i < activeP || s.sec > 1 ? '#EDEFF0' : '#5C6367' }));
-    const activeS = Math.min(6, Math.floor(t * 7)), pillars = this.PILLARS.map((p, i) => ({ n: '0' + (i + 1), name: p[0], part: p[1], desc: p[2], specs: p[3], color: s.sec === 2 && i === activeS ? '#35D6F0' : (s.sec > 2 || i < activeS) ? '#EDEFF0' : '#5C6367', state: (s.sec > 2 || i < activeS) ? 'INTEGRATED' : i === activeS && s.sec === 2 ? 'INSTALLING' : 'PENDING', stateColor: (s.sec > 2 || i < activeS) ? '#35D6F0' : '#5C6367' }));
+    const P = this.P, s = this.state, t = s.local, c = this.calc(), W = this.WORLDS;
+    const pct = Math.min(100, Math.round(s.steps / 3 * 100)), coarse = matchMedia('(pointer:coarse)').matches;
+    const activeP = Math.min(4, Math.floor(t * 5)), problems = this.PROBLEMS.map((p, i) => { const done = s.sec > 1 || i < activeP, now = s.sec === 1 && i === activeP; return { n: '0' + (i + 1), part: p[0], sys: p[1], desc: p[2], color: now ? '#35D6F0' : done ? '#EDEFF0' : '#5C6367', step: now ? 'now' : done ? 'done' : '' }; });
+    const activeS = Math.min(6, Math.floor(t * 7)), pillars = this.PILLARS.map((p, i) => { const done = s.sec > 2 || i < activeS, now = s.sec === 2 && i === activeS; return { n: '0' + (i + 1), name: p[0], part: p[1], desc: p[2], color: now ? '#35D6F0' : done ? '#EDEFF0' : '#5C6367', state: done ? 'INTEGRATED' : now ? 'INSTALLING' : 'PENDING', stateColor: done ? '#35D6F0' : '#5C6367', step: now ? 'now' : done ? 'done' : '' }; });
     const systems = this.SYSTEMS.map((n, i) => { const on = s.sec > 3 || (s.sec === 3 && t > .1 + i * .12); return { name: n, state: on ? this.SYS_STATE[i] : 'STANDBY', color: on ? '#35D6F0' : '#5C6367' }; });
-    let s4; if (s.sec !== 4) s4 = { label: 'IGNITION SEQUENCE · HOLD', count: 'T-10', sub: 'Range is clear. Waiting on your scroll.', color: '#EDEFF0' };
-    else { const n = 10 - Math.floor(Math.min(.999, t / .8) * 11); s4 = t < .8 ? { label: 'IGNITION SEQUENCE · ' + (t > .45 ? 'ENGINES LIT' : 'ARMING'), count: 'T-' + Math.max(0, n), sub: t > .45 ? 'Nine engines at full thrust. Hold-downs release at zero.' : 'Propellant loaded. Service arms retracted. Flight computer has control.', color: t > .45 ? '#35D6F0' : '#EDEFF0' } : { label: 'LIFTOFF', count: 'GO', sub: 'The vehicle has cleared the tower. Payload manifest follows.', color: '#35D6F0' }; }
+    let s4; if (s.sec !== 4) s4 = { label: 'IGNITION · HOLD', count: 'T-10', sub: 'Range is clear.', color: '#EDEFF0' };
+    else { const n = 10 - Math.floor(Math.min(.999, t / .8) * 11); s4 = t < .8 ? { label: 'IGNITION · ' + (t > .45 ? 'ENGINES LIT' : 'ARMING'), count: 'T-' + Math.max(0, n), sub: t > .45 ? 'Nine engines at full thrust.' : 'Flight computer has control.', color: t > .45 ? '#35D6F0' : '#EDEFF0' } : { label: 'LIFTOFF', count: 'GO', sub: 'Clear of the tower.', color: '#35D6F0' }; }
     const narrow = innerWidth < 700, poster = w => './assets/work/posters/' + w.slug + (narrow ? '-m' : '') + '.webp';
-    const worlds = W.map((w, i) => ({ ...w, n: String(i + 1).padStart(2, '0'), align: i % 2 ? 'flex-start' : 'flex-end', poster: poster(w), ratio: narrow ? '39 / 70' : '16 / 10',
+    const worlds = W.map((w, i) => ({ ...w, n: String(i + 1).padStart(2, '0'), poster: poster(w), ratio: narrow ? '39 / 70' : '16 / 10',
       status: w.live ? 'LIVE SITE' : 'CONCEPT', statusColor: w.live ? '#35D6F0' : '#9BA1A4', open: e => this.openWorld(i, e.currentTarget.querySelector('[data-poster]')) }));
     const v = s.visit === null ? null : worlds[s.visit];
-    const classes = P.tiers.map((tier, i) => ({ n: '0' + (i + 1), name: cls[i], tierName: tier.name, pages: tier.pages, pagesLabel: tier.pages + (tier.pages === 1 ? ' page' : ' pages'), days: tier.days, price: this.idr(tier.price), badge: tier.badge ? 'MOST CHOSEN' : (i === 2 ? '2 ADD-ONS INCLUDED' : ''), scope: tier.scope,
-      desc: ['For businesses that need a strong, professional web presence, live in under a week.', 'For businesses that need more pages, a catalogue, and forms that reach WhatsApp.', 'For businesses that want a fully custom, immersive experience with AI and advanced SEO.'][i],
-      bg: i === s.tierIdx ? 'rgba(53,214,240,.08)' : 'rgba(7,8,9,.6)', line: i === s.tierIdx ? '#35D6F0' : 'transparent', selColor: i === s.tierIdx ? '#35D6F0' : '#5C6367', selLabel: i === s.tierIdx ? 'SELECTED' : 'SELECT',
-      chipBg: i === s.tierIdx ? '#EDEFF0' : 'rgba(7,8,9,.6)', chipFg: i === s.tierIdx ? '#070809' : '#EDEFF0', select: () => this.setState({ tierIdx: i, pages: Math.max(this.state.pages, tier.pages) }) }));
-    const types = this.TYPES.map((tp, i) => ({ name: tp[0], color: i === s.typeIdx ? '#35D6F0' : '#EDEFF0', arrow: i === s.typeIdx ? '●' : '→', select: () => this.setState({ typeIdx: i }) }));
-    const typeWi = this.TYPES[s.typeIdx][1], typeWorld = { ...W[typeWi], typeName: this.TYPES[s.typeIdx][0], open: e => this.openWorld(typeWi, e.currentTarget) };
-    const toggles = this.TOGGLES.map(([label, id, name]) => { const a = P.addons.find(x => x.id === id), on = !!s.opts[id], isFree = c.free.has(id);
-      const price = id === 'express' ? '+' + this.idr(c.tier.price * .5) : isFree ? 'Included' : this.idr(a.price) + (a.unit ? ' ' + a.unit.replace('/bln', '/mo').replace('/thn', '/yr').replace('mulai', 'from') : '');
-      const note = id === 'chatbot' ? 'Plus hosting Rp 150.000/mo' : id === 'express' ? 'Same hours, half the calendar' : a.trap ? 'Scoped on the first call' : '';
-      return { label, name, note, price, priceColor: isFree ? '#35D6F0' : '#EDEFF0', swBorder: on ? '#35D6F0' : 'rgba(255,255,255,.3)', swLeft: on ? 26 : 3, swBg: on ? '#35D6F0' : '#5C6367', toggle: () => this.setState(st => ({ opts: { ...st.opts, [id]: !st.opts[id] } })) }; });
-    const maint = [{ id: 'none', name: 'None', price: 0 }, ...P.maintenance].map(m => ({ name: m.name, price: m.price ? this.idr(m.price) + (m.unit === '/bln' ? '/mo' : '') : '', bg: s.maint === m.id ? '#EDEFF0' : 'rgba(7,8,9,.6)', fg: s.maint === m.id ? '#070809' : '#EDEFF0', select: () => this.setState({ maint: m.id }) }));
-    const onList = c.sel.filter(a => a.id !== 'chatbotHosting').map(a => a.name.split(' (')[0]);
-    const summary = [{ k: 'Website', v: typeWorld.typeName }, { k: 'Mission class', v: cls[s.tierIdx] + ' · ' + c.tier.name }, { k: 'Pages', v: s.pages + (c.extraPages ? ' (+' + c.extraPages + ')' : '') }, { k: 'Features', v: onList.length ? onList.join(', ') : 'Base scope' }, { k: 'Maintenance', v: c.m ? c.m.name : 'None' }, { k: 'Speed', v: s.opts.express ? 'Express' : 'Standard' }];
-    const profile = [...summary, { k: 'Timeline', v: c.timeline }, { k: 'Recurring', v: c.monthlyAll ? this.idr(c.monthlyAll) + ' / month' : 'None' }, { k: 'Custom', v: s.custom || '—' }];
-    const msg = ['MISSION SPECIFICATION — Aleph One', '', ...profile.map(r => r.k + ': ' + r.v), 'Estimated cost: ' + this.idr(c.total), '', 'Name: ' + s.form.name, 'Business: ' + s.form.business, 'Email: ' + s.form.email, 'Website/social: ' + s.form.social, 'About: ' + s.form.about, 'Requirements: ' + s.form.extra, 'Budget: ' + s.form.budget, 'Timeline: ' + s.form.when, 'Attachments to follow: ' + s.files];
+    const setTier = i => this.setState({ tierIdx: Math.max(0, Math.min(P.tiers.length - 1, i)) });
+    const pkgs = P.tiers.map((tier, i) => { const on = i === s.tierIdx; return { name: tier.name, desc: tier.desc, featured: !!tier.featured, num: this.num(tier.price), on, onCls: on ? 'on' : '',
+      specs: [{ k: 'PAGES', v: tier.pages }, { k: 'DELIVERY', v: tier.days + ' days' }, { k: 'REVISIONS', v: tier.revisions + ' rounds' }, { k: 'HOSTING', v: tier.hosting }],
+      features: tier.features.map(f => ({ t: f, cls: f.startsWith('Everything in') ? 'carry' : '' })),
+      btnCls: on ? '' : 'btn-ghost', cta: 'CHOOSE ' + tier.name.toUpperCase(),
+      select: () => setTier(i), choose: e => { e.stopPropagation(); setTier(i); this.goSec(8)(); } }; });
+    const addonRows = P.addons.map((a, i) => { const on = !!s.addons[a.id];
+      return { id: a.id, name: a.name, price: this.idr(a.price), unit: a.unit || '', on, onCls: on ? 'on' : '', qtyOn: on && a.perUnit, qty: s.apiQty, open: () => this.openSheet(i),
+        toggle: () => this.setState(st => ({ addons: { ...st.addons, [a.id]: !st.addons[a.id] } })), dec: () => this.setState(st => ({ apiQty: Math.max(1, st.apiQty - 1) })), inc: () => this.setState(st => ({ apiQty: Math.min(12, st.apiQty + 1) })) }; });
+    const sa = s.sheet === null ? null : P.addons[s.sheet], saOn = sa && !!s.addons[sa.id];
+    const sheet = sa && { id: sa.id, name: sa.name, sub: sa.sub, num: this.num(sa.price), unit: sa.unit || 'one-time', desc: sa.desc, benefits: sa.benefits, goodFor: sa.goodFor,
+      cta: saOn ? 'ADDED ✓ · TAP TO REMOVE' : 'ADD TO MY PACKAGE · ' + this.idr(sa.price), btnCls: saOn ? 'btn-cy' : '', dots: P.addons.map((_, j) => j === s.sheet ? 'on' : ''),
+      toggle: () => this.setState(st => ({ addons: { ...st.addons, [sa.id]: !st.addons[sa.id] } })), close: () => this.closeSheet(), prev: () => this.stepSheet(-1), next: () => this.stepSheet(1),
+      ts: e => this.sheetTs(e), tm: e => this.sheetTm(e), te: e => this.sheetTe(e) };
+    const plans = P.maintenance.plans.map(m => ({ name: m.name, num: this.num(m.price), unit: m.unit, was: m.was ? this.idr(m.was) : '', badge: m.badge || '', on: s.maint === m.id, onCls: s.maint === m.id ? 'on' : '', select: () => this.setState({ maint: m.id }) }));
+    const addonList = c.sel.map(a => a.name + (a.perUnit ? ' ×' + a.qty : ''));
+    const maintLine = c.m.id === 'annual' ? 'first year ' + this.idr(c.m.price) : 'first month ' + this.idr(c.m.price);
+    const summary = [{ k: 'Package', v: c.tier.name }, { k: 'Add-ons', v: addonList.length ? addonList.join(', ') : 'None' }, { k: 'Maintenance', v: this.idr(c.m.price) + ' ' + c.m.unit }, { k: 'Delivery', v: c.tier.days + ' working days' }];
+    const msg = ['MISSION SPECIFICATION — Aleph One', '', 'Package: ' + c.tier.name + ' (' + c.tier.tagline + ')', 'Add-ons: ' + (addonList.join(', ') || 'None'), 'Maintenance: ' + c.m.name + ', ' + this.idr(c.m.price) + ' ' + c.m.unit,
+      'Project price: ' + this.idr(c.project), 'Deposit (50%): ' + this.idr(c.deposit), 'Before launch: ' + this.idr(c.final) + ' + ' + maintLine, 'Delivery: ' + c.tier.days + ' working days', 'Other: ' + (s.custom || '—'), '',
+      'Name: ' + s.form.name, 'Business: ' + s.form.business, 'Start: ' + s.form.when, 'Instagram/website: ' + (s.form.social || '—'), 'Email: ' + (s.form.email || '—'), 'About: ' + (s.form.about || '—')];
     const waHref = 'https://wa.me/' + P.whatsapp + '?text=' + encodeURIComponent(msg.join('\n'));
-    const F = (k) => e => this.setState(st => ({ form: { ...st.form, [k]: e.target.value } }));
+    const F = k => e => this.setState(st => ({ form: { ...st.form, [k]: e.target.value } }));
+    const missing = { name: !s.form.name.trim(), business: !s.form.business.trim() };
+    const submit = () => { if (missing.name || missing.business) { this.setState({ tried: true }); const el = document.getElementById(missing.name ? 'f-name' : 'f-business'); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.focus({ preventScroll: true }); } return; }
+      window.open(waHref, '_blank', 'noopener'); this.setState({ launched: true, launchAt: performance.now(), finalT: 0 }); if (window.AlephRocket) window.AlephRocket.launch(); };
     const ft = s.finalT, finalStage = ft < 1.5 ? 'FAIRING OPEN' : ft < 3 ? 'LOADING PAYLOAD' : ft < 4.5 ? 'FAIRING SECURED' : ft < 6 ? 'IGNITION' : 'LIFTOFF';
-    const alt = s.tel.alt;
+    const story = s.sec >= 1 && s.sec <= 6, money = s.sec === 7 || s.sec === 8, dockOn = s.loaderGone && s.visit === null && s.sheet === null && !s.launched && s.sec > 0;
+    const dock = story ? { k: this.PHASES[s.sec] + ' · ' + String(s.sec + 1).padStart(2, '0') + ' / 10', v: 'From ' + this.idr(P.tiers[0].price), cta: 'PRICES', go: this.goSec(7) }
+      : money ? { k: c.tier.name + (c.sel.length ? ' + ' + c.sel.length + ' add-on' + (c.sel.length > 1 ? 's' : '') : ''), v: this.idr(c.project), cta: 'CONTINUE', go: this.goSec(9) }
+      : { k: 'Opens WhatsApp', v: this.idr(c.project), cta: 'SEND', go: submit };
+    const telOn = s.loaderGone && s.visit === null && (s.sec >= 4 && s.sec <= 6 || s.launched);
     return {
-      canvasRef: this.canvasRef, canvasDisplay: isPoster ? 'none' : 'block', pct, loaderStep: ['LOADING TYPE', 'LOADING VEHICLE', 'FIRST FRAME', 'READY'][Math.min(3, s.steps)], loaderEvents: s.loaderGone ? 'none' : 'auto',
-      tvClip: s.loaderGone ? 'circle(0% at 50% 50%)' : s.entering ? 'circle(0% at 50% 50%)' : 'circle(150% at 50% 50%)', tvChromeOp: s.entering ? 0 : 1, cueOp: s.ready && !s.entering ? 1 : 0,
+      shadeOp: s.launched ? 0 : s.sec >= 8 ? (innerWidth < 900 ? .66 : .45) : s.sec >= 7 ? (innerWidth < 900 ? .38 : .2) : 0,
+      canvasRef: this.canvasRef, canvasDisplay: s.quality === 'poster' ? 'none' : 'block', pct, loaderStep: ['LOADING TYPE', 'LOADING VEHICLE', 'FIRST FRAME', 'READY'][Math.min(3, s.steps)], loaderEvents: s.loaderGone ? 'none' : 'auto',
+      tvClip: s.loaderGone || s.entering ? 'circle(0% at 50% 50%)' : 'circle(150% at 50% 50%)', tvChromeOp: s.entering ? 0 : 1, cueOp: s.ready && !s.entering ? 1 : 0, cueText: coarse ? 'TAP OR SWIPE TO ENTER' : 'SCROLL TO ENTER',
       tvLogoT: s.entering ? 'scale(9)' : 'scale(1)', tvLogoOp: s.entering ? 0 : 1, tvLogoBlur: s.entering ? 'blur(14px)' : 'blur(0)',
-      skipToConfig: () => { this.release(); this.setState({ loaderGone: true, entering: true }); if (window.AlephRocket) window.AlephRocket.set({ enter: 1 }); setTimeout(this.goSec(9), 60); }, beginMission: () => { this.release(); setTimeout(this.goSec(1), 30); },
-      phase: this.PHASES[Math.min(10, s.sec)], telAlt: (alt < 1 ? '0.0' : alt.toFixed(1)) + ' km', telThrust: Math.round(s.tel.thrust * 100) + ' %', telClock: s.sec < 4 ? 'T-HOLD' : s.sec === 4 ? s4.count : 'T+' + String(Math.round(t * 60 + (s.sec - 5) * 60)).padStart(3, '0'), telQuality: s.quality.toUpperCase(),
-      secNum: String(s.sec + 1).padStart(2, '0'), scrollPct: s.scrollPct, goTop: this.goSec(0), goSec1: this.goSec(1), goConfig: () => { this.release(); this.goSec(9)(); }, goTypes: this.goSec(8), goProfile: this.goSec(10),
-      s0: { h: 1, hy: 0, p: t > .3 || s.sec > 0 ? 1 : 0, rows: t > .3 || s.sec > 0 ? '1fr' : '0fr', c: 1, hold: s.locked ? 1 : 0, nudgeY: s.nudge ? 'translateY(-10px)' : 'translateY(0)', glow: s.locked ? '0 0 0 1px #35D6F0, 0 0 32px rgba(53,214,240,.45)' : 'none' },
+      tapEnter: () => { if (s.ready && !s.entering && !s.loaderGone) this.enter(); },
+      skipToPrices: e => { e.stopPropagation(); this.release(); this.setState({ loaderGone: true, entering: true }); if (window.AlephRocket) window.AlephRocket.set({ enter: 1 }); setTimeout(this.goSec(7), 60); },
+      beginMission: () => { this.release(); setTimeout(this.goSec(1), 30); },
+      phase: this.PHASES[Math.min(9, s.sec)], telAlt: this.telAlt(s.tel.alt), telThrust: Math.round(s.tel.thrust * 100) + '%', telClock: s.sec < 4 ? 'T-HOLD' : s.sec === 4 ? s4.count : 'T+' + String(Math.round(t * 60 + (s.sec - 5) * 60)).padStart(3, '0'), telQuality: s.quality.toUpperCase(),
+      telCls: telOn ? 'on' : '', telDCls: s.loaderGone && s.visit === null && !s.launched && s.sec <= 6 ? 'on' : '',
+      scrollFrac: s.scrollPct / 100, goTop: this.goSec(0), goPrices: this.goSec(7), goProfile: this.goSec(9),
+      dock: { ...dock, cls: dockOn ? 'on' : '', hidden: dockOn ? 'false' : 'true', tab: dockOn ? 0 : -1 },
+      s0: { hold: s.locked ? 1 : 0, nudgeY: s.nudge ? 'translateY(-10px)' : 'translateY(0)', glow: s.locked ? '0 0 0 1px #35D6F0, 0 0 32px rgba(53,214,240,.45)' : 'none' },
       problems, activeProblem: problems[s.sec > 1 ? 4 : activeP], pillars, activePillar: pillars[s.sec > 2 ? 6 : activeS], systems, s3: { h: s.sec > 3 || (s.sec === 3 && t > .7) ? 1 : 0, hy: s.sec === 3 && t <= .7 ? 30 : 0 }, s4, worlds,
-      classes, types, typeWorld, cfg: { pages: s.pages, custom: s.custom }, pagesNote: c.extraPages ? c.extraPages + ' beyond ' + c.tier.name + ' at Rp 150.000 each' : 'included in ' + c.tier.name, pagesDown: () => this.setState(st => ({ pages: Math.max(1, st.pages - 1) })), pagesUp: () => this.setState(st => ({ pages: Math.min(30, st.pages + 1) })),
-      toggles, maint, onCustom: e => this.setState({ custom: e.target.value }), summary, est: { total: this.idr(c.total), recurring: c.monthlyAll ? '+ ' + this.idr(c.monthlyAll) + ' per month' + (c.yearly ? ', ' + this.idr(c.yearly) + ' per year' : '') : 'No recurring cost', timeline: c.timeline }, terms: P.terms.join(' ') + ' Professional includes 2 add-ons up to Rp 300.000.',
-      profile, form: s.form, onName: F('name'), onBusiness: F('business'), onEmail: F('email'), onSocial: F('social'), onAbout: F('about'), onExtra: F('extra'), onBudget: F('budget'), onWhen: F('when'),
-      onFiles: e => this.setState({ files: e.target.files.length }), filesLabel: s.files ? s.files + ' FILE' + (s.files > 1 ? 'S' : '') + ' ATTACHED' : 'ATTACH FILES', waHref,
-      submitNote: s.form.name && s.form.business ? 'Opens WhatsApp with the specification.' : 'Name and business are required.',
-      submit: () => { if (!s.form.name || !s.form.business) return; window.open(waHref, '_blank', 'noopener'); this.setState({ launched: true, launchAt: performance.now(), finalT: 0 }); if (window.AlephRocket) window.AlephRocket.launch(); },
+      pkgs, included: P.included, addonRows, sheet, plans, planNote: c.m.note, maintDoes: P.maintenance.does, maintExcludes: P.maintenance.excludes, resp: P.maintenance.response,
+      swipeStart: e => { this.pk = e.touches[0].clientX; }, pkgSwipe: e => { const dx = e.changedTouches[0].clientX - (this.pk || 0); if (Math.abs(dx) > 50 && innerWidth < 900) setTier(s.tierIdx + (dx < 0 ? 1 : -1)); },
+      tierNote: c.tier.pages + ' pages · ' + c.tier.days + ' working days · ' + c.tier.revisions + ' revision rounds',
+      cfg: { custom: s.custom }, onCustom: e => this.setState({ custom: e.target.value }), summary,
+      est: { num: this.num(c.project), deposit: this.idr(c.deposit), final: this.idr(c.final), maint: maintLine },
+      process: P.process.map((p, i) => ({ n: i + 1, t: p[0], d: p[1] })), terms: P.terms,
+      form: s.form, onName: F('name'), onBusiness: F('business'), onEmail: F('email'), onSocial: F('social'), onAbout: F('about'), onWhen: F('when'),
+      need: { name: s.tried && missing.name ? 'Needed' : '', business: s.tried && missing.business ? 'Needed' : '' }, bad: { name: s.tried && missing.name ? 'bad' : '', business: s.tried && missing.business ? 'bad' : '' }, waHref,
+      submitNote: s.tried && (missing.name || missing.business) ? 'Add your name and business first.' : 'Send logos and photos in the WhatsApp chat.', submit,
       visit: v && { ...v, src: v.live || './worlds/' + v.slug + '.html', posterOp: s.visitLoaded ? 0 : 1 }, worldLoaded: e => this.onWorldLoad(e), closeWorld: () => this.closeWorld(),
-      launched: s.launched, finalStage, finalText: ft > 8, missionId: (s.form.business || 'ALEPH').replace(/[^A-Za-z0-9]/g, '').slice(0, 6).toUpperCase().padEnd(6, '0') + '-' + String(s.pages).padStart(2, '0'),
+      launched: s.launched, finalStage, finalText: ft > 8, missionId: (s.form.business || 'ALEPH').replace(/[^A-Za-z0-9]/g, '').slice(0, 6).toUpperCase().padEnd(6, '0') + '-' + c.tier.name.slice(0, 3).toUpperCase(),
       resetAll: () => { this.setState({ launched: false }); if (window.AlephRocket) window.AlephRocket.reset(); }
     };
   }

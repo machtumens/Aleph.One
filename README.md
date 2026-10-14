@@ -20,13 +20,14 @@ python3 -m http.server 8000
 
 | File | What it is |
 | --- | --- |
-| `index.html` | The site. Launch sequence: rocket scene, ten worlds, mission configurator. |
-| `site.html` | Long-form variant. 13 sections, work gallery, price configurator, FAQ. |
+| `index.html` | The site, phone first. Launch sequence, nine sample sites, packages, configurator, WhatsApp brief. Layout lives in classes in the `<helmet><style>`: base rules are the phone layout, `@media (min-width:900px)` adds the laptop one. |
+| `site.html` | Long-form variant. 13 sections, work gallery, price configurator, FAQ. Reads `aleph-prices.js` like `index.html`; list text shows in English as written there, page labels and FAQ in Indonesian. |
 | `art-direction.html` | Deliverable A — the three directions and the pick. |
 | `screens.html` | Turn 2 screen sheet. |
-| `aleph-rocket.js` · `aleph-scene.js` | three.js scenes for `index` and `site`. |
+| `aleph-rocket.js` · `aleph-scene.js` | three.js scenes for `index` and `site`. `aleph-rocket.js`: procedural two-stage rocket and night pad, staging, and NASA-textured Earth and Moon with their own shaders. Poses are framed for a tall screen; `setViewOffset` moves the subject clear of the UI. |
 | `vendor/three.module.min.js` | three.js r160, self-hosted. The scenes must not depend on a CDN. |
-| `aleph-prices.js` | Every price on the site. Nothing is hardcoded in markup. |
+| `aleph-prices.js` | Every price on `index.html` and `site.html`, from the 2026 price list PDF. Nothing is hardcoded in markup. Check: `node tools/check-prices.js`. |
+| `assets/space/` | Moon and Earth maps baked from NASA public-domain data (LRO LROC/LOLA, Blue Marble, Black Marble). Regenerate with `tools/bake_space.py`; source URLs are in its header. |
 | `worlds/` | The seven concept sites, opened full-screen from the Work section. |
 | `assets/work/` | Project media for the Work section; `posters/` holds the card screenshots. |
 | `uploads/aleph-mark.png` · `aleph-icon.png` | The mark cut out of the logo card (transparent, glow added in CSS) and the 180px tab / home-screen icon. The full card stays as the social image. |
