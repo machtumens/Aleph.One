@@ -8,6 +8,13 @@
 <meta name="description" content="Fixed-price websites and web applications from Jakarta. Full source code, accounts in your name, maintained after launch. From Rp 1.000.000.">
 <link rel="icon" type="image/png" href="./uploads/aleph-icon.png">
 <link rel="apple-touch-icon" href="./uploads/aleph-icon.png">
+<!-- Brand fonts (Lora, Inter: SIL Open Font License, from Google Fonts) and the mark are self-hosted and fetched first.
+     The loader waits for them for at most 1.5 s; if they are later, they swap in when they land. -->
+<link rel="preload" href="./assets/fonts/inter.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="./assets/fonts/lora.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="./uploads/aleph-mark.png" as="image">
+<style>@font-face{font-family:Inter;src:url(./assets/fonts/inter.woff2) format('woff2');font-weight:400 700;font-display:swap}
+@font-face{font-family:Lora;src:url(./assets/fonts/lora.woff2) format('woff2');font-weight:400 700;font-display:swap}</style>
 <link rel="canonical" href="https://machtumens.github.io/Aleph.One/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Aleph One — Websites, built properly.">
@@ -21,14 +28,13 @@
 <x-dc>
 <helmet>
 <title>Aleph One — Creative Technology</title>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,100..900&family=Instrument+Sans:wght@400..700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Space+Grotesk:wght@300..700&family=Caprasimo&family=Anton&display=swap" rel="stylesheet">
 <script src="./aleph-prices.js"></script>
 <script type="module" src="./aleph-rocket.js"></script>
 <style>
 /* Phone first. Base rules are the phone layout; @media (min-width:900px) adds the laptop layout on top. */
-:root{--bg:#070809;--ink:#EDEFF0;--mute:#9BA1A4;--dim:#5C6367;--line:rgba(255,255,255,.13);--line2:rgba(255,255,255,.24);--cy:#35D6F0;--tan:#C8A77C;--glass:rgba(11,13,15,.66);--pad:20px;--disp:Archivo,sans-serif;--ease:cubic-bezier(.2,.7,.2,1);--st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px)}
+:root{--bg:#070809;--ink:#EDEFF0;--mute:#9BA1A4;--dim:#5C6367;--line:rgba(255,255,255,.13);--line2:rgba(255,255,255,.24);--cy:#35D6F0;--tan:#C8A77C;--glass:rgba(11,13,15,.66);--pad:20px;--disp:Lora,Georgia,serif;--sans:Inter,system-ui,sans-serif;--ease:cubic-bezier(.2,.7,.2,1);--st:env(safe-area-inset-top,0px);--sb:env(safe-area-inset-bottom,0px)}
 html{-webkit-text-size-adjust:100%;scroll-padding-top:0}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 'Instrument Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--sans);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overflow-x:hidden}
 a{color:var(--cy);text-decoration:none}
 button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;-webkit-appearance:none;appearance:none;text-align:inherit}
 input,select,textarea{font:inherit;color:inherit}
@@ -52,21 +58,21 @@ input::placeholder,textarea::placeholder{color:var(--dim)}
 .h-hero,.h-pre,.h-eng,.h-asm,.h-ign,.h-asc{height:var(--h)}
 .snap{position:absolute;left:0;width:1px;height:1px;opacity:0;pointer-events:none;top:calc(var(--t) * (var(--h) - 100vh))}
 @supports (height:1svh){.snap{top:calc(var(--t) * (var(--h) - 100svh))}}
-@media (pointer:coarse){html{scroll-snap-type:y mandatory}.snap,.snap-sec{scroll-snap-align:start}footer{scroll-snap-align:end}}
+@media (pointer:coarse){html{scroll-snap-type:y mandatory}.snap,.snap-sec{scroll-snap-align:start;scroll-snap-stop:always}footer{scroll-snap-align:end}}
 
 /* type */
-.eyebrow{font-size:11px;letter-spacing:.09em;color:var(--mute);text-transform:uppercase}
-.h-xl,.h-l,.h-m,.h-card,.h-xxl,.h-giant{margin:0;font-family:var(--disp);font-weight:600;font-variation-settings:'wdth' 84;letter-spacing:-.04em}
-.h-xl{font-size:clamp(44px,13vw,96px);line-height:.9;margin-left:-2px}
+.eyebrow{font-size:11px;letter-spacing:.14em;color:var(--mute);text-transform:uppercase}
+.h-xl,.h-l,.h-m,.h-card,.h-xxl,.h-giant{margin:0;font-family:var(--disp);font-weight:500;letter-spacing:-.025em}
+.h-xl{font-size:clamp(40px,10.6vw,96px);line-height:.95;margin-left:-2px}
 .h-l{font-size:clamp(36px,10vw,76px);line-height:.93;margin-left:-2px}
 .h-m{font-size:clamp(30px,8.4vw,52px);line-height:.95}
 .h-card{font-size:clamp(30px,8vw,40px);line-height:1;letter-spacing:-.03em;display:block}
 .h-xxl{font-size:clamp(42px,11.5vw,112px);line-height:.88;transition:opacity .6s,transform .7s var(--ease)}
-.h-giant{font-size:clamp(84px,24vw,220px);line-height:.84;letter-spacing:-.05em;margin-left:-4px}
+.h-giant{font-size:clamp(72px,20vw,220px);line-height:.9;letter-spacing:-.03em;margin-left:-4px}
 .lede{margin:0;color:var(--mute);max-width:54ch}
 .mute{color:var(--mute)}.cy{color:var(--cy)}.ink{color:var(--ink)}
 .fine{margin:0;font-size:12px;color:var(--dim);line-height:1.45}
-.price{display:inline-flex;align-items:flex-start;font-family:var(--disp);font-weight:300;font-variation-settings:'wdth' 100;font-size:clamp(46px,13vw,58px);line-height:1;letter-spacing:-.035em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.price{display:inline-flex;align-items:flex-start;font-family:var(--disp);font-weight:400;font-size:clamp(46px,13vw,58px);line-height:1;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
 .price .rp{font-size:13px;font-weight:500;letter-spacing:0;color:var(--tan);margin:.35em .35em 0 0}
 .price.sm{font-size:32px}.price.md{font-size:clamp(38px,10vw,48px)}
 /* add-on icons: masks built from the path data in aleph-prices.js at mount, so the raw template never holds an invalid <path d> */
@@ -95,11 +101,14 @@ input::placeholder,textarea::placeholder{color:var(--dim)}
 .scene{position:fixed;top:0;left:0;width:100%;height:100vh;height:100lvh;z-index:0;display:block}
 .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.07;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 .shade{position:fixed;inset:0;z-index:1;pointer-events:none;background:var(--bg);transition:opacity .8s var(--ease)}
+/* far jumps (PRICES, back to the pad) fade through black instead of flying the camera through every pose */
+.cut{position:fixed;inset:0;z-index:24;pointer-events:none;background:var(--bg);opacity:0;transition:opacity .7s var(--ease)}
+.cut.on{opacity:1;transition-duration:.22s}
 .vignette{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(120% 90% at 50% 40%,transparent 55%,rgba(0,0,0,.55))}
 .bar{position:fixed;top:0;left:0;right:0;z-index:20;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(10px + var(--st)) var(--pad) 18px;background:linear-gradient(rgba(7,8,9,.78),rgba(7,8,9,0))}
 .bar-prog{position:absolute;left:0;top:0;height:2px;width:100%;background:var(--cy);transform-origin:left;transition:transform .2s linear}
-.brand{display:flex;align-items:center;gap:9px;min-height:44px;font-weight:650;font-size:15px;letter-spacing:-.01em}
-.brand img{height:22px;width:auto;filter:drop-shadow(0 0 6px rgba(53,214,240,.55))}
+.brand{display:flex;align-items:center;gap:10px;min-height:44px;font-weight:500;font-size:12px;letter-spacing:.28em}
+.brand img{height:26px;width:auto}
 .phase{display:flex;gap:10px;align-items:center;font-size:11px;letter-spacing:.08em;white-space:nowrap}
 .phase i{width:6px;height:6px;background:var(--cy);animation:blink 1.6s infinite;display:inline-block}
 .tel-m{position:fixed;z-index:19;top:calc(58px + var(--st));left:var(--pad);display:flex;gap:10px;padding:6px 10px;border-radius:999px;font-size:10px;letter-spacing:.06em;font-variant-numeric:tabular-nums;background:rgba(11,13,15,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:inset 0 0 0 1px var(--line);transition:opacity .4s,transform .4s var(--ease);opacity:0;transform:translateY(-6px);pointer-events:none}
@@ -110,15 +119,15 @@ input::placeholder,textarea::placeholder{color:var(--dim)}
 .dock.on{transform:none}
 .dock-t{display:flex;flex-direction:column;min-width:0;line-height:1.25}
 .dock-k{font-size:10px;letter-spacing:.08em;color:var(--mute);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dock-v{font-family:var(--disp);font-weight:600;font-variation-settings:'wdth' 84;font-size:18px;letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
+.dock-v{font-family:var(--disp);font-weight:500;font-size:18px;letter-spacing:-.02em;white-space:nowrap;font-variant-numeric:tabular-nums}
 
 /* loader */
 .loader{position:fixed;inset:0;z-index:60;background:var(--bg);display:flex;flex-direction:column;justify-content:space-between;padding:calc(20px + var(--st)) var(--pad) calc(24px + var(--sb));box-sizing:border-box;transition:clip-path 1.4s cubic-bezier(.7,0,.3,1);will-change:clip-path}
 .loader-top,.loader-bot{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;font-size:11px;letter-spacing:.06em;color:var(--mute);transition:opacity .4s}
 .loader-logo{display:flex;align-items:center;justify-content:center;gap:clamp(14px,4vw,24px);transition:transform 1.4s cubic-bezier(.7,0,.3,1),opacity 1s .3s,filter 1.2s;will-change:transform,filter}
-.loader-logo img{height:clamp(62px,17vw,96px);width:auto;filter:drop-shadow(0 0 10px rgba(53,214,240,.55)) drop-shadow(0 0 2px rgba(53,214,240,.4))}
-.loader-logo span{font-family:var(--disp);font-weight:600;font-size:clamp(38px,11vw,84px);letter-spacing:-.04em;font-variation-settings:'wdth' 84;line-height:1}
-.loader-pct{font-family:var(--disp);font-weight:500;font-size:52px;line-height:.9;letter-spacing:-.03em;color:var(--ink);font-variation-settings:'wdth' 70;font-variant-numeric:tabular-nums}
+.loader-logo img{height:clamp(62px,17vw,96px);width:auto}
+.loader-logo span{font-weight:400;font-size:clamp(17px,4.6vw,30px);letter-spacing:.32em;margin-right:-.32em;line-height:1}
+.loader-pct{font-family:var(--disp);font-weight:500;font-size:52px;line-height:.9;letter-spacing:-.02em;color:var(--ink);font-variant-numeric:tabular-nums}
 .loader-pct small{font-size:20px;color:var(--mute)}
 .loader-cue{display:flex;gap:12px;align-items:center;color:var(--ink);transition:opacity .6s}
 .loader-cue i{width:1px;height:28px;background:linear-gradient(var(--cy),transparent);animation:cueDrop 1.6s infinite}
@@ -135,7 +144,7 @@ main{position:relative;z-index:2;overflow-x:clip}
 /* 00 hero */
 .hero{justify-content:flex-end;padding-bottom:calc(28px + var(--sb))}
 .scrim{position:absolute;left:0;right:0;bottom:0;height:62%;background:linear-gradient(rgba(7,8,9,0),rgba(7,8,9,.62) 45%,rgba(7,8,9,.9));pointer-events:none}
-.hero-in{position:relative;display:flex;flex-direction:column;gap:18px;transition:transform .24s var(--ease)}
+.hero-in{position:relative;display:flex;flex-direction:column;gap:18px}
 .facts{display:flex;flex-wrap:wrap;gap:6px}
 .facts span{font-size:12px;padding:7px 11px;border-radius:999px;background:rgba(11,13,15,.6);box-shadow:inset 0 0 0 1px var(--line);color:var(--mute)}
 .facts b{color:var(--ink);font-weight:600}
@@ -151,6 +160,11 @@ main{position:relative;z-index:2;overflow-x:clip}
 .steps i.done{background:rgba(237,239,240,.7)}.steps i.now{background:var(--cy)}
 .row-k{display:flex;justify-content:space-between;font-size:11px;letter-spacing:.07em;color:var(--mute)}
 .card p{margin:0;font-size:16px;line-height:1.45}
+/* every beat sits in the same cell, so the card keeps its height and the text slides between beats instead of swapping */
+.deck{display:grid}
+.beat{grid-area:1/1;display:flex;flex-direction:column;gap:12px;opacity:0;visibility:hidden;transform:translateY(16px);transition:opacity .3s,transform .5s var(--ease),visibility 0s .5s}
+.beat.past{transform:translateY(-16px)}
+.beat.on{opacity:1;visibility:visible;transform:none;transition:opacity .45s .08s,transform .6s .08s var(--ease),visibility 0s}
 /* 03 assembly */
 .systems{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;font-size:11px;letter-spacing:.07em}
 .systems div{display:flex;justify-content:space-between;gap:10px;padding:12px 14px;border-radius:12px;background:rgba(11,13,15,.62);box-shadow:inset 0 0 0 1px var(--line);transition:color .3s}
@@ -158,7 +172,7 @@ main{position:relative;z-index:2;overflow-x:clip}
 /* 04 ignition */
 .ign{align-items:flex-end;text-align:right}
 .count-wrap{display:flex;flex-direction:column;align-items:flex-end;gap:12px}
-.count{font-family:var(--disp);font-weight:600;font-size:clamp(132px,40vw,340px);line-height:.8;letter-spacing:-.06em;font-variation-settings:'wdth' 70;font-variant-numeric:tabular-nums;transition:color .3s}
+.count{font-family:var(--disp);font-weight:500;font-size:clamp(112px,32vw,300px);line-height:.8;letter-spacing:-.04em;font-variant-numeric:tabular-nums;transition:color .3s}
 /* 05 ascent */
 .asc{justify-content:flex-end;gap:18px}
 .asc-head{display:flex;flex-direction:column;gap:10px}
@@ -176,7 +190,7 @@ main{position:relative;z-index:2;overflow-x:clip}
 .pkg{display:none;flex-direction:column;gap:20px;padding:24px 22px;border-radius:20px;background:rgba(11,13,15,.72);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:inset 0 0 0 1px var(--line);animation:rise .45s var(--ease) both}
 .pkg.on{display:flex;box-shadow:inset 0 0 0 1px var(--line2),inset 0 2px 0 var(--cy)}
 .pkg header{display:flex;flex-direction:column;gap:6px}
-.pkg-name{display:flex;align-items:center;gap:8px;font-family:var(--disp);font-weight:600;font-variation-settings:'wdth' 84;font-size:28px;letter-spacing:-.03em}
+.pkg-name{display:flex;align-items:center;gap:8px;font-family:var(--disp);font-weight:500;font-size:28px;letter-spacing:-.02em}
 .tan-dot{width:7px;height:7px;border-radius:50%;background:var(--tan)}
 .pkg-tag{font-size:14px;color:var(--mute)}
 .specs{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -200,8 +214,8 @@ main{position:relative;z-index:2;overflow-x:clip}
 .addon-ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(53,214,240,.08);color:var(--cy)}
 .addon-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
 .addon-txt b{font-weight:600;font-size:15px;line-height:1.25}
-.addon-price{font-family:var(--disp);font-weight:500;font-variation-settings:'wdth' 84;font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}
-.addon-price em{font-style:normal;font-size:11px;font-family:'Instrument Sans',sans-serif;font-weight:400}
+.addon-price{font-family:var(--disp);font-weight:500;font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}
+.addon-price em{font-style:normal;font-size:11px;font-family:var(--sans);font-weight:400}
 .chev{color:var(--dim);font-size:22px;line-height:1}
 .sw-hit{min-width:62px;min-height:62px;display:grid;place-items:center}
 .sw{width:46px;height:28px;border-radius:999px;background:rgba(255,255,255,.14);position:relative;transition:background .25s;display:block}
@@ -227,7 +241,7 @@ main{position:relative;z-index:2;overflow-x:clip}
 .more-in ul{margin:0;padding:0 0 0 16px;display:grid;gap:6px}
 .more-in .x li{color:var(--mute)}
 .resp{display:flex;gap:16px;align-items:center;padding:14px;border-radius:12px;background:rgba(200,167,124,.08)}
-.resp b{font-family:var(--disp);font-weight:300;font-size:34px;line-height:1;letter-spacing:-.03em;white-space:nowrap}
+.resp b{font-family:var(--disp);font-weight:400;font-size:34px;line-height:1;letter-spacing:-.03em;white-space:nowrap}
 .resp>span{font-size:12px;color:var(--mute)}
 .input{width:100%;box-sizing:border-box;min-height:52px;padding:14px 16px;border-radius:14px;border:0;background:rgba(11,13,15,.62);box-shadow:inset 0 0 0 1px var(--line2);font-size:16px;outline:none;transition:box-shadow .2s}
 .input:focus{box-shadow:inset 0 0 0 1px var(--cy)}
@@ -242,17 +256,17 @@ select.input option{background:#111315}
 .pay{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .pay div{display:flex;flex-direction:column;gap:4px;padding:12px;border-radius:12px;background:rgba(255,255,255,.04)}
 .pay div>span{font-size:11px;letter-spacing:.05em;color:var(--mute)}
-.pay b{font-family:var(--disp);font-weight:500;font-variation-settings:'wdth' 84;font-size:17px;font-variant-numeric:tabular-nums}
+.pay b{font-family:var(--disp);font-weight:500;font-size:17px;font-variant-numeric:tabular-nums}
 .pay small{font-size:11px;color:var(--mute)}
 /* 09 start */
 .start{display:grid;gap:30px}
 .steps-rail{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:0 calc(-1*var(--pad));padding:0 var(--pad)}
 .steps-rail::-webkit-scrollbar{display:none}
 .steps-rail>span{flex:0 0 auto;display:flex;align-items:center;gap:8px;padding:9px 13px;border-radius:999px;background:rgba(11,13,15,.6);box-shadow:inset 0 0 0 1px var(--line);font-size:12px;white-space:nowrap}
-.steps-rail b{font-family:var(--disp);font-weight:300;color:var(--tan);font-size:15px}
+.steps-rail b{font-family:var(--disp);font-weight:400;color:var(--tan);font-size:15px}
 .process{margin:0;padding:0;list-style:none;display:flex;flex-direction:column}
 .process li{display:grid;grid-template-columns:34px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line);font-size:14px;color:var(--mute)}
-.process li>b{font-family:var(--disp);font-weight:300;font-size:26px;line-height:1;color:var(--tan)}
+.process li>b{font-family:var(--disp);font-weight:400;font-size:26px;line-height:1;color:var(--tan)}
 .process strong{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
 .form{display:grid;gap:14px}
 .form label{display:flex;flex-direction:column;gap:8px;font-size:11px;letter-spacing:.08em;color:var(--mute)}
@@ -283,7 +297,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}footer a{color:var(--mute)}
 .visit{position:fixed;inset:0;z-index:55;view-transition-name:world}
 .visit iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 .visit-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;pointer-events:none;transition:opacity .6s}
-.visit-bar{position:absolute;left:50%;bottom:calc(14px + var(--sb));transform:translateX(-50%);display:flex;align-items:center;padding:5px;border-radius:999px;background:rgba(7,8,9,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-family:'Instrument Sans',sans-serif;font-size:11px;letter-spacing:.06em;white-space:nowrap;box-shadow:0 12px 40px rgba(0,0,0,.35);color:var(--ink)}
+.visit-bar{position:absolute;left:50%;bottom:calc(14px + var(--sb));transform:translateX(-50%);display:flex;align-items:center;padding:5px;border-radius:999px;background:rgba(7,8,9,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);font-family:var(--sans);font-size:11px;letter-spacing:.06em;white-space:nowrap;box-shadow:0 12px 40px rgba(0,0,0,.35);color:var(--ink)}
 .visit-bar .back{min-height:40px;padding:0 16px;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:650}
 .visit-bar>span{padding:0 12px;color:var(--mute)}
 .final{position:fixed;inset:0;z-index:30;display:flex;flex-direction:column;justify-content:space-between;padding:calc(76px + var(--st)) var(--pad) calc(40px + var(--sb));box-sizing:border-box;pointer-events:none}
@@ -326,13 +340,14 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}footer a{color:var(--mute)}
 
 <canvas ref="{{ canvasRef }}" class="scene" style="display:{{ canvasDisplay }}"></canvas>
 <div class="shade" aria-hidden="true" style="opacity:{{ shadeOp }}"></div>
+<div class="cut {{ cutCls }}" aria-hidden="true"></div>
 <div class="vignette" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 
 <!-- LOADER: tap, swipe or scroll to enter -->
 <div class="loader" onClick="{{ tapEnter }}" style="pointer-events:{{ loaderEvents }};clip-path:{{ tvClip }}">
   <div class="loader-top" style="opacity:{{ tvChromeOp }}"><span>ALEPH ONE — LAUNCH COMPLEX 01</span><span>{{ loaderStep }}</span></div>
-  <div class="loader-logo" style="transform:{{ tvLogoT }};opacity:{{ tvLogoOp }};filter:{{ tvLogoBlur }}"><img src="uploads/aleph-mark.png" alt="" width="157" height="185"><span>aleph.one</span></div>
+  <div class="loader-logo" style="transform:{{ tvLogoT }};opacity:{{ tvLogoOp }};filter:{{ tvLogoBlur }}"><img src="uploads/aleph-mark.png" alt="" width="293" height="320"><span>ALEPH ONE</span></div>
   <div class="loader-bot" style="opacity:{{ tvChromeOp }}">
     <span class="loader-left"><span class="loader-pct">{{ pct }}<small>%</small></span><span class="loader-cue" style="opacity:{{ cueOp }}"><i></i>{{ cueText }}</span></span>
     <button class="link" onClick="{{ skipToPrices }}">SKIP TO PRICES</button>
@@ -342,7 +357,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}footer a{color:var(--mute)}
 <!-- CHROME -->
 <header class="bar">
   <span class="bar-prog" style="transform:scaleX({{ scrollFrac }})"></span>
-  <button class="brand" onClick="{{ goTop }}" aria-label="Aleph One, back to the launch pad"><img src="uploads/aleph-mark.png" alt="" width="157" height="185"><span>aleph.one</span></button>
+  <button class="brand" onClick="{{ goTop }}" aria-label="Aleph One, back to the launch pad"><img src="uploads/aleph-mark.png" alt="" width="293" height="320"><span>ALEPH ONE</span></button>
   <span class="phase only-d"><i></i>{{ phase }}</span>
   <button class="pill" onClick="{{ goPrices }}">PRICES</button>
 </header>
@@ -360,12 +375,12 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}footer a{color:var(--mute)}
   <i class="snap" style="--t:0"></i><i class="snap" style="--t:1"></i>
   <div class="stick hero">
     <div class="scrim"></div>
-    <div class="hero-in" style="transform:{{ s0.nudgeY }}">
+    <div class="hero-in">
       <span class="eyebrow">Launch complex 01 · Jakarta</span>
       <h1 class="h-xl">Not another website.<br><span class="mute">One that takes you somewhere.</span></h1>
       <div class="facts"><span>From <b>Rp 1.000.000</b></span><span>Fixed price</span><span>Code is yours</span></div>
       <button class="btn btn-block hero-cta" onClick="{{ beginMission }}" style="box-shadow:{{ s0.glow }}">BEGIN MISSION <span aria-hidden="true">→</span></button>
-      <span class="hold" style="opacity:{{ s0.hold }}">TAP BEGIN MISSION TO LAUNCH</span>
+      <span class="hold" style="opacity:{{ s0.hold }}">{{ s0.holdText }}</span>
     </div>
   </div>
 </section>
@@ -384,9 +399,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}footer a{color:var(--mute)}
     <div class="only-d"></div>
     <div class="glass card" aria-live="polite">
       <div class="steps" aria-hidden="true"><sc-for list="{{ problems }}" as="p" hint-placeholder-count="5"><i class="{{ p.step }}"></i></sc-for></div>
-      <div class="row-k"><span>{{ activeProblem.n }} / 05</span><span class="cy">{{ activeProblem.sys }}</span></div>
-      <span class="h-card">{{ activeProblem.part }}</span>
-      <p>{{ activeProblem.desc }}</p>
+      <div class="deck"><sc-for list="{{ problems }}" as="p" hint-placeholder-count="5"><div class="beat {{ p.show }}"><div class="row-k"><span>{{ p.n }} / 05</span><span class="cy">{{ p.sys }}</span></div><span class="h-card">{{ p.part }}</span><p>{{ p.desc }}</p></div></sc-for></div>
     </div>
   </div>
 </section>
@@ -405,9 +418,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}footer a{color:var(--mute)}
     <div class="only-d"></div>
     <div class="glass card" aria-live="polite">
       <div class="steps" aria-hidden="true"><sc-for list="{{ pillars }}" as="p" hint-placeholder-count="7"><i class="{{ p.step }}"></i></sc-for></div>
-      <div class="row-k"><span>{{ activePillar.n }} / 07</span><span class="cy">{{ activePillar.part }}</span></div>
-      <span class="h-card">{{ activePillar.name }}</span>
-      <p>{{ activePillar.desc }}</p>
+      <div class="deck"><sc-for list="{{ pillars }}" as="p" hint-placeholder-count="7"><div class="beat {{ p.show }}"><div class="row-k"><span>{{ p.n }} / 07</span><span class="cy">{{ p.part }}</span></div><span class="h-card">{{ p.name }}</span><p>{{ p.desc }}</p></div></sc-for></div>
     </div>
   </div>
 </section>
@@ -609,7 +620,7 @@ footer nav{display:flex;flex-wrap:wrap;gap:8px 22px}footer a{color:var(--mute)}
 class Component extends DCLogic {
   canvasRef = React.createRef();
   state = { quality: 'standard', steps: 0, locked: false, loaderGone: false, ready: false, entering: false, sec: 0, local: 0, scrollPct: 0, tel: { alt: 0, thrust: 0 }, tierIdx: 1, addons: {}, apiQty: 1, maint: 'annual', custom: '', sheet: null,
-    form: { name: '', business: '', email: '', social: '', about: '', when: 'This month' }, tried: false, launched: false, launchAt: 0, finalT: 0, visit: null, visitLoaded: false };
+    form: { name: '', business: '', email: '', social: '', about: '', when: 'This month' }, tried: false, launched: false, launchAt: 0, finalT: 0, visit: null, visitLoaded: false, cut: false };
   PHASES = ['LAUNCH SITE', 'PRE-LAUNCH', 'ENGINEERING', 'ASSEMBLY', 'IGNITION', 'ASCENT', 'ORBIT', 'PACKAGES', 'CONFIGURE', 'MISSION PROFILE'];
   PROBLEMS = [
     ['THE BODY', 'BRAND', 'A template borrows someone else\'s identity.'],
@@ -660,7 +671,10 @@ class Component extends DCLogic {
     let quality = this.pickQuality(); if (this.q.get('quality')) quality = this.q.get('quality');
     this.setState({ quality });
     const step = () => this.setState(s => ({ steps: s.steps + 1 }));
-    document.fonts.ready.then(step);
+    // Brand fonts and mark (preloaded in <head>) hold the loader for at most 1.5 s, then the page goes on without them.
+    const mark = new Image(); mark.src = 'uploads/aleph-mark.png';
+    const brand = Promise.all([document.fonts.load('400 16px Inter'), document.fonts.load('500 40px Lora'), mark.decode()]).catch(() => {});
+    Promise.race([brand, new Promise(r => setTimeout(r, 1500))]).then(step);
     if (quality === 'poster') { step(); step(); } else {
       let tries = 0; const wait = () => {
         if (window.AlephRocket) { step(); try { window.AlephRocket.init(this.canvasRef.current, { quality, onFirstFrame: step }); } catch (err) { console.error('scene init: ' + (err && err.message)); this.setState({ quality: 'poster', steps: 3 }); } }
@@ -677,10 +691,10 @@ class Component extends DCLogic {
     // Back on a phone closes the add-on sheet first, then a sample site, before it leaves the page.
     this.onPop = () => { if (this.state.sheet !== null) this.dropSheet(); else this.leaveWorld(); }; addEventListener('popstate', this.onPop);
     this.onEsc = e => { if (e.key !== 'Escape') return; if (this.state.sheet !== null) this.closeSheet(); else if (this.state.visit !== null) this.closeWorld(); }; addEventListener('keydown', this.onEsc);
-    this.telT = setInterval(() => { if (window.AlephRocket && window.AlephRocket.stats) { const s = window.AlephRocket.stats(); this.setState({ tel: { alt: s.alt, thrust: s.thrust } }); } if (this.state.launched) this.setState({ finalT: (performance.now() - this.state.launchAt) / 1000 }); }, 250);
+    this.telT = setInterval(() => { if (window.AlephRocket && window.AlephRocket.stats) { const s = window.AlephRocket.stats(), tel = { alt: Math.round(s.alt * 10) / 10, thrust: Math.round(s.thrust * 100) / 100 }; if (tel.alt !== this.state.tel.alt || tel.thrust !== this.state.tel.thrust) this.setState({ tel }); } if (this.state.launched) this.setState({ finalT: (performance.now() - this.state.launchAt) / 1000 }); }, 250);
     this.measure();
   }
-  componentWillUnmount() { removeEventListener('scroll', this.onScroll); removeEventListener('popstate', this.onPop); removeEventListener('keydown', this.onEsc); this.unguard(); clearTimeout(this.commitT); clearInterval(this.telT); clearTimeout(this.hardCap); clearTimeout(this.visitT); }
+  componentWillUnmount() { removeEventListener('scroll', this.onScroll); removeEventListener('popstate', this.onPop); removeEventListener('keydown', this.onEsc); this.unguard(); clearTimeout(this.commitT); clearInterval(this.telT); clearTimeout(this.hardCap); clearTimeout(this.visitT); clearTimeout(this.cutT); }
   // Worlds. Opening pushes a history entry so a phone's Back button closes the world instead of leaving the site.
   openWorld(i, el) {
     if (this.state.visit !== null) return;
@@ -749,15 +763,21 @@ class Component extends DCLogic {
     removeEventListener('wheel', this.onEnter); removeEventListener('touchmove', this.onEnter); removeEventListener('keydown', this.onEnter);
   }
   capY() { const el = this.secEls()[0]; return el ? Math.max(0, el.offsetTop + el.offsetHeight - innerHeight) : 0; }
-  nudge() { if (this.begun) return; const now = performance.now(); if (now - (this.lastNudge || 0) < 260) return; this.lastNudge = now; this.setState({ nudge: 1 }); clearTimeout(this.nudgeT); this.nudgeT = setTimeout(() => this.setState({ nudge: 0 }), 240); }
+  begin() { this.release(); setTimeout(this.goSec(1), 30); }
   guard(e) {
     if (this.begun) return; const down = e.type === 'wheel' ? e.deltaY > 0 : e.type === 'keydown' ? [' ', 'PageDown', 'ArrowDown', 'End'].includes(e.key) : this.touchY !== undefined && this.touchY - e.touches[0].clientY > 0;
     if (e.type === 'keydown' && !down) return;
-    if (down && scrollY >= this.capY() - 2) { e.preventDefault(); this.nudge(); }
+    if (down && scrollY >= this.capY() - 2) { e.preventDefault(); this.begin(); } // a swipe past the pad launches, same as BEGIN MISSION
   }
   unguard() { removeEventListener('wheel', this.onGuard); removeEventListener('touchstart', this.onTouchStart); removeEventListener('touchmove', this.onGuard); removeEventListener('keydown', this.onGuard); }
-  release() { if (this.begun) return; this.begun = true; this.unguard(); if (this.state.locked || this.state.nudge) this.setState({ locked: false, nudge: 0 }); }
-  goSec(i) { return () => { this.release(); const el = this.secEls()[i]; if (el) scrollTo({ top: el.getBoundingClientRect().top + scrollY + 2, behavior: 'smooth' }); }; }
+  release() { if (this.begun) return; this.begun = true; this.unguard(); if (this.state.locked) this.setState({ locked: false }); }
+  // Lands on the section's first beat. A jump over 3 screens fades to black, moves, and snaps the camera, so the
+  // scene does not fly through every pose on the way (PRICES from the pad is ~20 screens).
+  goSec(i) { return () => { this.release(); const el = this.secEls()[i]; if (!el) return;
+    const a = el.querySelector(':scope > .snap') || el, top = a.getBoundingClientRect().top + scrollY + (a === el ? 2 : 0);
+    if (Math.abs(top - scrollY) < innerHeight * 3) return scrollTo({ top, behavior: 'smooth' });
+    clearTimeout(this.cutT); this.setState({ cut: true });
+    this.cutT = setTimeout(() => { scrollTo({ top, behavior: 'instant' }); this.measure(); if (window.AlephRocket) window.AlephRocket.set({ snap: true }); this.cutT = setTimeout(() => this.setState({ cut: false }), 120); }, 240); }; }
   // Price list 2026: package + add-ons is the project price, paid 50/50. Maintenance is billed with the final payment.
   calc() {
     const P = this.P, s = this.state, tier = P.tiers[s.tierIdx];
@@ -770,8 +790,9 @@ class Component extends DCLogic {
   renderVals() {
     const P = this.P, s = this.state, t = s.local, c = this.calc(), W = this.WORLDS;
     const pct = Math.min(100, Math.round(s.steps / 3 * 100)), coarse = matchMedia('(pointer:coarse)').matches;
-    const activeP = Math.min(4, Math.floor(t * 5)), problems = this.PROBLEMS.map((p, i) => { const done = s.sec > 1 || i < activeP, now = s.sec === 1 && i === activeP; return { n: '0' + (i + 1), part: p[0], sys: p[1], desc: p[2], color: now ? '#35D6F0' : done ? '#EDEFF0' : '#5C6367', step: now ? 'now' : done ? 'done' : '' }; });
-    const activeS = Math.min(6, Math.floor(t * 7)), pillars = this.PILLARS.map((p, i) => { const done = s.sec > 2 || i < activeS, now = s.sec === 2 && i === activeS; return { n: '0' + (i + 1), name: p[0], part: p[1], desc: p[2], color: now ? '#35D6F0' : done ? '#EDEFF0' : '#5C6367', state: done ? 'INTEGRATED' : now ? 'INSTALLING' : 'PENDING', stateColor: done ? '#35D6F0' : '#5C6367', step: now ? 'now' : done ? 'done' : '' }; });
+    const beat = (sec, n) => s.sec < sec ? 0 : s.sec > sec ? n - 1 : Math.min(n - 1, Math.floor(t * n)), show = (i, b) => i === b ? 'on' : i < b ? 'past' : '';
+    const activeP = beat(1, 5), problems = this.PROBLEMS.map((p, i) => { const done = s.sec > 1 || i < activeP, now = s.sec === 1 && i === activeP; return { n: '0' + (i + 1), part: p[0], sys: p[1], desc: p[2], color: now ? '#35D6F0' : done ? '#EDEFF0' : '#5C6367', step: now ? 'now' : done ? 'done' : '', show: show(i, activeP) }; });
+    const activeS = beat(2, 7), pillars = this.PILLARS.map((p, i) => { const done = s.sec > 2 || i < activeS, now = s.sec === 2 && i === activeS; return { n: '0' + (i + 1), name: p[0], part: p[1], desc: p[2], color: now ? '#35D6F0' : done ? '#EDEFF0' : '#5C6367', state: done ? 'INTEGRATED' : now ? 'INSTALLING' : 'PENDING', stateColor: done ? '#35D6F0' : '#5C6367', step: now ? 'now' : done ? 'done' : '', show: show(i, activeS) }; });
     const systems = this.SYSTEMS.map((n, i) => { const on = s.sec > 3 || (s.sec === 3 && t > .1 + i * .12); return { name: n, state: on ? this.SYS_STATE[i] : 'STANDBY', color: on ? '#35D6F0' : '#5C6367' }; });
     let s4; if (s.sec !== 4) s4 = { label: 'IGNITION · HOLD', count: 'T-10', sub: 'Range is clear.', color: '#EDEFF0' };
     else { const n = 10 - Math.floor(Math.min(.999, t / .8) * 11); s4 = t < .8 ? { label: 'IGNITION · ' + (t > .45 ? 'ENGINES LIT' : 'ARMING'), count: 'T-' + Math.max(0, n), sub: t > .45 ? 'Nine engines at full thrust.' : 'Flight computer has control.', color: t > .45 ? '#35D6F0' : '#EDEFF0' } : { label: 'LIFTOFF', count: 'GO', sub: 'Clear of the tower.', color: '#35D6F0' }; }
@@ -812,19 +833,19 @@ class Component extends DCLogic {
       : { k: 'Opens WhatsApp', v: this.idr(c.project), cta: 'SEND', go: submit };
     const telOn = s.loaderGone && s.visit === null && (s.sec >= 4 && s.sec <= 6 || s.launched);
     return {
-      shadeOp: s.launched ? 0 : s.sec >= 8 ? (innerWidth < 900 ? .66 : .45) : s.sec >= 7 ? (innerWidth < 900 ? .38 : .2) : 0,
+      cutCls: s.cut ? 'on' : '', shadeOp: s.launched ? 0 : s.sec >= 8 ? (innerWidth < 900 ? .66 : .45) : s.sec >= 7 ? (innerWidth < 900 ? .38 : .2) : 0,
       canvasRef: this.canvasRef, canvasDisplay: s.quality === 'poster' ? 'none' : 'block', pct, loaderStep: ['LOADING TYPE', 'LOADING VEHICLE', 'FIRST FRAME', 'READY'][Math.min(3, s.steps)], loaderEvents: s.loaderGone ? 'none' : 'auto',
       tvClip: s.loaderGone || s.entering ? 'circle(0% at 50% 50%)' : 'circle(150% at 50% 50%)', tvChromeOp: s.entering ? 0 : 1, cueOp: s.ready && !s.entering ? 1 : 0, cueText: coarse ? 'TAP OR SWIPE TO ENTER' : 'SCROLL TO ENTER',
       tvLogoT: s.entering ? 'scale(9)' : 'scale(1)', tvLogoOp: s.entering ? 0 : 1, tvLogoBlur: s.entering ? 'blur(14px)' : 'blur(0)',
       tapEnter: () => { if (s.ready && !s.entering && !s.loaderGone) this.enter(); },
       skipToPrices: e => { e.stopPropagation(); this.release(); this.setState({ loaderGone: true, entering: true }); if (window.AlephRocket) window.AlephRocket.set({ enter: 1 }); setTimeout(this.goSec(7), 60); },
-      beginMission: () => { this.release(); setTimeout(this.goSec(1), 30); },
+      beginMission: () => this.begin(),
       phase: this.PHASES[Math.min(9, s.sec)], telAlt: this.telAlt(s.tel.alt), telThrust: Math.round(s.tel.thrust * 100) + '%', telClock: s.sec < 4 ? 'T-HOLD' : s.sec === 4 ? s4.count : 'T+' + String(Math.round(t * 60 + (s.sec - 5) * 60)).padStart(3, '0'), telQuality: s.quality.toUpperCase(),
       telCls: telOn ? 'on' : '', telDCls: s.loaderGone && s.visit === null && !s.launched && s.sec <= 6 ? 'on' : '',
       scrollFrac: s.scrollPct / 100, goTop: this.goSec(0), goPrices: this.goSec(7), goProfile: this.goSec(9),
       dock: { ...dock, cls: dockOn ? 'on' : '', hidden: dockOn ? 'false' : 'true', tab: dockOn ? 0 : -1 },
-      s0: { hold: s.locked ? 1 : 0, nudgeY: s.nudge ? 'translateY(-10px)' : 'translateY(0)', glow: s.locked ? '0 0 0 1px #35D6F0, 0 0 32px rgba(53,214,240,.45)' : 'none' },
-      problems, activeProblem: problems[s.sec > 1 ? 4 : activeP], pillars, activePillar: pillars[s.sec > 2 ? 6 : activeS], systems, s3: { h: s.sec > 3 || (s.sec === 3 && t > .7) ? 1 : 0, hy: s.sec === 3 && t <= .7 ? 30 : 0 }, s4, worlds,
+      s0: { hold: s.locked ? 1 : 0, holdText: coarse ? 'SWIPE UP TO LAUNCH' : 'SCROLL TO LAUNCH', glow: s.locked ? '0 0 0 1px #35D6F0, 0 0 32px rgba(53,214,240,.45)' : 'none' },
+      problems, pillars, systems, s3: { h: s.sec > 3 || (s.sec === 3 && t > .7) ? 1 : 0, hy: s.sec === 3 && t <= .7 ? 30 : 0 }, s4, worlds,
       pkgs, included: P.included, addonRows, sheet, plans, planNote: c.m.note, maintDoes: P.maintenance.does, maintExcludes: P.maintenance.excludes, resp: P.maintenance.response,
       swipeStart: e => { this.pk = e.touches[0].clientX; }, pkgSwipe: e => { const dx = e.changedTouches[0].clientX - (this.pk || 0); if (Math.abs(dx) > 50 && innerWidth < 900) setTier(s.tierIdx + (dx < 0 ? 1 : -1)); },
       tierNote: c.tier.pages + ' pages · ' + c.tier.days + ' working days · ' + c.tier.revisions + ' revision rounds',

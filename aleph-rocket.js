@@ -29,7 +29,7 @@ const parts = {}, arms = [], fins = [], wings = [], glows = [], beacons = [], be
 const S = { sec: 0, local: 0, enter: 1, launched: false, launchAt: 0, snap: false, mouse: [0, 0] };
 const KEYS = ['fov', 'alt', 'tilt', 'yaw', 'thrust', 'arms', 'open', 'payY', 'sep', 'fsep', 'mvac', 'vac', 'space', 'egap', 'efade', 'lunar', 'deploy', 'drift', 'vapor', 'fx', 'fy'];
 const A = { pos: V3(11, 2.2, 15), tgt: V3(0, 28, 0) }; KEYS.forEach(k => A[k] = 0); A.fov = 70; A.vapor = 1; A.egap = 300;
-let prMax = 1, fps = 0, frames = 0, tF = 0, tPrev = performance.now(), buzzed = false;
+let prMax = 1, fps = 0, frames = 0, tF = 0, tPrev = performance.now(), buzzed = false, wasCalm = false, movedAt = 0;
 const _o = new THREE.Object3D(), _v = V3(), _w = V3(), focus = V3(), flamePos = V3();
 
 // ---------- canvas textures ----------
@@ -58,7 +58,7 @@ function skin(o) {
   grain(x, 7); grain(y, 16, [1, 1, 0]);
   return { map: tx(c, true), data: tx(d, false) };
 }
-function words(K, text, u, m, size, color, vertical, weight = 600) { const { x, W, p, at } = K; x.save(); x.translate(u * W, at(m)); if (vertical) x.rotate(-Math.PI / 2); x.fillStyle = color; x.font = `${weight} ${size * p}px Archivo, "Instrument Sans", sans-serif`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(text, 0, 0); x.restore(); }
+function words(K, text, u, m, size, color, vertical, weight = 600) { const { x, W, p, at } = K; x.save(); x.translate(u * W, at(m)); if (vertical) x.rotate(-Math.PI / 2); x.fillStyle = color; x.font = `${weight} ${size * p}px Inter, sans-serif`; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(text, 0, 0); x.restore(); }
 function mark(K, u, m, hM, color) { if (!MARK.ok) return; const { x, W, p, at } = K, h = hM * p, w = h * MARK.img.width / MARK.img.height, [c, k] = cv(w, h); k.drawImage(MARK.img, 0, 0, c.width, c.height); k.globalCompositeOperation = 'source-in'; k.fillStyle = color; k.fillRect(0, 0, c.width, c.height); x.drawImage(c, u * W - w / 2, at(m) - h / 2, w, h); }
 function flag(K, u, m, wM) { const { x, W, p, at } = K, w = wM * p, h = w * 2 / 3, x0 = u * W - w / 2, y0 = at(m) - h / 2; x.fillStyle = '#C8102E'; x.fillRect(x0, y0, w, h / 2); x.fillStyle = '#F4F4F2'; x.fillRect(x0, y0 + h / 2, w, h / 2); x.strokeStyle = 'rgba(0,0,0,.25)'; x.lineWidth = 1; x.strokeRect(x0, y0, w, h); }
 function skins() {
@@ -66,10 +66,10 @@ function skins() {
   return {
     s1: skin({ circ, len: Y1, base: '#E8EAEB', rough: .36, streaks: 160, seams: [2.2, 5.1, 8, 10.9, 13.8, 16.7, 18.2, 21.1, 24, 26.9, 29.6], soot: 10.5, frost: [19, 29.2],
       decals: K => { words(K, 'ALEPH ONE', .13, 16.4, 2.7, '#0C0D0E', true); mark(K, .13, 27.4, 1.7, '#0C0D0E'); flag(K, .13, 25.1, 1.25); words(K, 'LV-01 · B1007', .3, 11.6, .3, '#2A2C2E', false, 500); words(K, 'NO STEP', .62, 28.4, .22, '#B4302A', false, 600); } }),
-    inter: skin({ circ, len: YI - Y1, base: '#151618', rough: .48, streaks: 30, seams: [.4, 4.1], decals: K => { mark(K, .13, 2.5, 1.4, '#E9EBEC'); words(K, 'aleph.one', .3, 2.4, .7, '#E9EBEC', false); } }),
+    inter: skin({ circ, len: YI - Y1, base: '#151618', rough: .48, streaks: 30, seams: [.4, 4.1], decals: K => { mark(K, .13, 2.5, 1.4, '#E9EBEC'); words(K, 'ALEPH ONE', .3, 2.4, .55, '#E9EBEC', false); } }),
     s2: skin({ circ, len: Y2 - YI, base: '#E9EBEC', rough: .34, streaks: 50, seams: [.3, 2.6, 4.4, 6.3], frost: [3.2, 6.1], decals: K => { words(K, 'ALEPH ONE', .13, 2.3, .5, '#0C0D0E', false); words(K, 'S2 · LV-01', .62, 1.4, .25, '#2A2C2E', false, 500); } }),
     fair: skin({ circ: Math.PI * RF, len: 12.6, base: '#ECEEEF', rough: .32, streaks: 60, seams: [1.5], vlines: [.004, .996],
-      decals: K => { mark(K, .3, 7.1, 2.8, '#0C0D0E'); words(K, 'aleph.one', .3, 4.6, .85, '#0C0D0E', false); words(K, 'CREATIVE TECHNOLOGY · JAKARTA', .3, 3.8, .2, '#3A3C3E', false, 500); } })
+      decals: K => { mark(K, .3, 7.1, 2.8, '#0C0D0E'); words(K, 'ALEPH ONE', .3, 4.6, .66, '#0C0D0E', false); words(K, 'CREATIVE TECHNOLOGY · JAKARTA', .3, 3.8, .2, '#3A3C3E', false, 500); } })
   };
 }
 function lineTex(w, h, draw, srgb = true) { const [c, x] = cv(w, h); draw(x, w, h); return tx(c, srgb); }
@@ -478,7 +478,10 @@ function pose(now) {
 
 function tick(now) {
   if (!rocket) return;
-  const calm = S.sec >= 7 && !S.launched && quality !== 'cinema'; if (calm && now - tPrev < 38) return; // static sections: ~26 fps saves the battery
+  // Price sections: ~26 fps saves the battery, but only once the camera has settled (1.2 s after the last scroll).
+  const calm = S.sec >= 7 && !S.launched && quality !== 'cinema' && now - movedAt > 1200;
+  if (calm !== wasCalm) { wasCalm = calm; frames = 0; tF = now; } // a mixed window would read as a slow phone and blur the canvas
+  if (calm && now - tPrev < 38) return;
   const dt = clamp((now - tPrev) / 1000, 0, .05); tPrev = Math.max(tPrev, now); frames++;
   if (now - tF > 600) { fps = Math.round(frames * 1000 / (now - tF)); frames = 0; tF = now; const pr = gl.getPixelRatio(); if (calm) {} else if (fps < 42 && pr > .75) gl.setPixelRatio(Math.max(.75, pr - .2)); else if (fps > 56 && pr < prMax) gl.setPixelRatio(Math.min(prMax, pr + .1)); }
   const w = canvasEl.clientWidth || innerWidth, h = canvasEl.clientHeight || innerHeight; fit(w, h);
@@ -557,14 +560,14 @@ window.AlephRocket = {
     cam = new THREE.PerspectiveCamera(60, 1, .5, 400000);
     MARK.img.src = 'uploads/aleph-mark.png';
     materials(); buildRocket(); buildComplex(); buildSpace(); buildLights();
-    Promise.all([document.fonts.load('600 40px Archivo').catch(() => {}), new Promise(r => { MARK.img.onload = () => { MARK.ok = true; r(); }; MARK.img.onerror = r; if (MARK.img.complete && MARK.img.naturalWidth) { MARK.ok = true; r(); } })]).then(repaint);
+    Promise.all([document.fonts.load('600 40px Inter').catch(() => {}), new Promise(r => { MARK.img.onload = () => { MARK.ok = true; r(); }; MARK.img.onerror = r; if (MARK.img.complete && MARK.img.naturalWidth) { MARK.ok = true; r(); } })]).then(repaint);
     if (CINEMA) addEventListener('pointermove', e => { S.mouse = [e.clientX / innerWidth * 2 - 1, e.clientY / innerHeight * 2 - 1]; }, { passive: true });
     let logged = 0; loop = now => { try { tick(now); } catch (e) { if (logged++ < 3) console.warn('AlephRocket tick: ' + (e && e.stack || e)); } };
     gl.setAnimationLoop(loop);
   },
   // Stops drawing while a full-screen world covers the canvas, so the iframe gets the GPU.
   pause(on) { if (gl) gl.setAnimationLoop(on ? null : loop); },
-  set(o) { Object.assign(S, o); },
+  set(o) { if ((o.sec !== undefined && o.sec !== S.sec) || (o.local !== undefined && o.local !== S.local)) movedAt = performance.now(); Object.assign(S, o); },
   setAccent(hex) { const c = new THREE.Color(hex); if (M.accent) M.accent.emissive.copy(c); if (rimL) rimL.color.copy(c); },
   launch() { S.launched = true; S.launchAt = performance.now(); S.snap = true; },
   reset() { S.launched = false; S.snap = true; },

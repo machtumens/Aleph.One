@@ -30,7 +30,9 @@ python3 -m http.server 8000
 | `assets/space/` | Moon and Earth maps baked from NASA public-domain data (LRO LROC/LOLA, Blue Marble, Black Marble). Regenerate with `tools/bake_space.py`; source URLs are in its header. |
 | `worlds/` | The seven concept sites, opened full-screen from the Work section. |
 | `assets/work/` | Project media for the Work section; `posters/` holds the card screenshots. |
-| `uploads/aleph-mark.png` · `aleph-icon.png` | The mark cut out of the logo card (transparent, glow added in CSS) and the 180px tab / home-screen icon. The full card stays as the social image. |
+| `uploads/aleph-mark.png` · `aleph-icon.png` | Brand mark from the Compro Aleph One PDF (Oct 2026): the 1004px black mark recoloured to brand ivory `#F6F4EF` on transparent, 293×320; and the 180px tab / home-screen icon, ivory mark on ink `#12161C`. The wordmark next to it is live text (spaced Inter caps). The rocket paints the same file onto its skin. |
+| `assets/fonts/` | Brand fonts from the same PDF, self-hosted: Lora (headings, prices) and Inter (everything else), Latin subset, variable weight 400–700, from Google Fonts under the SIL Open Font License 1.1. Preloaded in `<head>`; the loader waits for them and the mark for at most 1.5 s. |
+| `tools/phone-check.mjs` | Phone flow check: headless Edge as a 390×844 touch phone with real swipes. Run with the site on :8000. |
 
 ## Work section
 
