@@ -829,6 +829,7 @@ class Component extends DCLogic {
     const F = k => e => this.setState(st => ({ form: { ...st.form, [k]: e.target.value } }));
     const missing = { name: !s.form.name.trim(), business: !s.form.business.trim() };
     const submit = () => { if (missing.name || missing.business) { this.setState({ tried: true }); const el = document.getElementById(missing.name ? 'f-name' : 'f-business'); if (el) { el.scrollIntoView({ behavior: 'smooth', block: 'center' }); el.focus({ preventScroll: true }); } return; }
+      this.saveLead({ ...s.form, package: c.tier.name, addons: addonList.join(', '), maintenance: c.m.name, project_price: c.project, other: s.custom, message: msg.join('\n') });
       window.open(waHref, '_blank', 'noopener'); this.setState({ launched: true, launchAt: performance.now(), finalT: 0 }); if (window.AlephRocket) window.AlephRocket.launch(); };
     const ft = s.finalT, finalStage = ft < 1.5 ? 'FAIRING OPEN' : ft < 3 ? 'LOADING PAYLOAD' : ft < 4.5 ? 'FAIRING SECURED' : ft < 6 ? 'IGNITION' : 'LIFTOFF';
     const story = s.sec >= 1 && s.sec <= 6, money = s.sec === 7 || s.sec === 8, dockOn = s.loaderGone && s.visit === null && s.sheet === null && !s.launched && s.sec > 0;
@@ -858,7 +859,6 @@ class Component extends DCLogic {
       process: P.process.map((p, i) => ({ n: i + 1, t: p[0], d: p[1] })), terms: P.terms,
       form: s.form, onName: F('name'), onBusiness: F('business'), onEmail: F('email'), onSocial: F('social'), onAbout: F('about'), onWhen: F('when'),
       need: { name: s.tried && missing.name ? 'Needed' : '', business: s.tried && missing.business ? 'Needed' : '' }, bad: { name: s.tried && missing.name ? 'bad' : '', business: s.tried && missing.business ? 'bad' : '' }, waHref,
-      this.saveLead({ ...s.form, package: c.tier.name, addons: addonList.join(', '), maintenance: c.m.name, project_price: c.project, other: s.custom, message: msg.join('\n') });
       submitNote: s.tried && (missing.name || missing.business) ? 'Add your name and business first.' : 'Send logos and photos in the WhatsApp chat.', submit,
       visit: v && { ...v, src: v.live || './worlds/' + v.slug + '.html', posterOp: s.visitLoaded ? 0 : 1 }, worldLoaded: e => this.onWorldLoad(e), closeWorld: () => this.closeWorld(),
       launched: s.launched, finalStage, finalText: ft > 8, missionId: (s.form.business || 'ALEPH').replace(/[^A-Za-z0-9]/g, '').slice(0, 6).toUpperCase().padEnd(6, '0') + '-' + c.tier.name.slice(0, 3).toUpperCase(),
