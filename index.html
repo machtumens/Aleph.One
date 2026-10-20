@@ -653,6 +653,10 @@ class Component extends DCLogic {
   num(n) { return Math.round(n).toLocaleString('id-ID'); }
   idr(n) { return 'Rp ' + this.num(n); }
 
+  // Each brief is also saved to the studio database (api/lead.php on Hostinger). Fire and forget: WhatsApp stays the main
+  // channel, and where there is no PHP (GitHub Pages) the beacon simply fails. A string body keeps it a simple request.
+  saveLead(lead) { try { navigator.sendBeacon('api/lead.php', JSON.stringify(lead)); } catch (_) {} }
+
   // Render tier for this device: 'poster' (no WebGL, page without the 3D scene), 'standard' (phones, most laptops),
   // 'cinema' (more texture, light and particle detail). ?quality=… in the URL overrides it for testing.
   pickQuality() {
@@ -854,6 +858,7 @@ class Component extends DCLogic {
       process: P.process.map((p, i) => ({ n: i + 1, t: p[0], d: p[1] })), terms: P.terms,
       form: s.form, onName: F('name'), onBusiness: F('business'), onEmail: F('email'), onSocial: F('social'), onAbout: F('about'), onWhen: F('when'),
       need: { name: s.tried && missing.name ? 'Needed' : '', business: s.tried && missing.business ? 'Needed' : '' }, bad: { name: s.tried && missing.name ? 'bad' : '', business: s.tried && missing.business ? 'bad' : '' }, waHref,
+      this.saveLead({ ...s.form, package: c.tier.name, addons: addonList.join(', '), maintenance: c.m.name, project_price: c.project, other: s.custom, message: msg.join('\n') });
       submitNote: s.tried && (missing.name || missing.business) ? 'Add your name and business first.' : 'Send logos and photos in the WhatsApp chat.', submit,
       visit: v && { ...v, src: v.live || './worlds/' + v.slug + '.html', posterOp: s.visitLoaded ? 0 : 1 }, worldLoaded: e => this.onWorldLoad(e), closeWorld: () => this.closeWorld(),
       launched: s.launched, finalStage, finalText: ft > 8, missionId: (s.form.business || 'ALEPH').replace(/[^A-Za-z0-9]/g, '').slice(0, 6).toUpperCase().padEnd(6, '0') + '-' + c.tier.name.slice(0, 3).toUpperCase(),

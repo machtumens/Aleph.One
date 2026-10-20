@@ -1,0 +1,10 @@
+# lib.php and every config file (including backups like config.php.bak) are for PHP only, never fetched directly.
+<FilesMatch "^(lib\.php|config.*)$">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>

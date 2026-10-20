@@ -1,0 +1,28 @@
+# Hostinger (LiteSpeed/Apache). Extracting the zip replaces any .htaccess already in public_html.
+Options -Indexes
+
+# HTTPS everywhere, so the admin password and session never travel in clear. Local test servers are left alone.
+# ponytail: no HSTS yet; add `Header always set Strict-Transport-Security "max-age=31536000"` once HTTPS has run fine for a while.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:\d+)?$
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Dotfiles (.htaccess, api/.tables-*) are never served.
+<FilesMatch "^\.">
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    Order allow,deny
+    Deny from all
+  </IfModule>
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
