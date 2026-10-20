@@ -1,8 +1,8 @@
 # Hostinger (LiteSpeed/Apache). Extracting the zip replaces any .htaccess already in public_html.
 Options -Indexes
 
-# HTTPS everywhere, so the admin password and session never travel in clear. Local test servers are left alone.
-# ponytail: no HSTS yet; add `Header always set Strict-Transport-Security "max-age=31536000"` once HTTPS has run fine for a while.
+# HTTPS everywhere, so admin sessions never travel in clear. Local test servers are left alone.
+# X-Forwarded-Proto counts so the site doesn't loop behind a TLS proxy or CDN; faking it only skips the redirect for the faker.
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteCond %{HTTPS} !=on
@@ -11,8 +11,8 @@ Options -Indexes
   RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
-# Dotfiles (.htaccess, api/.tables-*) are never served.
-<FilesMatch "^\.">
+# Never served, in any folder: dotfiles (.htaccess, api/.schema-*), PHP error logs, backups, dumps and archives.
+<FilesMatch "^\.|^(error_log|php_errorlog)$|\.(log|bak|old|orig|sql|sqlite|swp|zip)$|~$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
@@ -22,7 +22,20 @@ Options -Indexes
   </IfModule>
 </FilesMatch>
 
+# For every response: no type guessing, no camera/mic/location, HTTPS remembered (browsers ignore this on plain http).
 <IfModule mod_headers.c>
   Header always set X-Content-Type-Options "nosniff"
-  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always set Strict-Transport-Security "max-age=31536000"
 </IfModule>
+
+# Page policy for the public pages only; the dashboard's PHP sends its own stricter one, so each page has one source.
+# Scripts may come from this site, its inline runtime (which compiles templates, hence unsafe-eval) and unpkg (React).
+# Only this site may frame its pages (the sample sites open in an in-page frame).
+<FilesMatch "\.html?$">
+  <IfModule mod_headers.c>
+    Header always set Content-Security-Policy "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com; frame-ancestors 'self'; object-src 'none'; base-uri 'self'"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  </IfModule>
+</FilesMatch>
