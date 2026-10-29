@@ -1,7 +1,7 @@
 // Phone flow check: headless Edge as a 390x844 touch phone, real touch drags, so scroll-snap acts like a phone.
 // Needs the site on :8000 (python -m http.server 8000). Run: node tools/phone-check.mjs. Exits 1 on any failure.
 // Checks: page is exactly phone width, a swipe at the bottom of the hero starts the mission, each swipe moves one story
-// beat with the card at a fixed height, PRICES cuts straight to the price list, no page errors.
+// beat with the card at a fixed height, PRICES cuts straight to the price list, sample sites open fast, no page errors.
 // ponytail: raw touch drags do not fling, so skipped beats on hard flicks (scroll-snap-stop) can only be checked on a real phone.
 import { spawn } from 'node:child_process';
 import { mkdtempSync } from 'node:fs';
@@ -44,9 +44,16 @@ try {
   await swipe(); s = await st(); check(s.y === snaps[2] && s.beat === 0, 'swipe at the bottom of the hero starts the mission (beat 01)', s);
   const h0 = s.h;
   for (let b = 1; b <= 4; b++) { await swipe(); s = await st(); check(s.y === snaps[2 + b] && s.beat === b && s.h === h0, `one swipe = one beat (beat 0${b + 1}), card height fixed`, s); }
-  await tap('.pill'); await sleep(2000);
-  const p = await run(`return [Math.round(scrollY), Math.round(document.querySelector('#prices').getBoundingClientRect().top + scrollY), document.querySelector('.cut').classList.contains('on'), +getComputedStyle(document.querySelector('.cut')).opacity]`);
+  await tap('.pill'); let p; // the fade runs ~1 s; headless Edge draws few frames, so poll instead of reading once
+  for (let i = 0; i < 20; i++) { await sleep(200); p = await run(`return [Math.round(scrollY), Math.round(document.querySelector('#prices').getBoundingClientRect().top + scrollY), document.querySelector('.cut').classList.contains('on'), +getComputedStyle(document.querySelector('.cut')).opacity]`); if (!p[2] && p[3] < .05) break; }
   check(Math.abs(p[0] - p[1]) <= 2 && !p[2] && p[3] < .05, 'PRICES cuts straight to the price list and fades back in', p);
+  // sample sites: all nine posters ready when §05 shows, and a tapped site appears fast (photos warmed while its poster was on screen)
+  await run(`scrollTo({ top: Math.round(document.querySelectorAll('[data-sec="5"] > .snap')[1].getBoundingClientRect().top + scrollY), behavior: 'instant' }); return 1`); await sleep(3500);
+  const posters = await run(`return [...document.querySelectorAll('.world img')].filter(i => i.complete && i.naturalWidth).length`);
+  check(posters === 9, 'all nine sample-site posters are loaded at §05', posters);
+  await run(`window.__t0 = performance.now(); document.querySelector('.world').click(); return 1`); let shown = null;
+  for (let i = 0; i < 40 && shown === null; i++) { await sleep(50); shown = await run(`const p = document.querySelector('.visit-poster'); return p && +getComputedStyle(p).opacity < .05 ? Math.round(performance.now() - __t0) : null`); }
+  check(shown !== null && shown < 1500, 'a tapped sample site appears within 1.5 s', shown);
   // known and harmless: the raw template's iframe fires onload before the runtime replaces it (see STATE.md)
   const real = errors.filter(e => !/worldLoaded is not defined/.test(e));
   check(real.length === 0, 'no page errors', real);

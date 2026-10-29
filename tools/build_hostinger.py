@@ -12,7 +12,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT.parent / 'aleph-one-hostinger.zip'
 INCLUDE = [
-    'index.html', 'site.html', 'mission.html', '.htaccess',
+    'index.html', 'site.html', 'mission.html', 'robots.txt', 'sitemap.xml', '.htaccess',
     'support.js', 'aleph-prices.js', 'aleph-rocket.js', 'aleph-scene.js', 'vendor/three.module.min.js',
     'api/.htaccess', 'api/lead.php', 'api/lib.php', 'api/config.sample.php',
     'admin/.htaccess', 'admin/index.php', 'admin/_*.php',
